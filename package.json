@@ -1,6 +1,6 @@
 {
   "name": "pascal",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "End-to-end testing framework",
   "bin": {
     "pascal": "bin/pascal"
