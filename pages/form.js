@@ -13,24 +13,14 @@ const getClassElementValidator = (className, name, messageType) => {
 class FormPage extends base {
   fillForm(formData) {
     const fieldsPromises = [];
-
-    for (let property in formData) {
-      if (formData.hasOwnProperty(property)) {
-        fieldsPromises.push(this.fillField(property, formData[property]));
-      }
-    }
+    formData.forEach((item) => fieldsPromises.push(this.fillField(item[0],item[1])));
 
     return Promise.all(fieldsPromises);
   }
 
   checkForm(formData) {
     const fieldsPromises = [];
-
-    for (let property in formData) {
-      if (formData.hasOwnProperty(property)) {
-        fieldsPromises.push(this.checkField(property, formData[property]));
-      }
-    }
+    formData.forEach((item) => fieldsPromises.push(this.checkField(item[0],item[1])));
 
     return Promise.all(fieldsPromises);
   }

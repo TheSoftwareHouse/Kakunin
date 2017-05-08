@@ -5,16 +5,15 @@ module.exports = function() {
     const self = this;
 
     return expect(this.currentPage.isVisible(formName)).to.eventually.be.fulfilled.then(function() {
-      return self.currentPage.fillForm(data.rowsHash());
+      return self.currentPage.fillForm(data.raw());
     });
   });
 
   this.Then('the "$formName" form is filled with:', function (formName, data) {
-    const formData = data.rowsHash();
     const self = this;
 
     return expect(this.currentPage.isVisible(formName)).to.eventually.be.fulfilled.then(function() {
-      return self.currentPage.checkForm(formData);
+      return self.currentPage.checkForm(data.raw());
     });
   });
 
