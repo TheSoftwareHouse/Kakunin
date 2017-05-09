@@ -3,6 +3,7 @@ const variableStore = require('../helpers/variableStore');
 const regexBuilder = require('../matchers/matchers/regexMatcher/regexBuilder');
 const comparators = require('../comparators').comparators;
 const pascalConfig = require('../helpers/pascalConfig');
+const base = require('../pages/base');
 
 module.exports = function() {
 
@@ -14,7 +15,7 @@ module.exports = function() {
   this.When('I click the "$elementName" element', function(elementName) {
     const self = this;
 
-    return browser.executeScript('arguments[0].scrollIntoView(false);', this.currentPage[elementName].getWebElement())
+    return base.scrollIntoElement(elementName)
       .then(function() {
         return self.currentPage.click(elementName)
           .then(
@@ -49,7 +50,7 @@ module.exports = function() {
     const self = this;
 
     return this.currentPage.isVisible(elementName).then(function () {
-      return browser.executeScript('arguments[0].scrollIntoView(false);', self.currentPage[elementName].getWebElement())
+      return base.scrollIntoElement(elementName)
           .then(function() {
             return self.currentPage.click(elementName);
           });
@@ -372,18 +373,18 @@ module.exports = function() {
     });
   });
 
-  this.When('I infinitely scroll to the "$loader" element', function(element) {
-    const loader = this.currentPage[element];
+  this.When('I infinitely scroll to the "$loader" element', function(elementName) {
+    const self = this;
 
-    const scrollToLoader = () => loader.isPresent()
+    const scrollToLoader = () => self.currentPage.isPresent(elementName)
     .then((isPresent) => {
       if (isPresent) {
-        return browser.executeScript('arguments[0].scrollIntoView(false);', loader.getWebElement());
+        return base.scrollIntoElement(elementName)
       }
 
       return Promise.resolve();
     })
-    .then(() => loader.isPresent())
+    .then(() => self.currentPage.isPresent(elementName))
     .then((isPresent) => {
       if (isPresent) {
         return browser.sleep(1000).then(() => scrollToLoader());
