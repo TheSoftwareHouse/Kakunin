@@ -15,7 +15,7 @@ module.exports = function() {
   this.When('I click the "$elementName" element', function(elementName) {
     const self = this;
 
-    return base.scrollIntoElement(elementName)
+    return self.currentPage.scrollIntoElement(elementName)
       .then(function() {
         return self.currentPage.click(elementName)
           .then(
@@ -50,7 +50,7 @@ module.exports = function() {
     const self = this;
 
     return this.currentPage.isVisible(elementName).then(function () {
-      return base.scrollIntoElement(elementName)
+      return self.currentPage.scrollIntoElement(elementName)
           .then(function() {
             return self.currentPage.click(elementName);
           });
@@ -379,7 +379,7 @@ module.exports = function() {
     const scrollToLoader = () => self.currentPage.isPresent(elementName)
     .then((isPresent) => {
       if (isPresent) {
-        return base.scrollIntoElement(elementName)
+        return self.currentPage.scrollIntoElement(elementName)
       }
 
       return Promise.resolve();
