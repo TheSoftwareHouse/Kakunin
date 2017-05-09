@@ -370,6 +370,29 @@ module.exports = function() {
     }).then(function(elementsValues) {
       return comparators.compare(elementsValues, dependency);
     });
-
   });
+
+  this.When('I infinitly scroll to the "$loader" element', function(element) {
+    const loader = this.currentPage[element];
+
+    const scrollToLoader = () => loader.isPresent()
+    .then((isPresent) => {
+      if (isPresent) {
+        return browser.executeScript('arguments[0].scrollIntoView(false);', loader.getWebElement());
+      }
+
+      return Promise.resolve();
+    })
+    .then(() => loader.isPresent())
+    .then((isPresent) => {
+      if (isPresent) {
+        return browser.sleep(1000).then(() => scrollToLoader());
+      }
+
+      return Promise.resolve()
+    });
+
+    return scrollToLoader();
+  });
+
 };
