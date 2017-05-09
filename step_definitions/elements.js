@@ -12,6 +12,10 @@ module.exports = function() {
     return browser.wait(protractor.ExpectedConditions[condition](this.currentPage[elementName], timeout));
   });
 
+  this.When('I scroll to the "$elementName" element', function(elementName) {
+    return this.currentPage.scrollIntoElement(elementName);
+  });
+
   this.When('I click the "$elementName" element', function(elementName) {
     const self = this;
 
