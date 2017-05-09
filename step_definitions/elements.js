@@ -372,7 +372,7 @@ module.exports = function() {
     });
   });
 
-  this.When('I infinitly scroll to the "$loader" element', function(element) {
+  this.When('I infinitely scroll to the "$loader" element', function(element) {
     const loader = this.currentPage[element];
 
     const scrollToLoader = () => loader.isPresent()
