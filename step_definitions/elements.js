@@ -3,7 +3,6 @@ const variableStore = require('../helpers/variableStore');
 const regexBuilder = require('../matchers/matchers/regexMatcher/regexBuilder');
 const comparators = require('../comparators').comparators;
 const pascalConfig = require('../helpers/pascalConfig');
-const base = require('../pages/base');
 
 module.exports = function() {
 
