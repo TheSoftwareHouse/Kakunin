@@ -86,6 +86,10 @@ class Page {
   getNumberOfElements(elementName) {
     return this[elementName].count();
   }
+
+  scrollIntoElement(elementName) {
+    return browser.executeScript('arguments[0].scrollIntoView(false);', this[elementName].getWebElement());
+  }
 }
 
 module.exports = Page;

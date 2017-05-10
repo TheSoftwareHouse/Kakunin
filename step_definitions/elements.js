@@ -11,10 +11,14 @@ module.exports = function() {
     return browser.wait(protractor.ExpectedConditions[condition](this.currentPage[elementName], timeout));
   });
 
+  this.When('I scroll to the "$elementName" element', function(elementName) {
+    return this.currentPage.scrollIntoElement(elementName);
+  });
+
   this.When('I click the "$elementName" element', function(elementName) {
     const self = this;
 
-    return browser.executeScript('arguments[0].scrollIntoView(false);', this.currentPage[elementName].getWebElement())
+    return self.currentPage.scrollIntoElement(elementName)
       .then(function() {
         return self.currentPage.click(elementName)
           .then(
@@ -49,7 +53,7 @@ module.exports = function() {
     const self = this;
 
     return this.currentPage.isVisible(elementName).then(function () {
-      return browser.executeScript('arguments[0].scrollIntoView(false);', self.currentPage[elementName].getWebElement())
+      return self.currentPage.scrollIntoElement(elementName)
           .then(function() {
             return self.currentPage.click(elementName);
           });
@@ -370,6 +374,29 @@ module.exports = function() {
     }).then(function(elementsValues) {
       return comparators.compare(elementsValues, dependency);
     });
-
   });
+
+  this.When('I infinitely scroll to the "$loader" element', function(elementName) {
+    const self = this;
+
+    const scrollToLoader = () => self.currentPage.isPresent(elementName)
+    .then((isPresent) => {
+      if (isPresent) {
+        return self.currentPage.scrollIntoElement(elementName)
+      }
+
+      return Promise.resolve();
+    })
+    .then(() => self.currentPage.isPresent(elementName))
+    .then((isPresent) => {
+      if (isPresent) {
+        return browser.sleep(1000).then(() => scrollToLoader());
+      }
+
+      return Promise.resolve()
+    });
+
+    return scrollToLoader();
+  });
+
 };
