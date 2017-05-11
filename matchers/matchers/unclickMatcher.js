@@ -3,7 +3,9 @@ const UnclickMatcher = {
     return prefix === 'f:' && name === 'isNotClickable';
   },
   match: function (element) {
-    return element.isEnabled().then((isEnabled) => !isEnabled);
+    return element.getAttribute('disabled').then(function (disabled) {
+      return ['disabled', true, 'true'].indexOf(disabled) !== -1;
+    });
   }
 };
 

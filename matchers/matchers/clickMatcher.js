@@ -3,7 +3,9 @@ const ClickMatcher = {
     return prefix === 'f:' && name === 'isClickable';
   },
   match: function (element) {
-    return element.isEnabled().then((isEnabled) => isEnabled);
+    return element.getAttribute('disabled').then(function (disabled) {
+      return ['disabled', true, 'true'].indexOf(disabled) === -1;
+    });
   }
 };
 

@@ -3,7 +3,7 @@ const InvisibleMatcher = {
     return prefix === 'f:' && name === 'isNotVisible';
   },
   match: function(element) {
-    return element.isPresent().then((isPresent) => !isPresent);
+    return element.isDisplayed().then(() => false).catch(() => true);
   }
 };
 
