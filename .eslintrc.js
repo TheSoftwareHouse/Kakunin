@@ -1,29 +1,6 @@
 module.exports = {
-  "env": {
-    "browser": true,
-    "node": true,
-    "protractor": true
-  },
-  "extends": "eslint:recommended",
-  "parserOptions": {
-    "sourceType": "module"
-  },
+  "extends": "airbnb",
   "rules": {
-    "indent": [
-      "error",
-      2
-    ],
-    "linebreak-style": [
-      "error",
-      "unix"
-    ],
-    "quotes": [
-      "error",
-      "single"
-    ],
-    "semi": [
-      "error",
-      "always"
-    ]
+    "no-plusplus": 0
   }
 };
