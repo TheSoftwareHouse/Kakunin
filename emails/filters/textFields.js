@@ -17,7 +17,7 @@ class TextFieldFilter {
       }
 
       throw 'Comparison type not specified. Please use r: for regex and t: for text';
-    })
+    });
   }
 }
 

@@ -3,15 +3,14 @@ const regexBuilder = require('../matchers/matchers/regexMatcher/regexBuilder');
 const filters = require('../emails/filters');
 const sugar = require('sugar-date');
 
-module.exports = function() {
-
+module.exports = function () {
   function stopInterval(interval, callback) {
     clearInterval(interval);
     callback();
   }
 
   function checkAttachmentsInEmail(email, filesExtensions, attachments) {
-    let fileAttachments  = attachments.filter((attachment) => attachment.attachment_type === 'attachment');
+    let fileAttachments = attachments.filter((attachment) => attachment.attachment_type === 'attachment');
 
     const missingFiles = filesExtensions.reduce((previous, current) => {
       const expectedFile = fileAttachments.find((attachment) => {
@@ -20,7 +19,7 @@ module.exports = function() {
             && attachment.attachment_size >= current.minimalSize;
       });
 
-      if (typeof(expectedFile) === 'undefined') {
+      if (typeof (expectedFile) === 'undefined') {
         previous.push(current);
         return previous;
       }
@@ -90,10 +89,9 @@ module.exports = function() {
         return mailTrapClient.getAttachments(filteredEmails[0])
           .then(checkAttachmentsInEmail.bind(null, filteredEmails[0], filesExtensions))
           .then(stopInterval.bind(null, interval, sync));
-      } else {
-        return mailTrapClient.markAsRead(filteredEmails[0])
-          .then(stopInterval.bind(null, interval, sync));
       }
+      return mailTrapClient.markAsRead(filteredEmails[0])
+          .then(stopInterval.bind(null, interval, sync));
     }
   }
 
@@ -102,7 +100,7 @@ module.exports = function() {
     let maxRepeats = 10;
 
     const interval = setInterval(() => {
-      console.log("Checking mailbox for email...");
+      console.log('Checking mailbox for email...');
 
       mailTrapClient.getEmails()
         .then((emails) => filterEmails.call(self, emails, data))
@@ -113,5 +111,5 @@ module.exports = function() {
         .then(() => maxRepeats--)
         .catch((err) => stopInterval(interval, sync.bind(null, err)));
     }, 5000);
-  })
+  });
 };

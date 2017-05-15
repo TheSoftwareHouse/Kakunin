@@ -10,17 +10,17 @@ const pascalConfig = require('./helpers/pascalConfig');
 exports.config = {
   multiCapabilities: [
     {
-      'browserName': 'chrome',
-      'chromeOptions': {
+      browserName: 'chrome',
+      chromeOptions: {
         prefs: {
-          'download': {
-            'prompt_for_download': false,
-            'default_directory': pascalConfig.projectPath + pascalConfig.downloads,
-            'directory_upgrade': true,
+          download: {
+            prompt_for_download: false,
+            default_directory: pascalConfig.projectPath + pascalConfig.downloads,
+            directory_upgrade: true
           }
         }
       }
-    },
+    }
   ],
 
   useAllAngular2AppRoots: pascalConfig.type === 'ng2',

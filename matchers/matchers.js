@@ -5,8 +5,8 @@ const modulesLoader = require('../helpers/modulesLoader');
 const availableMatchers = modulesLoader.getModules(pascalConfig.matchers, [__dirname + '/matchers']);
 
 const Matchers = {
-  match: function(element, matcherName) {
-    const matcher = this.findMatcher(matcherName.substr(0,2), matcherName.substr(2));
+  match: function (element, matcherName) {
+    const matcher = this.findMatcher(matcherName.substr(0, 2), matcherName.substr(2));
 
     if (matcher === undefined) {
       throw new Error(`Could not find matcher for ${matcherName}.`);

@@ -6,7 +6,7 @@ const modulesLoader = require('../helpers/modulesLoader');
 const availableDictionaries = modulesLoader.getModules(pascalConfig.dictionaries, [__dirname + '/dictionaries']);
 
 const Dictionaries = {
-  getMappedValue: function(dictionaryName, key) {
+  getMappedValue: function (dictionaryName, key) {
     const dic = this.findDictionary(dictionaryName);
 
     if (dic === undefined) {

@@ -12,7 +12,7 @@ const DatePickerHandler = {
   daysButtonsSelector: by.xpath('//tbody//td/button/span[not(contains(@class, "text-muted"))]/..'),
   todayButtonSelector: by.css('button[ng-click="select(\'today\', $event)"]'),
 
-  handleFill: function(page, elementName, desiredValue) {
+  handleFill: function (page, elementName, desiredValue) {
     return page[elementName].click().then(() => {
       return page[elementName].element(this.todayButtonSelector).click().then(() => {
         return page[elementName].click().then(() => {
@@ -59,10 +59,10 @@ const DatePickerHandler = {
     return formYear - currentYear;
   },
 
-  handleCheck: function(page, elementName, desiredValue) {
+  handleCheck: function (page, elementName, desiredValue) {
     return page[elementName].isDisplayed()
-      .then(function() {
-        return page[elementName].element(by.css('input')).getAttribute('value').then(function(value) {
+      .then(function () {
+        return page[elementName].element(by.css('input')).getAttribute('value').then(function (value) {
           const desiredValueDate = sugar.Date.format(sugar.Date.create(desiredValue), '{dd}/{MM}/{yyyy}');
 
           if (value === desiredValueDate) {

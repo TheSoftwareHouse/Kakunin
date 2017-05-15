@@ -7,7 +7,7 @@ const modulesLoader = require('../helpers/modulesLoader');
 const availableGenerators = modulesLoader.getModules(pascalConfig.generators, [__dirname + '/generators']);
 
 const Generators = {
-  generate: function(generatorName) {
+  generate: function (generatorName) {
     const gen = this.findGenerator(generatorName);
 
     if (gen === undefined) {

@@ -3,7 +3,7 @@ module.exports = {
     return name === 'name';
   },
 
-  generate: function() {
+  generate: function () {
     const names = [
       'Bob',
       'John',

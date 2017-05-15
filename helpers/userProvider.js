@@ -18,7 +18,7 @@ const userProvider = {
     return user.accounts[0];
   },
 
-  lockUser: function(user, userType) {
+  lockUser: function (user, userType) {
     if (accounts[userType].accounts.length > 1) {
       accounts[userType].accounts.forEach((account, index) => {
         if (account.email === user.email) {

@@ -13,7 +13,7 @@ const regex = {
   notEmpty: '.+',
   number: '[0-9]+',
   pdfFile: '[\\w]+.pdf',
-  pdfFileType: 'application/pdf',
+  pdfFileType: 'application/pdf'
 };
 
 module.exports = regex;

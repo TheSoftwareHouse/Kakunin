@@ -3,9 +3,9 @@ const RadioHandler = {
   registerFieldType: false,
   fieldType: 'radio',
 
-  handleFill: function(page, elementName, desiredValue) {
-    const firstRadio = page[elementName].filter(function(elem) {
-      return elem.getAttribute('value').then(function(elemValue) {
+  handleFill: function (page, elementName, desiredValue) {
+    const firstRadio = page[elementName].filter(function (elem) {
+      return elem.getAttribute('value').then(function (elemValue) {
         return elemValue === desiredValue;
       });
     }).first();
@@ -19,13 +19,13 @@ const RadioHandler = {
     });
   },
 
-  handleCheck: function(page, elementName, desiredValue) {
-    const filteredElements = page[elementName].filter(function(element) {
+  handleCheck: function (page, elementName, desiredValue) {
+    const filteredElements = page[elementName].filter(function (element) {
       return element.isSelected();
     });
 
     return filteredElements.count()
-      .then(function(count) {
+      .then(function (count) {
         if (desiredValue === '') {
           if (count === 0) {
             return Promise.resolve();

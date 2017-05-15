@@ -1,12 +1,12 @@
-module.exports = function() {
+module.exports = function () {
   this.Given('I am logged in as a "$user"', function (user) {
     this.currentUser = {
       account: this.userProvider.getUser(user),
       type: user
     };
 
-    const mainPage = browser.page['main'];
-    const loginPage = browser.page['login'];
+    const mainPage = browser.page.main;
+    const loginPage = browser.page.login;
     const self = this;
 
     return mainPage.visit().then(function () {

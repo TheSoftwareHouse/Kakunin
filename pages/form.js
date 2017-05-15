@@ -13,14 +13,14 @@ const getClassElementValidator = (className, name, messageType) => {
 class FormPage extends base {
   fillForm(formData) {
     const fieldsPromises = [];
-    formData.forEach((item) => fieldsPromises.push(this.fillField(item[0],item[1])));
+    formData.forEach((item) => fieldsPromises.push(this.fillField(item[0], item[1])));
 
     return Promise.all(fieldsPromises);
   }
 
   checkForm(formData) {
     const fieldsPromises = [];
-    formData.forEach((item) => fieldsPromises.push(this.checkField(item[0],item[1])));
+    formData.forEach((item) => fieldsPromises.push(this.checkField(item[0], item[1])));
 
     return Promise.all(fieldsPromises);
   }
@@ -29,7 +29,7 @@ class FormPage extends base {
     const self = this;
 
     return this.getFieldType(name)
-      .then(function(fieldType) {
+      .then(function (fieldType) {
         return formHandler.handleFill(fieldType, self, name, variableStore.replaceTextVariables(value));
       });
   }
@@ -38,7 +38,7 @@ class FormPage extends base {
     const self = this;
 
     return this.getFieldType(name)
-      .then(function(fieldType) {
+      .then(function (fieldType) {
         return formHandler.handleCheck(fieldType, self, name, value);
       });
   }
@@ -47,8 +47,7 @@ class FormPage extends base {
     const self = this;
 
     return self[name].getTagName()
-      .then(function(tagName) {
-
+      .then(function (tagName) {
         const fieldType = formHandler.findFieldTypeByElementName(name);
         if (fieldType !== null) {
           return fieldType;
@@ -78,10 +77,10 @@ class FormPage extends base {
     const self = this;
 
     return this.isVisible(dialogName)
-      .then(function() {
+      .then(function () {
         return self.click(dialogAcceptCheckbox);
       })
-      .then(function() {
+      .then(function () {
         return self.click(dialogAcceptButton);
       });
   }

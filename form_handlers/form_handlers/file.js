@@ -6,14 +6,14 @@ const FileHandler = {
   registerFieldType: false,
   fieldType: 'file',
 
-  handleFill: function(page, elementName, desiredValue) {
+  handleFill: function (page, elementName, desiredValue) {
     const fileToUpload = path.resolve(pascalConfig.projectPath + pascalConfig.data + '/' + desiredValue);
 
     return page[elementName].sendKeys(fileToUpload);
   },
 
-  handleCheck: function(page, elementName, desiredValue) {
-    return page[elementName].getText().then(function(text) {
+  handleCheck: function (page, elementName, desiredValue) {
+    return page[elementName].getText().then(function (text) {
       if (text === desiredValue) {
         return Promise.resolve();
       }

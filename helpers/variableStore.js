@@ -6,7 +6,7 @@ class VariableStore {
   storeVariable(name, value) {
     const foundVariable = this.variables.find((variable) => variable.name === name);
 
-    if (typeof(foundVariable) !== 'undefined') {
+    if (typeof (foundVariable) !== 'undefined') {
       throw new Error(`Variable ${name} is stored already`);
     }
 
@@ -16,7 +16,7 @@ class VariableStore {
   getVariableValue(name) {
     const foundVariable = this.variables.find((variable) => variable.name === name);
 
-    if (typeof(foundVariable) === 'undefined') {
+    if (typeof (foundVariable) === 'undefined') {
       throw new Error(`Variable ${name} was not stored`);
     }
 
@@ -26,7 +26,7 @@ class VariableStore {
   isStored(name) {
     const foundVariable = this.variables.find((variable) => variable.name === name);
 
-    return typeof(foundVariable) !== 'undefined'
+    return typeof (foundVariable) !== 'undefined';
   }
 
   clearVariables() {

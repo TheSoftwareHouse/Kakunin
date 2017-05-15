@@ -54,7 +54,7 @@ class MailTrapClient {
 
   getAttachments(email) {
     const config = this.getMailtrapConfig();
-    const url = config.endpoint + '/inboxes/' + config.inboxId + '/messages/' + email.id +'/attachments'+ '?api_token=' + config.apiKey;
+    const url = config.endpoint + '/inboxes/' + config.inboxId + '/messages/' + email.id + '/attachments' + '?api_token=' + config.apiKey;
 
     return fetch(url)
       .then((res) => {
@@ -76,8 +76,8 @@ class MailTrapClient {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        'message': {
-          'is_read': true
+        message: {
+          is_read: true
         }
       })
     })
