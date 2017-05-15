@@ -218,6 +218,14 @@ module.exports = function() {
     });
   });
 
+  this.Then('there is no element "$element" with value "$value"', function (element, value) {
+    const pageElement = this.currentPage[element];
+
+    return matchers.match(pageElement, variableStore.replaceTextVariables(value)).then(function (matcherResult) {
+      return expect(matcherResult).to.be.false;
+    });
+  });
+
   function checkNumberOfElements(numberExpression, element) {
     const self = this;
     const numberPattern = /\d+/g;
