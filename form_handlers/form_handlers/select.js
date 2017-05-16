@@ -4,7 +4,7 @@ const SelectHandler = {
   fieldType: 'select',
   optionsSelector: by.css('option'),
 
-  handleFill: function(page, elementName, desiredValue) {
+  handleFill: function (page, elementName, desiredValue) {
     const self = this;
 
     const filteredByText = page[elementName].all(this.optionsSelector).filter(function (elem) {
@@ -14,15 +14,15 @@ const SelectHandler = {
     });
 
     return filteredByText.count().then((filteredByTextCount) => {
-      if(filteredByTextCount === 0) {
-        const filteredByValue = page[elementName].all(by.css('option')).filter(function(elem) {
-          return elem.getAttribute('value').then(function(elemValue) {
+      if (filteredByTextCount === 0) {
+        const filteredByValue = page[elementName].all(by.css('option')).filter(function (elem) {
+          return elem.getAttribute('value').then(function (elemValue) {
             return elemValue === desiredValue;
           });
         });
 
-        return filteredByValue.count().then(function(filteredByValueCount) {
-          if(filteredByValueCount === 0) {
+        return filteredByValue.count().then(function (filteredByValueCount) {
+          if (filteredByValueCount === 0) {
             return page[elementName].all(self.optionsSelector).first().click();
           }
 
@@ -34,17 +34,17 @@ const SelectHandler = {
     });
   },
 
-  handleCheck: function(page, elementName, desiredValue) {
-    return page[elementName].all(this.optionsSelector).filter(function(element) {
-      return element.getAttribute('value').then(function(elemValue) {
+  handleCheck: function (page, elementName, desiredValue) {
+    return page[elementName].all(this.optionsSelector).filter(function (element) {
+      return element.getAttribute('value').then(function (elemValue) {
         return elemValue === desiredValue;
       });
-    }).count().then(function(count) {
+    }).count().then(function (count) {
       if (count === 1) {
         return Promise.resolve();
       }
 
-      return Promise.reject(`Option not found for select element.`);
+      return Promise.reject('Option not found for select element.');
     });
   }
 };

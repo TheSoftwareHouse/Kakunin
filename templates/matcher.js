@@ -1,7 +1,7 @@
 const matchers = require('pascal/matchers');
 
 const ExampleMatcher = {
-  isSatisfiedBy: function(prefix, name) {
+  isSatisfiedBy: function (prefix, name) {
     return prefix === 'e:';
   },
 

@@ -6,8 +6,8 @@ const CustomAngularSelectHandler = {
   optionsSelector: by.css('ul.ui-select-choices li a.ui-select-choices-row-inner'),
   selectedOptionSelector: by.css('div.ui-select-match .ui-select-match-text'),
 
-  handleFill: function(page, elementName, desiredValue) {
-    return browser.executeScript("arguments[0].scrollIntoView(false);", page[elementName].getWebElement())
+  handleFill: function (page, elementName, desiredValue) {
+    return browser.executeScript('arguments[0].scrollIntoView(false);', page[elementName].getWebElement())
       .then(() => {
         return page[elementName].click()
           .then(() => {
@@ -18,7 +18,7 @@ const CustomAngularSelectHandler = {
             });
 
             return filtered.count().then((count) => {
-              if(count === 0) {
+              if (count === 0) {
                 return page[elementName].all(this.optionsSelector).first().click();
               }
 
@@ -28,8 +28,8 @@ const CustomAngularSelectHandler = {
       });
   },
 
-  handleCheck: function(page, elementName, desiredValue) {
-    return page[elementName].element(this.selectedOptionSelector).getText().then(function(text) {
+  handleCheck: function (page, elementName, desiredValue) {
+    return page[elementName].element(this.selectedOptionSelector).getText().then(function (text) {
       if (text === desiredValue) {
         return Promise.resolve();
       }

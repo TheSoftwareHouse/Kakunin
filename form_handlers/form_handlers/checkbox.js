@@ -3,21 +3,21 @@ const CheckboxHandler = {
   registerFieldType: false,
   fieldType: 'checkbox',
 
-  handleFill: function(page, elementName, desiredValue) {
+  handleFill: function (page, elementName, desiredValue) {
     return page[elementName].filter(function (elem) {
       return elem.element(by.xpath('..')).getText().then(function (text) {
-          return text === desiredValue;
-        })
+        return text === desiredValue;
+      });
     }).first().click();
   },
 
-  handleCheck: function(page, elementName, desiredValue) {
-    const filteredElements = page[elementName].filter(function(element) {
+  handleCheck: function (page, elementName, desiredValue) {
+    const filteredElements = page[elementName].filter(function (element) {
       return element.isSelected();
     });
 
     return filteredElements.count()
-      .then(function(count) {
+      .then(function (count) {
         if (desiredValue === '') {
           if (count === 0) {
             return Promise.resolve();
@@ -29,7 +29,7 @@ const CheckboxHandler = {
         return page[elementName].filter(function (element) {
           return element.element(by.xpath('..')).getText().then(function (text) {
             return text === desiredValue;
-          })
+          });
         }).first().isSelected().then(function (selected) {
           if (selected) {
             return Promise.resolve();

@@ -5,7 +5,7 @@ class Filters {
   filter(emails, type, value, world) {
     const filter = this.findFilter(type);
 
-    if (typeof(filter) === 'undefined') {
+    if (typeof (filter) === 'undefined') {
       throw new Error(`Could not find filter for ${type}.`);
     }
 

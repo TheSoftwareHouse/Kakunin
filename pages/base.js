@@ -45,7 +45,7 @@ class Page {
     return () => {
       const self = this;
 
-      return browser.getCurrentUrl().then(function(url) {
+      return browser.getCurrentUrl().then(function (url) {
         url = self.extractUrl(url);
 
         const urlSplit = url.split('/');

@@ -1,5 +1,5 @@
-module.exports = function() {
-  this.Given('I visit the "$pageName" page', function(pageName) {
+module.exports = function () {
+  this.Given('I visit the "$pageName" page', function (pageName) {
     expect(browser.page[pageName]).to.not.be.undefined;
 
     this.currentPage = browser.page[pageName];
@@ -7,11 +7,11 @@ module.exports = function() {
     return this.currentPage.visit();
   });
 
-  this.Then('the "$pageName" page is displayed', function(pageName) {
+  this.Then('the "$pageName" page is displayed', function (pageName) {
     const self = this;
 
     return browser.page[pageName].isOn()
-      .then(function(checkResult) {
+      .then(function (checkResult) {
         self.currentPage = browser.page[pageName];
         self.urlParameters = checkResult.parameters;
       });

@@ -6,15 +6,15 @@ const availableHandlers = modulesLoader.getModules(pascalConfig.form_handlers, [
 
 const FormHandler = {
 
-  handleFill: function(fieldType, page, elementName, desiredValue) {
+  handleFill: function (fieldType, page, elementName, desiredValue) {
     return this.findHandlerByFieldType(fieldType).handleFill(page, elementName, desiredValue);
   },
 
-  handleCheck: function(fieldType, page, elementName, desiredValue) {
+  handleCheck: function (fieldType, page, elementName, desiredValue) {
     return this.findHandlerByFieldType(fieldType).handleCheck(page, elementName, desiredValue);
   },
 
-  findHandlerByFieldType: function(fieldType) {
+  findHandlerByFieldType: function (fieldType) {
     for (let i = 0; i < availableHandlers.length; i++) {
       if (availableHandlers[i].fieldType === fieldType) {
         return availableHandlers[i];

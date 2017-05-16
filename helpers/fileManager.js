@@ -4,7 +4,7 @@ const pascalConfig = require('../helpers/pascalConfig');
 
 const FileManager = {
   wasDownloaded: function (expectedFileName) {
-    return browser.driver.wait(function() {
+    return browser.driver.wait(function () {
       return fs.existsSync(pascalConfig.projectPath + pascalConfig.downloads + '/' + expectedFileName);
     }, 20000);
   },

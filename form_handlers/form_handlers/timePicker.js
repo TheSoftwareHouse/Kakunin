@@ -10,7 +10,7 @@ const TimePickerHandler = {
   decrementHours: by.css('a[ng-click="decrementHours()"]'),
   decrementMinutes: by.css('a[ng-click="decrementMinutes()"]'),
 
-  handleFill: function(page, elementName, desiredValue) {
+  handleFill: function (page, elementName, desiredValue) {
     return page[elementName].element(this.hoursInput).getAttribute('value').then((hours) => {
       return page[elementName].element(this.minutesInput).getAttribute('value').then((minutes) => {
         const desiredHours = parseInt(desiredValue.split(':')[0]);
@@ -44,8 +44,8 @@ const TimePickerHandler = {
     });
   },
 
-  handleCheck: function(page, elementName, desiredValue) {
-    return Promise.reject(`Checking TimePicker is not supported`);
+  handleCheck: function (page, elementName, desiredValue) {
+    return Promise.reject('Checking TimePicker is not supported');
   }
 
 };

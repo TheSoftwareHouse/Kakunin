@@ -4,33 +4,32 @@ const regexBuilder = require('../matchers/matchers/regexMatcher/regexBuilder');
 const comparators = require('../comparators').comparators;
 const pascalConfig = require('../helpers/pascalConfig');
 
-module.exports = function() {
-
-  this.When('I wait for "$condition" of the "$elementName" element', function(condition, elementName) {
+module.exports = function () {
+  this.When('I wait for "$condition" of the "$elementName" element', function (condition, elementName) {
     const timeout = parseInt(pascalConfig.elementsVisibilityTimeout) * 1000;
     return browser.wait(protractor.ExpectedConditions[condition](this.currentPage[elementName], timeout));
   });
 
-  this.When('I scroll to the "$elementName" element', function(elementName) {
+  this.When('I scroll to the "$elementName" element', function (elementName) {
     return this.currentPage.scrollIntoElement(elementName);
   });
 
-  this.When('I click the "$elementName" element', function(elementName) {
+  this.When('I click the "$elementName" element', function (elementName) {
     const self = this;
 
     return self.currentPage.scrollIntoElement(elementName)
-      .then(function() {
+      .then(function () {
         return self.currentPage.click(elementName)
           .then(
             null,
-            function (){
+            function () {
               console.warn('Warning! Element was not clickable. We need to scroll it down.');
               return browser.executeScript('window.scrollBy(0,50);')
-                .then(function(){
+                .then(function () {
                   return self.currentPage.click(elementName)
                     .then(
                       null,
-                      function(){
+                      function () {
                         return Promise.reject(`Error, after scrolling the element "${elementName}" is still not clickable.`);
                       }
                     );
@@ -40,24 +39,24 @@ module.exports = function() {
       });
   });
 
-  this.When('I click the "$elementName" "$parameter" element', function(elementName, parameter) {
+  this.When('I click the "$elementName" "$parameter" element', function (elementName, parameter) {
     const self = this;
 
     return browser.executeScript('arguments[0].scrollIntoView(false);', this.currentPage[elementName](parameter).getWebElement())
-      .then(function() {
+      .then(function () {
         return self.currentPage[elementName](parameter).click();
       });
   });
 
-  this.When('I click the "$elementName" element if it is visible', function(elementName) {
+  this.When('I click the "$elementName" element if it is visible', function (elementName) {
     const self = this;
 
     return this.currentPage.isVisible(elementName).then(function () {
       return self.currentPage.scrollIntoElement(elementName)
-          .then(function() {
+          .then(function () {
             return self.currentPage.click(elementName);
           });
-    }).catch(function() {
+    }).catch(function () {
       return Promise.resolve();
     });
   });
@@ -88,7 +87,7 @@ module.exports = function() {
     return this.currentPage[container].first().element(this.currentPage[element]).click();
   });
 
-  this.When('I wait for the "$elementName" element to disappear', function(element, sync) {
+  this.When('I wait for the "$elementName" element to disappear', function (element, sync) {
     const self = this;
     let maxRepeats = 10;
 
@@ -112,27 +111,27 @@ module.exports = function() {
     }, 1500);
   });
 
-  this.Then('the "$elementName" element is present', function(elementName) {
+  this.Then('the "$elementName" element is present', function (elementName) {
     return expect(this.currentPage.isPresent(elementName)).to.eventually.be.true;
   });
 
-  this.Then('the "$elementName" element is not present', function(elementName) {
+  this.Then('the "$elementName" element is not present', function (elementName) {
     return expect(this.currentPage.isPresent(elementName)).to.eventually.be.false;
   });
 
-  this.Then('the "$elementName" element is visible', function(elementName) {
+  this.Then('the "$elementName" element is visible', function (elementName) {
     return this.currentPage.isVisible(elementName);
   });
 
-  this.Then('the "$elementName" element is not visible', function(elementName) {
+  this.Then('the "$elementName" element is not visible', function (elementName) {
     return expect(this.currentPage.isVisible(elementName)).to.eventually.be.false;
   });
 
-  this.Then('the "$elementName" element is disabled', function(elementName) {
+  this.Then('the "$elementName" element is disabled', function (elementName) {
     return expect(this.currentPage.isDisabled(elementName)).to.eventually.be.true;
   });
 
-  this.When('I store table "$table" rows as "$variableName" with columns:', function(table, variableName, data) {
+  this.When('I store table "$table" rows as "$variableName" with columns:', function (table, variableName, data) {
     const self = this;
     const columns = data.raw().map((element) => element[0]);
     const promises = [];
@@ -147,8 +146,8 @@ module.exports = function() {
       }
 
       promises.push(Promise.all(rowPromises));
-    }).then(function() {
-      return Promise.all(promises).then(function(resolvedPromises) {
+    }).then(function () {
+      return Promise.all(promises).then(function (resolvedPromises) {
         variableStore.storeVariable(variableName, resolvedPromises);
       });
     });
@@ -159,7 +158,7 @@ module.exports = function() {
     const allElements = this.currentPage[table];
     const hashes = data.hashes();
 
-    return checkNumberOfElements.call(this, `equal ${hashes.length}`, table).then(function() {
+    return checkNumberOfElements.call(this, `equal ${hashes.length}`, table).then(function () {
       const promises = [];
 
       return allElements.each(function (element, index) {
@@ -178,9 +177,9 @@ module.exports = function() {
     });
   });
 
-  this.Then('the "$popupName" popup appears', function(popupName) {
+  this.Then('the "$popupName" popup appears', function (popupName) {
     const self = this;
-    return expect(this.currentPage.isVisible(popupName)).to.be.eventually.fulfilled.then(function() {
+    return expect(this.currentPage.isVisible(popupName)).to.be.eventually.fulfilled.then(function () {
       return self.currentPage.click(popupName + 'CloseBtn');
     });
   });
@@ -190,11 +189,11 @@ module.exports = function() {
     const allElements = this.currentPage[element];
     const hashedData = data.hashes();
 
-    if (hashedData.length === 0 ) {
+    if (hashedData.length === 0) {
       return Promise.reject('Missing element and value header columns in step.');
     }
 
-    return checkNumberOfElements.call(this, numberExpression, element).then(function() {
+    return checkNumberOfElements.call(this, numberExpression, element).then(function () {
       const promises = [];
 
       return allElements.each(function (element) {
@@ -231,7 +230,7 @@ module.exports = function() {
     const numberPattern = /\d+/g;
     const numbers = numberExpression.match(numberPattern).map((item) => parseInt(item));
 
-    const expectFunction = function(words, numbers) {
+    const expectFunction = function (words, numbers) {
       return expect(self.currentPage.getNumberOfElements(element)).to.eventually.be[words.pop()](...numbers);
     };
 
@@ -243,15 +242,15 @@ module.exports = function() {
 
   this.Then('there are "$numberExpression" "$elementName" elements', checkNumberOfElements);
 
-  this.Then('the number of "$firstElement" elements is the same as the number of "$secondElement" elements', function(firstElement, secondElement) {
+  this.Then('the number of "$firstElement" elements is the same as the number of "$secondElement" elements', function (firstElement, secondElement) {
     const self = this;
 
-    return this.currentPage[secondElement].count().then(function(secondElementCount) {
+    return this.currentPage[secondElement].count().then(function (secondElementCount) {
       return expect(self.currentPage[firstElement].count()).to.eventually.equal(secondElementCount);
     });
   });
 
-  this.Then('every "$containerName" element should have the same value for element "$elementName"', function(containerName, elementName) {
+  this.Then('every "$containerName" element should have the same value for element "$elementName"', function (containerName, elementName) {
     const self = this;
 
     return this.currentPage[containerName]
@@ -259,10 +258,10 @@ module.exports = function() {
       .element(self.currentPage[elementName])
       .getText()
       .then(
-        function(firstElementText) {
-          return self.currentPage[containerName].each(function(containerElement) {
+        function (firstElementText) {
+          return self.currentPage[containerName].each(function (containerElement) {
             containerElement.element(self.currentPage[elementName]).getText().then(
-              function(elementText) {
+              function (elementText) {
                 expect(elementText).to.be.equal(firstElementText);
               }
             );
@@ -271,7 +270,7 @@ module.exports = function() {
       );
   });
 
-  this.Then('every "$containerName" element should have the same value for element "$elementName" attribute "$attributeName"', function(containerName, elementName, attributeName) {
+  this.Then('every "$containerName" element should have the same value for element "$elementName" attribute "$attributeName"', function (containerName, elementName, attributeName) {
     const self = this;
 
     return this.currentPage[containerName]
@@ -279,10 +278,10 @@ module.exports = function() {
       .element(self.currentPage[elementName])
       .getAttribute(self.currentPage[attributeName + 'Attribute'])
       .then(
-        function(firstElementAttributeValue) {
-          return self.currentPage[containerName].each(function(containerElement) {
+        function (firstElementAttributeValue) {
+          return self.currentPage[containerName].each(function (containerElement) {
             containerElement.element(self.currentPage[elementName]).getAttribute(self.currentPage[attributeName + 'Attribute']).then(
-              function(attributeValue) {
+              function (attributeValue) {
                 expect(attributeValue).to.be.equal(firstElementAttributeValue);
               }
             );
@@ -291,12 +290,12 @@ module.exports = function() {
       );
   });
 
-  this.Then('the element "$element" should have an item with values:', function(element, data) {
+  this.Then('the element "$element" should have an item with values:', function (element, data) {
     const self = this;
     const allElements = this.currentPage[element];
     const hashedData = data.hashes();
 
-    if (hashedData.length === 0 ) {
+    if (hashedData.length === 0) {
       return Promise.reject('Missing element and value header columns in step.');
     }
 
@@ -310,11 +309,11 @@ module.exports = function() {
         );
       });
     }).then(function () {
-      return Promise.all(promises).then(function(resolvedPromises) {
-        for (let i=0; i<resolvedPromises.length; i+=hashedData.length) {
+      return Promise.all(promises).then(function (resolvedPromises) {
+        for (let i = 0; i < resolvedPromises.length; i += hashedData.length) {
           let allFieldsMatching = true;
 
-          for (let j=i; j<i+hashedData.length; j++) {
+          for (let j = i; j < i + hashedData.length; j++) {
             if (resolvedPromises[j] === false) {
               allFieldsMatching = false;
               break;
@@ -331,12 +330,12 @@ module.exports = function() {
     });
   });
 
-  this.Then('the element "$element" should not have an item with values:', function(element, data) {
+  this.Then('the element "$element" should not have an item with values:', function (element, data) {
     const self = this;
     const allElements = this.currentPage[element];
     const hashedData = data.hashes();
 
-    if (hashedData.length === 0 ) {
+    if (hashedData.length === 0) {
       return Promise.reject('Missing element and value header columns in step.');
     }
 
@@ -350,11 +349,11 @@ module.exports = function() {
         );
       });
     }).then(function () {
-      return Promise.all(promises).then(function(resolvedPromises) {
-        for (let i=0; i<resolvedPromises.length; i+=hashedData.length) {
+      return Promise.all(promises).then(function (resolvedPromises) {
+        for (let i = 0; i < resolvedPromises.length; i += hashedData.length) {
           let allFieldsMatching = true;
 
-          for (let j=i; j<i+hashedData.length; j++) {
+          for (let j = i; j < i + hashedData.length; j++) {
             if (resolvedPromises[j] === false) {
               allFieldsMatching = false;
               break;
@@ -371,26 +370,26 @@ module.exports = function() {
     });
   });
 
-  this.Then('"$elementValue" value on the "$elementList" list is sorted in "$dependency" order', function(elementValue, elementList, dependency) {
+  this.Then('"$elementValue" value on the "$elementList" list is sorted in "$dependency" order', function (elementValue, elementList, dependency) {
     const self = this;
     const promise = [];
 
-    return self.currentPage[elementList].each(function(singleElement) {
+    return self.currentPage[elementList].each(function (singleElement) {
       promise.push(singleElement.element(self.currentPage[elementValue]).getText());
-    }).then(function() {
+    }).then(function () {
       return Promise.all(promise);
-    }).then(function(elementsValues) {
+    }).then(function (elementsValues) {
       return comparators.compare(elementsValues, dependency);
     });
   });
 
-  this.When('I infinitely scroll to the "$loader" element', function(elementName) {
+  this.When('I infinitely scroll to the "$loader" element', function (elementName) {
     const self = this;
 
     const scrollToLoader = () => self.currentPage.isPresent(elementName)
     .then((isPresent) => {
       if (isPresent) {
-        return self.currentPage.scrollIntoElement(elementName)
+        return self.currentPage.scrollIntoElement(elementName);
       }
 
       return Promise.resolve();
@@ -401,10 +400,9 @@ module.exports = function() {
         return browser.sleep(1000).then(() => scrollToLoader());
       }
 
-      return Promise.resolve()
+      return Promise.resolve();
     });
 
     return scrollToLoader();
   });
-
 };

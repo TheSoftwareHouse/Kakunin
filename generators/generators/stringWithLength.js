@@ -3,7 +3,7 @@ module.exports = {
     return name === 'stringWithLength';
   },
 
-  generate: function(generatorParam) {
+  generate: function (generatorParam) {
     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     const length = parseInt(generatorParam);
 
