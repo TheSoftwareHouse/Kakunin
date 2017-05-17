@@ -30,7 +30,7 @@ class ModulesLoader {
         if (fs.existsSync(folder)) {
           files = files.concat(fs
             .readdirSync(folder)
-            .filter(file => file !== '.gitkeep')
+            .filter(file => file !== '.gitkeep' && file.indexOf('.spec.js') < 0)
             .map(file => [
               file.substr(0, file.indexOf('.')),
               `${folder}/${file}`
