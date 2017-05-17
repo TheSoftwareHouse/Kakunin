@@ -10,11 +10,16 @@ function isInitCommand() {
 }
 
 function getPascalConfigPath() {
-  const args = process.argv.filter(arg => !arg.startsWith('@'));
   let configFile = 'pascal.conf.js';
 
-  if (args.length > 2) {
-    configFile = args[2];
+  const pascalConfig = JSON
+    .parse(process.env.npm_config_argv).original
+    .slice(2)
+    .find((arg) => arg.indexOf('--pascalConfig') >= 0);
+
+  if (pascalConfig !== undefined) {
+    const characterPosition = pascalConfig.indexOf('=');
+    configFile = pascalConfig.substr(characterPosition+1);
   }
 
   return process.cwd() + '/' + configFile;
@@ -23,11 +28,17 @@ function getPascalConfigPath() {
 function getScenariosTags() {
   const tags = [];
 
-  for (let i = 0; i < process.argv.length; i++) {
-    if (process.argv[i].startsWith('@')) {
+  const tagsConfig = JSON
+    .parse(process.env.npm_config_argv).original
+    .slice(2)
+    .find((arg) => arg.indexOf('--tags') >= 0);
+
+  if (tagsConfig !== undefined) {
+    const characterPosition = tagsConfig.indexOf('=');
+    tagsConfig.substr(characterPosition+1).split(' ').forEach((tag) => {
       tags.push('--cucumberOpts.tags');
-      tags.push(process.argv[i])
-    }
+      tags.push(tag);
+    });
   }
 
   return tags;
@@ -42,12 +53,25 @@ if (isInitCommand()) {
     await initializer.generateProjectStructure();
   })();
 } else {
+  const optionsToFilter = ['--pascalConfig', '--projectPath', '--disableChecks', '--tags'];
+  const commandLineArgs = JSON
+    .parse(process.env.npm_config_argv).original
+    .slice(2)
+    .filter((arg) => {
+      const characterPosition = arg.indexOf('=');
+      if (characterPosition > 0) {
+        return !optionsToFilter.includes(arg.substr(0, characterPosition));
+      }
+      return !optionsToFilter.includes(arg);
+    });
+
   const argv = [
     'protractor.conf.js',
-    '--pascalConfig', getPascalConfigPath(),
-    '--projectPath', process.cwd(),
+    `--pascalConfig=${getPascalConfigPath()}`,
+    `--projectPath=${process.cwd()}`,
     '--disableChecks',
-    ...getScenariosTags()
+    ...getScenariosTags(),
+    ...commandLineArgs
   ];
 
   child_process.spawn(path.join('node_modules', '.bin', 'protractor'), argv, {
