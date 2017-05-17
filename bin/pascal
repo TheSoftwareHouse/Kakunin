@@ -4,6 +4,7 @@ const path = require('path');
 const child_process = require('child_process');
 const envfile = require('node-env-file');
 const initializer = require('../helpers/initializer');
+const getCommandArguments = JSON.parse(process.env.npm_config_argv).original.slice(2);
 
 function isInitCommand() {
   return process.argv.length > 2 && process.argv[2] === 'init';
@@ -12,10 +13,7 @@ function isInitCommand() {
 function getPascalConfigPath() {
   let configFile = 'pascal.conf.js';
 
-  const pascalConfig = JSON
-    .parse(process.env.npm_config_argv).original
-    .slice(2)
-    .find((arg) => arg.indexOf('--pascalConfig') >= 0);
+  const pascalConfig = getCommandArguments.find((arg) => arg.indexOf('--pascalConfig') >= 0);
 
   if (pascalConfig !== undefined) {
     const characterPosition = pascalConfig.indexOf('=');
@@ -28,10 +26,7 @@ function getPascalConfigPath() {
 function getScenariosTags() {
   const tags = [];
 
-  const tagsConfig = JSON
-    .parse(process.env.npm_config_argv).original
-    .slice(2)
-    .find((arg) => arg.indexOf('--tags') >= 0);
+  const tagsConfig = getCommandArguments.find((arg) => arg.indexOf('--tags') >= 0);
 
   if (tagsConfig !== undefined) {
     const characterPosition = tagsConfig.indexOf('=');
@@ -54,10 +49,7 @@ if (isInitCommand()) {
   })();
 } else {
   const optionsToFilter = ['--pascalConfig', '--projectPath', '--disableChecks', '--tags'];
-  const commandLineArgs = JSON
-    .parse(process.env.npm_config_argv).original
-    .slice(2)
-    .filter((arg) => {
+  const commandLineArgs = getCommandArguments.filter((arg) => {
       const characterPosition = arg.indexOf('=');
       if (characterPosition > 0) {
         return !optionsToFilter.includes(arg.substr(0, characterPosition));
