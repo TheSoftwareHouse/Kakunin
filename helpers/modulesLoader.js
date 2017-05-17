@@ -22,7 +22,7 @@ class ModulesLoader {
   getFilePaths(projectFolders, pascalFolders) {
     projectFolders = projectFolders.map(folder => pascalConfig.projectPath + folder);
 
-    const folders = [...pascalFolders, ...projectFolders];
+    const folders = [...projectFolders, ...pascalFolders];
     let files = [];
 
     folders.forEach(
