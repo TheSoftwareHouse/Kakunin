@@ -1,11 +1,28 @@
-const regex = require('../../matchers/matchers/regexMatcher/regex');
-const dateFromString = regex.StandardDateFormat;
+const moment = require('moment');
+
+const supportedFormats = [
+  'DD-MM-YYYY',
+  'DD-MM-YY',
+  'DD/MM/YYYY',
+  'DD/MM/YY'
+];
+
+const isValidDate = (date) => {
+  for (let index = 0; index < supportedFormats.length; index++) {
+    if (moment(date, supportedFormats[index]).isValid()) {
+      return true;
+    }
+  }
+
+  return false;
+};
 
 const DateComparator = {
+
   isSatisfiedBy: (values) => {
     for (let i = 0; i < values.length; i++) {
       const date = values[i];
-      const found = date.match(dateFromString);
+      const found = isValidDate(date);
 
       if (!found) {
         return false;
@@ -18,12 +35,14 @@ const DateComparator = {
     for (let i = 1; i < values.length; i++) {
       const datePrevious = values[i - 1];
       const date = values[i];
-      const foundPrevious = datePrevious.match(dateFromString);
-      const found = date.match(dateFromString);
+      const foundPrevious = moment(
+        datePrevious,
+        supportedFormats.find((format) => moment(datePrevious, format).isValid())
+      );
+      const found = moment(date, supportedFormats.find((format) => moment(date, format).isValid()));
 
-
-      const previousTimestamp = new Date(foundPrevious[1]).getTime();
-      const currentTimestamp = new Date(found[1]).getTime();
+      const previousTimestamp = foundPrevious.unix();
+      const currentTimestamp = found.unix();
 
       if (order === 'ascending') {
         if (currentTimestamp < previousTimestamp) {
@@ -38,3 +57,4 @@ const DateComparator = {
 };
 
 module.exports = DateComparator;
+module.exports.supportedFormats = supportedFormats;

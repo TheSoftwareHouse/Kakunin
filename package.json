@@ -6,13 +6,16 @@
     "pascal": "bin/pascal"
   },
   "scripts": {
-    "postinstall": "webdriver-manager update"
+    "postinstall": "webdriver-manager update",
+    "test": "mocha --require babel-register ./comparators/**/*.spec.js"
   },
   "engines": {
     "node": ">=7.7.3",
     "npm": ">=4.1.2"
   },
   "devDependencies": {
+    "babel-preset-env": "^1.4.0",
+    "babel-register": "^6.24.1",
     "chai": "^3.5.0",
     "chai-as-promised": "^6.0.0",
     "chai-string": "^1.3.0",
@@ -31,6 +34,8 @@
     "jasmine-reporters": "^2.2.0",
     "jasmine-spec-reporter": "^2.7.0",
     "mkdirp": "^0.5.1",
+    "mocha": "^3.4.1",
+    "moment": "^2.18.1",
     "node-env-file": "^0.1.8",
     "node-fetch": "^1.6.3",
     "node-xlsx": "^0.7.4",
@@ -39,5 +44,5 @@
     "protractor-cucumber-framework": "^0.6.0",
     "sg-protractor-tools": "^1.0.4",
     "sugar-date": "^2.0.4"
-    }
   }
+}
