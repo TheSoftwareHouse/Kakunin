@@ -17,7 +17,7 @@ function getPascalConfigPath() {
 
   if (pascalConfig !== undefined) {
     const characterPosition = pascalConfig.indexOf('=');
-    configFile = pascalConfig.substr(characterPosition+1);
+    configFile = pascalConfig.substr(characterPosition + 1);
   }
 
   return process.cwd() + '/' + configFile;
