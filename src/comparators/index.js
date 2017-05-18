@@ -1,1 +1,1 @@
-module.exports.comparators = require('./comparators');
+module.exports.comparators = require('./comparators').create();

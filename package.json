@@ -1,39 +1,40 @@
 {
   "name": "pascal",
-  "version": "1.7.0",
+  "version": "1.9.0",
   "description": "End-to-end testing framework",
   "bin": {
     "pascal": "bin/pascal"
   },
   "scripts": {
     "postinstall": "webdriver-manager update",
-    "test": "mocha --require babel-register ./src/comparators/**/*.spec.js"
+    "test": "NODE_ENV=test mocha --require ./src/tests/init.js --require babel-register ./src/generators ./src/matchers ./src/comparators ./src/dictionaries ./src/emails  --recursive"
   },
   "engines": {
     "node": ">=7.7.3",
     "npm": ">=4.1.2"
   },
   "devDependencies": {
-    "babel-preset-env": "^1.4.0",
+    "babel-preset-env": "^1.5.0",
     "babel-register": "^6.24.1",
     "chai": "^3.5.0",
     "chai-as-promised": "^6.0.0",
     "chai-string": "^1.3.0",
     "chalk": "^1.1.3",
     "child_process": "^1.0.2",
-    "cucumber": "^1.3.1",
-    "cucumber-html-report": "^0.5.1",
+    "cucumber": "^2.2.0",
+    "cucumber-html-report": "^0.6.0",
     "eslint": "^3.19.0",
-    "eslint-config-airbnb": "^14.1.0",
+    "eslint-config-airbnb": "^15.0.1",
+    "eslint-plugin-jsx-a11y": "^5.0.3",
+    "eslint-plugin-react": "7.0.1",
     "eslint-plugin-import": "^2.2.0",
-    "eslint-plugin-jsx-a11y": "^4.0.0",
-    "eslint-plugin-react": "^6.9.0",
     "extend": "^3.0.0",
+    "fetch-mock": "^5.11.0",
     "inquirer": "^3.0.6",
     "jasmine": "^2.5.2",
     "jasmine-reporters": "^2.2.0",
-    "jasmine-spec-reporter": "^2.7.0",
-    "minimist": "https://registry.npmjs.org/minimist/-/minimist-0.0.8.tgz",
+    "jasmine-spec-reporter": "^4.1.0",
+    "minimist": "^1.2.0",
     "mkdirp": "^0.5.1",
     "mocha": "^3.4.1",
     "moment": "^2.18.1",
@@ -42,7 +43,7 @@
     "node-xlsx": "^0.7.4",
     "path": "^0.12.7",
     "protractor": "^5.1.1",
-    "protractor-cucumber-framework": "^0.6.0",
+    "protractor-cucumber-framework": "^3.1.0",
     "sg-protractor-tools": "^1.0.4",
     "sugar-date": "^2.0.4"
   }

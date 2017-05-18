@@ -1,6 +1,7 @@
 require('./src/helpers/prototypes');
+const path = require('path');
 const chai = require('chai');
-const modulesLoader = require('./src/helpers/modulesLoader');
+const modulesLoader = require('./src/helpers/modulesLoader').create();
 const chaiAsPromised = require('chai-as-promised');
 const mailTrapClient = require('./src/emails/mailtrapClient');
 chai.use(chaiAsPromised);
@@ -44,7 +45,7 @@ exports.config = {
       ...pascalConfig.step_definitions.map(file => pascalConfig.projectPath + file + '/**/*.js'),
       ...pascalConfig.hooks.map(file => pascalConfig.projectPath + file + '/**/*.js')
     ],
-    format: 'pretty',
+    format: ['pretty', 'json:../../reports/features-report.json'],
     profile: false,
     'no-source': true
   },
@@ -55,7 +56,10 @@ exports.config = {
       parseInt(pascalConfig.browserHeight)
     );
 
-    browser.page = modulesLoader.getModulesAsObject(pascalConfig.pages, []);
+    browser.page = modulesLoader
+      .getModulesAsObject(
+        pascalConfig.pages.map((page) => path.join(pascalConfig.projectPath, page))
+      );
 
     global.expect = chai.expect;
 

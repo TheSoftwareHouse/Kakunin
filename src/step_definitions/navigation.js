@@ -1,5 +1,7 @@
-module.exports = function () {
-  this.Given('I visit the "$pageName" page', function (pageName) {
+const { defineSupportCode } = require('cucumber');
+
+defineSupportCode(function ({ Then, Given }) {
+  Given('I visit the "{pageName}" page', function (pageName) {
     expect(browser.page[pageName]).to.not.be.undefined;
 
     this.currentPage = browser.page[pageName];
@@ -7,13 +9,13 @@ module.exports = function () {
     return this.currentPage.visit();
   });
 
-  this.Then('the "$pageName" page is displayed', function (pageName) {
+  Then('the "{pageName}" page is displayed', function (pageName) {
     const self = this;
 
     return browser.page[pageName].isOn()
-      .then(function (checkResult) {
+      .then((checkResult) => {
         self.currentPage = browser.page[pageName];
         self.urlParameters = checkResult.parameters;
       });
   });
-};
+});

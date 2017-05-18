@@ -1,4 +1,4 @@
-const ClickMatcher = {
+const ClickableMatcher = {
   isSatisfiedBy: function (prefix, name) {
     return prefix === 'f:' && name === 'isClickable';
   },
@@ -9,4 +9,4 @@ const ClickMatcher = {
   }
 };
 
-module.exports = ClickMatcher;
+module.exports = ClickableMatcher;

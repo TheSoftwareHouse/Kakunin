@@ -3,7 +3,7 @@ const VisibleMatcher = {
     return prefix === 'f:' && name === 'isVisible';
   },
   match: function (element, matcherName) {
-    return element.isDisplayed().then(() => true);
+    return element.isDisplayed().then(() => true).catch(() => false);
   }
 };
 

@@ -1,6 +1,10 @@
 const fetch = require('node-fetch');
 
 class MailTrapClient {
+  constructor(requestClient) {
+    this.requestClient = requestClient;
+  }
+
   getMailtrapConfig() {
     if (typeof process.env.MAILTRAP_API_KEY === 'undefined') {
       throw new Error('Missing mailtrap api key. Use export MAILTRAP_API_KEY=your-api-key for setup.');
@@ -25,7 +29,7 @@ class MailTrapClient {
     const config = this.getMailtrapConfig();
     const url = config.endpoint + '/inboxes/' + config.inboxId + '/clean?api_token=' + config.apiKey;
 
-    return fetch(url, {
+    return this.requestClient(url, {
       method: 'PATCH'
     })
       .then((res) => {
@@ -41,7 +45,7 @@ class MailTrapClient {
     const config = this.getMailtrapConfig();
     const url = config.endpoint + '/inboxes/' + config.inboxId + '/messages?api_token=' + config.apiKey;
 
-    return fetch(url)
+    return this.requestClient(url)
       .then((res) => {
         if (res.status !== 200) {
           throw new Error(res);
@@ -56,7 +60,7 @@ class MailTrapClient {
     const config = this.getMailtrapConfig();
     const url = config.endpoint + '/inboxes/' + config.inboxId + '/messages/' + email.id + '/attachments' + '?api_token=' + config.apiKey;
 
-    return fetch(url)
+    return this.requestClient(url)
       .then((res) => {
         if (res.status !== 200) {
           throw new Error(res);
@@ -70,7 +74,7 @@ class MailTrapClient {
     const config = this.getMailtrapConfig();
     const url = config.endpoint + '/inboxes/' + config.inboxId + '/messages/' + email.id + '?api_token=' + config.apiKey;
 
-    return fetch(url, {
+    return this.requestClient(url, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json'
@@ -91,4 +95,4 @@ class MailTrapClient {
   }
 }
 
-module.exports = new MailTrapClient();
+module.exports.create = (requestClient = fetch) => new MailTrapClient(requestClient);

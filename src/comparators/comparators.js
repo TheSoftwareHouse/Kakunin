@@ -1,12 +1,11 @@
-const fs = require('fs');
+const modulesLoader = require('../helpers/modulesLoader').create();
 
-const pascalConfig = require('../helpers/pascalConfig');
-const modulesLoader = require('../helpers/modulesLoader');
+class Comparators {
+  constructor(loader) {
+    this.availableComparators = loader.getModules('comparators');
+  }
 
-const availableComparators = modulesLoader.getModules(pascalConfig.comparators, [__dirname + '/comparators']);
-
-const Comparators = {
-  compare: function (values, order) {
+  compare(values, order) {
     const comparator = this.findComparator(values);
 
     if (comparator === undefined) {
@@ -14,10 +13,11 @@ const Comparators = {
     }
 
     return comparator.compare(values, order);
-  },
-  findComparator: function (values) {
-    return availableComparators.find((comparator) => comparator.isSatisfiedBy(values));
   }
-};
 
-module.exports = Comparators;
+  findComparator(values) {
+    return this.availableComparators.find((comparator) => comparator.isSatisfiedBy(values));
+  }
+}
+
+module.exports.create = (loader = modulesLoader) => new Comparators(loader);

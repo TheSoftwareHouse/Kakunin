@@ -1,25 +1,23 @@
-const fs = require('fs');
+const modulesLoader = require('../helpers/modulesLoader').create();
 
+class Generators {
+  constructor(loader) {
+    this.availableGenerators = loader.getModules('generators');
+  }
 
-const pascalConfig = require('../helpers/pascalConfig');
-const modulesLoader = require('../helpers/modulesLoader');
-
-const availableGenerators = modulesLoader.getModules(pascalConfig.generators, [__dirname + '/generators']);
-
-const Generators = {
-  generate: function (generatorName) {
+  generate(generatorName, ...params) {
     const gen = this.findGenerator(generatorName);
 
     if (gen === undefined) {
       throw new Error(`Could not find generator for ${generatorName}.`);
     }
 
-    return gen.generate();
-  },
-
-  findGenerator: function (name) {
-    return availableGenerators.find((gen) => gen.isSatisfiedBy(name));
+    return gen.generate(...params);
   }
-};
 
-module.exports = Generators;
+  findGenerator(name) {
+    return this.availableGenerators.find((gen) => gen.isSatisfiedBy(name));
+  }
+}
+
+module.exports.create = (loader = modulesLoader) => new Generators(loader);

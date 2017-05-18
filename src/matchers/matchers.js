@@ -1,11 +1,11 @@
-const fs = require('fs');
-const pascalConfig = require('../helpers/pascalConfig');
-const modulesLoader = require('../helpers/modulesLoader');
+const modulesLoader = require('../helpers/modulesLoader').create();
 
-const availableMatchers = modulesLoader.getModules(pascalConfig.matchers, [__dirname + '/matchers']);
+class Matchers {
+  constructor(loader) {
+    this.availableMatchers = loader.getModules('matchers');
+  }
 
-const Matchers = {
-  match: function (element, matcherName) {
+  match(element, matcherName) {
     const matcher = this.findMatcher(matcherName.substr(0, 2), matcherName.substr(2));
 
     if (matcher === undefined) {
@@ -13,10 +13,11 @@ const Matchers = {
     }
 
     return matcher.match(element, matcherName);
-  },
-  findMatcher: function (prefix, name) {
-    return availableMatchers.find((matcher) => matcher.isSatisfiedBy(prefix, name));
   }
-};
 
-module.exports = Matchers;
+  findMatcher(prefix, name) {
+    return this.availableMatchers.find((matcher) => matcher.isSatisfiedBy(prefix, name));
+  }
+}
+
+module.exports.create = (loader = modulesLoader) => new Matchers(loader);

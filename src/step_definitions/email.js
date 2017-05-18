@@ -1,9 +1,11 @@
-const mailTrapClient = require('../emails/mailtrapClient');
+const { defineSupportCode } = require('cucumber');
+
+const mailTrapClient = require('../emails/mailtrapClient').create();
 const regexBuilder = require('../matchers/matchers/regexMatcher/regexBuilder');
 const filters = require('../emails/filters');
 const sugar = require('sugar-date');
 
-module.exports = function () {
+defineSupportCode(function ({ Then }) {
   function stopInterval(interval, callback) {
     clearInterval(interval);
     callback();
@@ -95,7 +97,7 @@ module.exports = function () {
     }
   }
 
-  this.Then('the email has been sent and contains:', function (data, sync) {
+  Then('the email has been sent and contains:', function (data, sync) {
     const self = this;
     let maxRepeats = 10;
 
@@ -112,4 +114,4 @@ module.exports = function () {
         .catch((err) => stopInterval(interval, sync.bind(null, err)));
     }, 5000);
   });
-};
+});

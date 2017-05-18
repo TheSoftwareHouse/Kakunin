@@ -1,12 +1,11 @@
-const fs = require('fs');
+const modulesLoader = require('../helpers/modulesLoader').create();
 
-const pascalConfig = require('../helpers/pascalConfig');
-const modulesLoader = require('../helpers/modulesLoader');
+class Dictionaries {
+  constructor(loader) {
+    this.availableDictionaries = loader.getModules('dictionaries');
+  }
 
-const availableDictionaries = modulesLoader.getModules(pascalConfig.dictionaries, [__dirname + '/dictionaries']);
-
-const Dictionaries = {
-  getMappedValue: function (dictionaryName, key) {
+  getMappedValue(dictionaryName, key) {
     const dic = this.findDictionary(dictionaryName);
 
     if (dic === undefined) {
@@ -14,11 +13,11 @@ const Dictionaries = {
     }
 
     return dic.getMappedValue(key);
-  },
-
-  findDictionary: function (name) {
-    return availableDictionaries.find((dic) => dic.isSatisfiedBy(name));
   }
-};
 
-module.exports = Dictionaries;
+  findDictionary(name) {
+    return this.availableDictionaries.find((dic) => dic.isSatisfiedBy(name));
+  }
+}
+
+module.exports.create = (loader = modulesLoader) => new Dictionaries(loader);

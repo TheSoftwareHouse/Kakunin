@@ -1,20 +1,22 @@
+const { defineSupportCode } = require('cucumber');
+
 const matchers = require('../matchers').matchers;
 const variableStore = require('../helpers/variableStore');
 const regexBuilder = require('../matchers/matchers/regexMatcher/regexBuilder');
 const comparators = require('../comparators').comparators;
 const pascalConfig = require('../helpers/pascalConfig');
 
-module.exports = function () {
-  this.When('I wait for "$condition" of the "$elementName" element', function (condition, elementName) {
+defineSupportCode(function ({ When, Then }) {
+  When('I wait for "{condition}" of the "{elementName}" element', function (condition, elementName) {
     const timeout = parseInt(pascalConfig.elementsVisibilityTimeout) * 1000;
     return browser.wait(protractor.ExpectedConditions[condition](this.currentPage[elementName], timeout));
   });
 
-  this.When('I scroll to the "$elementName" element', function (elementName) {
+  When('I scroll to the "{elementName}" element', function (elementName) {
     return this.currentPage.scrollIntoElement(elementName);
   });
 
-  this.When('I click the "$elementName" element', function (elementName) {
+  When('I click the "{elementName}" element', function (elementName) {
     const self = this;
 
     return self.currentPage.scrollIntoElement(elementName)
@@ -39,7 +41,7 @@ module.exports = function () {
       });
   });
 
-  this.When('I click the "$elementName" "$parameter" element', function (elementName, parameter) {
+  When('I click the "{elementName}" "{parameter}" element', function (elementName, parameter) {
     const self = this;
 
     return browser.executeScript('arguments[0].scrollIntoView(false);', this.currentPage[elementName](parameter).getWebElement())
@@ -48,7 +50,7 @@ module.exports = function () {
       });
   });
 
-  this.When('I click the "$elementName" element if it is visible', function (elementName) {
+  When('I click the "{elementName}" element if it is visible', function (elementName) {
     const self = this;
 
     return this.currentPage.isVisible(elementName).then(function () {
@@ -61,11 +63,11 @@ module.exports = function () {
     });
   });
 
-  this.When('I store the "$element" element text as "$variable" variable', function (element, variable) {
+  When('I store the "{element}" element text as "{variable}" variable', function (element, variable) {
     return this.currentPage[element].getText().then((text) => { variableStore.storeVariable(variable, text); });
   });
 
-  this.When('I store the "$element" element text matched by "$matcher" as "$variable" variable', function (element, matcher, variable) {
+  When('I store the "{element}" element text matched by "{matcher}" as "{variable}" variable', function (element, matcher, variable) {
     const regex = regexBuilder.buildRegex(matcher);
 
     return this.currentPage[element].getText().then((text) => {
@@ -83,11 +85,11 @@ module.exports = function () {
     });
   });
 
-  this.When('I click the "$element" on the first item of "$container" element', function (element, container) {
+  When('I click the "{element}" on the first item of "{container}" element', function (element, container) {
     return this.currentPage[container].first().element(this.currentPage[element]).click();
   });
 
-  this.When('I wait for the "$elementName" element to disappear', function (element, sync) {
+  When('I wait for the "{elementName}" element to disappear', function (element, sync) {
     const self = this;
     let maxRepeats = 10;
 
@@ -111,27 +113,27 @@ module.exports = function () {
     }, 1500);
   });
 
-  this.Then('the "$elementName" element is present', function (elementName) {
+  Then('the "{elementName}" element is present', function (elementName) {
     return expect(this.currentPage.isPresent(elementName)).to.eventually.be.true;
   });
 
-  this.Then('the "$elementName" element is not present', function (elementName) {
+  Then('the "{elementName}" element is not present', function (elementName) {
     return expect(this.currentPage.isPresent(elementName)).to.eventually.be.false;
   });
 
-  this.Then('the "$elementName" element is visible', function (elementName) {
+  Then('the "{elementName}" element is visible', function (elementName) {
     return this.currentPage.isVisible(elementName);
   });
 
-  this.Then('the "$elementName" element is not visible', function (elementName) {
+  Then('the "{elementName}" element is not visible', function (elementName) {
     return expect(this.currentPage.isVisible(elementName)).to.eventually.be.false;
   });
 
-  this.Then('the "$elementName" element is disabled', function (elementName) {
+  Then('the "{elementName}" element is disabled', function (elementName) {
     return expect(this.currentPage.isDisabled(elementName)).to.eventually.be.true;
   });
 
-  this.When('I store table "$table" rows as "$variableName" with columns:', function (table, variableName, data) {
+  When('I store table "{table}" rows as "{variableName}" with columns:', function (table, variableName, data) {
     const self = this;
     const columns = data.raw().map((element) => element[0]);
     const promises = [];
@@ -153,7 +155,7 @@ module.exports = function () {
     });
   });
 
-  this.Then('there are following elements in table "$table":', function (table, data) {
+  Then('there are following elements in table "{table}":', function (table, data) {
     const self = this;
     const allElements = this.currentPage[table];
     const hashes = data.hashes();
@@ -177,14 +179,14 @@ module.exports = function () {
     });
   });
 
-  this.Then('the "$popupName" popup appears', function (popupName) {
+  Then('the "{popupName}" popup appears', function (popupName) {
     const self = this;
     return expect(this.currentPage.isVisible(popupName)).to.be.eventually.fulfilled.then(function () {
       return self.currentPage.click(popupName + 'CloseBtn');
     });
   });
 
-  this.Then('there are "$numberExpression" following elements for element "$element":', function (numberExpression, element, data) {
+  Then('there are "{numberExpression}" following elements for element "{element}":', function (numberExpression, element, data) {
     const self = this;
     const allElements = this.currentPage[element];
     const hashedData = data.hashes();
@@ -209,7 +211,7 @@ module.exports = function () {
     });
   });
 
-  this.Then('there is element "$element" with value "$value"', function (element, value) {
+  Then('there is element "{element}" with value "{value}"', function (element, value) {
     const pageElement = this.currentPage[element];
 
     return matchers.match(pageElement, variableStore.replaceTextVariables(value)).then(function (matcherResult) {
@@ -217,7 +219,7 @@ module.exports = function () {
     });
   });
 
-  this.Then('there is no element "$element" with value "$value"', function (element, value) {
+  Then('there is no element "{element}" with value "{value}"', function (element, value) {
     const pageElement = this.currentPage[element];
 
     return matchers.match(pageElement, variableStore.replaceTextVariables(value)).then(function (matcherResult) {
@@ -240,9 +242,9 @@ module.exports = function () {
     );
   }
 
-  this.Then('there are "$numberExpression" "$elementName" elements', checkNumberOfElements);
+  Then('there are "{numberExpression}" "{elementName}" elements', checkNumberOfElements);
 
-  this.Then('the number of "$firstElement" elements is the same as the number of "$secondElement" elements', function (firstElement, secondElement) {
+  Then('the number of "{firstElement}" elements is the same as the number of "{secondElement}" elements', function (firstElement, secondElement) {
     const self = this;
 
     return this.currentPage[secondElement].count().then(function (secondElementCount) {
@@ -250,7 +252,7 @@ module.exports = function () {
     });
   });
 
-  this.Then('every "$containerName" element should have the same value for element "$elementName"', function (containerName, elementName) {
+  Then('every "{containerName}" element should have the same value for element "{elementName}"', function (containerName, elementName) {
     const self = this;
 
     return this.currentPage[containerName]
@@ -270,7 +272,7 @@ module.exports = function () {
       );
   });
 
-  this.Then('every "$containerName" element should have the same value for element "$elementName" attribute "$attributeName"', function (containerName, elementName, attributeName) {
+  Then('every "{containerName}" element should have the same value for element "{elementName}" attribute "{attributeName}"', function (containerName, elementName, attributeName) {
     const self = this;
 
     return this.currentPage[containerName]
@@ -290,7 +292,7 @@ module.exports = function () {
       );
   });
 
-  this.Then('the element "$element" should have an item with values:', function (element, data) {
+  Then('the element "{element}" should have an item with values:', function (element, data) {
     const self = this;
     const allElements = this.currentPage[element];
     const hashedData = data.hashes();
@@ -330,7 +332,7 @@ module.exports = function () {
     });
   });
 
-  this.Then('the element "$element" should not have an item with values:', function (element, data) {
+  Then('the element "{element}" should not have an item with values:', function (element, data) {
     const self = this;
     const allElements = this.currentPage[element];
     const hashedData = data.hashes();
@@ -370,7 +372,7 @@ module.exports = function () {
     });
   });
 
-  this.Then('"$elementValue" value on the "$elementList" list is sorted in "$dependency" order', function (elementValue, elementList, dependency) {
+  Then('"{elementValue}" value on the "{elementList}" list is sorted in "{dependency}" order', function (elementValue, elementList, dependency) {
     const self = this;
     const promise = [];
 
@@ -383,7 +385,7 @@ module.exports = function () {
     });
   });
 
-  this.When('I infinitely scroll to the "$loader" element', function (elementName) {
+  When('I infinitely scroll to the "{loader}" element', function (elementName) {
     const self = this;
 
     const scrollToLoader = () => self.currentPage.isPresent(elementName)
@@ -406,7 +408,7 @@ module.exports = function () {
     return scrollToLoader();
   });
 
-  this.When('I set the rate:', function (data) {
+  When('I set the rate:', function (data) {
     const table = data.rowsHash();
     const promise = [];
 
@@ -423,7 +425,7 @@ module.exports = function () {
     return Promise.all(promise);
   });
 
-  this.When('the rate is set:', function (data) {
+  When('the rate is set:', function (data) {
     const table = data.rowsHash();
     const promise = [];
 
@@ -445,4 +447,4 @@ module.exports = function () {
 
     return Promise.all(promise);
   });
-};
+});

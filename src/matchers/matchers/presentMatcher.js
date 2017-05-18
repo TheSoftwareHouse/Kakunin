@@ -4,7 +4,7 @@ const PresentMatcher = {
   },
 
   match: function (element, matcherName) {
-    return element.isPresent();
+    return element.isPresent().then(() => true).catch(() => false);
   }
 };
 
