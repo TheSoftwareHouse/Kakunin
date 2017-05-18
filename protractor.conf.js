@@ -1,11 +1,11 @@
-require('./helpers/prototypes');
+require('./src/helpers/prototypes');
 const chai = require('chai');
-const modulesLoader = require('./helpers/modulesLoader');
+const modulesLoader = require('./src/helpers/modulesLoader');
 const chaiAsPromised = require('chai-as-promised');
-const mailTrapClient = require('./emails/mailtrapClient');
+const mailTrapClient = require('./src/emails/mailtrapClient');
 chai.use(chaiAsPromised);
 
-const pascalConfig = require('./helpers/pascalConfig');
+const pascalConfig = require('./src/helpers/pascalConfig');
 
 exports.config = {
   multiCapabilities: [
@@ -34,9 +34,9 @@ exports.config = {
 
   cucumberOpts: {
     require: [
-      'configuration/config.js',
-      './configuration/hooks.js',
-      'step_definitions/**/*.js',
+      './src/configuration/config.js',
+      './src/configuration/hooks.js',
+      './src/step_definitions/**/*.js',
       ...pascalConfig.step_definitions.map(file => pascalConfig.projectPath + file + '/**/*.js'),
       ...pascalConfig.hooks.map(file => pascalConfig.projectPath + file + '/**/*.js')
     ],
