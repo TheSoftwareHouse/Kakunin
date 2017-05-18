@@ -87,9 +87,12 @@ class Page {
     return this[elementName].count();
   }
 
-  scrollIntoElement(elementName) {
+  scrollIntoElement(elementName, elementIndex = undefined) {
+    if (elementIndex !== undefined) {
+      return browser.executeScript('arguments[0].scrollIntoView(false);', this[elementName].get(elementIndex).getWebElement());
+    }
+
     return browser.executeScript('arguments[0].scrollIntoView(false);', this[elementName].getWebElement());
   }
 }
-
 module.exports = Page;
