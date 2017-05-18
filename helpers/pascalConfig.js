@@ -1,5 +1,10 @@
-const pascalConfigPath = process.argv[process.argv.findIndex(name => name === '--pascalConfig') + 1];
-const projectPath = process.argv[process.argv.findIndex(name => name === '--projectPath') + 1];
+const pascalConf = process.argv.find(name => name.indexOf('--pascalConfig') >= 0);
+
+const pascalConfigPath = pascalConf.substr(pascalConf.indexOf('=') + 1 );
+
+const project = process.argv.find(name => name.indexOf('--projectPath') >= 0);
+
+const projectPath = project.substr(project.indexOf('=') + 1);
 
 const pascalConfig = require(pascalConfigPath);
 pascalConfig.projectPath = projectPath;
