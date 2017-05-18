@@ -1,33 +1,31 @@
 #!/usr/bin/env node
 
+const commandArgs = require('minimist')(process.argv.slice(2));
 const path = require('path');
 const child_process = require('child_process');
 const envfile = require('node-env-file');
 const initializer = require('../helpers/initializer');
 
-function isInitCommand() {
+const isInitCommand = () => {
   return process.argv.length > 2 && process.argv[2] === 'init';
 }
 
-function getPascalConfigPath() {
-  const args = process.argv.filter(arg => !arg.startsWith('@'));
-  let configFile = 'pascal.conf.js';
+const getConfigPath = () => {
+  const configFile = 'pascal.conf.js';
 
-  if (args.length > 2) {
-    configFile = args[2];
-  }
-
-  return process.cwd() + '/' + configFile;
+  return (commandArgs.pascalConfig)
+    ? process.cwd() + '/' + commandArgs.pascalConfig
+    : process.cwd() + '/' + configFile;
 }
 
-function getScenariosTags() {
+const getScenariosTags = () => {
   const tags = [];
 
-  for (let i = 0; i < process.argv.length; i++) {
-    if (process.argv[i].startsWith('@')) {
+  if (commandArgs.tags !== undefined) {
+    commandArgs.tags.split(' ').forEach((tag) => {
       tags.push('--cucumberOpts.tags');
-      tags.push(process.argv[i])
-    }
+      tags.push(tag);
+    });
   }
 
   return tags;
@@ -42,12 +40,23 @@ if (isInitCommand()) {
     await initializer.generateProjectStructure();
   })();
 } else {
+  const optionsToFilter = ['pascalConfig', 'projectPath', 'disableChecks', 'tags'];
+
+  const commandLineArgs = [];
+
+  for(const prop in commandArgs) {
+    if (prop !== '_' && !optionsToFilter.includes(prop)) {
+      commandLineArgs.push(`--${prop}=${commandArgs[prop]}`);
+    }
+  }
+
   const argv = [
     'protractor.conf.js',
-    '--pascalConfig', getPascalConfigPath(),
-    '--projectPath', process.cwd(),
+    `--pascalConfig=${getConfigPath()}`,
+    `--projectPath=${process.cwd()}`,
     '--disableChecks',
-    ...getScenariosTags()
+    ...getScenariosTags(),
+    ...commandLineArgs
   ];
 
   child_process.spawn(path.join('node_modules', '.bin', 'protractor'), argv, {
