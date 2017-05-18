@@ -1,36 +1,28 @@
 #!/usr/bin/env node
 
+const commandArgs = require('minimist')(process.argv.slice(2));
 const path = require('path');
 const child_process = require('child_process');
 const envfile = require('node-env-file');
 const initializer = require('../helpers/initializer');
-const getCommandArguments = JSON.parse(process.env.npm_config_argv).original.slice(2);
 
-function isInitCommand() {
+const isInitCommand = () => {
   return process.argv.length > 2 && process.argv[2] === 'init';
 }
 
-function getPascalConfigPath() {
-  let configFile = 'pascal.conf.js';
+const getConfigPath = () => {
+  const configFile = 'pascal.conf.js';
 
-  const pascalConfig = getCommandArguments.find((arg) => arg.indexOf('--pascalConfig') >= 0);
-
-  if (pascalConfig !== undefined) {
-    const characterPosition = pascalConfig.indexOf('=');
-    configFile = pascalConfig.substr(characterPosition + 1);
-  }
-
-  return process.cwd() + '/' + configFile;
+  return (commandArgs.pascalConfig)
+    ? process.cwd() + '/' + commandArgs.pascalConfig
+    : process.cwd() + '/' + configFile;
 }
 
-function getScenariosTags() {
+const getScenariosTags = () => {
   const tags = [];
 
-  const tagsConfig = getCommandArguments.find((arg) => arg.indexOf('--tags') >= 0);
-
-  if (tagsConfig !== undefined) {
-    const characterPosition = tagsConfig.indexOf('=');
-    tagsConfig.substr(characterPosition+1).split(' ').forEach((tag) => {
+  if (commandArgs.tags !== undefined) {
+    commandArgs.tags.split(' ').forEach((tag) => {
       tags.push('--cucumberOpts.tags');
       tags.push(tag);
     });
@@ -48,23 +40,28 @@ if (isInitCommand()) {
     await initializer.generateProjectStructure();
   })();
 } else {
-  const optionsToFilter = ['--pascalConfig', '--projectPath', '--disableChecks', '--tags'];
-  const commandLineArgs = getCommandArguments.filter((arg) => {
-      const characterPosition = arg.indexOf('=');
-      if (characterPosition > 0) {
-        return !optionsToFilter.includes(arg.substr(0, characterPosition));
-      }
-      return !optionsToFilter.includes(arg);
-    });
+  const optionsToFilter = ['pascalConfig', 'projectPath', 'disableChecks', 'tags'];
+
+  const commandLineArgs = [];
+
+  for(const prop in commandArgs) {
+    if (prop !== '_' && !optionsToFilter.includes(prop)) {
+      commandLineArgs.push(`--${prop} ${commandArgs[prop]}`);
+    }
+  }
+
+  console.log(commandLineArgs);
 
   const argv = [
     'protractor.conf.js',
-    `--pascalConfig=${getPascalConfigPath()}`,
+    `--pascalConfig=${getConfigPath()}`,
     `--projectPath=${process.cwd()}`,
     '--disableChecks',
     ...getScenariosTags(),
     ...commandLineArgs
   ];
+
+  console.log(argv);
 
   child_process.spawn(path.join('node_modules', '.bin', 'protractor'), argv, {
     stdio: 'inherit',
