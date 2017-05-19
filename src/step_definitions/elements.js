@@ -405,4 +405,19 @@ module.exports = function () {
 
     return scrollToLoader();
   });
+
+  this.When('I set the rate:', function (data) {
+    const table = data.rowsHash();
+    const promise = [];
+
+    Object.keys(table).forEach((ratingTitle) => {
+      const expectedRating = this.currentPage[ratingTitle].get(parseInt(table[ratingTitle]) - 1);
+
+      promise.push(this.currentPage
+        .scrollIntoElement(ratingTitle, parseInt(table[ratingTitle]) - 1)
+        .then(() => expectedRating.click()));
+    });
+
+    return Promise.all(promise);
+  });
 };

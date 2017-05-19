@@ -1,13 +1,13 @@
 {
   "name": "pascal",
-  "version": "1.5.0",
+  "version": "1.7.0",
   "description": "End-to-end testing framework",
   "bin": {
     "pascal": "bin/pascal"
   },
   "scripts": {
     "postinstall": "webdriver-manager update",
-    "test": "mocha --require babel-register ./comparators/**/*.spec.js"
+    "test": "mocha --require babel-register ./src/comparators/**/*.spec.js"
   },
   "engines": {
     "node": ">=7.7.3",
