@@ -1,9 +1,8 @@
 const NumberComparator = {
   isSatisfiedBy: (values) => {
     for (let i = 0; i < values.length; i++) {
-      const currentValue = parseFloat(values[i]);
-
-      if (isNaN(currentValue)) {
+      const value = Number(values[i]);
+      if (isNaN(value)) {
         return false;
       }
     }
@@ -11,9 +10,13 @@ const NumberComparator = {
   },
 
   compare: (values, order) => {
-    for (let i = 1; i < values; i++) {
-      const previousValue = parseFloat(values[i - 1]);
-      const currentValue = parseFloat(values[i]);
+    for (let i = 1; i < values.length; i++) {
+      const previousValue = Number(values[i - 1]);
+      const currentValue = Number(values[i]);
+
+      if (isNaN(previousValue) || isNaN(currentValue)) {
+        return Promise.reject(`${values[i - 1]} and ${values[i]} cannot be NaN after conversion to Number`);
+      }
 
       if (order === 'ascending') {
         if (previousValue > currentValue) {
