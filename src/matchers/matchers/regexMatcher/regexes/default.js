@@ -1,7 +1,6 @@
 const regex = {
   arabianCharacters: '\u0621-\u064A',
   arabianNumbers: '\u0660-\u0669',
-  space: ' ',
   standardCharacters: 'a-zA-Z',
   standardNumbers: '0-9',
   notEmpty: '.+',
