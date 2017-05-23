@@ -411,11 +411,36 @@ module.exports = function () {
     const promise = [];
 
     Object.keys(table).forEach((ratingTitle) => {
-      const expectedRating = this.currentPage[ratingTitle].get(parseInt(table[ratingTitle]) - 1);
+      promise.push(
+        (async (rating) => {
+          const expectedRating = this.currentPage[rating].get(parseInt(table[rating]) - 1);
+          await this.currentPage.scrollIntoElement(rating, parseInt(table[rating]) - 1);
+          await expectedRating.click();
+        })(ratingTitle)
+      );
+    });
 
-      promise.push(this.currentPage
-        .scrollIntoElement(ratingTitle, parseInt(table[ratingTitle]) - 1)
-        .then(() => expectedRating.click()));
+    return Promise.all(promise);
+  });
+
+  this.When('the rate is set:', function (data) {
+    const table = data.rowsHash();
+    const promise = [];
+
+    Object.keys(table).forEach((ratingTitle) => {
+      promise.push(
+        (async (rating) => {
+          const expectedRating = parseInt(table[rating]);
+          const selectedRating = await this.currentPage[rating].count();
+          await this.currentPage.scrollIntoElement(rating, parseInt(table[rating]) - 1);
+
+          if (expectedRating !== selectedRating) {
+            return Promise.reject('Values in the rating are different!')
+          }
+
+          return Promise.resolve();
+        })(ratingTitle)
+      );
     });
 
     return Promise.all(promise);
