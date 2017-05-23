@@ -6,7 +6,7 @@ const regex = {
   notEmpty: '.+',
   number: '[0-9]+',
   pdfFile: '[\\w]+.pdf',
-  pdfFileType: 'application/pdf'
+  pdfFileType: 'application/pdf',
   email: "[a-z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
 };
 
