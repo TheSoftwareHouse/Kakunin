@@ -13,6 +13,10 @@ exports.config = {
       browserName: 'chrome',
       chromeOptions: {
         prefs: {
+          credentials_enable_service: false,
+          profile: {
+            password_manager_enabled: false
+          },
           download: {
             prompt_for_download: false,
             default_directory: pascalConfig.projectPath + pascalConfig.downloads,
