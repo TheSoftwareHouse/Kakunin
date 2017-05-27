@@ -7,7 +7,7 @@
   },
   "scripts": {
     "postinstall": "webdriver-manager update",
-    "test": "NODE_ENV=test mocha --require ./src/tests/init.js --require babel-register ./src/generators ./src/matchers ./src/comparators ./src/dictionaries ./src/emails  --recursive"
+    "test": "NODE_ENV=test mocha --require ./src/tests/init.js --require babel-register ./src --recursive"
   },
   "engines": {
     "node": ">=7.7.3",
