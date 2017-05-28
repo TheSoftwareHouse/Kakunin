@@ -1,6 +1,6 @@
-const pascalConfig = require('../helpers/pascalConfig');
+import config from '../helpers/config.helper';
 const { defineSupportCode } = require('cucumber');
 
 defineSupportCode(function({setDefaultTimeout}) {
-  setDefaultTimeout(Number(pascalConfig.timeout) * 1000);
+  setDefaultTimeout(Number(config.timeout) * 1000);
 });

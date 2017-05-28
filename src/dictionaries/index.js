@@ -1,1 +1,3 @@
-module.exports.dictionaries = require('./dictionaries').create();
+import { create } from './dictionaries';
+
+export const dictionaries = create();

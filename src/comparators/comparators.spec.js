@@ -1,11 +1,12 @@
-const modulesLoader = require('../helpers/modulesLoader').create({
+import { create } from './comparators';
+import { create as createModuleLoader } from '../helpers/modules-loader.helper';
+import { expect } from 'chai';
+
+const modulesLoader = createModuleLoader({
   projectPath: process.cwd()
 });
 
-const chai = require('chai');
-const expect = chai.expect;
-
-const comparators = require('./comparators').create(modulesLoader);
+const comparators = create(modulesLoader);
 
 describe('Comparators', () => {
   it('throws an error when no comparator was found', () => {

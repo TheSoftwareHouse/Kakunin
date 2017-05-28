@@ -1,8 +1,15 @@
-const modulesLoader = require('../helpers/modulesLoader').create();
+import * as comparator from './comparator';
+import { create  as createModulesLoader} from '../helpers/modules-loader.helper';
+
+const modulesLoader = createModulesLoader();
 
 class Comparators {
   constructor(loader) {
-    this.availableComparators = loader.getModules('comparators');
+    this.availableComparators = [
+      comparator.DateComparator,
+      comparator.NumberComparator,
+      ...loader.getModules('comparators')
+    ];
   }
 
   compare(values, order) {
@@ -20,4 +27,4 @@ class Comparators {
   }
 }
 
-module.exports.create = (loader = modulesLoader) => new Comparators(loader);
+export const create = (loader = modulesLoader) => new Comparators(loader);

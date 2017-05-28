@@ -1,4 +1,4 @@
-const { defineSupportCode } = require('cucumber');
+import { defineSupportCode } from 'cucumber';
 
 defineSupportCode(function ({ Then, Given }) {
   Given('I visit the "{pageName}" page', function (pageName) {

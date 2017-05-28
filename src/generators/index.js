@@ -1,1 +1,3 @@
-module.exports.generators = require('./generators').create();
+import { create } from './generators';
+
+export const generators = create();

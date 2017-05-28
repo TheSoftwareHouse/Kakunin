@@ -1,6 +1,6 @@
-const inquirer = require('inquirer');
-const mkdirp = require('mkdirp');
-const fs = require('fs');
+import inquirer from 'inquirer';
+import mkdirp from 'mkdirp';
+import fs from 'fs';
 
 class Initializer {
   createProjectDirectory(path) {
@@ -44,7 +44,7 @@ class Initializer {
   }
 
   async initConfig() {
-    const pascalConf = {};
+    const conf = {};
 
     await inquirer.prompt([
       {
@@ -58,37 +58,37 @@ class Initializer {
         ]
       }
     ]).then(function (answer) {
-      pascalConf.type = answer.type;
+      conf.type = answer.type;
     });
 
-    pascalConf.baseUrl = await this.promptFolders('What is base url?', 'http://localhost:3000');
+    conf.baseUrl = await this.promptFolders('What is base url?', 'http://localhost:3000');
 
-    pascalConf.browserWidth = await this.promptFolders('What is desired browser width?', 1600);
-    pascalConf.browserHeight = await this.promptFolders('What is desired browser height?', 900);
+    conf.browserWidth = await this.promptFolders('What is desired browser width?', 1600);
+    conf.browserHeight = await this.promptFolders('What is desired browser height?', 900);
 
-    pascalConf.timeout = await this.promptFolders('What is desired step timeout in seconds?', 60);
-    pascalConf.elementsVisibilityTimeout = await this.promptFolders('What is desired elements visibility timeout in seconds?', 5);
+    conf.timeout = await this.promptFolders('What is desired step timeout in seconds?', 60);
+    conf.elementsVisibilityTimeout = await this.promptFolders('What is desired elements visibility timeout in seconds?', 5);
 
-    pascalConf.reports = await this.promptFolders('Where are your reports stored?', '/reports');
-    pascalConf.downloads = await this.promptFolders('Where are your downloads stored?', '/downloads');
-    pascalConf.data = await this.promptFolders('Where is your data stored?', '/data');
+    conf.reports = await this.promptFolders('Where are your reports stored?', '/reports');
+    conf.downloads = await this.promptFolders('Where are your downloads stored?', '/downloads');
+    conf.data = await this.promptFolders('Where is your data stored?', '/data');
 
-    pascalConf.features = [await this.promptFolders('Where are your features stored?', '/features')];
-    pascalConf.pages = [await this.promptFolders('Where are your pages stored?', '/pages')];
-    pascalConf.matchers = [await this.promptFolders('Where are your matchers stored?', '/matchers')];
-    pascalConf.generators = [await this.promptFolders('Where are your generators stored?', '/generators')];
-    pascalConf.form_handlers = [await this.promptFolders('Where are your form handlers stored?', '/form_handlers')];
-    pascalConf.step_definitions = [await this.promptFolders('Where are your step definitions stored?', '/step_definitions')];
-    pascalConf.comparators = [await this.promptFolders('Where are your comparators stored?', '/comparators')];
-    pascalConf.dictionaries = [await this.promptFolders('Where are your dictionaries stored?', '/dictionaries')];
-    pascalConf.regexes = [await this.promptFolders('Where are your regexes stored?', '/regexes')];
-    pascalConf.hooks = [await this.promptFolders('Where are your hooks stored?', '/hooks')];
+    conf.features = [await this.promptFolders('Where are your features stored?', '/features')];
+    conf.pages = [await this.promptFolders('Where are your pages stored?', '/pages')];
+    conf.matchers = [await this.promptFolders('Where are your matchers stored?', '/matchers')];
+    conf.generators = [await this.promptFolders('Where are your generators stored?', '/generators')];
+    conf.form_handlers = [await this.promptFolders('Where are your form handlers stored?', '/form_handlers')];
+    conf.step_definitions = [await this.promptFolders('Where are your step definitions stored?', '/step_definitions')];
+    conf.comparators = [await this.promptFolders('Where are your comparators stored?', '/comparators')];
+    conf.dictionaries = [await this.promptFolders('Where are your dictionaries stored?', '/dictionaries')];
+    conf.regexes = [await this.promptFolders('Where are your regexes stored?', '/regexes')];
+    conf.hooks = [await this.promptFolders('Where are your hooks stored?', '/hooks')];
 
-    pascalConf.clearEmailInboxBeforeTests = await this.promptFolders('Should email inbox be cleared before tests?', '', 'confirm');
-    pascalConf.clearCookiesAfterScenario = await this.promptFolders('Should cookies be cleared after scenario?', '', 'confirm');
-    pascalConf.clearLocalStorageAfterScenario = await this.promptFolders('Should local storage be cleared after scenario?', '', 'confirm');
+    conf.clearEmailInboxBeforeTests = await this.promptFolders('Should email inbox be cleared before tests?', '', 'confirm');
+    conf.clearCookiesAfterScenario = await this.promptFolders('Should cookies be cleared after scenario?', '', 'confirm');
+    conf.clearLocalStorageAfterScenario = await this.promptFolders('Should local storage be cleared after scenario?', '', 'confirm');
 
-    pascalConf.accounts = {
+    conf.accounts = {
       someAccount: {
         accounts: [
           {
@@ -99,7 +99,7 @@ class Initializer {
       }
     };
 
-    this.createTemplateFile('/pascal.conf.js', 'module.exports = ' + JSON.stringify(pascalConf, null, 4));
+    this.createTemplateFile('/kakunin.conf.js', 'module.exports = ' + JSON.stringify(conf, null, 4));
   }
 
   async initEnv() {
@@ -114,31 +114,31 @@ class Initializer {
   }
 
   async generateProjectStructure() {
-    const pascalConfig = require(process.cwd() + '/pascal.conf.js');
+    const config = require(process.cwd() + '/kakunin.conf.js');
 
-    this.createProjectDirectory(pascalConfig.reports);
-    this.createProjectDirectory(pascalConfig.downloads);
-    this.createProjectDirectory(pascalConfig.data);
+    this.createProjectDirectory(config.reports);
+    this.createProjectDirectory(config.downloads);
+    this.createProjectDirectory(config.data);
 
-    this.createProjectDirectory(pascalConfig.features[0]);
-    this.createProjectDirectory(pascalConfig.pages[0]);
-    this.createProjectDirectory(pascalConfig.matchers[0]);
-    this.createProjectDirectory(pascalConfig.generators[0]);
-    this.createProjectDirectory(pascalConfig.form_handlers[0]);
-    this.createProjectDirectory(pascalConfig.step_definitions[0]);
-    this.createProjectDirectory(pascalConfig.comparators[0]);
-    this.createProjectDirectory(pascalConfig.dictionaries[0]);
-    this.createProjectDirectory(pascalConfig.regexes[0]);
-    this.createProjectDirectory(pascalConfig.hooks[0]);
+    this.createProjectDirectory(config.features[0]);
+    this.createProjectDirectory(config.pages[0]);
+    this.createProjectDirectory(config.matchers[0]);
+    this.createProjectDirectory(config.generators[0]);
+    this.createProjectDirectory(config.form_handlers[0]);
+    this.createProjectDirectory(config.step_definitions[0]);
+    this.createProjectDirectory(config.comparators[0]);
+    this.createProjectDirectory(config.dictionaries[0]);
+    this.createProjectDirectory(config.regexes[0]);
+    this.createProjectDirectory(config.hooks[0]);
 
-    this.createTemplateFileWithContentFrom(pascalConfig.features[0] + '/example.feature', 'example.feature');
-    this.createTemplateFileWithContentFrom(pascalConfig.pages[0] + '/page.js', 'page.js');
-    this.createTemplateFileWithContentFrom(pascalConfig.matchers[0] + '/matcher.js', 'matcher.js');
-    this.createTemplateFileWithContentFrom(pascalConfig.generators[0] + '/generator.js', 'generator.js');
-    this.createTemplateFileWithContentFrom(pascalConfig.step_definitions[0] + '/steps.js', 'steps.js');
-    this.createTemplateFileWithContentFrom(pascalConfig.regexes[0] + '/regex.js', 'regex.js');
-    this.createTemplateFileWithContentFrom(pascalConfig.hooks[0] + '/hook.js', 'hook.js');
+    this.createTemplateFileWithContentFrom(config.features[0] + '/example.feature', 'example.feature');
+    this.createTemplateFileWithContentFrom(config.pages[0] + '/page.js', 'page.js');
+    this.createTemplateFileWithContentFrom(config.matchers[0] + '/matcher.js', 'matcher.js');
+    this.createTemplateFileWithContentFrom(config.generators[0] + '/generator.js', 'generator.js');
+    this.createTemplateFileWithContentFrom(config.step_definitions[0] + '/steps.js', 'steps.js');
+    this.createTemplateFileWithContentFrom(config.regexes[0] + '/regex.js', 'regex.js');
+    this.createTemplateFileWithContentFrom(config.hooks[0] + '/hook.js', 'hook.js');
   }
 }
 
-module.exports = new Initializer();
+export default new Initializer();

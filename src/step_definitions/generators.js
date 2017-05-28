@@ -1,7 +1,6 @@
-const { defineSupportCode } = require('cucumber');
-
-const variableStore = require('../helpers/variableStore');
-const generators = require('../generators').generators;
+import { defineSupportCode } from 'cucumber';
+import variableStore from '../helpers/variable-store.helper';
+import { generators } from '../generators';
 
 defineSupportCode(function ({ When }) {
   When('I generate random "{generatorName}" as "{variableName}"', function (generatorName, variableName) {

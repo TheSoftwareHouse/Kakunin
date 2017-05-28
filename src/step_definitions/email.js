@@ -1,9 +1,10 @@
-const { defineSupportCode } = require('cucumber');
+import { defineSupportCode } from 'cucumber';
+import sugar from 'sugar-date';
+import { filters } from '../emails/filters';
+import { regexBuilder } from '../matchers';
+import { create } from '../emails/mailtrap.client';
 
-const mailTrapClient = require('../emails/mailtrapClient').create();
-const regexBuilder = require('../matchers/matchers/regexMatcher/regexBuilder');
-const filters = require('../emails/filters');
-const sugar = require('sugar-date');
+const mailTrapClient = create();
 
 defineSupportCode(function ({ Then }) {
   function stopInterval(interval, callback) {

@@ -1,6 +1,6 @@
-const { defineSupportCode } = require('cucumber');
-const fileManager = require('../helpers/fileManager');
-const variableStore = require('../helpers/variableStore');
+import { defineSupportCode } from 'cucumber';
+import fileManager from '../helpers/file-manager.helper';
+import variableStore from '../helpers/variable-store.helper';
 
 defineSupportCode(function ({ Then }) {
   Then('the file "{filename}" should be downloaded', function (filename) {

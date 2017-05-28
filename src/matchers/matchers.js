@@ -1,8 +1,20 @@
-const modulesLoader = require('../helpers/modulesLoader').create();
+import { create as createModulesLoader } from '../helpers/modules-loader.helper';
+import * as matcher from './matcher';
+
+const modulesLoader = createModulesLoader();
 
 class Matchers {
   constructor(loader) {
-    this.availableMatchers = loader.getModules('matchers');
+    this.availableMatchers = [
+      matcher.regexMatcher,
+      matcher.clickableMatcher,
+      matcher.invisibleMatcher,
+      matcher.notClickableMatcher,
+      matcher.presentMatcher,
+      matcher.textMatcher,
+      matcher.visibleMatcher,
+      ...loader.getModules('matchers')
+    ];
   }
 
   match(element, matcherName) {
@@ -20,4 +32,4 @@ class Matchers {
   }
 }
 
-module.exports.create = (loader = modulesLoader) => new Matchers(loader);
+export const create = (loader = modulesLoader) => new Matchers(loader);

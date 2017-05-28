@@ -1,1 +1,3 @@
-module.exports.comparators = require('./comparators').create();
+import { create } from './comparators';
+
+export const comparators = create();

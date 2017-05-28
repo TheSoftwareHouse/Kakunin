@@ -1,14 +1,12 @@
-const { defineSupportCode } = require('cucumber');
-
-const matchers = require('../matchers').matchers;
-const variableStore = require('../helpers/variableStore');
-const regexBuilder = require('../matchers/matchers/regexMatcher/regexBuilder');
-const comparators = require('../comparators').comparators;
-const pascalConfig = require('../helpers/pascalConfig');
+import { defineSupportCode } from 'cucumber';
+import { matchers, regexBuilder } from '../matchers';
+import variableStore from '../helpers/variable-store.helper';
+import { comparators } from '../comparators';
+import config from '../helpers/config.helper';
 
 defineSupportCode(function ({ When, Then }) {
   When('I wait for "{condition}" of the "{elementName}" element', function (condition, elementName) {
-    const timeout = parseInt(pascalConfig.elementsVisibilityTimeout) * 1000;
+    const timeout = parseInt(config.elementsVisibilityTimeout) * 1000;
     return browser.wait(protractor.ExpectedConditions[condition](this.currentPage[elementName], timeout));
   });
 

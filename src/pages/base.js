@@ -1,4 +1,4 @@
-const pascalConfig = require('../helpers/pascalConfig');
+import config from '../helpers/config.helper';
 
 class Page {
   constructor() {
@@ -8,7 +8,7 @@ class Page {
   visit() {
     const page = this;
 
-    if (page.isExternal || pascalConfig.type === 'otherWeb') {
+    if (page.isExternal || config.type === 'otherWeb') {
       return protractor.browser.get(page.url);
     }
 
@@ -95,4 +95,5 @@ class Page {
     return browser.executeScript('arguments[0].scrollIntoView(false);', this[elementName].getWebElement());
   }
 }
-module.exports = Page;
+
+export default Page;

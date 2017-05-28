@@ -1,4 +1,6 @@
-const modulesLoader = require('../helpers/modulesLoader').create();
+import { create as createModulesLoader } from '../helpers/modules-loader.helper';
+
+const modulesLoader = createModulesLoader();
 
 class Dictionaries {
   constructor(loader) {
@@ -20,4 +22,4 @@ class Dictionaries {
   }
 }
 
-module.exports.create = (loader = modulesLoader) => new Dictionaries(loader);
+export const create = (loader = modulesLoader) => new Dictionaries(loader);

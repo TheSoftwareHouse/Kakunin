@@ -1,14 +1,15 @@
-const modulesLoader = require('../helpers/modulesLoader').create({
+import { create } from './dictionaries';
+import { create as createModulesLoader } from '../helpers/modules-loader.helper';
+import { expect } from 'chai';
+
+const modulesLoader = createModulesLoader({
   projectPath: process.cwd(),
   dictionaries: [
     '/src/tests/dictionaries'
   ]
 });
 
-const chai = require('chai');
-const expect = chai.expect;
-
-const dictionaries = require('./dictionaries').create(modulesLoader);
+const dictionaries = create(modulesLoader);
 
 describe('Dictionaries', () => {
   it('throws an error when no dictionary was found', () => {
