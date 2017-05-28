@@ -1,1 +1,1 @@
-module.exports.dictionaries = require('./dictionaries');
+module.exports.dictionaries = require('./dictionaries').create();
