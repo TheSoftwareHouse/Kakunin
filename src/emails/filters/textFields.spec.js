@@ -11,7 +11,7 @@ describe('Text fields filter', () => {
     supportedTypes.forEach((type) => expect(textFields.isSatisfiedBy(type)).to.equals(true));
   });
 
-  it('returns false when not supported typ passed', () => {
+  it('returns false when not supported type passed', () => {
     expect(textFields.isSatisfiedBy('unsupportedName')).to.equals(false);
   });
 
