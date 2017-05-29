@@ -22,10 +22,8 @@ const getScenariosTags = () => {
   const tags = [];
 
   if (commandArgs.tags !== undefined) {
-    commandArgs.tags.split(' ').forEach((tag) => {
-      tags.push('--cucumberOpts.tags');
-      tags.push(tag);
-    });
+    tags.push('--cucumberOpts.tags');
+    tags.push(commandArgs.tags);
   }
 
   return tags;
