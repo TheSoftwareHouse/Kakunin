@@ -8,6 +8,5 @@
 
 ###Note: run all tags - `npm run pascal`
 ###Note: run single tag - `npm run pascal -- --tags="@tag"`
-###Note: run tags with "or" argument - `npm run pascal -- --tags="@tag,@tag2,@tag3"`
-###Note: run tags with "and" argument - `npm run pascal -- --tags="@tag @tag2 @tag3"`
-###Note: keep in mind that you can use ` ` or `=` sign while running tests
+###Note: run tags with "or" argument - `npm run pascal -- --tags="@tag or @tag2 or @tag3"`
+###Note: run tags with "and" argument - `npm run pascal -- --tags="@tag and @tag2 and @tag3"`
