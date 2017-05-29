@@ -1,1 +1,1 @@
-module.exports.generators = require('./generators');
+module.exports.generators = require('./generators').create();

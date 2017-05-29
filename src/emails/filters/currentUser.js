@@ -1,3 +1,5 @@
+// TODO: stop injecting world here and use some kind of a user provider
+
 class CurrentUserFilter {
   isSatisfiedBy(type) {
     return type === 'currentUser';

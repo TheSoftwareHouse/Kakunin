@@ -1,8 +1,6 @@
-const fs = require('fs');
-const pascalConfig = require('../helpers/pascalConfig');
-const modulesLoader = require('../helpers/modulesLoader');
+const modulesLoader = require('../helpers/modulesLoader').create();
 
-const availableHandlers = modulesLoader.getModules(pascalConfig.form_handlers, [__dirname + '/form_handlers']);
+const availableHandlers = modulesLoader.getModules('form_handlers');
 
 const FormHandler = {
 

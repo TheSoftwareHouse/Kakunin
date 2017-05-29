@@ -1,9 +1,7 @@
 const extend = require('extend');
-const fs = require('fs');
-const pascalConfig = require('../../../helpers/pascalConfig');
-const modulesLoader = require('../../../helpers/modulesLoader');
+const modulesLoader = require('../../../helpers/modulesLoader').create();
 
-const availableRegexes = modulesLoader.getModules(pascalConfig.regexes, [__dirname + '/regexes']);
+const availableRegexes = modulesLoader.getModules('regexes');
 
 let regexes = {};
 

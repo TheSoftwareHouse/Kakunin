@@ -1,4 +1,4 @@
-const UnclickMatcher = {
+const notClickableMatcher = {
   isSatisfiedBy: function (prefix, name) {
     return prefix === 'f:' && name === 'isNotClickable';
   },
@@ -9,4 +9,4 @@ const UnclickMatcher = {
   }
 };
 
-module.exports = UnclickMatcher;
+module.exports = notClickableMatcher;

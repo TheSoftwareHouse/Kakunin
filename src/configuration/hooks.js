@@ -1,56 +1,42 @@
 const pascalConfig = require('../helpers/pascalConfig');
 const fs = require('fs');
+const path = require('path');
 const userProvider = require('../helpers/userProvider');
 const fixturesLoader = require('../helpers/fixturesLoader');
 const parameters = require('./parameters');
 const chalk = require('chalk');
-const Cucumber = require('cucumber');
+const { defineSupportCode } = require('cucumber');
+
 const report = require('cucumber-html-report');
 const outputDir = pascalConfig.projectPath + pascalConfig.reports;
 const variableStore = require('../helpers/variableStore');
 
-const createHtmlReport = function (sourceJson) {
+const createHtmlReport = (sourceJson) => {
   report.create({
     source: sourceJson,
     dest: outputDir,
     name: 'index.html'
-  }).then(console.log)
-    .catch(console.error);
+  }).then((res) => console.log(res))
+    .catch((err) => console.log(err));
 };
 
-const JsonFormatter = Cucumber.Listener.JsonFormatter();
-JsonFormatter.log = function (string) {
-  if (!fs.existsSync(outputDir)) {
-    fs.mkdirSync(outputDir);
-  }
-
-  const targetJson = outputDir + '/cucumber_report.json';
-  fs.writeFile(targetJson, string, function (err) {
-    if (err) {
-      console.log('Failed to save cucumber test results to json file.');
-      console.log(err);
-    } else {
-      createHtmlReport(targetJson);
-    }
-  });
-};
-
-function logRequestTime(timeStart) {
+const logRequestTime = (timeStart) => {
   const timeDiff = process.hrtime(timeStart);
 
-  console.log(chalk.black.bgYellow('Request took ' + (timeDiff[0] + timeDiff[1] / 1000000000) + ' seconds'));
-}
+  console.log(chalk.black.bgYellow('Request took ' + (timeDiff[0] + (timeDiff[1] / 1000000000)) + ' seconds'));
+};
 
-function takeScreenshot(scenario, callback) {
+const takeScreenshot = (scenario, callback) => {
   browser.takeScreenshot().then(function (base64png) {
     scenario.attach(new Buffer(base64png, 'base64'), 'image/png', callback);
-  }, function (error) {
+  }, function () {
     callback();
   });
-}
+};
 
-function clearCookiesAndLocalStorage(callback) {
+const clearCookiesAndLocalStorage = (callback) => {
   let cookiesFunc = () => Promise.resolve();
+
   if (pascalConfig.clearCookiesAfterScenario) {
     cookiesFunc = () => protractor.browser.manage().deleteAllCookies();
   }
@@ -60,37 +46,38 @@ function clearCookiesAndLocalStorage(callback) {
     localStorageFunc = () => protractor.browser.executeScript('window.localStorage.clear();');
   }
 
-  cookiesFunc()
-    .then(function () {
-      localStorageFunc().then(function () {
-        protractor.browser.ignoreSynchronization = pascalConfig.type === 'otherWeb';
-        callback();
-      });
+  cookiesFunc().then(() => {
+    localStorageFunc().then(() => {
+      protractor.browser.ignoreSynchronization = pascalConfig.type === 'otherWeb';
+      callback();
     });
-}
-
-function clearDownload(callback) {
-  const files = fs.readdirSync(pascalConfig.projectPath + pascalConfig.downloads).filter(function (file) {
-    return file !== '.gitkeep';
   });
+};
+
+const clearDownload = (callback) => {
+  const files = fs
+    .readdirSync(pascalConfig.projectPath + pascalConfig.downloads)
+    .filter(function (file) {
+      return file !== '.gitkeep';
+    });
 
   for (let index = 0; index < files.length; index++) {
     fs.unlinkSync(pascalConfig.projectPath + pascalConfig.downloads + '/' + files[index]);
   }
 
   callback();
-}
+};
 
-module.exports = function () {
-  this.After(function (scenario, callback) {
+defineSupportCode(({registerHandler, After, Before}) => {
+  After(function (scenario, callback) {
     if (scenario.isFailed()) {
-      takeScreenshot(scenario, () => { clearCookiesAndLocalStorage(callback); });
+      takeScreenshot(this, () => { clearCookiesAndLocalStorage(callback); });
     } else {
       clearCookiesAndLocalStorage(callback);
     }
   });
 
-  this.Before(function (scenario, callback) {
+  Before(function (scenario, callback) {
     this.currentUser = null;
 
     if (typeof (this.userProvider) === 'undefined') {
@@ -102,15 +89,15 @@ module.exports = function () {
     callback();
   });
 
-  this.Before('@downloadClearBefore', function (scenario, callback) {
+  Before('@downloadClearBefore', function (scenario, callback) {
     clearDownload(callback);
   });
 
-  this.After('@downloadClearAfter', function (scenario, callback) {
+  After('@downloadClearAfter', function (scenario, callback) {
     clearDownload(callback);
   });
 
-  this.Before('@reloadFixtures', function (scenario, callback) {
+  Before('@reloadFixtures', function (scenario, callback) {
     console.log(chalk.black.bgYellow('Reloading fixtures'));
 
     const timeStart = process.hrtime();
@@ -134,7 +121,7 @@ module.exports = function () {
     });
   });
 
-  this.After('@reloadUsers', function (scenario, callback) {
+  After('@reloadUsers', function (scenario, callback) {
     if (this.currentUser !== null) {
       this.userProvider.lockUser(this.currentUser.account, this.currentUser.type);
     }
@@ -142,7 +129,28 @@ module.exports = function () {
     callback();
   });
 
-  this.registerListener(JsonFormatter);
+  registerHandler('AfterFeatures', function (features, callback) {
+    if (!fs.existsSync(outputDir)) {
+      fs.mkdirSync(outputDir);
+    }
+
+    const files = fs.readdirSync(outputDir).filter((file) => file.indexOf('features-report') >= 0);
+    const targetJson = path.join(outputDir, 'cucumber_report.json');
+
+    const content = fs.readFileSync(path.join(outputDir, files[0]))
+
+    fs.writeFile(targetJson, content, (err) => {
+      fs.unlinkSync(path.join(outputDir, files[0]));
+      if (err) {
+        console.log('Failed to save cucumber test results to json file.');
+        console.log(err);
+        callback();
+      } else {
+        createHtmlReport(targetJson);
+        callback();
+      }
+    });
+  });
 
   protractor.browser.ignoreSynchronization = pascalConfig.type === 'otherWeb';
-};
+})

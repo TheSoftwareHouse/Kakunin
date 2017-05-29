@@ -1,28 +1,60 @@
 const fs = require('fs');
+const path = require('path');
 
 const pascalConfig = require('./pascalConfig');
 
 class ModulesLoader {
+  constructor(config) {
+    this.paths = {
+      comparators: [
+        path.join(__dirname, '..', '/comparators/comparators')
+      ],
+      dictionaries: [
+        path.join(__dirname, '..', '/dictionaries/dictionaries')
+      ],
+      form_handlers: [
+        path.join(__dirname, '..', '/form_handlers/form_handlers')
+      ],
+      generators: [
+        path.join(__dirname, '..', '/generators/generators')
+      ],
+      matchers: [
+        path.join(__dirname, '..', '/matchers/matchers')
+      ],
+      regexes: [
+        path.join(__dirname, '..', '/matchers/matchers/regexMatcher/regexes')
+      ]
+    };
 
-  getModules(projectFolders, pascalFolders) {
-    return this.getFilePaths(projectFolders, pascalFolders).map(file => require(file[1]));
+    Object.keys(this.paths).forEach((group) => {
+      if (typeof config[group] !== 'undefined') {
+        config[group]
+          .forEach((groupPath) => this.paths[group].push(
+            path.join(config.projectPath + groupPath)
+          ));
+      }
+    });
   }
 
-  getModulesAsObject(projectFolders, pascalFolders) {
+  getModules(group) {
+    return this
+      .getFilePaths(
+        this.paths[group]).map(file => require(file[1]) // eslint-disable-line global-require
+      );
+  }
+
+  getModulesAsObject(projectFolders) {
     const modules = {};
-    const filePaths = this.getFilePaths(projectFolders, pascalFolders);
+    const filePaths = this.getFilePaths(projectFolders);
 
     filePaths.forEach(file => {
-      modules[file[0]] = require(file[1]);
+      modules[file[0]] = require(file[1]); // eslint-disable-line global-require
     });
 
     return modules;
   }
 
-  getFilePaths(projectFolders, pascalFolders) {
-    projectFolders = projectFolders.map(folder => pascalConfig.projectPath + folder);
-
-    const folders = [...pascalFolders, ...projectFolders];
+  getFilePaths(folders) {
     let files = [];
 
     folders.forEach(
@@ -46,4 +78,4 @@ class ModulesLoader {
   }
 }
 
-module.exports = new ModulesLoader();
+module.exports.create = (config = pascalConfig) => new ModulesLoader(config);

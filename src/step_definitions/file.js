@@ -1,12 +1,13 @@
+const { defineSupportCode } = require('cucumber');
 const fileManager = require('../helpers/fileManager');
 const variableStore = require('../helpers/variableStore');
 
-module.exports = function () {
-  this.Then('the file "$filename" should be downloaded', function (filename) {
+defineSupportCode(function ({ Then }) {
+  Then('the file "{filename}" should be downloaded', function (filename) {
     return fileManager.wasDownloaded(variableStore.replaceTextVariables(filename));
   });
 
-  this.Then('the file "$filename" contains table data stored under "$variableName" variable', function (filename, variableName) {
+  Then('the file "{filename}" contains table data stored under "{variableName}" variable', function (filename, variableName) {
     const file = fileManager.parseXLS(variableStore.replaceTextVariables(filename));
     let availableData = variableStore.getVariableValue(variableName);
 
@@ -44,4 +45,4 @@ module.exports = function () {
 
     return Promise.reject('Some rows not found: ' + missingRows.map((row) => row[0]).join(', '));
   });
-};
+});

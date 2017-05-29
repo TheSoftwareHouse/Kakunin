@@ -9,7 +9,9 @@ module.exports = {
       "skipBlankLines": true
     }]
   },
-
+  "globals": {
+    "Promise": true
+  },
   "env": {
     "browser": true,
     "node": true,

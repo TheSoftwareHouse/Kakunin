@@ -1,4 +1,5 @@
 const availableFilters = require('fs').readdirSync(__dirname + '/filters')
+  .filter((filename) => filename.indexOf('.spec.js') < 0)
   .map((filename) => require(__dirname + '/filters/' + filename));
 
 class Filters {
