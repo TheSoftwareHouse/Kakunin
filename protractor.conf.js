@@ -3,7 +3,7 @@ const path = require('path');
 const chai = require('chai');
 const modulesLoader = require('./src/helpers/modulesLoader').create();
 const chaiAsPromised = require('chai-as-promised');
-const mailTrapClient = require('./src/emails/mailtrapClient');
+const mailTrapClient = require('./src/emails/mailtrapClient').create();
 chai.use(chaiAsPromised);
 
 const pascalConfig = require('./src/helpers/pascalConfig');
