@@ -27,11 +27,11 @@ const logRequestTime = (timeStart) => {
 };
 
 const takeScreenshot = (scenario) => {
-  browser.takeScreenshot().then(function (base64png) {
+  return browser.takeScreenshot().then(function (base64png) {
     scenario.attach(new Buffer(base64png, 'base64'), 'image/png');
     return Promise.resolve();
   }, function () {
-    Promise.resolve();
+    return Promise.resolve();
   });
 };
 
