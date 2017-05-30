@@ -56,11 +56,12 @@ const logRequestTime = timeStart => {
   console.log(_chalk2.default.black.bgYellow('Request took ' + (timeDiff[0] + timeDiff[1] / 1000000000) + ' seconds'));
 };
 
-const takeScreenshot = (scenario, callback) => {
+const takeScreenshot = scenario => {
   browser.takeScreenshot().then(function (base64png) {
-    scenario.attach(new Buffer(base64png, 'base64'), 'image/png', callback);
+    scenario.attach(new Buffer(base64png, 'base64'), 'image/png');
+    return Promise.resolve();
   }, function () {
-    callback();
+    Promise.resolve();
   });
 };
 
@@ -99,7 +100,7 @@ const clearDownload = callback => {
 (0, _cucumber.defineSupportCode)(({ registerHandler, After, Before }) => {
   After(function (scenario, callback) {
     if (scenario.isFailed()) {
-      takeScreenshot(this, () => {
+      takeScreenshot(this).then(() => {
         clearCookiesAndLocalStorage(callback);
       });
     } else {
