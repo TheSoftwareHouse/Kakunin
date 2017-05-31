@@ -13,11 +13,11 @@ var _variableStore2 = _interopRequireDefault(_variableStore);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 (0, _cucumber.defineSupportCode)(function ({ Then }) {
-  Then('the file "{filename}" should be downloaded', function (filename) {
+  Then(/^the file "([^"]*)" should be downloaded$/, function (filename) {
     return _fileManager2.default.wasDownloaded(_variableStore2.default.replaceTextVariables(filename));
   });
 
-  Then('the file "{filename}" contains table data stored under "{variableName}" variable', function (filename, variableName) {
+  Then(/^the file "([^"]*)" contains table data stored under "([^"]*)" variable$/, function (filename, variableName) {
     const file = _fileManager2.default.parseXLS(_variableStore2.default.replaceTextVariables(filename));
     let availableData = _variableStore2.default.getVariableValue(variableName);
 

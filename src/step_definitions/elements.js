@@ -5,16 +5,16 @@ import { comparators } from '../comparators';
 import config from '../helpers/config.helper';
 
 defineSupportCode(function ({ When, Then }) {
-  When('I wait for "{condition}" of the "{elementName}" element', function (condition, elementName) {
+  When(/^I wait for "([^"]*)" of the "([^"]*)" element$/, function (condition, elementName) {
     const timeout = parseInt(config.elementsVisibilityTimeout) * 1000;
     return browser.wait(protractor.ExpectedConditions[condition](this.currentPage[elementName], timeout));
   });
 
-  When('I scroll to the "{elementName}" element', function (elementName) {
+  When(/^I scroll to the "([^"]*)" element$/, function (elementName) {
     return this.currentPage.scrollIntoElement(elementName);
   });
 
-  When('I click the "{elementName}" element', function (elementName) {
+  When(/^I click the "([^"]*)" element$/, function (elementName) {
     const self = this;
 
     return self.currentPage.scrollIntoElement(elementName)
@@ -39,7 +39,7 @@ defineSupportCode(function ({ When, Then }) {
       });
   });
 
-  When('I click the "{elementName}" "{parameter}" element', function (elementName, parameter) {
+  When(/^I click the "([^"]*)" "([^"]*)" element$/, function (elementName, parameter) {
     const self = this;
 
     return browser.executeScript('arguments[0].scrollIntoView(false);', this.currentPage[elementName](parameter).getWebElement())
@@ -48,7 +48,7 @@ defineSupportCode(function ({ When, Then }) {
       });
   });
 
-  When('I click the "{elementName}" element if it is visible', function (elementName) {
+  When(/^I click the "([^"]*)" element if it is visible$/, function (elementName) {
     const self = this;
 
     return this.currentPage.isVisible(elementName).then(function () {
@@ -61,11 +61,11 @@ defineSupportCode(function ({ When, Then }) {
     });
   });
 
-  When('I store the "{element}" element text as "{variable}" variable', function (element, variable) {
+  When(/^I store the "([^"]*)" element text as "([^"]*)" variable$/, function (element, variable) {
     return this.currentPage[element].getText().then((text) => { variableStore.storeVariable(variable, text); });
   });
 
-  When('I store the "{element}" element text matched by "{matcher}" as "{variable}" variable', function (element, matcher, variable) {
+  When(/^I store the "([^"]*)" element text matched by "([^"]*)" as "([^"]*)" variable$/, function (element, matcher, variable) {
     const regex = regexBuilder.buildRegex(matcher);
 
     return this.currentPage[element].getText().then((text) => {
@@ -83,11 +83,11 @@ defineSupportCode(function ({ When, Then }) {
     });
   });
 
-  When('I click the "{element}" on the first item of "{container}" element', function (element, container) {
+  When(/^I click the "([^"]*)" on the first item of "([^"]*)" element$/, function (element, container) {
     return this.currentPage[container].first().element(this.currentPage[element]).click();
   });
 
-  When('I wait for the "{elementName}" element to disappear', function (element, sync) {
+  When(/^I wait for the "([^"]*)" element to disappear$/, function (element, sync) {
     const self = this;
     let maxRepeats = 10;
 
@@ -111,27 +111,27 @@ defineSupportCode(function ({ When, Then }) {
     }, 1500);
   });
 
-  Then('the "{elementName}" element is present', function (elementName) {
+  Then(/^the "([^"]*)" element is present$/, function (elementName) {
     return expect(this.currentPage.isPresent(elementName)).to.eventually.be.true;
   });
 
-  Then('the "{elementName}" element is not present', function (elementName) {
+  Then(/^the "([^"]*)" element is not present$/, function (elementName) {
     return expect(this.currentPage.isPresent(elementName)).to.eventually.be.false;
   });
 
-  Then('the "{elementName}" element is visible', function (elementName) {
+  Then(/^the "([^"]*)" element is visible$/, function (elementName) {
     return this.currentPage.isVisible(elementName);
   });
 
-  Then('the "{elementName}" element is not visible', function (elementName) {
+  Then(/^the "([^"]*)" element is not visible$/, function (elementName) {
     return expect(this.currentPage.isVisible(elementName)).to.eventually.be.false;
   });
 
-  Then('the "{elementName}" element is disabled', function (elementName) {
+  Then(/^the "([^"]*)" element is disabled$/, function (elementName) {
     return expect(this.currentPage.isDisabled(elementName)).to.eventually.be.true;
   });
 
-  When('I store table "{table}" rows as "{variableName}" with columns:', function (table, variableName, data) {
+  When(/^I store table "([^"]*)" rows as "([^"]*)" with columns:$/, function (table, variableName, data) {
     const self = this;
     const columns = data.raw().map((element) => element[0]);
     const promises = [];
@@ -153,7 +153,7 @@ defineSupportCode(function ({ When, Then }) {
     });
   });
 
-  Then('there are following elements in table "{table}":', function (table, data) {
+  Then(/^there are following elements in table "([^"]*)":$/, function (table, data) {
     const self = this;
     const allElements = this.currentPage[table];
     const hashes = data.hashes();
@@ -177,14 +177,14 @@ defineSupportCode(function ({ When, Then }) {
     });
   });
 
-  Then('the "{popupName}" popup appears', function (popupName) {
+  Then(/^the "([^"]*)" popup appears$/, function (popupName) {
     const self = this;
     return expect(this.currentPage.isVisible(popupName)).to.be.eventually.fulfilled.then(function () {
       return self.currentPage.click(popupName + 'CloseBtn');
     });
   });
 
-  Then('there are "{numberExpression}" following elements for element "{element}":', function (numberExpression, element, data) {
+  Then(/^there are "([^"]*)" following elements for element "([^"]*)":$/, function (numberExpression, element, data) {
     const self = this;
     const allElements = this.currentPage[element];
     const hashedData = data.hashes();
@@ -209,7 +209,7 @@ defineSupportCode(function ({ When, Then }) {
     });
   });
 
-  Then('there is element "{element}" with value "{value}"', function (element, value) {
+  Then(/^there is element "([^"]*)" with value "([^"]*)"$/, function (element, value) {
     const pageElement = this.currentPage[element];
 
     return matchers.match(pageElement, variableStore.replaceTextVariables(value)).then(function (matcherResult) {
@@ -217,7 +217,7 @@ defineSupportCode(function ({ When, Then }) {
     });
   });
 
-  Then('there is no element "{element}" with value "{value}"', function (element, value) {
+  Then(/^there is no element "([^"]*)" with value "([^"]*)"$/, function (element, value) {
     const pageElement = this.currentPage[element];
 
     return matchers.match(pageElement, variableStore.replaceTextVariables(value)).then(function (matcherResult) {
@@ -240,9 +240,9 @@ defineSupportCode(function ({ When, Then }) {
     );
   }
 
-  Then('there are "{numberExpression}" "{elementName}" elements', checkNumberOfElements);
+  Then('there are "([^"]*)" "([^"]*)" elements', checkNumberOfElements);
 
-  Then('the number of "{firstElement}" elements is the same as the number of "{secondElement}" elements', function (firstElement, secondElement) {
+  Then(/^the number of "([^"]*)" elements is the same as the number of "([^"]*)" elements$/, function (firstElement, secondElement) {
     const self = this;
 
     return this.currentPage[secondElement].count().then(function (secondElementCount) {
@@ -250,7 +250,7 @@ defineSupportCode(function ({ When, Then }) {
     });
   });
 
-  Then('every "{containerName}" element should have the same value for element "{elementName}"', function (containerName, elementName) {
+  Then(/^every "([^"]*)" element should have the same value for element "([^"]*)"$/, function (containerName, elementName) {
     const self = this;
 
     return this.currentPage[containerName]
@@ -270,7 +270,7 @@ defineSupportCode(function ({ When, Then }) {
       );
   });
 
-  Then('every "{containerName}" element should have the same value for element "{elementName}" attribute "{attributeName}"', function (containerName, elementName, attributeName) {
+  Then(/^every "([^"]*)" element should have the same value for element "([^"]*)" attribute "([^"]*)"$/, function (containerName, elementName, attributeName) {
     const self = this;
 
     return this.currentPage[containerName]
@@ -290,7 +290,7 @@ defineSupportCode(function ({ When, Then }) {
       );
   });
 
-  Then('the element "{element}" should have an item with values:', function (element, data) {
+  Then(/^the element "([^"]*)" should have an item with values:$/, function (element, data) {
     const self = this;
     const allElements = this.currentPage[element];
     const hashedData = data.hashes();
@@ -330,7 +330,7 @@ defineSupportCode(function ({ When, Then }) {
     });
   });
 
-  Then('the element "{element}" should not have an item with values:', function (element, data) {
+  Then(/^the element "([^"]*)" should not have an item with values:$/, function (element, data) {
     const self = this;
     const allElements = this.currentPage[element];
     const hashedData = data.hashes();
@@ -370,7 +370,7 @@ defineSupportCode(function ({ When, Then }) {
     });
   });
 
-  Then('"{elementValue}" value on the "{elementList}" list is sorted in "{dependency}" order', function (elementValue, elementList, dependency) {
+  Then(/^"([^"]*)" value on the "([^"]*)" list is sorted in "([^"]*)" order$/, function (elementValue, elementList, dependency) {
     const self = this;
     const promise = [];
 
@@ -383,7 +383,7 @@ defineSupportCode(function ({ When, Then }) {
     });
   });
 
-  When('I infinitely scroll to the "{loader}" element', function (elementName) {
+  When('I infinitely scroll to the "([^"]*)" element', function (elementName) {
     const self = this;
 
     const scrollToLoader = () => self.currentPage.isPresent(elementName)
@@ -406,7 +406,7 @@ defineSupportCode(function ({ When, Then }) {
     return scrollToLoader();
   });
 
-  When('I set the rate:', function (data) {
+  When(/^I set the rate:$/, function (data) {
     const table = data.rowsHash();
     const promise = [];
 
@@ -423,7 +423,7 @@ defineSupportCode(function ({ When, Then }) {
     return Promise.all(promise);
   });
 
-  When('the rate is set:', function (data) {
+  When(/^the rate is set:$/, function (data) {
     const table = data.rowsHash();
     const promise = [];
 

@@ -103,7 +103,7 @@ const mailTrapClient = (0, _mailtrap.create)();
     }
   }
 
-  Then('the email has been sent and contains:', function (data, sync) {
+  Then(/^the email has been sent and contains:$/, function (data, sync) {
     const self = this;
     let maxRepeats = 10;
 

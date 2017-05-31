@@ -11,11 +11,11 @@ var _generators = require('../generators');
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 (0, _cucumber.defineSupportCode)(function ({ When }) {
-  When('I generate random "{generatorName}" as "{variableName}"', function (generatorName, variableName) {
+  When(/^I generate random "([^"]*)" as "([^"]*)"$/, function (generatorName, variableName) {
     return _variableStore2.default.storeVariable(variableName, _generators.generators.generate(generatorName));
   });
 
-  When('I generate random "{generatorName}" "{generatorParam}" as "{variableName}"', function (generatorName, generatorParam, variableName) {
+  When(/^I generate random "([^"]*)" "([^"]*)" as "([^"]*)"$/, function (generatorName, generatorParam, variableName) {
     return _variableStore2.default.storeVariable(variableName, _generators.generators.generate(generatorName, generatorParam));
   });
 });

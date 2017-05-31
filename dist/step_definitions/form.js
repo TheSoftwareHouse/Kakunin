@@ -5,7 +5,7 @@ var _cucumber = require('cucumber');
 var _dictionaries = require('../dictionaries');
 
 (0, _cucumber.defineSupportCode)(function ({ When, Then }) {
-  When('I fill the "{formName}" form with:', function (formName, data) {
+  When(/^I fill the "([^"]*)" form with:$/, function (formName, data) {
     const self = this;
 
     return expect(this.currentPage.isVisible(formName)).to.eventually.be.fulfilled.then(function () {
@@ -13,7 +13,7 @@ var _dictionaries = require('../dictionaries');
     });
   });
 
-  Then('the "{formName}" form is filled with:', function (formName, data) {
+  Then(/^the "([^"]*)" form is filled with:$/, function (formName, data) {
     const self = this;
 
     return expect(this.currentPage.isVisible(formName)).to.eventually.be.fulfilled.then(function () {
@@ -21,7 +21,7 @@ var _dictionaries = require('../dictionaries');
     });
   });
 
-  When('I fill the "{form}" form field "{field}" with value from the element "{valueElementSelector}"', function (form, field, valueElementSelector) {
+  When(/^I fill the "([^"]*)" form field "([^"]*)" with value from the element "([^"]*)"$/, function (form, field, valueElementSelector) {
     const self = this;
 
     return expect(this.currentPage.isVisible(form)).to.eventually.be.fulfilled.then(function () {
@@ -31,7 +31,7 @@ var _dictionaries = require('../dictionaries');
     });
   });
 
-  When('I fill the "{form}" form field "{field}" with value from the element "{valueElementSelector}" translated by dictionary "{dictionaryName}"', function (form, field, valueElementSelector, dictionaryName) {
+  When(/^I fill the "([^"]*)" form field "([^"]*)" with value from the element "([^"]*)" translated by dictionary "([^"]*)"$/, function (form, field, valueElementSelector, dictionaryName) {
     const self = this;
 
     return expect(this.currentPage.isVisible(form)).to.eventually.be.fulfilled.then(function () {
@@ -43,7 +43,7 @@ var _dictionaries = require('../dictionaries');
     });
   });
 
-  Then('the error messages should be displayed:', function (data) {
+  Then(/^the error messages should be displayed:$/, function (data) {
     const self = this;
     const table = data.hashes();
 

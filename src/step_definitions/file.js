@@ -3,11 +3,11 @@ import fileManager from '../helpers/file-manager.helper';
 import variableStore from '../helpers/variable-store.helper';
 
 defineSupportCode(function ({ Then }) {
-  Then('the file "{filename}" should be downloaded', function (filename) {
+  Then(/^the file "([^"]*)" should be downloaded$/, function (filename) {
     return fileManager.wasDownloaded(variableStore.replaceTextVariables(filename));
   });
 
-  Then('the file "{filename}" contains table data stored under "{variableName}" variable', function (filename, variableName) {
+  Then(/^the file "([^"]*)" contains table data stored under "([^"]*)" variable$/, function (filename, variableName) {
     const file = fileManager.parseXLS(variableStore.replaceTextVariables(filename));
     let availableData = variableStore.getVariableValue(variableName);
 
