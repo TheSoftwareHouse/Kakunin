@@ -240,7 +240,7 @@ defineSupportCode(function ({ When, Then }) {
     );
   }
 
-  Then('there are "([^"]*)" "([^"]*)" elements', checkNumberOfElements);
+  Then(/^there are "([^"]*)" "([^"]*)" elements$/, checkNumberOfElements);
 
   Then(/^the number of "([^"]*)" elements is the same as the number of "([^"]*)" elements$/, function (firstElement, secondElement) {
     const self = this;
@@ -383,7 +383,7 @@ defineSupportCode(function ({ When, Then }) {
     });
   });
 
-  When('I infinitely scroll to the "([^"]*)" element', function (elementName) {
+  When(/^I infinitely scroll to the "([^"]*)" element$/, function (elementName) {
     const self = this;
 
     const scrollToLoader = () => self.currentPage.isPresent(elementName)
