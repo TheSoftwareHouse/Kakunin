@@ -1,7 +1,7 @@
 import { defineSupportCode } from 'cucumber';
 
 defineSupportCode(function ({ Then, Given }) {
-  Given('I visit the "{pageName}" page', function (pageName) {
+  Given(/^I visit the "([^"]*)" page$/, function (pageName) {
     expect(browser.page[pageName]).to.not.be.undefined;
 
     this.currentPage = browser.page[pageName];
@@ -9,7 +9,7 @@ defineSupportCode(function ({ Then, Given }) {
     return this.currentPage.visit();
   });
 
-  Then('the "{pageName}" page is displayed', function (pageName) {
+  Then(/^the "([^"]*)" page is displayed$/, function (pageName) {
     const self = this;
 
     return browser.page[pageName].isOn()
