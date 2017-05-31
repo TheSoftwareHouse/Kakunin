@@ -9,6 +9,10 @@ const RegexMatcher = {
     return element.getText().then((text) => {
       return element.getAttribute('value').then(function (value) {
         if (text === '') {
+          if (value === null) {
+            return false
+          }
+
           return regexBuilder.buildRegex(matcherName).test(value);
         }
 
