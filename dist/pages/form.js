@@ -3,7 +3,6 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getClassElementValidator = exports.getFormElementValidator = undefined;
 
 var _base = require('./base');
 
@@ -16,14 +15,6 @@ var _variableStore = require('../helpers/variable-store.helper');
 var _variableStore2 = _interopRequireDefault(_variableStore);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-const getFormElementValidator = exports.getFormElementValidator = (formName, inputName, messageType) => {
-  return element(by.css(`form[name="${formName}"] [name="${inputName}"] span[ng-message="${messageType}"]`));
-};
-
-const getClassElementValidator = exports.getClassElementValidator = (className, name, messageType) => {
-  return element(by.css(`${className} [name="${name}"] [ng-message="${messageType}"]`));
-};
 
 class FormPage extends _base2.default {
   fillForm(formData) {
