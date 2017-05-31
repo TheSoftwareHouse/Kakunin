@@ -16,4 +16,4 @@ const Parameters = {
   }
 };
 
-module.exports = Parameters;
+export default Parameters;

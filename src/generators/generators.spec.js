@@ -1,4 +1,7 @@
-const modulesLoader = require('../helpers/modulesLoader').create({
+import { create } from './generators';
+import { create as createModulesLoader } from '../helpers/modules-loader.helper';
+
+const modulesLoader = createModulesLoader({
   projectPath: process.cwd(),
   generators: []
 });
@@ -6,7 +9,7 @@ const modulesLoader = require('../helpers/modulesLoader').create({
 const chai = require('chai');
 const expect = chai.expect;
 
-const generators = require('./generators').create(modulesLoader);
+const generators = create(modulesLoader);
 
 describe('Generators', () => {
   it('throws an error when no generator was found', () => {

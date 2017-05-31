@@ -1,8 +1,14 @@
-const availableFilters = require('fs').readdirSync(__dirname + '/filters')
-  .filter((filename) => filename.indexOf('.spec.js') < 0)
-  .map((filename) => require(__dirname + '/filters/' + filename));
+import * as filter from './filter';
 
 class Filters {
+  constructor() {
+    this.availableFilters = [
+      filter.currentUserFilter,
+      filter.minimalEmailSizeFilter,
+      filter.textFieldFilter
+    ];
+  }
+
   filter(emails, type, value, world) {
     const filter = this.findFilter(type);
 
@@ -14,8 +20,8 @@ class Filters {
   }
 
   findFilter(type) {
-    return availableFilters.find((filter) => filter.isSatisfiedBy(type));
+    return this.availableFilters.find((filter) => filter.isSatisfiedBy(type));
   }
 }
 
-module.exports = new Filters();
+export const filters =  new Filters();

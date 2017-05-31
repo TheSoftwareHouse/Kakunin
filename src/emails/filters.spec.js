@@ -1,7 +1,5 @@
-const filters = require('./filters');
-
-const chai = require('chai');
-const expect = chai.expect;
+import { filters } from './filters';
+import { expect } from 'chai';
 
 const world = {
   currentUser: {

@@ -1,15 +1,15 @@
-const pascalConfig = require('../helpers/pascalConfig');
-const fs = require('fs');
-const path = require('path');
-const userProvider = require('../helpers/userProvider');
-const fixturesLoader = require('../helpers/fixturesLoader');
-const parameters = require('./parameters');
-const chalk = require('chalk');
-const { defineSupportCode } = require('cucumber');
+import config from '../helpers/config.helper';
+import fs from 'fs';
+import path from 'path';
+import userProvider from '../helpers/user-provider.helper';
+import fixturesLoader from '../helpers/fixtures-loader.helper';
+import parameters from './parameters';
+import chalk from 'chalk';
+import { defineSupportCode } from 'cucumber';
+import report from 'cucumber-html-report';
+import variableStore from '../helpers/variable-store.helper';
 
-const report = require('cucumber-html-report');
-const outputDir = pascalConfig.projectPath + pascalConfig.reports;
-const variableStore = require('../helpers/variableStore');
+const outputDir = config.projectPath + config.reports;
 
 const createHtmlReport = (sourceJson) => {
   report.create({
@@ -26,29 +26,30 @@ const logRequestTime = (timeStart) => {
   console.log(chalk.black.bgYellow('Request took ' + (timeDiff[0] + (timeDiff[1] / 1000000000)) + ' seconds'));
 };
 
-const takeScreenshot = (scenario, callback) => {
-  browser.takeScreenshot().then(function (base64png) {
-    scenario.attach(new Buffer(base64png, 'base64'), 'image/png', callback);
+const takeScreenshot = (scenario) => {
+  return browser.takeScreenshot().then(function (base64png) {
+    scenario.attach(new Buffer(base64png, 'base64'), 'image/png');
+    return Promise.resolve();
   }, function () {
-    callback();
+    return Promise.resolve();
   });
 };
 
 const clearCookiesAndLocalStorage = (callback) => {
   let cookiesFunc = () => Promise.resolve();
 
-  if (pascalConfig.clearCookiesAfterScenario) {
+  if (config.clearCookiesAfterScenario) {
     cookiesFunc = () => protractor.browser.manage().deleteAllCookies();
   }
 
   let localStorageFunc = () => Promise.resolve();
-  if (pascalConfig.clearLocalStorageAfterScenario) {
+  if (config.clearLocalStorageAfterScenario) {
     localStorageFunc = () => protractor.browser.executeScript('window.localStorage.clear();');
   }
 
   cookiesFunc().then(() => {
     localStorageFunc().then(() => {
-      protractor.browser.ignoreSynchronization = pascalConfig.type === 'otherWeb';
+      protractor.browser.ignoreSynchronization = config.type === 'otherWeb';
       callback();
     });
   });
@@ -56,13 +57,13 @@ const clearCookiesAndLocalStorage = (callback) => {
 
 const clearDownload = (callback) => {
   const files = fs
-    .readdirSync(pascalConfig.projectPath + pascalConfig.downloads)
+    .readdirSync(config.projectPath + config.downloads)
     .filter(function (file) {
       return file !== '.gitkeep';
     });
 
   for (let index = 0; index < files.length; index++) {
-    fs.unlinkSync(pascalConfig.projectPath + pascalConfig.downloads + '/' + files[index]);
+    fs.unlinkSync(config.projectPath + config.downloads + '/' + files[index]);
   }
 
   callback();
@@ -71,7 +72,7 @@ const clearDownload = (callback) => {
 defineSupportCode(({registerHandler, After, Before}) => {
   After(function (scenario, callback) {
     if (scenario.isFailed()) {
-      takeScreenshot(this, () => { clearCookiesAndLocalStorage(callback); });
+      takeScreenshot(this).then(() => { clearCookiesAndLocalStorage(callback); });
     } else {
       clearCookiesAndLocalStorage(callback);
     }
@@ -152,5 +153,5 @@ defineSupportCode(({registerHandler, After, Before}) => {
     });
   });
 
-  protractor.browser.ignoreSynchronization = pascalConfig.type === 'otherWeb';
+  protractor.browser.ignoreSynchronization = config.type === 'otherWeb';
 })

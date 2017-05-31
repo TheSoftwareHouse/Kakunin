@@ -1,5 +1,5 @@
-const { defineSupportCode } = require('cucumber');
-const dictionaries = require('../dictionaries').dictionaries;
+import { defineSupportCode } from 'cucumber';
+import { dictionaries } from '../dictionaries';
 
 defineSupportCode(function ({ When, Then }) {
   When('I fill the "{formName}" form with:', function (formName, data) {

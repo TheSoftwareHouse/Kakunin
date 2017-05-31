@@ -1,19 +1,23 @@
 {
-  "name": "pascal",
+  "name": "kakunin",
   "version": "1.9.0",
   "description": "End-to-end testing framework",
   "bin": {
-    "pascal": "bin/pascal"
+    "kakunin": "./dist/cli.js"
   },
+  "main": "./dist/index",
   "scripts": {
     "postinstall": "webdriver-manager update",
-    "test": "NODE_ENV=test mocha --require ./src/tests/init.js --require babel-register ./src --recursive"
+    "test": "NODE_ENV=test mocha --require ./src/tests/init.js --require babel-register $(find src -name '*.spec.js')",
+    "build": "babel src --out-dir dist --ignore 'tests','*.spec.js'"
   },
   "engines": {
     "node": ">=7.7.3",
     "npm": ">=4.1.2"
   },
   "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "babel-preset-env": "^1.5.0",
     "babel-register": "^6.24.1",
     "chai": "^3.5.0",
@@ -25,9 +29,9 @@
     "cucumber-html-report": "^0.6.0",
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^15.0.1",
+    "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^5.0.3",
     "eslint-plugin-react": "7.0.1",
-    "eslint-plugin-import": "^2.2.0",
     "extend": "^3.0.0",
     "fetch-mock": "^5.11.0",
     "inquirer": "^3.0.6",

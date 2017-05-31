@@ -1,2 +1,5 @@
-module.exports.base = require('./base');
-module.exports.form = require('./form');
+import BasePage from './base';
+import FormPage from './form';
+
+export const Base = BasePage;
+export const Form = FormPage;

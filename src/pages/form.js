@@ -1,16 +1,16 @@
-const base = require('./base');
-const formHandler = require('../form_handlers').formHandler;
-const variableStore = require('../helpers/variableStore');
+import Base from './base';
+import { fromHandlers } from '../form-handlers';
+import variableStore from '../helpers/variable-store.helper';
 
-const getFormElementValidator = (formName, inputName, messageType) => {
+export const getFormElementValidator = (formName, inputName, messageType) => {
   return element(by.css(`form[name="${formName}"] [name="${inputName}"] span[ng-message="${messageType}"]`));
 };
 
-const getClassElementValidator = (className, name, messageType) => {
+export const getClassElementValidator = (className, name, messageType) => {
   return element(by.css(`${className} [name="${name}"] [ng-message="${messageType}"]`));
 };
 
-class FormPage extends base {
+class FormPage extends Base {
   fillForm(formData) {
     const fieldsPromises = [];
     formData.forEach((item) => fieldsPromises.push(this.fillField(item[0], item[1])));
@@ -30,7 +30,7 @@ class FormPage extends base {
 
     return this.getFieldType(name)
       .then(function (fieldType) {
-        return formHandler.handleFill(fieldType, self, name, variableStore.replaceTextVariables(value));
+        return fromHandlers.handleFill(fieldType, self, name, variableStore.replaceTextVariables(value));
       });
   }
 
@@ -39,7 +39,7 @@ class FormPage extends base {
 
     return this.getFieldType(name)
       .then(function (fieldType) {
-        return formHandler.handleCheck(fieldType, self, name, value);
+        return fromHandlers.handleCheck(fieldType, self, name, value);
       });
   }
 
@@ -48,7 +48,7 @@ class FormPage extends base {
 
     return self[name].getTagName()
       .then(function (tagName) {
-        const fieldType = formHandler.findFieldTypeByElementName(name);
+        const fieldType = fromHandlers.findFieldTypeByElementName(name);
         if (fieldType !== null) {
           return fieldType;
         }
@@ -86,6 +86,4 @@ class FormPage extends base {
   }
 }
 
-module.exports = FormPage;
-module.exports.getFormElementValidator = getFormElementValidator;
-module.exports.getClassElementValidator = getClassElementValidator;
+export default FormPage;

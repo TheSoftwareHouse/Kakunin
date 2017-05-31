@@ -1,8 +1,14 @@
-const modulesLoader = require('../helpers/modulesLoader').create();
+import * as generator from './generator';
+import { create as createModulesLoader } from '../helpers/modules-loader.helper';
+
+const modulesLoader = createModulesLoader();
 
 class Generators {
   constructor(loader) {
-    this.availableGenerators = loader.getModules('generators');
+    this.availableGenerators = [
+      generator.stringWithLengthGenerator,
+      ...loader.getModules('generators')
+    ];
   }
 
   generate(generatorName, ...params) {
@@ -20,4 +26,4 @@ class Generators {
   }
 }
 
-module.exports.create = (loader = modulesLoader) => new Generators(loader);
+export const create = (loader = modulesLoader) => new Generators(loader);
