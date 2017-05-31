@@ -123,7 +123,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     return expect(this.currentPage.isPresent(elementName)).to.eventually.be.false;
   });
 
-  Then(/^the "{elementName}" element is visible$/, function (elementName) {
+  Then(/^the "([^"]*)" element is visible$/, function (elementName) {
     return this.currentPage.isVisible(elementName);
   });
 
