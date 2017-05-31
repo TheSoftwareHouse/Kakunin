@@ -238,7 +238,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     return expectFunction(numberExpression.substr(0, numberExpression.indexOf(numbers[0]) - 1).split(' '), numbers);
   }
 
-  Then('there are "([^"]*)" "([^"]*)" elements', checkNumberOfElements);
+  Then(/^there are "([^"]*)" "([^"]*)" elements$/, checkNumberOfElements);
 
   Then(/^the number of "([^"]*)" elements is the same as the number of "([^"]*)" elements$/, function (firstElement, secondElement) {
     const self = this;
@@ -359,7 +359,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     });
   });
 
-  When('I infinitely scroll to the "([^"]*)" element', function (elementName) {
+  When(/^I infinitely scroll to the "([^"]*)" element$/, function (elementName) {
     const self = this;
 
     const scrollToLoader = () => self.currentPage.isPresent(elementName).then(isPresent => {

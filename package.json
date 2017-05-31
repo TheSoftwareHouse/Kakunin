@@ -1,6 +1,6 @@
 {
   "name": "kakunin",
-  "version": "1.9.0",
+  "version": "1.11.2",
   "description": "End-to-end testing framework",
   "bin": {
     "kakunin": "./dist/cli.js"
