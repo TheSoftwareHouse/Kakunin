@@ -83,7 +83,7 @@ defineSupportCode(function ({ When, Then }) {
     });
   });
 
-  When(^/I click the "([^"]*)" on the first item of "([^"]*)" element$/, function (element, container) {
+  When(/^I click the "([^"]*)" on the first item of "([^"]*)" element$/, function (element, container) {
     return this.currentPage[container].first().element(this.currentPage[element]).click();
   });
 
