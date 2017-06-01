@@ -1,6 +1,8 @@
+'use strict';
+
 const { defineSupportCode } = require('kakunin');
 
-defineSupportCode(({Given}) => {
+defineSupportCode(({ Given }) => {
   Given('I am logged in as a "$user"', function (user) {
     this.currentUser = {
       account: this.userProvider.getUser(user),

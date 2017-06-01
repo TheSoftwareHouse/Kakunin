@@ -12,9 +12,12 @@ class Matchers {
       matcher.notClickableMatcher,
       matcher.presentMatcher,
       matcher.textMatcher,
-      matcher.visibleMatcher,
-      ...loader.getModules('matchers')
+      matcher.visibleMatcher
     ];
+  }
+
+  addMatcher(matcher) {
+    this.availableMatchers.push(matcher);
   }
 
   match(element, matcherName) {

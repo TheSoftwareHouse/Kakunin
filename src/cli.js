@@ -1,10 +1,10 @@
 #!/usr/bin/env node
+import initializer from './helpers/initializer';
 
 const commandArgs = require('minimist')(process.argv.slice(2));
 const path = require('path');
 const child_process = require('child_process');
 const envfile = require('node-env-file');
-const initializer = require('./helpers/initializer');
 
 const isInitCommand = () => {
   return process.argv.length > 2 && process.argv[2] === 'init';

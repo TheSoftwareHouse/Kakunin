@@ -1,3 +1,5 @@
+'use strict';
+
 const { matchers, variableStore, defineSupportCode } = require('kakunin');
 
 defineSupportCode(({ Then }) => {

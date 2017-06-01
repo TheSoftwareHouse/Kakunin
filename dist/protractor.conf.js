@@ -47,6 +47,8 @@ exports.config = {
   onPrepare: function () {
     browser.driver.manage().window().setSize(parseInt(config.browserWidth), parseInt(config.browserHeight));
 
+    modulesLoader.getModules('matchers');
+
     browser.page = modulesLoader.getModulesAsObject(config.pages.map(page => path.join(config.projectPath, page)));
 
     global.expect = chai.expect;

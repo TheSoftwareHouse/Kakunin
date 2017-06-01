@@ -9,7 +9,7 @@
   "scripts": {
     "postinstall": "webdriver-manager update",
     "test": "NODE_ENV=test mocha --require ./src/tests/init.js --require babel-register $(find src -name '*.spec.js')",
-    "build": "babel src --out-dir dist --ignore 'tests','*.spec.js'"
+    "build": "babel src --out-dir dist --ignore 'tests','*.spec.js' && babel templates --out-dir dist/templates --copy-files"
   },
   "engines": {
     "node": ">=7.7.3",

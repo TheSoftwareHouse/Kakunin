@@ -17,7 +17,11 @@ const modulesLoader = (0, _modulesLoader.create)();
 
 class Matchers {
   constructor(loader) {
-    this.availableMatchers = [matcher.regexMatcher, matcher.clickableMatcher, matcher.invisibleMatcher, matcher.notClickableMatcher, matcher.presentMatcher, matcher.textMatcher, matcher.visibleMatcher, ...loader.getModules('matchers')];
+    this.availableMatchers = [matcher.regexMatcher, matcher.clickableMatcher, matcher.invisibleMatcher, matcher.notClickableMatcher, matcher.presentMatcher, matcher.textMatcher, matcher.visibleMatcher];
+  }
+
+  addMatcher(matcher) {
+    this.availableMatchers.push(matcher);
   }
 
   match(element, matcherName) {
