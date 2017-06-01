@@ -1,4 +1,5 @@
 import { createVariableStoreTransformer } from './transformer/variable-store.transformer';
+import { createDictionaryTransformer } from './transformer/dictionary.transformer';
 
 class Transformers {
   constructor(transformers) {
@@ -16,12 +17,17 @@ class Transformers {
   }
 
   findTransformer(prefix) {
-    return this.availableTransformers.find((transformer) => prefix === transformer.prefix);
+    return this.availableTransformers.find((transformer) => transformer.isSatisfiedBy(prefix));
+  }
+
+  addTransformer(transformer) {
+    this.availableTransformers.push(transformer);
   }
 }
 
 const transformers = [
   createVariableStoreTransformer(),
+  createDictionaryTransformer()
 ];
 
-export const create = (transformers = transformers) => new Transformers(transformers);
+export const create = (transf = transformers) => new Transformers(transf);

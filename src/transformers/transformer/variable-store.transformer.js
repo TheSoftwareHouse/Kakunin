@@ -2,9 +2,11 @@ import store from '../../helpers/variable-store.helper';
 
 class VariableStoreTransformer {
   constructor(variableStore) {
-
     this.variableStore = variableStore;
-    this.prefix = 'v:';
+  }
+
+  isSatisfiedBy(prefix) {
+    return 'v:' === prefix;
   }
 
   transform(value) {
