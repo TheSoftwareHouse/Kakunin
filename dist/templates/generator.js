@@ -1,5 +1,7 @@
 'use strict';
 
+const { generators } = require('kakunin');
+
 class Generator {
   isSatisfiedBy(name) {
     return name === 'name';
@@ -12,4 +14,4 @@ class Generator {
   }
 }
 
-module.exports = new Generator();
+generators.addGenerator(new Generator());

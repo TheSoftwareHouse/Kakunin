@@ -1,15 +1,11 @@
 import { create } from './dictionaries';
-import { create as createModulesLoader } from '../helpers/modules-loader.helper';
+import fakeDictionary from '../tests/dictionaries/fake-dictionary';
+
 import { expect } from 'chai';
 
-const modulesLoader = createModulesLoader({
-  projectPath: process.cwd(),
-  dictionaries: [
-    '/src/tests/dictionaries'
-  ]
-});
+const dictionaries = create();
 
-const dictionaries = create(modulesLoader);
+dictionaries.addDictionary(fakeDictionary);
 
 describe('Dictionaries', () => {
   it('throws an error when no dictionary was found', () => {
@@ -17,7 +13,18 @@ describe('Dictionaries', () => {
       .to.throw('Could not find dictionary for unknown-dictionary.');
   });
 
-  it('return mapped value for given key', () => {
+  it('returns mapped value for given key', () => {
     expect(dictionaries.getMappedValue('fake-dictionary', 'some-key')).to.equal('some-value');
+  });
+
+  it('adds a dictionary', () => {
+    const customDictionary = {
+      isSatisfiedBy: (name) => name === 'my-dictionary',
+      getMappedValue: (key) => `mapped-${key}`
+    };
+
+    dictionaries.addDictionary(customDictionary);
+
+    expect(dictionaries.getMappedValue('my-dictionary', 'some-key')).to.equal('mapped-some-key');
   });
 });

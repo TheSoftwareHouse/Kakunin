@@ -9,15 +9,11 @@ var _comparator = require('./comparator');
 
 var comparator = _interopRequireWildcard(_comparator);
 
-var _modulesLoader = require('../helpers/modules-loader.helper');
-
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-const modulesLoader = (0, _modulesLoader.create)();
-
 class Comparators {
-  constructor(loader) {
-    this.availableComparators = [comparator.DateComparator, comparator.NumberComparator, ...loader.getModules('comparators')];
+  constructor() {
+    this.availableComparators = [comparator.DateComparator, comparator.NumberComparator];
   }
 
   compare(values, order) {
@@ -33,6 +29,10 @@ class Comparators {
   findComparator(values) {
     return this.availableComparators.find(comparator => comparator.isSatisfiedBy(values));
   }
+
+  addComparator(comparator) {
+    this.availableComparators.push(comparator);
+  }
 }
 
-const create = exports.create = (loader = modulesLoader) => new Comparators(loader);
+const create = exports.create = () => new Comparators();

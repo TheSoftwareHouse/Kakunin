@@ -1,14 +1,10 @@
 import * as comparator from './comparator';
-import { create  as createModulesLoader} from '../helpers/modules-loader.helper';
-
-const modulesLoader = createModulesLoader();
 
 class Comparators {
-  constructor(loader) {
+  constructor() {
     this.availableComparators = [
       comparator.DateComparator,
       comparator.NumberComparator,
-      ...loader.getModules('comparators')
     ];
   }
 
@@ -25,6 +21,10 @@ class Comparators {
   findComparator(values) {
     return this.availableComparators.find((comparator) => comparator.isSatisfiedBy(values));
   }
+
+  addComparator(comparator) {
+    this.availableComparators.push(comparator);
+  }
 }
 
-export const create = (loader = modulesLoader) => new Comparators(loader);
+export const create = () => new Comparators();

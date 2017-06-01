@@ -15,4 +15,4 @@ const ExampleMatcher = {
   }
 };
 
-matchers.addMatcher(new ExampleMatcher());
+matchers.addMatcher(ExampleMatcher);

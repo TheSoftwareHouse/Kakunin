@@ -57,6 +57,10 @@ exports.config = {
     );
 
     modulesLoader.getModules('matchers');
+    modulesLoader.getModules('dictionaries');
+    modulesLoader.getModules('generators');
+    modulesLoader.getModules('comparators');
+    modulesLoader.getModules('form_handlers');
 
     browser.page = modulesLoader
       .getModulesAsObject(

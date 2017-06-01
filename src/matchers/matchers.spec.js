@@ -1,15 +1,9 @@
 import { create } from './matchers';
-import { create as createModulesLoader } from '../helpers/modules-loader.helper';
-
-const modulesLoader = createModulesLoader({
-  projectPath: process.cwd(),
-  matchers: []
-});
 
 const chai = require('chai');
 const expect = chai.expect;
 
-const matchers = create(modulesLoader);
+const matchers = create();
 
 describe('Matchers', () => {
   it('throws an error when no matcher was found', () => {

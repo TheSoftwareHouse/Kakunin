@@ -1,10 +1,7 @@
-import { create as createModulesLoader } from '../helpers/modules-loader.helper';
 import * as matcher from './matcher';
 
-const modulesLoader = createModulesLoader();
-
 class Matchers {
-  constructor(loader) {
+  constructor() {
     this.availableMatchers = [
       matcher.regexMatcher,
       matcher.clickableMatcher,
@@ -35,4 +32,4 @@ class Matchers {
   }
 }
 
-export const create = (loader = modulesLoader) => new Matchers(loader);
+export const create = () => new Matchers();
