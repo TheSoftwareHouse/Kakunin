@@ -61,4 +61,16 @@ describe('Regex matcher', () => {
       done();
     });
   });
+
+  it('returns false when the text and attribute are empty', (done) => {
+    const elementMocked = {
+      getText: () => Promise.resolve(''),
+      getAttribute: () => Promise.resolve(null)
+    };
+
+    regexMatcher.match(elementMocked, 'r:notEmpty').then((result) => {
+      expect(result).to.equal(false);
+      done();
+    });
+  });
 });
