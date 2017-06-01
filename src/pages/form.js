@@ -2,14 +2,6 @@ import Base from './base';
 import { fromHandlers } from '../form-handlers';
 import variableStore from '../helpers/variable-store.helper';
 
-export const getFormElementValidator = (formName, inputName, messageType) => {
-  return element(by.css(`form[name="${formName}"] [name="${inputName}"] span[ng-message="${messageType}"]`));
-};
-
-export const getClassElementValidator = (className, name, messageType) => {
-  return element(by.css(`${className} [name="${name}"] [ng-message="${messageType}"]`));
-};
-
 class FormPage extends Base {
   fillForm(formData) {
     const fieldsPromises = [];
