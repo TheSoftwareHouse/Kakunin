@@ -83,6 +83,7 @@ class Initializer {
     conf.dictionaries = [await this.promptFolders('Where are your dictionaries stored?', '/dictionaries')];
     conf.regexes = [await this.promptFolders('Where are your regexes stored?', '/regexes')];
     conf.hooks = [await this.promptFolders('Where are your hooks stored?', '/hooks')];
+    conf.transformers = [await this.promptFolders('Where are your transformers stored?', '/transformers')];
 
     conf.clearEmailInboxBeforeTests = await this.promptFolders('Should email inbox be cleared before tests?', '', 'confirm');
     conf.clearCookiesAfterScenario = await this.promptFolders('Should cookies be cleared after scenario?', '', 'confirm');
@@ -130,6 +131,7 @@ class Initializer {
     this.createProjectDirectory(config.dictionaries[0]);
     this.createProjectDirectory(config.regexes[0]);
     this.createProjectDirectory(config.hooks[0]);
+    this.createProjectDirectory(config.transformers[0]);
 
     this.createTemplateFileWithContentFrom(config.features[0] + '/example.feature', 'example.feature');
     this.createTemplateFileWithContentFrom(config.pages[0] + '/page.js', 'page.js');

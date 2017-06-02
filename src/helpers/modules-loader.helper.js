@@ -10,7 +10,8 @@ class ModulesLoader {
       form_handlers: [],
       generators: [],
       matchers: [],
-      regexes: []
+      regexes: [],
+      transformers: []
     };
 
     Object.keys(this.paths).forEach((group) => {

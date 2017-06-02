@@ -14,7 +14,7 @@ describe('Generator transformer', () => {
     expect(transformer.isSatisfiedBy('d:')).to.equal(false);
   });
 
-  it('return', () => {
+  it('returns generated value ', () => {
     const mockedGenerators = {
       generate: (value) => 'my-generated-value'
     };
