@@ -1,7 +1,7 @@
 const { defineSupportCode } = require('kakunin');
 
-defineSupportCode(({Given}) => {
-  Given('I am logged in as a "$user"', function (user) {
+defineSupportCode(({ Given }) => {
+  Given(/^I am logged in as a "([^"]*)$/, function (user) {
     this.currentUser = {
       account: this.userProvider.getUser(user),
       type: user
