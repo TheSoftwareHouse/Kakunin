@@ -1,13 +1,9 @@
 import * as generator from './generator';
-import { create as createModulesLoader } from '../helpers/modules-loader.helper';
-
-const modulesLoader = createModulesLoader();
 
 class Generators {
-  constructor(loader) {
+  constructor() {
     this.availableGenerators = [
-      generator.stringWithLengthGenerator,
-      ...loader.getModules('generators')
+      generator.stringWithLengthGenerator
     ];
   }
 
@@ -21,9 +17,13 @@ class Generators {
     return gen.generate(...params);
   }
 
+  addGenerator(generator) {
+    this.availableGenerators.push(generator);
+  }
+
   findGenerator(name) {
     return this.availableGenerators.find((gen) => gen.isSatisfiedBy(name));
   }
 }
 
-export const create = (loader = modulesLoader) => new Generators(loader);
+export const create = () => new Generators();

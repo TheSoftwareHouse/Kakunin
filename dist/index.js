@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.BasePage = exports.FormPage = exports.variableStore = exports.generators = exports.dictionaries = exports.defineSupportCode = exports.regexBuilder = exports.matchers = undefined;
+exports.BasePage = exports.FormPage = exports.comparators = exports.handlers = exports.variableStore = exports.generators = exports.dictionaries = exports.defineSupportCode = exports.regexBuilder = exports.matchers = undefined;
 
 var _matchers = require('./matchers');
 
@@ -53,6 +53,24 @@ Object.defineProperty(exports, 'variableStore', {
   enumerable: true,
   get: function () {
     return _interopRequireDefault(_variableStore).default;
+  }
+});
+
+var _handlers = require('./form-handlers/handlers');
+
+Object.defineProperty(exports, 'handlers', {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_handlers).default;
+  }
+});
+
+var _comparators = require('./comparators');
+
+Object.defineProperty(exports, 'comparators', {
+  enumerable: true,
+  get: function () {
+    return _comparators.comparators;
   }
 });
 

@@ -8,15 +8,14 @@ var _handler = require('./handler');
 
 var formHandler = _interopRequireWildcard(_handler);
 
-var _modulesLoader = require('../helpers/modules-loader.helper');
-
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-const modulesLoader = (0, _modulesLoader.create)();
-
-const availableHandlers = [formHandler.checkboxHandler, formHandler.ckEditorHandler, formHandler.customAngularSelectHandler, formHandler.datePickerHandler, formHandler.defaultHandler, formHandler.fileHandler, formHandler.radioHandler, formHandler.selectHandler, formHandler.timePickerHandler, formHandler.uploadedFileHandler, ...modulesLoader.getModules('form_handlers')];
+const availableHandlers = [formHandler.checkboxHandler, formHandler.ckEditorHandler, formHandler.customAngularSelectHandler, formHandler.datePickerHandler, formHandler.defaultHandler, formHandler.fileHandler, formHandler.radioHandler, formHandler.selectHandler, formHandler.timePickerHandler, formHandler.uploadedFileHandler];
 
 const FormHandler = {
+  addHandler: function (handler) {
+    availableHandlers.push(handler);
+  },
 
   handleFill: function (fieldType, page, elementName, desiredValue) {
     return this.findHandlerByFieldType(fieldType).handleFill(page, elementName, desiredValue);

@@ -56,6 +56,12 @@ exports.config = {
       parseInt(config.browserHeight)
     );
 
+    modulesLoader.getModules('matchers');
+    modulesLoader.getModules('dictionaries');
+    modulesLoader.getModules('generators');
+    modulesLoader.getModules('comparators');
+    modulesLoader.getModules('form_handlers');
+
     browser.page = modulesLoader
       .getModulesAsObject(
         config.pages.map((page) => path.join(config.projectPath, page))

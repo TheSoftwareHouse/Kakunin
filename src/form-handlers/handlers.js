@@ -1,7 +1,4 @@
 import * as formHandler from './handler';
-import { create as createModulesLoader } from '../helpers/modules-loader.helper';
-
-const modulesLoader = createModulesLoader();
 
 const availableHandlers = [
   formHandler.checkboxHandler,
@@ -13,11 +10,13 @@ const availableHandlers = [
   formHandler.radioHandler,
   formHandler.selectHandler,
   formHandler.timePickerHandler,
-  formHandler.uploadedFileHandler,
-  ...modulesLoader.getModules('form_handlers')
+  formHandler.uploadedFileHandler
 ];
 
 const FormHandler = {
+  addHandler: function(handler) {
+    availableHandlers.push(handler);
+  },
 
   handleFill: function (fieldType, page, elementName, desiredValue) {
     return this.findHandlerByFieldType(fieldType).handleFill(page, elementName, desiredValue);

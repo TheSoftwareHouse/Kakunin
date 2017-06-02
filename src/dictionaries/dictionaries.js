@@ -1,10 +1,6 @@
-import { create as createModulesLoader } from '../helpers/modules-loader.helper';
-
-const modulesLoader = createModulesLoader();
-
 class Dictionaries {
-  constructor(loader) {
-    this.availableDictionaries = loader.getModules('dictionaries');
+  constructor() {
+    this.availableDictionaries = [];
   }
 
   getMappedValue(dictionaryName, key) {
@@ -20,6 +16,10 @@ class Dictionaries {
   findDictionary(name) {
     return this.availableDictionaries.find((dic) => dic.isSatisfiedBy(name));
   }
+
+  addDictionary(dictionary) {
+    this.availableDictionaries.push(dictionary);
+  }
 }
 
-export const create = (loader = modulesLoader) => new Dictionaries(loader);
+export const create = () => new Dictionaries();

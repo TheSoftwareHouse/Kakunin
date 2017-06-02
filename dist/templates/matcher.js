@@ -1,3 +1,5 @@
+'use strict';
+
 const { regexBuilder, matchers } = require('kakunin');
 
 const ExampleMatcher = {

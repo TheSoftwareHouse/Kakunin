@@ -1,3 +1,5 @@
+'use strict';
+
 const { generators } = require('kakunin');
 
 class Generator {
@@ -6,11 +8,7 @@ class Generator {
   }
 
   generate() {
-    const names = [
-      'Bob',
-      'John',
-      'Paul'
-    ];
+    const names = ['Bob', 'John', 'Paul'];
 
     return names[Math.floor(Math.random() * names.length)];
   }
