@@ -15,19 +15,13 @@ describe('Dictionary transformer', () => {
   });
 
   it('returns true when the prefix is correct', () => {
-    const mockedPrefix = {
-      isSatisfiedBy: (prefix) => prefix = 'd:'
-    };
-    const transformer = createDictionaryTransformer(mockedPrefix);
+    const transformer = createDictionaryTransformer();
 
     expect(transformer.isSatisfiedBy('d:')).to.equal(true);
   });
 
   it('returns false when the prefix is incorrect', () => {
-    const mockedPrefix = {
-      isSatisfiedBy: (prefix) => prefix === 'd:'
-    };
-    const transformer = createDictionaryTransformer(mockedPrefix);
+    const transformer = createDictionaryTransformer();
 
     expect(transformer.isSatisfiedBy('v:')).to.equal(false);
   });

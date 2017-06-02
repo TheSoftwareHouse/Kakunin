@@ -10,11 +10,9 @@ var _base2 = _interopRequireDefault(_base);
 
 var _formHandlers = require('../form-handlers');
 
-var _transformers = require('../transformers/transformers');
+var _transformers = require('../transformers');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-const valueTransformers = (0, _transformers.create)();
 
 class FormPage extends _base2.default {
   fillForm(formData) {
@@ -35,7 +33,7 @@ class FormPage extends _base2.default {
     const self = this;
 
     return this.getFieldType(name).then(function (fieldType) {
-      return _formHandlers.fromHandlers.handleFill(fieldType, self, name, valueTransformers.transform(value));
+      return _formHandlers.fromHandlers.handleFill(fieldType, self, name, _transformers.transformers.transform(value));
     });
   }
 
@@ -43,7 +41,7 @@ class FormPage extends _base2.default {
     const self = this;
 
     return this.getFieldType(name).then(function (fieldType) {
-      return _formHandlers.fromHandlers.handleCheck(fieldType, self, name, valueTransformers.transform(value));
+      return _formHandlers.fromHandlers.handleCheck(fieldType, self, name, _transformers.transformers.transform(value));
     });
   }
 

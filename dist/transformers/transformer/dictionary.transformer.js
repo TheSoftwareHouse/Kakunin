@@ -10,7 +10,10 @@ var _dictionaries = require('../../dictionaries');
 class DictionaryTransformer {
   constructor(dictionaries) {
     this.dictionaries = dictionaries;
-    this.prefix = 'd:';
+  }
+
+  isSatisfiedBy(prefix) {
+    return 'd:' === prefix;
   }
 
   transform(value) {

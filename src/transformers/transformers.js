@@ -1,5 +1,6 @@
 import { createVariableStoreTransformer } from './transformer/variable-store.transformer';
 import { createDictionaryTransformer } from './transformer/dictionary.transformer';
+import { createGeneratorTransformer } from './transformer/generator.transformer';
 
 class Transformers {
   constructor(transformers) {
@@ -27,7 +28,8 @@ class Transformers {
 
 const transformers = [
   createVariableStoreTransformer(),
-  createDictionaryTransformer()
+  createDictionaryTransformer(),
+  createGeneratorTransformer(),
 ];
 
 export const create = (transf = transformers) => new Transformers(transf);

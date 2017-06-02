@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.BasePage = exports.FormPage = exports.comparators = exports.handlers = exports.variableStore = exports.generators = exports.dictionaries = exports.defineSupportCode = exports.regexBuilder = exports.matchers = undefined;
+exports.BasePage = exports.FormPage = exports.comparators = exports.handlers = exports.variableStore = exports.generators = exports.transformers = exports.dictionaries = exports.defineSupportCode = exports.regexBuilder = exports.matchers = undefined;
 
 var _matchers = require('./matchers');
 
@@ -35,6 +35,15 @@ Object.defineProperty(exports, 'dictionaries', {
   enumerable: true,
   get: function () {
     return _dictionaries.dictionaries;
+  }
+});
+
+var _transformers = require('./transformers');
+
+Object.defineProperty(exports, 'transformers', {
+  enumerable: true,
+  get: function () {
+    return _transformers.transformers;
   }
 });
 

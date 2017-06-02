@@ -13,9 +13,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 class VariableStoreTransformer {
   constructor(variableStore) {
-
     this.variableStore = variableStore;
-    this.prefix = 'v:';
+  }
+
+  isSatisfiedBy(prefix) {
+    return 'v:' === prefix;
   }
 
   transform(value) {
