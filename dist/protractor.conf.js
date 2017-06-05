@@ -52,6 +52,7 @@ exports.config = {
     modulesLoader.getModules('generators');
     modulesLoader.getModules('comparators');
     modulesLoader.getModules('form_handlers');
+    modulesLoader.getModules('transformers');
 
     browser.page = modulesLoader.getModulesAsObject(config.pages.map(page => path.join(config.projectPath, page)));
 
