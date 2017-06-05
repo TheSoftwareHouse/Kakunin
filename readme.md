@@ -236,9 +236,6 @@ You can add your own handlers:
 const { transformers } = require('kakunin');
 
 class MyTransformer {
-  constructor(transformer) {
-    this.transformer = transformer;
-  }
 
   isSatisfiedBy(prefix) {
     return 'yourPrefix:' === prefix;
@@ -250,8 +247,6 @@ class MyTransformer {
 }
 transformers.addTransformer(new MyTransformer());
 ```
-
-
 
 ##Useful options
 1. To run all tags use `npm run kakunin`
