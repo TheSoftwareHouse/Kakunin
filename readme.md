@@ -233,23 +233,22 @@ Example:
 
 You can add your own handlers:
 ```
-import { your-transformers } from '../../your-transformers';
+const { transformers } = require('kakunin');
 
-class CustomTransformer {
-  constructor(yourTransformer) {
-    this.yourTransformer = yourTransformer;
+class MyTransformer {
+  constructor(transformer) {
+    this.transformer = transformer;
   }
 
   isSatisfiedBy(prefix) {
-    return 'yourLetter:' === prefix;
+    return 'yourPrefix:' === prefix;
   }
 
   transform(value) {
     //code
   }
 }
-export const createGeneratorTransformer = (yourTransforms = your-transformers) => new CustomTransformer(yourTransforms);
-
+transformers.addTransformer(new MyTransformer());
 ```
 
 
