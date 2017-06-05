@@ -222,6 +222,32 @@ const MyHandler {
 handlers.addHandler(new MyHandler());
 ```
 
+11. `transformers` transformers can be used in steps `When I fill the "form" form with:` and `And the "joinOurStoreForm" form is filled with:`.
+Existing transformers:
+- generators (prefix: `g:`)
+- dictionaries (prefix: `d:`)
+- variableStore (prefix: `v:`)
+Transformers can be used in mentioned steps by using specific 'prefix', parameters are sent after `:` sign.
+Example:
+`g:generatorName:param:param`
+
+You can add your own handlers:
+```
+const { transformers } = require('kakunin');
+
+class MyTransformer {
+
+  isSatisfiedBy(prefix) {
+    return 'yourPrefix:' === prefix;
+  }
+
+  transform(value) {
+    //code
+  }
+}
+transformers.addTransformer(new MyTransformer());
+```
+
 ##Useful options
 1. To run all tags use `npm run kakunin`
 2. To run a single tag use `npm run kakunin -- --tags="@tag"`

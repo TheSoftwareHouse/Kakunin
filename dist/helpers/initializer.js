@@ -98,6 +98,7 @@ class Initializer {
       conf.dictionaries = [yield _this.promptFolders('Where are your dictionaries stored?', '/dictionaries')];
       conf.regexes = [yield _this.promptFolders('Where are your regexes stored?', '/regexes')];
       conf.hooks = [yield _this.promptFolders('Where are your hooks stored?', '/hooks')];
+      conf.transformers = [yield _this.promptFolders('Where are your transformers stored?', '/transformers')];
 
       conf.clearEmailInboxBeforeTests = yield _this.promptFolders('Should email inbox be cleared before tests?', '', 'confirm');
       conf.clearCookiesAfterScenario = yield _this.promptFolders('Should cookies be cleared after scenario?', '', 'confirm');
@@ -151,6 +152,7 @@ class Initializer {
       _this3.createProjectDirectory(config.dictionaries[0]);
       _this3.createProjectDirectory(config.regexes[0]);
       _this3.createProjectDirectory(config.hooks[0]);
+      _this3.createProjectDirectory(config.transformers[0]);
 
       _this3.createTemplateFileWithContentFrom(config.features[0] + '/example.feature', 'example.feature');
       _this3.createTemplateFileWithContentFrom(config.pages[0] + '/page.js', 'page.js');

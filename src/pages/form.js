@@ -1,6 +1,6 @@
 import Base from './base';
 import { fromHandlers } from '../form-handlers';
-import variableStore from '../helpers/variable-store.helper';
+import { transformers } from '../transformers';
 
 class FormPage extends Base {
   fillForm(formData) {
@@ -22,7 +22,7 @@ class FormPage extends Base {
 
     return this.getFieldType(name)
       .then(function (fieldType) {
-        return fromHandlers.handleFill(fieldType, self, name, variableStore.replaceTextVariables(value));
+        return fromHandlers.handleFill(fieldType, self, name, transformers.transform(value));
       });
   }
 
@@ -31,7 +31,7 @@ class FormPage extends Base {
 
     return this.getFieldType(name)
       .then(function (fieldType) {
-        return fromHandlers.handleCheck(fieldType, self, name, value);
+        return fromHandlers.handleCheck(fieldType, self, name, transformers.transform(value));
       });
   }
 
