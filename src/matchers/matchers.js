@@ -9,7 +9,8 @@ class Matchers {
       matcher.notClickableMatcher,
       matcher.presentMatcher,
       matcher.textMatcher,
-      matcher.visibleMatcher
+      matcher.visibleMatcher,
+      matcher.hrefMatcher
     ];
   }
 

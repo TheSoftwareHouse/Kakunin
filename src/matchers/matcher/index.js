@@ -5,3 +5,4 @@ export { default as presentMatcher }  from './present.matcher';
 export { default as textMatcher }  from './text.matcher';
 export { default as visibleMatcher } from './visible.matcher';
 export { default as regexMatcher } from './regex-matcher';
+export { default as hrefMatcher } from './href.matcher';

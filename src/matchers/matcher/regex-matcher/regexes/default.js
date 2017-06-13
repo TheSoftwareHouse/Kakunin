@@ -7,5 +7,7 @@ export const regex = {
   number: '[0-9]+',
   pdfFile: '[\\w]+.pdf',
   pdfFileType: 'application/pdf',
-  email: "[a-z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
+  email: "[a-z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?",
+  // todo: following regex should be moved to tests/regexes
+  someRandomLinkRegex: '(http(s)?:\/\/some-random-link\.com)',
 };

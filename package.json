@@ -1,6 +1,6 @@
 {
   "name": "kakunin",
-  "version": "1.11.2",
+  "version": "1.12.1",
   "description": "End-to-end testing framework",
   "bin": {
     "kakunin": "./dist/cli.js"
@@ -50,5 +50,8 @@
     "protractor-cucumber-framework": "^3.1.0",
     "sg-protractor-tools": "^1.0.4",
     "sugar-date": "^2.0.4"
+  },
+  "dependencies": {
+    "webdriver-manager": "^12.0.6"
   }
 }

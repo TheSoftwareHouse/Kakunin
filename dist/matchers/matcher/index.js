@@ -67,4 +67,13 @@ Object.defineProperty(exports, 'regexMatcher', {
   }
 });
 
+var _href = require('./href.matcher');
+
+Object.defineProperty(exports, 'hrefMatcher', {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_href).default;
+  }
+});
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
