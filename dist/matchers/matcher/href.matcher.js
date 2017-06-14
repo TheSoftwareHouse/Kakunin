@@ -12,7 +12,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 const HrefMatcher = {
   isSatisfiedBy: function (prefix, name) {
-    return prefix === 'f:' && name === 'href';
+    const parameters = name.split(':');
+
+    return prefix === 'f:' && parameters[0] === 'href';
   },
 
   match: function (element, matcherName) {

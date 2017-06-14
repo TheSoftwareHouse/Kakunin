@@ -2,7 +2,9 @@ import regexBuilder from './regex-matcher/regex-builder';
 
 const HrefMatcher = {
   isSatisfiedBy: function (prefix, name) {
-    return prefix === 'f:' && name === 'href';
+    const parameters = name.split(':');
+
+    return prefix === 'f:' && parameters[0] === 'href';
   },
 
   match: function (element, matcherName) {

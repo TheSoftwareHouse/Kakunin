@@ -3,13 +3,14 @@ import { expect } from 'chai';
 
 describe('Href matcher', () => {
   it('is satisfied when the prefix and name are correct', () => {
-    expect(hrefMatcher.isSatisfiedBy('f:', 'href')).to.equal(true);
+    expect(hrefMatcher.isSatisfiedBy('f:', 'href:some-url-regex')).to.equal(true);
   });
 
   it('is not satisfied when the prefix and name are incorrect', () => {
     const incorrectParameters = [
       { prefix: 'f:', name: 'invisible'},
-      { prefix: 'g:', name: 'href'}
+      { prefix: 'g:', name: 'href'},
+      { prefix: 'f:', name: 'href-some-incorrect value'}
     ];
 
     incorrectParameters.forEach(parameters => expect(hrefMatcher
