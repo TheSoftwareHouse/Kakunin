@@ -1,5 +1,5 @@
 const TextMatcher = {
-  isSatisfiedBy: function (prefix, name) {
+  isSatisfiedBy: function (prefix) {
     return prefix === 't:';
   },
 

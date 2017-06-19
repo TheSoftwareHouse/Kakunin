@@ -4,7 +4,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 const TextMatcher = {
-  isSatisfiedBy: function (prefix, name) {
+  isSatisfiedBy: function (prefix) {
     return prefix === 't:';
   },
 
