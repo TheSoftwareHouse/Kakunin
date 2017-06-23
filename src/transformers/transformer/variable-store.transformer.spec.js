@@ -6,7 +6,7 @@ const expect = chai.expect;
 describe('Variable store transformer', () => {
   it('returns replaced text', () => {
     const fakeValue = {
-      replaceTextVariables: () => 'expected value'
+      getVariableValue: () => 'expected value'
     };
     const transformer = createVariableStoreTransformer(fakeValue);
 

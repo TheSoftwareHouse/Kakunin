@@ -39,8 +39,8 @@ class ModulesLoader {
   }
 
   getModules(group) {
-    return this.getFilePaths(this.paths[group]).map(file => require(file[1] // eslint-disable-line global-require
-    ));
+    return this.getFilePaths(this.paths[group]).map(file => require(file[1]) // eslint-disable-line global-require
+    );
   }
 
   getModulesAsObject(projectFolders) {
