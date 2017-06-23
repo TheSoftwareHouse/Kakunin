@@ -10,7 +10,7 @@ class VariableStoreTransformer {
   }
 
   transform(value) {
-    return this.variableStore.replaceTextVariables(value);
+    return this.variableStore.getVariableValue(value);
   }
 }
 export const createVariableStoreTransformer = (variableStore = store) => new VariableStoreTransformer(variableStore);

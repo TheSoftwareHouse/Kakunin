@@ -21,7 +21,7 @@ class VariableStoreTransformer {
   }
 
   transform(value) {
-    return this.variableStore.replaceTextVariables(value);
+    return this.variableStore.getVariableValue(value);
   }
 }
 const createVariableStoreTransformer = exports.createVariableStoreTransformer = (variableStore = _variableStore2.default) => new VariableStoreTransformer(variableStore);
