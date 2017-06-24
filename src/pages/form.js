@@ -3,66 +3,28 @@ import { fromHandlers } from '../form-handlers';
 import { transformers } from '../transformers';
 
 class FormPage extends Base {
-  fillForm(formData) {
-    const fieldsPromises = [];
-    formData.forEach((item) => fieldsPromises.push(this.fillField(item[0], item[1])));
+  async fillForm(formData) {
+    for (let item of formData) {
+      await this.fillField(item[0], item[1]);
+    }
 
-    return Promise.all(fieldsPromises);
+    return Promise.resolve();
   }
 
-  checkForm(formData) {
-    const fieldsPromises = [];
-    formData.forEach((item) => fieldsPromises.push(this.checkField(item[0], item[1])));
+  async checkForm(formData) {
+    for (let item of formData) {
+      await this.checkField(item[0], item[1]);
+    }
 
-    return Promise.all(fieldsPromises);
+    return Promise.resolve();
   }
 
   fillField(name, value) {
-    const self = this;
-
-    return this.getFieldType(name)
-      .then(function (fieldType) {
-        return fromHandlers.handleFill(fieldType, self, name, transformers.transform(value));
-      });
+    return fromHandlers.handleFill(this, name, transformers.transform(value));
   }
 
   checkField(name, value) {
-    const self = this;
-
-    return this.getFieldType(name)
-      .then(function (fieldType) {
-        return fromHandlers.handleCheck(fieldType, self, name, transformers.transform(value));
-      });
-  }
-
-  getFieldType(name) {
-    const self = this;
-
-    return self[name].getTagName()
-      .then(function (tagName) {
-        const fieldType = fromHandlers.findFieldTypeByElementName(name);
-        if (fieldType !== null) {
-          return fieldType;
-        }
-
-        if (tagName.indexOf('select-field') >= 0) {
-          return 'CustomAngularSelect';
-        }
-
-        if (tagName === 'select') {
-          return 'select';
-        }
-
-        if (tagName === 'input') {
-          return self[name].getAttribute('type').then((inputType) => inputType);
-        }
-
-        if (tagName instanceof Array) {
-          return self[name].first().getAttribute('type').then((inputType) => inputType);
-        }
-
-        return 'text';
-      });
+    return fromHandlers.handleCheck(this, name, transformers.transform(value));
   }
 
   acceptDialog(dialogName, dialogAcceptCheckbox, dialogAcceptButton) {

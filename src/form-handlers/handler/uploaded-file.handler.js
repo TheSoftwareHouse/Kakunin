@@ -1,13 +1,13 @@
-const UploadedFileHandler = {
+class UploadedFileHandler {
+  isSatisfiedBy(element, elementName) {
+    return Promise.resolve(elementName.endsWith('Uploaded'));
+  }
 
-  registerFieldType: true,
-  fieldType: 'Uploaded',
-
-  handleFill: function (page, elementName, desiredValue) {
+  handleFill(page, elementName, desiredValue) {
     throw new Error('Not supported for this field type');
-  },
+  }
 
-  handleCheck: function (page, elementName, desiredValue) {
+  handleCheck(page, elementName, desiredValue) {
     return page[elementName].getText().then(function (text) {
       if (text.indexOf(desiredValue) >= 0) {
         return Promise.resolve();
@@ -16,6 +16,10 @@ const UploadedFileHandler = {
       return Promise.reject(`Expected ${desiredValue} got ${text} for file element ${elementName}`);
     });
   }
-};
 
-export const uploadedFileHandler = UploadedFileHandler;
+  getPriority() {
+    return 998;
+  }
+}
+
+export const uploadedFileHandler = new UploadedFileHandler();

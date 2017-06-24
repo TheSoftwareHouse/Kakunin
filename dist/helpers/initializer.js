@@ -70,6 +70,7 @@ class Initializer {
         browserHeight: 900,
         timeout: 60,
         elementsVisibilityTimeout: 5,
+        waitForPageTimeout: 5,
         reports: '/reports',
         downloads: '/downloads',
         data: '/data',
@@ -106,6 +107,7 @@ class Initializer {
 
         conf.timeout = yield _this.promptFolders('What is desired step timeout in seconds?', conf.timeout);
         conf.elementsVisibilityTimeout = yield _this.promptFolders('What is desired elements visibility timeout in seconds?', conf.elementsVisibilityTimeout);
+        conf.waitForPageTimeout = yield _this.promptFolders('How long should I wait for page to load in seconds?', conf.waitForPageTimeout);
 
         conf.reports = yield _this.promptFolders('Where are your reports stored?', conf.reports);
         conf.downloads = yield _this.promptFolders('Where are your downloads stored?', conf.downloads);

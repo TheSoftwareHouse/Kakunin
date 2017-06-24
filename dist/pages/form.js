@@ -14,64 +14,39 @@ var _transformers = require('../transformers');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
 class FormPage extends _base2.default {
   fillForm(formData) {
-    const fieldsPromises = [];
-    formData.forEach(item => fieldsPromises.push(this.fillField(item[0], item[1])));
+    var _this = this;
 
-    return Promise.all(fieldsPromises);
+    return _asyncToGenerator(function* () {
+      for (let item of formData) {
+        yield _this.fillField(item[0], item[1]);
+      }
+
+      return Promise.resolve();
+    })();
   }
 
   checkForm(formData) {
-    const fieldsPromises = [];
-    formData.forEach(item => fieldsPromises.push(this.checkField(item[0], item[1])));
+    var _this2 = this;
 
-    return Promise.all(fieldsPromises);
+    return _asyncToGenerator(function* () {
+      for (let item of formData) {
+        yield _this2.checkField(item[0], item[1]);
+      }
+
+      return Promise.resolve();
+    })();
   }
 
   fillField(name, value) {
-    const self = this;
-
-    return this.getFieldType(name).then(function (fieldType) {
-      return _formHandlers.fromHandlers.handleFill(fieldType, self, name, _transformers.transformers.transform(value));
-    });
+    return _formHandlers.fromHandlers.handleFill(this, name, _transformers.transformers.transform(value));
   }
 
   checkField(name, value) {
-    const self = this;
-
-    return this.getFieldType(name).then(function (fieldType) {
-      return _formHandlers.fromHandlers.handleCheck(fieldType, self, name, _transformers.transformers.transform(value));
-    });
-  }
-
-  getFieldType(name) {
-    const self = this;
-
-    return self[name].getTagName().then(function (tagName) {
-      const fieldType = _formHandlers.fromHandlers.findFieldTypeByElementName(name);
-      if (fieldType !== null) {
-        return fieldType;
-      }
-
-      if (tagName.indexOf('select-field') >= 0) {
-        return 'CustomAngularSelect';
-      }
-
-      if (tagName === 'select') {
-        return 'select';
-      }
-
-      if (tagName === 'input') {
-        return self[name].getAttribute('type').then(inputType => inputType);
-      }
-
-      if (tagName instanceof Array) {
-        return self[name].first().getAttribute('type').then(inputType => inputType);
-      }
-
-      return 'text';
-    });
+    return _formHandlers.fromHandlers.handleCheck(this, name, _transformers.transformers.transform(value));
   }
 
   acceptDialog(dialogName, dialogAcceptCheckbox, dialogAcceptButton) {

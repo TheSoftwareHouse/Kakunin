@@ -1,18 +1,18 @@
-const DefaultHandler = {
+class DefaultHandler {
+  isSatisfiedBy(element, elementName) {
+    return Promise.resolve(true);
+  }
 
-  registerFieldType: false,
-  fieldType: 'default',
-
-  handleFill: function (page, elementName, desiredValue) {
+  handleFill(page, elementName, desiredValue) {
     return page[elementName].isDisplayed()
       .then(function () {
         return page[elementName].clear().then(function () {
           return page[elementName].sendKeys(desiredValue);
         });
       });
-  },
+  }
 
-  handleCheck: function (page, elementName, desiredValue) {
+  handleCheck(page, elementName, desiredValue) {
     return page[elementName].isDisplayed()
       .then(function () {
         return page[elementName].getAttribute('value').then(function (value) {
@@ -24,6 +24,10 @@ const DefaultHandler = {
         });
       });
   }
-};
 
-export const defaultHandler = DefaultHandler;
+  getPriority() {
+    return 999;
+  }
+}
+
+export const defaultHandler = new DefaultHandler();
