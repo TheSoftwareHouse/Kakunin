@@ -15,6 +15,8 @@ You can easily add Kakunin by adding this line:
 3. Run `npm run kakunin init` to create ready to use project
 4. Run `npm run kakunin` to run tests. Kakunin comes with example feature, so you can test it just after configuration.
 
+###### Note: For advanced configuration use `npm run kakunin init -- --advanced`
+
 ##How to extend ?
 
 Kakunin reveals it's own building blocks. You have an access to:
