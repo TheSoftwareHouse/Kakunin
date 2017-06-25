@@ -50,6 +50,7 @@ class Initializer {
       timeout: 60,
       elementsVisibilityTimeout: 5,
       waitForPageTimeout: 5,
+      downloadTimeout: 30,
       reports: '/reports',
       downloads: '/downloads',
       data: '/data',
@@ -93,6 +94,7 @@ class Initializer {
       conf.timeout = await this.promptFolders('What is desired step timeout in seconds?', conf.timeout);
       conf.elementsVisibilityTimeout = await this.promptFolders('What is desired elements visibility timeout in seconds?', conf.elementsVisibilityTimeout);
       conf.waitForPageTimeout = await this.promptFolders('How long should I wait for page to load in seconds?', conf.waitForPageTimeout);
+      conf.downloadTimeout = await this.promptFolders('How long should I wait for files to download in seconds?', conf.downloadTimeout);
 
       conf.reports = await this.promptFolders('Where are your reports stored?', conf.reports);
       conf.downloads = await this.promptFolders('Where are your downloads stored?', conf.downloads);

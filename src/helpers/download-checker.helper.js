@@ -5,7 +5,7 @@ const DownloadChecker = {
   wasDownloaded: function (expectedFileName) {
     return browser.driver.wait(function () {
       return fs.existsSync(config.projectPath + config.downloads + '/' + expectedFileName);
-    }, 30000);
+    }, config.downloadTimeout * 1000);
   }
 };
 

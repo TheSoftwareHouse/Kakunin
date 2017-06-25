@@ -18,7 +18,7 @@ const DownloadChecker = {
   wasDownloaded: function (expectedFileName) {
     return browser.driver.wait(function () {
       return _fs2.default.existsSync(_config2.default.projectPath + _config2.default.downloads + '/' + expectedFileName);
-    }, 30000);
+    }, _config2.default.downloadTimeout * 1000);
   }
 };
 
