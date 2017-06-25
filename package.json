@@ -2,6 +2,27 @@
   "name": "kakunin",
   "version": "1.12.1",
   "description": "End-to-end testing framework",
+  "author": {
+    "name": "The Software House",
+    "url": "http://tsh.io"
+  },
+  "contributors": [
+    {
+      "name": "Adam Polak"
+    },
+    {
+      "name": "Mariuz Richtscheid"
+    },
+    {
+      "name": "Tomasz Górski"
+    },
+    {
+      "name": "Jakub Paluch"
+    },
+    {
+      "name": "Szymon Stanisz"
+    }
+  ],
   "bin": {
     "kakunin": "./dist/cli.js"
   },
