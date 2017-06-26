@@ -33,8 +33,7 @@ envfile(process.cwd() + '/.env', { raise: false, overwrite: false });
 
 if (isInitCommand()) {
   (async () => {
-    await initializer.initConfig();
-    await initializer.initEnv();
+    await initializer.initConfig(commandArgs.advanced);
     await initializer.generateProjectStructure();
   })();
 } else {

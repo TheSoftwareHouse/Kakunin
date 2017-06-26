@@ -12,10 +12,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 (0, _cucumber.defineSupportCode)(function ({ When }) {
   When(/^I generate random "([^"]*)" as "([^"]*)"$/, function (generatorName, variableName) {
-    return _variableStore2.default.storeVariable(variableName, _generators.generators.generate(generatorName));
+    return _generators.generators.generate(generatorName).then(result => _variableStore2.default.storeVariable(variableName, result));
   });
 
   When(/^I generate random "([^"]*)" "([^"]*)" as "([^"]*)"$/, function (generatorName, generatorParam, variableName) {
-    return _variableStore2.default.storeVariable(variableName, _generators.generators.generate(generatorName, generatorParam));
+    return _generators.generators.generate(generatorName, generatorParam).then(result => _variableStore2.default.storeVariable(variableName, result));
   });
 });

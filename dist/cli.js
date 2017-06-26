@@ -39,8 +39,7 @@ envfile(process.cwd() + '/.env', { raise: false, overwrite: false });
 
 if (isInitCommand()) {
   _asyncToGenerator(function* () {
-    yield _initializer2.default.initConfig();
-    yield _initializer2.default.initEnv();
+    yield _initializer2.default.initConfig(commandArgs.advanced);
     yield _initializer2.default.generateProjectStructure();
   })();
 } else {

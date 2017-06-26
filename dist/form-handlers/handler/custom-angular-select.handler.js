@@ -3,15 +3,17 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-const CustomAngularSelectHandler = {
+class CustomAngularSelectHandler {
+  constructor() {
+    this.optionsSelector = by.css('ul.ui-select-choices li a.ui-select-choices-row-inner');
+    this.selectedOptionSelector = by.css('div.ui-select-match .ui-select-match-text');
+  }
 
-  registerFieldType: true,
-  fieldType: 'CustomAngularSelect',
+  isSatisfiedBy(element, elementName) {
+    return Promise.resolve(elementName.endsWith('CustomAngularSelect'));
+  }
 
-  optionsSelector: by.css('ul.ui-select-choices li a.ui-select-choices-row-inner'),
-  selectedOptionSelector: by.css('div.ui-select-match .ui-select-match-text'),
-
-  handleFill: function (page, elementName, desiredValue) {
+  handleFill(page, elementName, desiredValue) {
     return browser.executeScript('arguments[0].scrollIntoView(false);', page[elementName].getWebElement()).then(() => {
       return page[elementName].click().then(() => {
         const filtered = page[elementName].all(this.optionsSelector).filter(function (elem) {
@@ -29,9 +31,9 @@ const CustomAngularSelectHandler = {
         });
       });
     });
-  },
+  }
 
-  handleCheck: function (page, elementName, desiredValue) {
+  handleCheck(page, elementName, desiredValue) {
     return page[elementName].element(this.selectedOptionSelector).getText().then(function (text) {
       if (text === desiredValue) {
         return Promise.resolve();
@@ -40,6 +42,10 @@ const CustomAngularSelectHandler = {
       return Promise.reject(`Expected ${desiredValue} got ${text} for select element ${elementName}`);
     });
   }
-};
 
-const customAngularSelectHandler = exports.customAngularSelectHandler = CustomAngularSelectHandler;
+  getPriority() {
+    return 998;
+  }
+}
+
+const customAngularSelectHandler = exports.customAngularSelectHandler = new CustomAngularSelectHandler();

@@ -40,18 +40,6 @@ Object.keys(_customAngularSelect).forEach(function (key) {
   });
 });
 
-var _datePicker = require('./date-picker.handler');
-
-Object.keys(_datePicker).forEach(function (key) {
-  if (key === "default" || key === "__esModule") return;
-  Object.defineProperty(exports, key, {
-    enumerable: true,
-    get: function () {
-      return _datePicker[key];
-    }
-  });
-});
-
 var _default = require('./default.handler');
 
 Object.keys(_default).forEach(function (key) {
@@ -108,18 +96,6 @@ Object.keys(_select).forEach(function (key) {
     enumerable: true,
     get: function () {
       return _select[key];
-    }
-  });
-});
-
-var _timePicker = require('./time-picker.handler');
-
-Object.keys(_timePicker).forEach(function (key) {
-  if (key === "default" || key === "__esModule") return;
-  Object.defineProperty(exports, key, {
-    enumerable: true,
-    get: function () {
-      return _timePicker[key];
     }
   });
 });

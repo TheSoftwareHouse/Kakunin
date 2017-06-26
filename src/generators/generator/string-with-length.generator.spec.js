@@ -12,7 +12,10 @@ describe('String with length', () => {
     expect(stringWithLengthGenerator.isSatisfiedBy('not-supported-name')).to.equals(false);
   });
 
-  it('generates string with given length', () => {
-    expect(stringWithLengthGenerator.generate(100).length).to.equals(100);
+  it('generates string with given length', (done) => {
+    stringWithLengthGenerator.generate(100).then(result => {
+      expect(result.length).to.equals(100);
+      done();
+    })
   })
 });

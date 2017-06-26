@@ -4,13 +4,13 @@ import { generators } from '../generators';
 
 defineSupportCode(function ({ When }) {
   When(/^I generate random "([^"]*)" as "([^"]*)"$/, function (generatorName, variableName) {
-    return variableStore.storeVariable(variableName, generators.generate(generatorName));
+    return generators.generate(generatorName).then(result => variableStore.storeVariable(variableName, result));
   });
 
   When(/^I generate random "([^"]*)" "([^"]*)" as "([^"]*)"$/, function (generatorName, generatorParam, variableName) {
-    return variableStore.storeVariable(
+    return generators.generate(generatorName, generatorParam).then(result => variableStore.storeVariable(
       variableName,
-      generators.generate(generatorName, generatorParam)
-    );
+      result
+    ));
   });
 });

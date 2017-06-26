@@ -1,10 +1,16 @@
-const SelectHandler = {
+class SelectHandler {
+  constructor() {
+    this.optionsSelector = by.css('option');
+  }
 
-  registerFieldType: false,
-  fieldType: 'select',
-  optionsSelector: by.css('option'),
+  isSatisfiedBy(element, elementName) {
+    return element.getTagName()
+      .then(function (tagName) {
+        return tagName === 'select';
+      });
+  }
 
-  handleFill: function (page, elementName, desiredValue) {
+  handleFill(page, elementName, desiredValue) {
     const self = this;
 
     const filteredByText = page[elementName].all(this.optionsSelector).filter(function (elem) {
@@ -32,9 +38,9 @@ const SelectHandler = {
 
       return filteredByText.first().click();
     });
-  },
+  }
 
-  handleCheck: function (page, elementName, desiredValue) {
+  handleCheck(page, elementName, desiredValue) {
     return page[elementName].all(this.optionsSelector).filter(function (element) {
       return element.getAttribute('value').then(function (elemValue) {
         return elemValue === desiredValue;
@@ -47,6 +53,10 @@ const SelectHandler = {
       return Promise.reject('Option not found for select element.');
     });
   }
-};
 
-export const selectHandler = SelectHandler;
+  getPriority() {
+    return 998;
+  }
+}
+
+export const selectHandler = new SelectHandler();

@@ -36,7 +36,7 @@ class Page {
   isOn() {
     const self = this;
 
-    return browser.wait(this.waitForUrlChangeTo(self.url), 5000).then(function (resultParameters) {
+    return browser.wait(this.waitForUrlChangeTo(self.url), config.waitForPageTimeout * 1000).then(function (resultParameters) {
       return resultParameters;
     });
   }

@@ -1,9 +1,9 @@
-const CKEditorHandler = {
+class CKEditorHandler {
+  isSatisfiedBy(element, elementName) {
+    return Promise.resolve(elementName.endsWith('CKEditor'));
+  }
 
-  registerFieldType: true,
-  fieldType: 'CKEditor',
-
-  handleFill: function (page, elementName, desiredValue) {
+  handleFill(page, elementName, desiredValue) {
     browser.switchTo().frame(page[elementName].getWebElement());
 
     browser.driver.findElement(by.tagName('body')).sendKeys(desiredValue);
@@ -11,11 +11,15 @@ const CKEditorHandler = {
     browser.switchTo().defaultContent();
 
     return browser.waitForAngular();
-  },
+  }
 
-  handleCheck: function (page, elementName, desiredValue) {
+  handleCheck(page, elementName, desiredValue) {
     return Promise.reject('Checking CKEditor is not supported');
   }
-};
 
-export const ckEditorHandler = CKEditorHandler;
+  getPriority() {
+    return 998;
+  }
+}
+
+export const ckEditorHandler = new CKEditorHandler();
