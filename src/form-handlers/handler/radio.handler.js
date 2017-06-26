@@ -1,9 +1,20 @@
-const RadioHandler = {
+class RadioHandler {
+  isSatisfiedBy(element, elementName) {
+    return element.getTagName()
+      .then(function (tagName) {
+        if (tagName === 'input') {
+          return element.getAttribute('type').then((inputType) => inputType === 'radio');
+        }
 
-  registerFieldType: false,
-  fieldType: 'radio',
+        if (tagName instanceof Array) {
+          return element.first().getAttribute('type').then((inputType) => inputType === 'radio');
+        }
 
-  handleFill: function (page, elementName, desiredValue) {
+        return false;
+      });
+  }
+
+  handleFill(page, elementName, desiredValue) {
     const firstRadio = page[elementName].filter(function (elem) {
       return elem.getAttribute('value').then(function (elemValue) {
         return elemValue === desiredValue;
@@ -17,9 +28,9 @@ const RadioHandler = {
 
       return firstRadio.element(by.xpath('..')).click();
     });
-  },
+  }
 
-  handleCheck: function (page, elementName, desiredValue) {
+  handleCheck(page, elementName, desiredValue) {
     const filteredElements = page[elementName].filter(function (element) {
       return element.isSelected();
     });
@@ -43,6 +54,10 @@ const RadioHandler = {
         });
       });
   }
-};
 
-export const radioHandler = RadioHandler;
+  getPriority() {
+    return 998;
+  }
+}
+
+export const radioHandler = new RadioHandler();

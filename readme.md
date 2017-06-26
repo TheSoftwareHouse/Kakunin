@@ -15,23 +15,23 @@ You can easily add Kakunin by adding this line:
 3. Run `npm run kakunin init` to create ready to use project
 4. Run `npm run kakunin` to run tests. Kakunin comes with example feature, so you can test it just after configuration.
 
-###### Note: For advanced configuration use `npm run kakunin init -- --advanced`
-
 ##How to extend ?
 
 Kakunin reveals it's own building blocks. You have an access to:
-1. Cucumbers method `defineSupportCode`. This can be used to add custom steps or hooks. For example:
-```
-const { defineSupportCode } = require('kakunin');
 
-defineSupportCode(({ When }) => {
-  When(/^I use kakunin$/, function() {
-    expect(true).to.equal(true);
+####Cucumbers method `defineSupportCode`. This can be used to add custom steps or hooks. For example:
+
+```javascript
+  const { defineSupportCode } = require('kakunin');
+  
+  defineSupportCode(({ When }) => {
+    When(/^I use kakunin$/, function() {
+      expect(true).to.equal(true);
+    });
   });
-});
 ```
 
-2. `BasePage` page object. This is default page object used in Kakunin. You can create your own page objects simple by
+###`BasePage` page object. This is default page object used in Kakunin. You can create your own page objects simple by
 extending `BasePage`:
 
 ```
@@ -46,7 +46,7 @@ class MyPageObject extends BasePage {
 module.exports = new MyPageObject();
 ```
 
-3. `FormPage` page object. This is page object to handle any kind of a form operations. If you have a form on the given
+###`FormPage` page object. This is page object to handle any kind of a form operations. If you have a form on the given
 page, then for sure you'll find this one useful.
 
 ```
@@ -61,7 +61,8 @@ class MyFormTypePage extends FormPage {
 module.exports = new MyFormTypePage();
 ```
 
-4. `regexBuilder` special builder for creating `RegExp` objects based on regexp name.
+###`regexBuilder` special builder for creating `RegExp` objects based on regexp name.
+
 ```
 const { regexBuilder } = require('kakunin');
 
@@ -70,7 +71,8 @@ const myRegex = regexBuilder.buildRegex('r:number');
 //myRegex will contain RegExp object that matches regular expression under the name "number" in regexes file.
 ```
 
-5. `variableStore` variable store allows you to store and read some values to be used during given scenario.
+###`variableStore` variable store allows you to store and read some values to be used during given scenario.
+
 ```
 const { variableStore } = require('kakunin');
 
@@ -79,7 +81,7 @@ variableStore.storeVariable('some-name', 'some-value');
 const myValue = variableStore.getVariableValue('some-name'); //contains 'some-value'
 ```
 
-6. `matchers` matchers are used to compare if given value is matching our expectation. For example if a value in table is a number.
+###`matchers` matchers are used to compare if given value is matching our expectation. For example if a value in table is a number.
 
 You can add your own matcher:
 
@@ -99,7 +101,7 @@ class MyMatcher {
 matchers.addMatcher(new MyMatcher());
 ```
 
-7. `dictionaries` dictionaries allows you to present complicated values in much more readable way. For example if an element must be
+###`dictionaries` dictionaries allows you to present complicated values in much more readable way. For example if an element must be
 in a form of iri `/some-resource/123-123-123-23` and you wish to use `pending-resource` as it's alias.
 
 You can add your own dictionary:
@@ -128,7 +130,7 @@ class MyDictionary{
 dictionaries.addDictionary(new MyDictionary());
 ```
 
-8. `generators` generators allows you to create random values
+###`generators` generators allows you to create random values
 
 You can add your own generator:
 
@@ -141,14 +143,14 @@ class MyGeneerator{
   }
 
   generate(params) {
-    return 'some-random-value';
+    return Promise.resolve('some-random-value');
   }
 }
 
 generators.addGenerator(new MyGeneerator());
 ```
 
-9. `comparators` comparators allows you to check if a set of values has an expected order
+###`comparators` comparators allows you to check if a set of values has an expected order
 
 You can add your own comparators:
 
@@ -183,7 +185,7 @@ class MyComparator {
 comparators.addComparator(new MyComparator());
 ```
 
-10. `handlers` handlers allows you to fill the form inputs and check value of filled fields
+###`handlers` handlers allows you to fill the form inputs and check value of filled fields
 
 You can add your own handlers:
 
@@ -194,6 +196,10 @@ const MyHandler {
   constructor() {
     this.registerFieldType = false;
     this.fieldType = 'default';
+  }
+
+  isSatisfiedBy(element, elementName) {
+    return Promise.resolve(elementName === 'someElementName');
   }
  
   handleFill(page, elementName, desiredValue) {
@@ -224,7 +230,8 @@ const MyHandler {
 handlers.addHandler(new MyHandler());
 ```
 
-11. `transformers` transformers can be used in steps `When I fill the "form" form with:` and `And the "joinOurStoreForm" form is filled with:`.
+###`transformers` transformers can be used in steps `When I fill the "form" form with:` and `And the "joinOurStoreForm" form is filled with:`.
+
 Existing transformers:
 - generators (prefix: `g:`)
 - dictionaries (prefix: `d:`)

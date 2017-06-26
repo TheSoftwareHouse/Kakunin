@@ -3,20 +3,20 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-const DefaultHandler = {
+class DefaultHandler {
+  isSatisfiedBy(element, elementName) {
+    return Promise.resolve(true);
+  }
 
-  registerFieldType: false,
-  fieldType: 'default',
-
-  handleFill: function (page, elementName, desiredValue) {
+  handleFill(page, elementName, desiredValue) {
     return page[elementName].isDisplayed().then(function () {
       return page[elementName].clear().then(function () {
         return page[elementName].sendKeys(desiredValue);
       });
     });
-  },
+  }
 
-  handleCheck: function (page, elementName, desiredValue) {
+  handleCheck(page, elementName, desiredValue) {
     return page[elementName].isDisplayed().then(function () {
       return page[elementName].getAttribute('value').then(function (value) {
         if (value === desiredValue) {
@@ -27,6 +27,10 @@ const DefaultHandler = {
       });
     });
   }
-};
 
-const defaultHandler = exports.defaultHandler = DefaultHandler;
+  getPriority() {
+    return 999;
+  }
+}
+
+const defaultHandler = exports.defaultHandler = new DefaultHandler();

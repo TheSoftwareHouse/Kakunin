@@ -1,18 +1,29 @@
 import path from 'path';
 import config from '../../helpers/config.helper';
 
-const FileHandler = {
+class FileHandler {
+  isSatisfiedBy(element, elementName) {
+    return element.getTagName()
+      .then(function (tagName) {
+        if (tagName === 'input') {
+          return element.getAttribute('type').then((inputType) => inputType === 'file');
+        }
 
-  registerFieldType: false,
-  fieldType: 'file',
+        if (tagName instanceof Array) {
+          return element.first().getAttribute('type').then((inputType) => inputType === 'file');
+        }
 
-  handleFill: function (page, elementName, desiredValue) {
+        return false;
+      });
+  }
+
+  handleFill(page, elementName, desiredValue) {
     const fileToUpload = path.resolve(config.projectPath + config.data + '/' + desiredValue);
 
     return page[elementName].sendKeys(fileToUpload);
-  },
+  }
 
-  handleCheck: function (page, elementName, desiredValue) {
+  handleCheck(page, elementName, desiredValue) {
     return page[elementName].getText().then(function (text) {
       if (text === desiredValue) {
         return Promise.resolve();
@@ -21,6 +32,10 @@ const FileHandler = {
       return Promise.reject(`Expected ${desiredValue} got ${text} for file element ${elementName}`);
     });
   }
-};
 
-export const fileHandler = FileHandler;
+  getPriority() {
+    return 998;
+  }
+}
+
+export const fileHandler = new FileHandler();

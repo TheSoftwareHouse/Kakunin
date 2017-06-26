@@ -4,12 +4,10 @@ const availableHandlers = [
   formHandler.checkboxHandler,
   formHandler.ckEditorHandler,
   formHandler.customAngularSelectHandler,
-  formHandler.datePickerHandler,
   formHandler.defaultHandler,
   formHandler.fileHandler,
   formHandler.radioHandler,
   formHandler.selectHandler,
-  formHandler.timePickerHandler,
   formHandler.uploadedFileHandler
 ];
 
@@ -18,34 +16,37 @@ const FormHandler = {
     availableHandlers.push(handler);
   },
 
-  handleFill: function (fieldType, page, elementName, desiredValue) {
-    return this.findHandlerByFieldType(fieldType).handleFill(page, elementName, desiredValue);
-  },
+  handleFill: async function (page, elementName, desiredValue) {
+    const handlers = this.getHandlers();
 
-  handleCheck: function (fieldType, page, elementName, desiredValue) {
-    return this.findHandlerByFieldType(fieldType).handleCheck(page, elementName, desiredValue);
-  },
+    for (let handler of handlers) {
+      const isSatisfied = await handler.isSatisfiedBy(page[elementName], elementName);
 
-  findHandlerByFieldType: function (fieldType) {
-    for (let i = 0; i < availableHandlers.length; i++) {
-      if (availableHandlers[i].fieldType === fieldType) {
-        return availableHandlers[i];
+      if (isSatisfied) {
+        return handler.handleFill(page, elementName, desiredValue);
       }
     }
 
-    return this.findHandlerByFieldType('default');
+    return Promise.reject('Could not find matching handler.');
   },
 
-  findFieldTypeByElementName: function (elementName) {
-    for (let i = 0; i < availableHandlers.length; i++) {
-      if (availableHandlers[i].registerFieldType && elementName.indexOf(availableHandlers[i].fieldType) >= 0) {
-        return availableHandlers[i].fieldType;
+  handleCheck: async function (page, elementName, desiredValue) {
+    const handlers = this.getHandlers();
+
+    for (let handler of handlers) {
+      const isSatisfied = await handler.isSatisfiedBy(page[elementName], elementName);
+
+      if (isSatisfied) {
+        return handler.handleCheck(page, elementName, desiredValue);
       }
     }
 
-    return null;
+    return Promise.reject('Could not find matching handler.');
+  },
+
+  getHandlers: function() {
+    return availableHandlers.sort((handler, otherHandler) => handler.getPriority() - otherHandler.getPriority());
   }
-
 };
 
 export default FormHandler;

@@ -6,7 +6,7 @@ const FileManager = {
   wasDownloaded: function (expectedFileName) {
     return browser.driver.wait(function () {
       return fs.existsSync(config.projectPath + config.downloads + '/' + expectedFileName);
-    }, 20000);
+    }, config.downloadTimeout * 1000);
   },
 
   parseXLS: function (expectedFileName) {

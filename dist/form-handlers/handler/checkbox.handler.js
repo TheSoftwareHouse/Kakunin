@@ -3,20 +3,30 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-const CheckboxHandler = {
+class CheckboxHandler {
+  isSatisfiedBy(element, elementName) {
+    return element.getTagName().then(function (tagName) {
+      if (tagName === 'input') {
+        return element.getAttribute('type').then(inputType => inputType === 'checkbox');
+      }
 
-  registerFieldType: false,
-  fieldType: 'checkbox',
+      if (tagName instanceof Array) {
+        return element.first().getAttribute('type').then(inputType => inputType === 'checkbox');
+      }
 
-  handleFill: function (page, elementName, desiredValue) {
+      return false;
+    });
+  }
+
+  handleFill(page, elementName, desiredValue) {
     return page[elementName].filter(function (elem) {
       return elem.element(by.xpath('..')).getText().then(function (text) {
         return text === desiredValue;
       });
     }).first().click();
-  },
+  }
 
-  handleCheck: function (page, elementName, desiredValue) {
+  handleCheck(page, elementName, desiredValue) {
     const filteredElements = page[elementName].filter(function (element) {
       return element.isSelected();
     });
@@ -43,6 +53,10 @@ const CheckboxHandler = {
       });
     });
   }
-};
 
-const checkboxHandler = exports.checkboxHandler = CheckboxHandler;
+  getPriority() {
+    return 998;
+  }
+}
+
+const checkboxHandler = exports.checkboxHandler = new CheckboxHandler();
