@@ -143,7 +143,7 @@ class MyGeneerator{
   }
 
   generate(params) {
-    return 'some-random-value';
+    return Promise.resolve('some-random-value');
   }
 }
 

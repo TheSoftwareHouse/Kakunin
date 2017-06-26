@@ -11,20 +11,25 @@ describe('Generators', () => {
       .to.throw('Could not find generator for unknown-generator.');
   });
 
-  it('return generated value', () => {
-    expect(generators.generate('stringWithLength', 100).length).to.equal(100);
+  it('return generated value', (done) => {
+    generators.generate('stringWithLength', 100).then((result) => {
+      expect(result.length).to.equal(100);
+      done();
+    });
   });
 
-  it('adds new generator', () => {
+  it('adds new generator', (done) => {
     const customGenerator = {
       isSatisfiedBy: (name) => name === 'customGenerator',
       generate: (params) => {
-        return params;
+        return Promise.resolve(params);
       }
     };
 
     generators.addGenerator(customGenerator);
-
-    expect(generators.generate('customGenerator', 'params')).to.equal('params');
+    generators.generate('customGenerator', 'params').then((result) => {
+      expect(result).to.equal('params');
+      done();
+    });
   })
 });

@@ -12,7 +12,7 @@ class Generator {
       'Paul'
     ];
 
-    return names[Math.floor(Math.random() * names.length)];
+    return Promise.resolve(names[Math.floor(Math.random() * names.length)]);
   }
 }
 
