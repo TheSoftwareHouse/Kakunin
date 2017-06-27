@@ -3,7 +3,7 @@ import { expect } from 'chai';
 
 describe('Present matcher', () => {
   it('is satisfied when the prefix and the name are correct', () => {
-    expect(presentMatcher.isSatisfiedBy('f:', 'isPresent')).to.equal(true);
+    expect(presentMatcher.isSatisfiedBy('f', 'isPresent')).to.equal(true);
   });
 
   it('is not satisfied when unsupported parameters are given', () => {

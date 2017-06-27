@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 const PresentMatcher = {
   isSatisfiedBy: function (prefix, name) {
-    return prefix === 'f:' && name === 'isPresent';
+    return prefix === 'f' && name === 'isPresent';
   },
 
   match: function (element, matcherName) {

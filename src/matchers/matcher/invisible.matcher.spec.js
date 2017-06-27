@@ -3,13 +3,13 @@ import { expect } from 'chai';
 
 describe('Invisible matcher', () => {
   it('is satisfied when the prefix and the name are correct', () => {
-    expect(invisibleMatcher.isSatisfiedBy('f:', 'isNotVisible')).to.equal(true);
+    expect(invisibleMatcher.isSatisfiedBy('f', 'isNotVisible')).to.equal(true);
   });
 
   it('is not satisfied when unsupported parameters are given', () => {
     const incorrectParameters = [
-      { prefix: 'f:', name: 'isVisible' },
-      { prefix: 't:', name: 'isNotVisible' }
+      { prefix: 'f', name: 'isVisible' },
+      { prefix: 't', name: 'isNotVisible' }
     ];
     incorrectParameters.forEach((parameter) => expect(invisibleMatcher
       .isSatisfiedBy(parameter.prefix, parameter.name)).to.equal(false))

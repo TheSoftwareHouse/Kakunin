@@ -3,7 +3,7 @@ import regex from './regex';
 
 const RegexMatcher = {
   isSatisfiedBy: function (prefix, name) {
-    return prefix === 'r:' && typeof regex[name] !== 'undefined';
+    return prefix === 'r' && typeof regex[name] !== 'undefined';
   },
   match: function (element, matcherName) {
     return element.getText().then((text) => {

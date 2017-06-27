@@ -4,7 +4,7 @@ const HrefMatcher = {
   isSatisfiedBy: function (prefix, name) {
     const parameters = name.split(':');
 
-    return prefix === 'f:' && parameters[0] === 'href';
+    return prefix === 'f' && parameters[0] === 'href';
   },
 
   match: function (element, matcherName) {

@@ -16,7 +16,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 const RegexMatcher = {
   isSatisfiedBy: function (prefix, name) {
-    return prefix === 'r:' && typeof _regex2.default[name] !== 'undefined';
+    return prefix === 'r' && typeof _regex2.default[name] !== 'undefined';
   },
   match: function (element, matcherName) {
     return element.getText().then(text => {

@@ -3,15 +3,15 @@ import { expect } from 'chai';
 
 describe('Regex matcher', () => {
   it('is satisfied when the prefix is correct and regex exists', () => {
-    expect(regexMatcher.isSatisfiedBy('r:', 'number')).to.equal(true);
+    expect(regexMatcher.isSatisfiedBy('r', 'number')).to.equal(true);
   });
 
   it('is not satisfied when the prefix is incorrect', () => {
-    expect(regexMatcher.isSatisfiedBy('f:', 'number')).to.equal(false);
+    expect(regexMatcher.isSatisfiedBy('f', 'number')).to.equal(false);
   });
 
   it('is not satisfied when the name is not incorrect', () => {
-    expect(regexMatcher.isSatisfiedBy('r:', 'unknown')).to.equal(false);
+    expect(regexMatcher.isSatisfiedBy('r', 'unknown')).to.equal(false);
   });
 
   it('returns matches text of element', (done) => {

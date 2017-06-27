@@ -9,8 +9,8 @@ describe('Matchers', () => {
   it('throws an error when no matcher was found', () => {
     const mockedElement = {};
 
-    expect(() => matchers.match(mockedElement, 'unknown-matcher'))
-      .to.throw('Could not find matcher for unknown-matcher.');
+    expect(() => matchers.match(mockedElement, 'incorrect:unknown-matcher'))
+      .to.throw('Could not find matcher for incorrect:unknown-matcher.');
   });
 
   it('returns true when found a matcher and element value is correct', (done) => {

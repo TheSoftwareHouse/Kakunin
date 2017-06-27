@@ -3,11 +3,11 @@ import { expect } from 'chai';
 
 describe('Text matcher', () => {
   it('is satisfied when the prefix is correct', () => {
-    expect(textMatcher.isSatisfiedBy('t:')).to.equal(true);
+    expect(textMatcher.isSatisfiedBy('t')).to.equal(true);
   });
 
   it('is not satisfied when the prefix is incorrect', () => {
-    expect(textMatcher.isSatisfiedBy('r:')).to.equal(false);
+    expect(textMatcher.isSatisfiedBy('r')).to.equal(false);
   });
 
   it('returns true when the text is matched', (done) => {
@@ -15,7 +15,7 @@ describe('Text matcher', () => {
       getText: () => Promise.resolve('this string contains message')
     };
 
-    textMatcher.match(elementMocked, 't:message').then((result) => {
+    textMatcher.match(elementMocked, 'message').then((result) => {
       expect(result).to.equal(true);
       done();
     });
@@ -26,7 +26,7 @@ describe('Text matcher', () => {
       getText: () => Promise.resolve('missing expected value in string')
     };
 
-    textMatcher.match(elementMocked, 't:message').then((result) => {
+    textMatcher.match(elementMocked, 'message').then((result) => {
       expect(result).to.equal(false);
       done();
     });
