@@ -20,7 +20,7 @@ describe('Regex matcher', () => {
       getAttribute: (name) => (name === 'value') ? Promise.resolve('') : Promise.resolve(null)
     };
 
-    regexMatcher.match(elementMocked, 'r:number').then((result) => {
+    regexMatcher.match(elementMocked, 'number').then((result) => {
       expect(result).to.equal(true);
       done();
     });
@@ -32,7 +32,7 @@ describe('Regex matcher', () => {
       getAttribute: (name) => (name === 'value') ? Promise.resolve('12345') : Promise.resolve(null)
     };
 
-    regexMatcher.match(elementMocked, 'r:number').then((result) => {
+    regexMatcher.match(elementMocked, 'number').then((result) => {
       expect(result).to.equal(true);
       done();
     });
@@ -44,7 +44,7 @@ describe('Regex matcher', () => {
       getAttribute: (name) => (name === 'value') ? Promise.resolve('') : Promise.resolve(null)
     };
 
-    regexMatcher.match(elementMocked, 'r:number').then((result) => {
+    regexMatcher.match(elementMocked, 'number').then((result) => {
       expect(result).to.equal(false);
       done();
     });
@@ -56,7 +56,7 @@ describe('Regex matcher', () => {
       getAttribute: (name) => (name === 'value') ? Promise.resolve('not-a-number') : Promise.resolve(null)
     };
 
-    regexMatcher.match(elementMocked, 'r:number').then((result) => {
+    regexMatcher.match(elementMocked, 'number').then((result) => {
       expect(result).to.equal(false);
       done();
     });
@@ -68,7 +68,7 @@ describe('Regex matcher', () => {
       getAttribute: () => Promise.resolve(null)
     };
 
-    regexMatcher.match(elementMocked, 'r:notEmpty').then((result) => {
+    regexMatcher.match(elementMocked, 'notEmpty').then((result) => {
       expect(result).to.equal(false);
       done();
     });

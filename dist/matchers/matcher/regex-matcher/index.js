@@ -26,10 +26,10 @@ const RegexMatcher = {
             return false;
           }
 
-          return _regexBuilder2.default.buildRegex(matcherName).test(value);
+          return _regexBuilder2.default.buildRegex(`r:${matcherName}`).test(value);
         }
 
-        return _regexBuilder2.default.buildRegex(matcherName).test(text);
+        return _regexBuilder2.default.buildRegex(`r:${matcherName}`).test(text);
       });
     });
   }

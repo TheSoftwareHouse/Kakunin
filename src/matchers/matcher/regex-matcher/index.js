@@ -13,10 +13,10 @@ const RegexMatcher = {
             return false
           }
 
-          return regexBuilder.buildRegex(matcherName).test(value);
+          return regexBuilder.buildRegex(`r:${matcherName}`).test(value);
         }
 
-        return regexBuilder.buildRegex(matcherName).test(text);
+        return regexBuilder.buildRegex(`r:${matcherName}`).test(text);
       });
     });
   }
