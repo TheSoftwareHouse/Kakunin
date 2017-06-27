@@ -10,7 +10,7 @@ class Matchers {
       matcher.presentMatcher,
       matcher.textMatcher,
       matcher.visibleMatcher,
-      matcher.hrefMatcher
+      matcher.attributeMatcher,
     ];
   }
 

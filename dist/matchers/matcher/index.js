@@ -67,12 +67,12 @@ Object.defineProperty(exports, 'regexMatcher', {
   }
 });
 
-var _href = require('./href.matcher');
+var _attribute = require('./attribute.matcher');
 
-Object.defineProperty(exports, 'hrefMatcher', {
+Object.defineProperty(exports, 'attributeMatcher', {
   enumerable: true,
   get: function () {
-    return _interopRequireDefault(_href).default;
+    return _interopRequireDefault(_attribute).default;
   }
 });
 
