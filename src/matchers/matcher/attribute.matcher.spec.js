@@ -22,7 +22,7 @@ describe('Attribute matcher', () => {
       getAttribute: () => Promise.resolve('http://some-random-link.com')
     };
 
-    attributeMatcher.match(elementMocked, 'attribute:href:someRandomLinkRegex').then((result) => {
+    attributeMatcher.match(elementMocked, 'href', 'someRandomLinkRegex').then((result) => {
       expect(result).to.equal(true);
       done();
     });
@@ -33,7 +33,7 @@ describe('Attribute matcher', () => {
       getAttribute: () => Promise.resolve('some-random-link')
     };
 
-    attributeMatcher.match(elementMocked, 'attribute:href:someRandomLinkRegex').then(result => {
+    attributeMatcher.match(elementMocked, 'href' ,'someRandomLinkRegex').then(result => {
       expect(result).to.equal(false);
       done();
     });

@@ -15,10 +15,8 @@ const AttributeMatcher = {
     return prefix === 'attribute';
   },
 
-  match: function (element, matcherName) {
-    const splittedValue = matcherName.split(':');
-
-    return element.getAttribute(splittedValue[1]).then(value => _regexBuilder2.default.buildRegex(`r:${splittedValue[2]}`).test(value));
+  match: function (element, attributeName, regexName) {
+    return element.getAttribute(attributeName).then(value => _regexBuilder2.default.buildRegex(`r:${regexName}`).test(value));
   }
 };
 
