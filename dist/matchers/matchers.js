@@ -13,7 +13,7 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 class Matchers {
   constructor() {
-    this.availableMatchers = [matcher.regexMatcher, matcher.clickableMatcher, matcher.invisibleMatcher, matcher.notClickableMatcher, matcher.presentMatcher, matcher.textMatcher, matcher.visibleMatcher, matcher.hrefMatcher];
+    this.availableMatchers = [matcher.regexMatcher, matcher.clickableMatcher, matcher.invisibleMatcher, matcher.notClickableMatcher, matcher.presentMatcher, matcher.textMatcher, matcher.visibleMatcher, matcher.attributeMatcher];
   }
 
   addMatcher(matcher) {
@@ -21,17 +21,18 @@ class Matchers {
   }
 
   match(element, matcherName) {
-    const matcher = this.findMatcher(matcherName.substr(0, 2), matcherName.substr(2));
+    const splittedValue = matcherName.split(':');
+    const matcher = this.findMatcher(splittedValue[0], splittedValue.slice(1));
 
     if (matcher === undefined) {
       throw new Error(`Could not find matcher for ${matcherName}.`);
     }
 
-    return matcher.match(element, matcherName);
+    return matcher.match(element, ...splittedValue.slice(1));
   }
 
-  findMatcher(prefix, name) {
-    return this.availableMatchers.find(matcher => matcher.isSatisfiedBy(prefix, name));
+  findMatcher(prefix, params) {
+    return this.availableMatchers.find(matcher => matcher.isSatisfiedBy(prefix, ...params));
   }
 }
 

@@ -1,6 +1,6 @@
 const ClickableMatcher = {
   isSatisfiedBy: function (prefix, name) {
-    return prefix === 'f:' && name === 'isClickable';
+    return prefix === 'f' && name === 'isClickable';
   },
   match: function (element) {
     return element.getAttribute('disabled').then(function (disabled) {

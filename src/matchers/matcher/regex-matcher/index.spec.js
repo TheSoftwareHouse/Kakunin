@@ -3,15 +3,15 @@ import { expect } from 'chai';
 
 describe('Regex matcher', () => {
   it('is satisfied when the prefix is correct and regex exists', () => {
-    expect(regexMatcher.isSatisfiedBy('r:', 'number')).to.equal(true);
+    expect(regexMatcher.isSatisfiedBy('r', 'number')).to.equal(true);
   });
 
   it('is not satisfied when the prefix is incorrect', () => {
-    expect(regexMatcher.isSatisfiedBy('f:', 'number')).to.equal(false);
+    expect(regexMatcher.isSatisfiedBy('f', 'number')).to.equal(false);
   });
 
   it('is not satisfied when the name is not incorrect', () => {
-    expect(regexMatcher.isSatisfiedBy('r:', 'unknown')).to.equal(false);
+    expect(regexMatcher.isSatisfiedBy('r', 'unknown')).to.equal(false);
   });
 
   it('returns matches text of element', (done) => {
@@ -20,7 +20,7 @@ describe('Regex matcher', () => {
       getAttribute: (name) => (name === 'value') ? Promise.resolve('') : Promise.resolve(null)
     };
 
-    regexMatcher.match(elementMocked, 'r:number').then((result) => {
+    regexMatcher.match(elementMocked, 'number').then((result) => {
       expect(result).to.equal(true);
       done();
     });
@@ -32,7 +32,7 @@ describe('Regex matcher', () => {
       getAttribute: (name) => (name === 'value') ? Promise.resolve('12345') : Promise.resolve(null)
     };
 
-    regexMatcher.match(elementMocked, 'r:number').then((result) => {
+    regexMatcher.match(elementMocked, 'number').then((result) => {
       expect(result).to.equal(true);
       done();
     });
@@ -44,7 +44,7 @@ describe('Regex matcher', () => {
       getAttribute: (name) => (name === 'value') ? Promise.resolve('') : Promise.resolve(null)
     };
 
-    regexMatcher.match(elementMocked, 'r:number').then((result) => {
+    regexMatcher.match(elementMocked, 'number').then((result) => {
       expect(result).to.equal(false);
       done();
     });
@@ -56,7 +56,7 @@ describe('Regex matcher', () => {
       getAttribute: (name) => (name === 'value') ? Promise.resolve('not-a-number') : Promise.resolve(null)
     };
 
-    regexMatcher.match(elementMocked, 'r:number').then((result) => {
+    regexMatcher.match(elementMocked, 'number').then((result) => {
       expect(result).to.equal(false);
       done();
     });
@@ -68,7 +68,7 @@ describe('Regex matcher', () => {
       getAttribute: () => Promise.resolve(null)
     };
 
-    regexMatcher.match(elementMocked, 'r:notEmpty').then((result) => {
+    regexMatcher.match(elementMocked, 'notEmpty').then((result) => {
       expect(result).to.equal(false);
       done();
     });

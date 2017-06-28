@@ -10,7 +10,7 @@ class Generator {
   generate() {
     const names = ['Bob', 'John', 'Paul'];
 
-    return names[Math.floor(Math.random() * names.length)];
+    return Promise.resolve(names[Math.floor(Math.random() * names.length)]);
   }
 }
 

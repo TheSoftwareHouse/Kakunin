@@ -1,19 +1,19 @@
-import hrefMatcher from './href.matcher';
+import attributeMatcher from './attribute.matcher';
 import { expect } from 'chai';
 
-describe('Href matcher', () => {
+describe('Attribute matcher', () => {
   it('is satisfied when the prefix and name are correct', () => {
-    expect(hrefMatcher.isSatisfiedBy('f:', 'href:some-url-regex')).to.equal(true);
+    expect(attributeMatcher.isSatisfiedBy('attribute', 'class:some-url-regex')).to.equal(true);
   });
 
   it('is not satisfied when the prefix and name are incorrect', () => {
     const incorrectParameters = [
-      { prefix: 'f:', name: 'invisible'},
-      { prefix: 'g:', name: 'href'},
-      { prefix: 'f:', name: 'href-some-incorrect value'}
+      { prefix: 'f'},
+      { prefix: 'incorrect'},
+      { prefix: 'g'}
     ];
 
-    incorrectParameters.forEach(parameters => expect(hrefMatcher
+    incorrectParameters.forEach(parameters => expect(attributeMatcher
       .isSatisfiedBy(parameters.prefix, parameters.name)).to.equal(false));
   });
 
@@ -22,7 +22,7 @@ describe('Href matcher', () => {
       getAttribute: () => Promise.resolve('http://some-random-link.com')
     };
 
-    hrefMatcher.match(elementMocked, 'f:href:someRandomLinkRegex').then((result) => {
+    attributeMatcher.match(elementMocked, 'href', 'someRandomLinkRegex').then((result) => {
       expect(result).to.equal(true);
       done();
     });
@@ -33,7 +33,7 @@ describe('Href matcher', () => {
       getAttribute: () => Promise.resolve('some-random-link')
     };
 
-    hrefMatcher.match(elementMocked, 'f:href:someRandomLinkRegex').then(result => {
+    attributeMatcher.match(elementMocked, 'href' ,'someRandomLinkRegex').then(result => {
       expect(result).to.equal(false);
       done();
     });

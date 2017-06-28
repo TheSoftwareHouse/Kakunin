@@ -3,13 +3,13 @@ import { expect } from 'chai';
 
 describe('Not clickable matcher', () => {
   it('is satisfied when the prefix and the name are correct', () => {
-    expect(notClickableMatcher.isSatisfiedBy('f:', 'isNotClickable')).to.equal(true);
+    expect(notClickableMatcher.isSatisfiedBy('f', 'isNotClickable')).to.equal(true);
   });
 
   it('is not satisfied when unsupported parameters are given', () => {
     const incorrectParameters = [
-      { prefix: 'r:', name: 'isNotClickable' },
-      { prefix: 'f:', name: 'isClickable' }
+      { prefix: 'r', name: 'isNotClickable' },
+      { prefix: 'f', name: 'isClickable' }
     ];
     incorrectParameters.forEach((parameter) => expect(notClickableMatcher
       .isSatisfiedBy(parameter.prefix, parameter.name)).to.equal(false));

@@ -3,7 +3,7 @@ import regex from './regex';
 
 const RegexMatcher = {
   isSatisfiedBy: function (prefix, name) {
-    return prefix === 'r:' && typeof regex[name] !== 'undefined';
+    return prefix === 'r' && typeof regex[name] !== 'undefined';
   },
   match: function (element, matcherName) {
     return element.getText().then((text) => {
@@ -13,10 +13,10 @@ const RegexMatcher = {
             return false
           }
 
-          return regexBuilder.buildRegex(matcherName).test(value);
+          return regexBuilder.buildRegex(`r:${matcherName}`).test(value);
         }
 
-        return regexBuilder.buildRegex(matcherName).test(text);
+        return regexBuilder.buildRegex(`r:${matcherName}`).test(text);
       });
     });
   }
