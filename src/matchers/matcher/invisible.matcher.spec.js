@@ -1,4 +1,4 @@
-import invisibleMatcher from './invisible.matcher';
+import { invisibleMatcher } from './invisible.matcher';
 import { expect } from 'chai';
 
 describe('Invisible matcher', () => {

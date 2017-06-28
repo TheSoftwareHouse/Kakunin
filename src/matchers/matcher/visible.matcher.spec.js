@@ -1,4 +1,4 @@
-import visibleMatcher from './visible.matcher';
+import { visibleMatcher } from './visible.matcher';
 import { expect } from 'chai';
 
 describe('Visible matcher', () => {

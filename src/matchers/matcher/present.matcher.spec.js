@@ -1,4 +1,4 @@
-import presentMatcher from './present.matcher';
+import { presentMatcher } from './present.matcher';
 import { expect } from 'chai';
 
 describe('Present matcher', () => {

@@ -1,11 +1,12 @@
 import regexBuilder from './regex-builder';
 import regex from './regex';
 
-const RegexMatcher = {
-  isSatisfiedBy: function (prefix, name) {
+class RegexMatcher {
+  isSatisfiedBy(prefix, name) {
     return prefix === 'r' && typeof regex[name] !== 'undefined';
-  },
-  match: function (element, matcherName) {
+  }
+
+  match(element, matcherName) {
     return element.getText().then((text) => {
       return element.getAttribute('value').then(function (value) {
         if (text === '') {
@@ -20,6 +21,6 @@ const RegexMatcher = {
       });
     });
   }
-};
+}
 
-export default RegexMatcher;
+export const regexMatcher = new RegexMatcher();

@@ -3,13 +3,14 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-const InvisibleMatcher = {
-  isSatisfiedBy: function (prefix, name) {
+class InvisibleMatcher {
+  isSatisfiedBy(prefix, name) {
     return prefix === 'f' && name === 'isNotVisible';
-  },
-  match: function (element) {
+  }
+
+  match(element) {
     return element.isDisplayed().then(() => false).catch(() => true);
   }
-};
+}
 
-exports.default = InvisibleMatcher;
+const invisibleMatcher = exports.invisibleMatcher = new InvisibleMatcher();

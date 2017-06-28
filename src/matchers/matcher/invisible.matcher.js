@@ -1,10 +1,11 @@
-const InvisibleMatcher = {
-  isSatisfiedBy: function (prefix, name) {
+class InvisibleMatcher {
+  isSatisfiedBy(prefix, name) {
     return prefix === 'f' && name === 'isNotVisible';
-  },
-  match: function (element) {
+  }
+
+  match(element) {
     return element.isDisplayed().then(() => false).catch(() => true);
   }
-};
+}
 
-export default InvisibleMatcher;
+export const invisibleMatcher = new InvisibleMatcher();

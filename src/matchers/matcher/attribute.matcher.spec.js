@@ -1,4 +1,4 @@
-import attributeMatcher from './attribute.matcher';
+import { attributeMatcher } from './attribute.matcher';
 import { expect } from 'chai';
 
 describe('Attribute matcher', () => {

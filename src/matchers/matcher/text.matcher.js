@@ -1,11 +1,11 @@
-const TextMatcher = {
-  isSatisfiedBy: function (prefix) {
+class TextMatcher {
+  isSatisfiedBy(prefix) {
     return prefix === 't';
-  },
+  }
 
-  match: function (element, matcherName) {
+  match(element, matcherName) {
     return element.getText().then((text) => new RegExp(RegExp.escape(matcherName)).test(text));
   }
-};
+}
 
-export default TextMatcher;
+export const textMatcher = new TextMatcher();
