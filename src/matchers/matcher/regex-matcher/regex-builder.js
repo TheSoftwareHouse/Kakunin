@@ -1,7 +1,7 @@
 import regex from './regex';
 
-const RegexBuilder = {
-  buildRegex: function (regexTemplate) {
+class RegexBuilder {
+  buildRegex(regexTemplate) {
     for (let property in regex) {
       if (regex.hasOwnProperty(property)) {
         if (regexTemplate === 'r:' + property) {
@@ -12,6 +12,6 @@ const RegexBuilder = {
 
     throw 'Regex with template ' + regexTemplate + ' was not found';
   }
-};
+}
 
-export default RegexBuilder;
+export const regexBuilder = new RegexBuilder();

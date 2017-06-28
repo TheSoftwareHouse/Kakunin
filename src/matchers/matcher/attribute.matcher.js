@@ -1,4 +1,4 @@
-import regexBuilder from './regex-matcher/regex-builder';
+import { regexBuilder } from './regex-matcher/regex-builder';
 
 class AttributeMatcher {
   isSatisfiedBy(prefix) {

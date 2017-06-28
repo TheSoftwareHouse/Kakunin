@@ -1,4 +1,4 @@
-import regexBuilder from './regex-builder';
+import { regexBuilder } from './regex-builder';
 import { expect } from 'chai';
 
 describe('Regex builder', () => {
