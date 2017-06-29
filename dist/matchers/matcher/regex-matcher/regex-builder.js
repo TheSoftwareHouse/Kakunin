@@ -3,6 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.regexBuilder = undefined;
 
 var _regex = require('./regex');
 
@@ -10,8 +11,8 @@ var _regex2 = _interopRequireDefault(_regex);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-const RegexBuilder = {
-  buildRegex: function (regexTemplate) {
+class RegexBuilder {
+  buildRegex(regexTemplate) {
     for (let property in _regex2.default) {
       if (_regex2.default.hasOwnProperty(property)) {
         if (regexTemplate === 'r:' + property) {
@@ -22,6 +23,6 @@ const RegexBuilder = {
 
     throw 'Regex with template ' + regexTemplate + ' was not found';
   }
-};
+}
 
-exports.default = RegexBuilder;
+const regexBuilder = exports.regexBuilder = new RegexBuilder();

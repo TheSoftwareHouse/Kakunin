@@ -1,13 +1,13 @@
-import regexBuilder from './regex-matcher/regex-builder';
+import { regexBuilder } from './regex-matcher/regex-builder';
 
-const AttributeMatcher = {
-  isSatisfiedBy: function (prefix) {
+class AttributeMatcher {
+  isSatisfiedBy(prefix) {
     return prefix === 'attribute';
-  },
+  }
 
-  match: function (element, attributeName, regexName) {
+  match(element, attributeName, regexName) {
     return element.getAttribute(attributeName).then((value) => (regexBuilder.buildRegex(`r:${regexName}`)).test(value));
   }
-};
+}
 
-export default AttributeMatcher;
+export const attributeMatcher = new AttributeMatcher();

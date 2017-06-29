@@ -3,15 +3,16 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-const NotClickableMatcher = {
-  isSatisfiedBy: function (prefix, name) {
+class NotClickableMatcher {
+  isSatisfiedBy(prefix, name) {
     return prefix === 'f' && name === 'isNotClickable';
-  },
-  match: function (element) {
+  }
+
+  match(element) {
     return element.getAttribute('disabled').then(function (disabled) {
       return ['disabled', true, 'true'].indexOf(disabled) !== -1;
     });
   }
-};
+}
 
-exports.default = NotClickableMatcher;
+const notClickableMatcher = exports.notClickableMatcher = new NotClickableMatcher();

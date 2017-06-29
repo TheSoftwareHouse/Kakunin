@@ -1,4 +1,4 @@
-import notClickableMatcher from './not-clickable.matcher';
+import { notClickableMatcher } from './not-clickable.matcher';
 import { expect } from 'chai';
 
 describe('Not clickable matcher', () => {

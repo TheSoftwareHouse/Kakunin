@@ -1,10 +1,11 @@
-const VisibleMatcher = {
-  isSatisfiedBy: function (prefix, name) {
+class VisibleMatcher {
+  isSatisfiedBy(prefix, name) {
     return prefix === 'f' && name === 'isVisible';
-  },
-  match: function (element, matcherName) {
+  }
+
+  match(element) {
     return element.isDisplayed().then(() => true).catch(() => false);
   }
-};
+}
 
-export default VisibleMatcher;
+export const visibleMatcher = new VisibleMatcher();

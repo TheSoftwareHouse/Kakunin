@@ -1,4 +1,4 @@
-import clickableMatcher from './clickable.matcher';
+import { clickableMatcher } from './clickable.matcher';
 import { expect } from 'chai';
 
 describe('Clickable matcher', () => {

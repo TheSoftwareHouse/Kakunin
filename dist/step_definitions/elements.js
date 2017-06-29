@@ -69,6 +69,12 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     });
   });
 
+  When(/^I update the "([^"]*)" element text as "([^"]*)" variable$/, function (element, variable) {
+    return this.currentPage[element].getText().then(text => {
+      _variableStore2.default.updateVariable(variable, text);
+    });
+  });
+
   When(/^I store the "([^"]*)" element text matched by "([^"]*)" as "([^"]*)" variable$/, function (element, matcher, variable) {
     const regex = _matchers.regexBuilder.buildRegex(matcher);
 

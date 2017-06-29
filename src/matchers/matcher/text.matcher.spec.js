@@ -1,4 +1,4 @@
-import textMatcher from './text.matcher';
+import { textMatcher } from './text.matcher';
 import { expect } from 'chai';
 
 describe('Text matcher', () => {

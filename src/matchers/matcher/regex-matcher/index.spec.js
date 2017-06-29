@@ -1,4 +1,4 @@
-import regexMatcher from './index';
+import { regexMatcher } from './index';
 import { expect } from 'chai';
 
 describe('Regex matcher', () => {

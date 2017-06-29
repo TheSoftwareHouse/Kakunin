@@ -3,14 +3,14 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-const PresentMatcher = {
-  isSatisfiedBy: function (prefix, name) {
+class PresentMatcher {
+  isSatisfiedBy(prefix, name) {
     return prefix === 'f' && name === 'isPresent';
-  },
+  }
 
-  match: function (element, matcherName) {
+  match(element) {
     return element.isPresent().then(() => true).catch(() => false);
   }
-};
+}
 
-exports.default = PresentMatcher;
+const presentMatcher = exports.presentMatcher = new PresentMatcher();

@@ -13,6 +13,16 @@ class VariableStore {
     this.variables.push({ name: name, value: value });
   }
 
+  updateVariable(name, value) {
+    const foundVariable = this.variables.find((variable) => variable.name === name);
+
+    if (typeof (foundVariable) === 'undefined') {
+      throw new Error(`Variable ${name} does not exist.`)
+    }
+
+    this.variables.push(({ name: name, value: value}));
+  }
+
   getVariableValue(name) {
     const foundVariable = this.variables.find((variable) => variable.name === name);
 
