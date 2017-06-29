@@ -1,8 +1,6 @@
 import { regexBuilder } from './regex-builder';
 import regex from './regex';
 
-console.log(regexBuilder);
-
 class RegexMatcher {
   isSatisfiedBy(prefix, name) {
     return prefix === 'r' && typeof regex[name] !== 'undefined';
