@@ -57,11 +57,11 @@ defineSupportCode(function ({ When, Then }) {
         expect(self.currentPage.isVisible(item.element))
           .to.eventually.be.fulfilled.then(function () {
             return self.currentPage[item.element].getText().then(function (text) {
-              if (text.indexOf(item.errorMessage) >= 0) {
+              if (text.indexOf(dictionaries.findMappedValueByPhrase(item.errorMessage)) >= 0) {
                 return Promise.resolve();
               }
 
-              return Promise.reject(`Error "${item.errorMessage}" for element "${item.element}" was not found.`);
+              return Promise.reject(`Error "${dictionaries.findMappedValueByPhrase(item.errorMessage)}" for element "${item.element}" was not found.`);
             });
           })
       );
