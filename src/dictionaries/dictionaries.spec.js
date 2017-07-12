@@ -17,6 +17,10 @@ describe('Dictionaries', () => {
     expect(dictionaries.getMappedValue('fake-dictionary', 'some-key')).to.equal('some-value');
   });
 
+  it('returns mapped value for given key - directly from dictionaries', () => {
+    expect(dictionaries.findMappedValueByPhrase('d:fake-dictionary:some-key')).to.equal('some-value');
+  });
+
   it('adds a dictionary', () => {
     const customDictionary = {
       isSatisfiedBy: (name) => name === 'my-dictionary',

@@ -17,6 +17,19 @@ class Dictionaries {
     return this.availableDictionaries.find((dic) => dic.isSatisfiedBy(name));
   }
 
+  findMappedValueByPhrase(phrase) {
+    const parameters = phrase.split(':');
+    if (parameters[0] === 'd') {
+      const dictionary = this.findDictionary(parameters[1]);
+
+      if (dictionary) {
+        return this.getMappedValue(parameters[1], parameters[2])
+      }
+    }
+
+    return phrase;
+  }
+
   addDictionary(dictionary) {
     this.availableDictionaries.push(dictionary);
   }
