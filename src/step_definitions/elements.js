@@ -128,7 +128,15 @@ defineSupportCode(function ({ When, Then }) {
   });
 
   Then(/^the "([^"]*)" element is not visible$/, function (elementName) {
-    return expect(this.currentPage.isVisible(elementName)).to.eventually.be.false;
+    return this.currentPage.isVisible(elementName)
+      .then(() => Promise.reject(true))
+      .catch((isVisible) => {
+        if (isVisible === true) {
+          return Promise.reject(`Element '${elementName}' should not be visible.`);
+        }
+
+        return Promise.resolve();
+      });
   });
 
   Then(/^the "([^"]*)" element is disabled$/, function (elementName) {
