@@ -134,7 +134,8 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
   });
 
   Then(/^the "([^"]*)" element is not visible$/, function (elementName) {
-    return this.currentPage.isVisible(elementName).then(() => Promise.reject(true)).catch(isVisible => {
+
+    return this.currentPage.isVisible(elementName).then(isVisible => Promise.reject(isVisible)).catch(isVisible => {
       if (isVisible === true) {
         return Promise.reject(`Element '${elementName}' should not be visible.`);
       }
