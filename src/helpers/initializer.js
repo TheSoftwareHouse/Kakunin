@@ -67,7 +67,8 @@ class Initializer {
       hooks: ['/hooks'],
       clearEmailInboxBeforeTests: false,
       clearCookiesAfterScenario: true,
-      clearLocalStorageAfterScenario: true
+      clearLocalStorageAfterScenario: true,
+      email: null
     };
 
     await inquirer.prompt([
@@ -86,6 +87,38 @@ class Initializer {
     });
 
     conf.baseUrl = await this.promptFolders('What is base url?', 'http://localhost:3000');
+    await inquirer.prompt([
+      {
+        type: 'rawlist',
+        name: 'type',
+        message: 'What kind of email service would you like to use?',
+        choices: [
+          { name: 'None', value: null },
+          { name: 'Custom (you will have to fill configuration on your own)', value: 'custom' },
+          { name: 'MailTrap', value: 'mailtrap' }
+        ]
+      }
+    ]).then(function (answer) {
+      if (answer.type !== null) {
+        conf.email = {
+          type: answer.type
+        };
+      }
+    });
+
+    if (conf.email.type === 'mailtrap') {
+      conf.email = {
+        type: answer.type,
+        config: {
+          url: 'https://mailtrap.io/api/v1',
+          apiKey: '',
+          inboxId: ''
+        }
+      };
+
+      conf.email.config.apiKey = await this.promptFolders('Type in your mailtrap apikey:', conf.email.config.apiKey);
+      conf.email.config.inboxId = await this.promptFolders('Type in your mailtrap inboxId:', conf.email.config.inboxId);
+    }
 
     if (advancedConfiguration) {
       conf.browserWidth = await this.promptFolders('What is desired browser width?', conf.browserWidth);
@@ -128,19 +161,13 @@ class Initializer {
       }
     };
 
-    await this.initEnv(conf.clearEmailInboxBeforeTests);
+    await this.initEnv();
 
     this.createTemplateFile('/kakunin.conf.js', 'module.exports = ' + JSON.stringify(conf, null, 4));
   }
 
-  async initEnv(configureEmailClient = false) {
+  async initEnv() {
     const envs = [];
-
-    if (configureEmailClient) {
-      envs.push('MAILTRAP_URL=' + await this.promptFolders('Define MAILTRAP_URL', 'https://mailtrap.io/api/v1'));
-      envs.push('MAILTRAP_API_KEY=' + await this.promptFolders('Define MAILTRAP_API_KEY', ''));
-      envs.push('MAILTRAP_INBOX_ID=' + await this.promptFolders('Define MAILTRAP_INBOX_ID', ''));
-    }
 
     envs.push('FIXTURES_RELOAD_HOST=' + await this.promptFolders('Define FIXTURES_RELOAD_HOST', ''));
 

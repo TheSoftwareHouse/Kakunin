@@ -3,33 +3,12 @@ import fetchMock from 'fetch-mock';
 import { expect } from 'chai';
 
 describe('Mailtrap client', () => {
-  it('throws as error when env is missing required configuration', () => {
-    const mailtrapClient = create();
-
-    delete process.env.MAILTRAP_API_KEY;
-    delete process.env.MAILTRAP_INBOX_ID;
-    delete process.env.MAILTRAP_URL;
-
-    expect(() => mailtrapClient.getMailtrapConfig())
-      .to.throw('Missing mailtrap api key. Use export MAILTRAP_API_KEY=your-api-key for setup.');
-
-    process.env.MAILTRAP_API_KEY = 'fake-api-key';
-
-    expect(() => mailtrapClient.getMailtrapConfig())
-      .to.throw('Missing mailtrap inbox id. Use export MAILTRAP_INBOX_ID=your-inbox-id for setup.');
-
-    process.env.MAILTRAP_INBOX_ID = 'fake-inbox-id';
-
-    expect(() => mailtrapClient.getMailtrapConfig())
-      .to.throw('Missing mailtrap endpoint url. Use export MAILTRAP_URL=your-endpoint-url for setup.');
-  });
-
   it('it returns mailtrap config', () => {
-    const mailtrapClient = create();
-
-    process.env.MAILTRAP_API_KEY = 'fake-api-key';
-    process.env.MAILTRAP_INBOX_ID = 'fake-inbox-id';
-    process.env.MAILTRAP_URL = 'http://fake-url.com';
+    const mailtrapClient = create(undefined, {
+      apiKey: 'fake-api-key',
+      inboxId: 'fake-inbox-id',
+      url: 'http://fake-url.com'
+    });
 
     expect(mailtrapClient.getMailtrapConfig())
       .to.eql({
@@ -51,11 +30,11 @@ describe('Mailtrap client', () => {
       { method: 'PATCH' }
     );
 
-    const mailtrapClient = create(requestMock);
-
-    process.env.MAILTRAP_API_KEY = apiKey;
-    process.env.MAILTRAP_INBOX_ID = inbox;
-    process.env.MAILTRAP_URL = url;
+    const mailtrapClient = create(requestMock, {
+      apiKey: apiKey,
+      inboxId: inbox,
+      url: url
+    });
 
     mailtrapClient.clearInbox().then((res) => {
       expect(res).to.eql({ data: 'cleared' });
@@ -80,11 +59,11 @@ describe('Mailtrap client', () => {
       { method: 'GET' }
     );
 
-    const mailtrapClient = create(requestMock);
-
-    process.env.MAILTRAP_API_KEY = apiKey;
-    process.env.MAILTRAP_INBOX_ID = inbox;
-    process.env.MAILTRAP_URL = url;
+    const mailtrapClient = create(requestMock, {
+      apiKey: apiKey,
+      inboxId: inbox,
+      url: url
+    });
 
     mailtrapClient.getEmails().then((res) => {
       expect(res.length).to.equals(2);
@@ -109,11 +88,11 @@ describe('Mailtrap client', () => {
       }
     );
 
-    const mailtrapClient = create(requestMock);
-
-    process.env.MAILTRAP_API_KEY = apiKey;
-    process.env.MAILTRAP_INBOX_ID = inbox;
-    process.env.MAILTRAP_URL = url;
+    const mailtrapClient = create(requestMock, {
+      apiKey: apiKey,
+      inboxId: inbox,
+      url: url
+    });
 
     mailtrapClient.getAttachments({ id: emailId }).then((res) => {
       expect(res).to.eql(
@@ -143,11 +122,11 @@ describe('Mailtrap client', () => {
       }
     );
 
-    const mailtrapClient = create(requestMock);
-
-    process.env.MAILTRAP_API_KEY = apiKey;
-    process.env.MAILTRAP_INBOX_ID = inbox;
-    process.env.MAILTRAP_URL = url;
+    const mailtrapClient = create(requestMock, {
+      apiKey: apiKey,
+      inboxId: inbox,
+      url: url
+    });
 
     mailtrapClient.markAsRead({ id: emailId }).then((res) => {
       expect(res).to.eql({ data: 'marked-as-read' });

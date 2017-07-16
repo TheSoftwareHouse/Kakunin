@@ -1,27 +1,24 @@
 import fetch from 'node-fetch';
+import configuration from '../../helpers/config.helper';
 
 class MailTrapClient {
-  constructor(requestClient) {
+  constructor(requestClient, config) {
     this.requestClient = requestClient;
+    this.config = config;
+  }
+
+  isSatisfiedBy(emailConfiguration) {
+    return emailConfiguration.type === 'mailtrap'
+      && emailConfiguration.config.hasOwnProperty('apiKey')
+      && emailConfiguration.config.hasOwnProperty('inboxId')
+      && emailConfiguration.config.hasOwnProperty('url');
   }
 
   getMailtrapConfig() {
-    if (typeof process.env.MAILTRAP_API_KEY === 'undefined') {
-      throw new Error('Missing mailtrap api key. Use export MAILTRAP_API_KEY=your-api-key for setup.');
-    }
-
-    if (typeof process.env.MAILTRAP_INBOX_ID === 'undefined') {
-      throw new Error('Missing mailtrap inbox id. Use export MAILTRAP_INBOX_ID=your-inbox-id for setup.');
-    }
-
-    if (typeof process.env.MAILTRAP_URL === 'undefined') {
-      throw new Error('Missing mailtrap endpoint url. Use export MAILTRAP_URL=your-endpoint-url for setup.');
-    }
-
     return {
-      apiKey: process.env.MAILTRAP_API_KEY,
-      inboxId: process.env.MAILTRAP_INBOX_ID,
-      endpoint: process.env.MAILTRAP_URL
+      apiKey: this.config.apiKey,
+      inboxId: this.config.inboxId,
+      endpoint: this.config.url
     };
   }
 
@@ -95,4 +92,4 @@ class MailTrapClient {
   }
 }
 
-export const create = (requestClient = fetch) => new MailTrapClient(requestClient);
+export const create = (requestClient = fetch, config = configuration.email.config) => new MailTrapClient(requestClient, config);

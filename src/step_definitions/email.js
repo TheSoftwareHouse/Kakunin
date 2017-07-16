@@ -2,9 +2,9 @@ import { defineSupportCode } from 'cucumber';
 import sugar from 'sugar-date';
 import { filters } from '../emails/filters';
 import { regexBuilder } from '../matchers';
-import { create } from '../emails/mailtrap.client';
+import { create } from '../emails/email.service';
 
-const mailTrapClient = create();
+const emailService = create();
 
 defineSupportCode(function ({ Then }) {
   function stopInterval(interval, callback) {
@@ -33,7 +33,7 @@ defineSupportCode(function ({ Then }) {
     }, []);
 
     if (missingFiles.length === 0) {
-      return mailTrapClient.markAsRead(email);
+      return emailService.markAsRead(email);
     }
 
     return Promise.reject('Some attachments not found: ' + missingFiles.map((file) => file.name).join(', '));
@@ -89,11 +89,11 @@ defineSupportCode(function ({ Then }) {
       const filesExtensions = getFilesExtensions(data);
 
       if (filesExtensions.length > 0) {
-        return mailTrapClient.getAttachments(filteredEmails[0])
+        return emailService.getAttachments(filteredEmails[0])
           .then(checkAttachmentsInEmail.bind(null, filteredEmails[0], filesExtensions))
           .then(stopInterval.bind(null, interval, sync));
       }
-      return mailTrapClient.markAsRead(filteredEmails[0])
+      return emailService.markAsRead(filteredEmails[0])
           .then(stopInterval.bind(null, interval, sync));
     }
   }
@@ -105,7 +105,7 @@ defineSupportCode(function ({ Then }) {
     const interval = setInterval(() => {
       console.log('Checking mailbox for email...');
 
-      mailTrapClient.getEmails()
+      emailService.getEmails()
         .then((emails) => filterEmails.call(self, emails, data))
         .then((filteredEmails) => rejectIfMaxRepeatsReached(filteredEmails, maxRepeats))
         .then((filteredEmails) => rejectIfMoreThanOneEmailFound(filteredEmails))
