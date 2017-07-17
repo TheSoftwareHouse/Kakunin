@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.BasePage = exports.FormPage = exports.comparators = exports.handlers = exports.variableStore = exports.generators = exports.transformers = exports.dictionaries = exports.defineSupportCode = exports.regexBuilder = exports.matchers = undefined;
+exports.BasePage = exports.FormPage = exports.emailService = exports.comparators = exports.handlers = exports.variableStore = exports.generators = exports.transformers = exports.dictionaries = exports.defineSupportCode = exports.regexBuilder = exports.matchers = undefined;
 
 var _matchers = require('./matchers');
 
@@ -80,6 +80,15 @@ Object.defineProperty(exports, 'comparators', {
   enumerable: true,
   get: function () {
     return _comparators.comparators;
+  }
+});
+
+var _emails = require('./emails');
+
+Object.defineProperty(exports, 'emailService', {
+  enumerable: true,
+  get: function () {
+    return _emails.emailService;
   }
 });
 

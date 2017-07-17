@@ -5,7 +5,7 @@ const path = require('path');
 const chai = require('chai');
 const modulesLoader = require('./helpers/modules-loader.helper.js').create();
 const chaiAsPromised = require('chai-as-promised');
-const mailTrapClient = require('./emails/mailtrap.client.js').create();
+const emailService = require('./emails/email.service').create();
 chai.use(chaiAsPromised);
 
 const config = require('./helpers/config.helper.js').default;
@@ -59,7 +59,7 @@ exports.config = {
     global.expect = chai.expect;
 
     if (config.clearEmailInboxBeforeTests) {
-      return mailTrapClient.clearInbox();
+      return emailService.clearInbox();
     }
   },
 
