@@ -10,11 +10,11 @@ var _filters = require('../emails/filters');
 
 var _matchers = require('../matchers');
 
-var _mailtrap = require('../emails/mailtrap.client');
+var _email = require('../emails/email.service');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-const mailTrapClient = (0, _mailtrap.create)();
+const emailService = (0, _email.create)();
 
 (0, _cucumber.defineSupportCode)(function ({ Then }) {
   function stopInterval(interval, callback) {
@@ -41,7 +41,7 @@ const mailTrapClient = (0, _mailtrap.create)();
     }, []);
 
     if (missingFiles.length === 0) {
-      return mailTrapClient.markAsRead(email);
+      return emailService.markAsRead(email);
     }
 
     return Promise.reject('Some attachments not found: ' + missingFiles.map(file => file.name).join(', '));
@@ -97,9 +97,9 @@ const mailTrapClient = (0, _mailtrap.create)();
       const filesExtensions = getFilesExtensions(data);
 
       if (filesExtensions.length > 0) {
-        return mailTrapClient.getAttachments(filteredEmails[0]).then(checkAttachmentsInEmail.bind(null, filteredEmails[0], filesExtensions)).then(stopInterval.bind(null, interval, sync));
+        return emailService.getAttachments(filteredEmails[0]).then(checkAttachmentsInEmail.bind(null, filteredEmails[0], filesExtensions)).then(stopInterval.bind(null, interval, sync));
       }
-      return mailTrapClient.markAsRead(filteredEmails[0]).then(stopInterval.bind(null, interval, sync));
+      return emailService.markAsRead(filteredEmails[0]).then(stopInterval.bind(null, interval, sync));
     }
   }
 
@@ -110,7 +110,7 @@ const mailTrapClient = (0, _mailtrap.create)();
     const interval = setInterval(() => {
       console.log('Checking mailbox for email...');
 
-      mailTrapClient.getEmails().then(emails => filterEmails.call(self, emails, data)).then(filteredEmails => rejectIfMaxRepeatsReached(filteredEmails, maxRepeats)).then(filteredEmails => rejectIfMoreThanOneEmailFound(filteredEmails)).then(filteredEmails => validateEmailDate(filteredEmails)).then(filteredEmails => validateEmailContentAndAttachments(filteredEmails, data, interval, sync)).then(() => maxRepeats--).catch(err => stopInterval(interval, sync.bind(null, err)));
+      emailService.getEmails().then(emails => filterEmails.call(self, emails, data)).then(filteredEmails => rejectIfMaxRepeatsReached(filteredEmails, maxRepeats)).then(filteredEmails => rejectIfMoreThanOneEmailFound(filteredEmails)).then(filteredEmails => validateEmailDate(filteredEmails)).then(filteredEmails => validateEmailContentAndAttachments(filteredEmails, data, interval, sync)).then(() => maxRepeats--).catch(err => stopInterval(interval, sync.bind(null, err)));
     }, 5000);
   });
 });

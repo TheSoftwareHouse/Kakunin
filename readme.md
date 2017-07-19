@@ -257,6 +257,87 @@ class MyTransformer {
 transformers.addTransformer(new MyTransformer());
 ```
 
+###`emailService` you can easily check emails with Kakunin. By default we give you MailTrap client implementation, but you can easily add your own client. 
+
+```
+const { emailService } = require('kakunin');
+
+class MyEmailService {
+  //you have access to full kakunin config
+  isSatisfiedBy(config) {
+    return config.email.type === 'my-custom-email-service';
+  }
+  
+  //method used to clear emails before tests
+  clearInbox() {
+    ...
+  }
+  
+  //method used to get emails - this method should return emails in format described below
+  getEmails() {
+    ...
+  }
+  
+  //method used to retrive atachments for given email - should return attachments in format described below
+  getAttachments(email) {
+    ...
+  }
+  
+  //method used to mark given email as read
+  markAsRead(email) {
+    ...
+  }
+}
+
+emailService.addAdapter(new MyEmailService());
+```
+
+Emails should be returned as an array of objects with given schema:
+``` 
+  [
+    {
+      "subject": "SMTP e-mail test",
+      "sent_at": "2013-08-25T19:32:07.567+03:00",
+      "from_email": "me@railsware.com",
+      "from_name": "Private Person",
+      "to_email": "test@railsware.com",
+      "to_name": "A Test User",
+      "html_body": "",
+      "text_body": "This is a test e-mail message.\r\n",
+      "email_size": 193,
+      "is_read": true,
+      "created_at": "2013-08-25T19:32:07.576+03:00",
+      "updated_at": "2013-08-25T19:32:09.232+03:00",
+      "sent_at_timestamp": 1377448326
+    }
+  ]
+```
+
+this is MailTrap email format.
+
+Attachments should be returned as an array of objects with given schema:
+
+``` 
+[
+  {
+    "id": 1737,
+    "message_id": 54508,
+    "filename": "Photos.png",
+    "attachment_type": "attachment",
+    "content_type": "image/png",
+    "content_id": "",
+    "transfer_encoding": "base64",
+    "attachment_size": 213855,
+    "created_at": "2013-08-16T00:39:34.677+03:00",
+    "updated_at": "2013-08-16T00:39:34.677+03:00",
+    "attachment_human_size": "210 KB",
+    "download_path": "/api/v1/inboxes/3/messages/54508/attachments/1737/download"
+  }
+]
+```
+
+this is MailTrap attachment format.
+
 ##Useful options
 1. To run all tags use `npm run kakunin`
 2. To run a single tag use `npm run kakunin -- --tags="@tag"`
