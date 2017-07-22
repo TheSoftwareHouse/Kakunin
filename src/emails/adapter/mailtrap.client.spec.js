@@ -5,9 +5,11 @@ import { expect } from 'chai';
 describe('Mailtrap client', () => {
   it('it returns mailtrap config', () => {
     const mailtrapClient = create(undefined, {
-      apiKey: 'fake-api-key',
-      inboxId: 'fake-inbox-id',
-      url: 'http://fake-url.com'
+      config: {
+        apiKey: 'fake-api-key',
+        inboxId: 'fake-inbox-id',
+        url: 'http://fake-url.com'
+      }
     });
 
     expect(mailtrapClient.getMailtrapConfig())
@@ -31,9 +33,11 @@ describe('Mailtrap client', () => {
     );
 
     const mailtrapClient = create(requestMock, {
-      apiKey: apiKey,
-      inboxId: inbox,
-      url: url
+      config: {
+        apiKey: apiKey,
+        inboxId: inbox,
+        url: url
+      }
     });
 
     mailtrapClient.clearInbox().then((res) => {
@@ -60,9 +64,11 @@ describe('Mailtrap client', () => {
     );
 
     const mailtrapClient = create(requestMock, {
-      apiKey: apiKey,
-      inboxId: inbox,
-      url: url
+      config: {
+        apiKey: apiKey,
+        inboxId: inbox,
+        url: url
+      }
     });
 
     mailtrapClient.getEmails().then((res) => {
@@ -89,9 +95,11 @@ describe('Mailtrap client', () => {
     );
 
     const mailtrapClient = create(requestMock, {
-      apiKey: apiKey,
-      inboxId: inbox,
-      url: url
+      config: {
+        apiKey: apiKey,
+        inboxId: inbox,
+        url: url
+      }
     });
 
     mailtrapClient.getAttachments({ id: emailId }).then((res) => {
@@ -123,9 +131,11 @@ describe('Mailtrap client', () => {
     );
 
     const mailtrapClient = create(requestMock, {
-      apiKey: apiKey,
-      inboxId: inbox,
-      url: url
+      config: {
+        apiKey: apiKey,
+        inboxId: inbox,
+        url: url
+      }
     });
 
     mailtrapClient.markAsRead({ id: emailId }).then((res) => {

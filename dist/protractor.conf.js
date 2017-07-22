@@ -10,23 +10,34 @@ chai.use(chaiAsPromised);
 
 const config = require('./helpers/config.helper.js').default;
 
-exports.config = {
-  multiCapabilities: [{
-    browserName: 'chrome',
-    chromeOptions: {
-      prefs: {
-        credentials_enable_service: false,
-        profile: {
-          password_manager_enabled: false
-        },
-        download: {
-          prompt_for_download: false,
-          default_directory: config.projectPath + config.downloads,
-          directory_upgrade: true
-        }
+const chromeConfig = {
+  browserName: 'chrome',
+  chromeOptions: {
+    args: [],
+    prefs: {
+      credentials_enable_service: false,
+      profile: {
+        password_manager_enabled: false
+      },
+      download: {
+        prompt_for_download: false,
+        default_directory: config.projectPath + config.downloads,
+        directory_upgrade: true
       }
     }
-  }],
+  }
+};
+
+if (config.noGpu) {
+  chromeConfig.chromeOptions.args = [...chromeConfig.chromeOptions.args, '--disable-gpu', '--disable-impl-side-painting', '--disable-gpu-sandbox', '--disable-accelerated-2d-canvas', '--disable-accelerated-jpeg-decoding', '--no-sandbox'];
+}
+
+if (config.headless) {
+  chromeConfig.chromeOptions.args = [...chromeConfig.chromeOptions.args, '--headless', `--window-size=${config.browserWidth}x${config.browserHeight}`];
+}
+
+exports.config = {
+  multiCapabilities: [chromeConfig],
 
   useAllAngular2AppRoots: config.type === 'ng2',
 
@@ -45,7 +56,9 @@ exports.config = {
   },
 
   onPrepare: function () {
-    browser.driver.manage().window().setSize(parseInt(config.browserWidth), parseInt(config.browserHeight));
+    if (!config.headless) {
+      browser.driver.manage().window().setSize(parseInt(config.browserWidth), parseInt(config.browserHeight));
+    }
 
     modulesLoader.getModules('matchers');
     modulesLoader.getModules('dictionaries');

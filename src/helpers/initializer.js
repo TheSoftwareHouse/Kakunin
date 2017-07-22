@@ -68,7 +68,9 @@ class Initializer {
       clearEmailInboxBeforeTests: false,
       clearCookiesAfterScenario: true,
       clearLocalStorageAfterScenario: true,
-      email: null
+      email: null,
+      headless: false,
+      noGpu: false
     };
 
     await inquirer.prompt([
@@ -93,20 +95,20 @@ class Initializer {
         name: 'type',
         message: 'What kind of email service would you like to use?',
         choices: [
-          { name: 'None', value: null },
+          { name: 'None', value: 'none' },
           { name: 'Custom (you will have to fill configuration on your own)', value: 'custom' },
           { name: 'MailTrap', value: 'mailtrap' }
         ]
       }
     ]).then(function (answer) {
-      if (answer.type !== null) {
+      if (answer.type !== 'none') {
         conf.email = {
           type: answer.type
         };
       }
     });
 
-    if (conf.email.type === 'mailtrap') {
+    if (conf.email && conf.email.type === 'mailtrap') {
       conf.email = {
         type: answer.type,
         config: {
