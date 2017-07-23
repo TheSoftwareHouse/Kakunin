@@ -27,9 +27,9 @@ class MailTrapClient {
 
   getMailtrapConfig() {
     return {
-      apiKey: this.config.apiKey,
-      inboxId: this.config.inboxId,
-      endpoint: this.config.url
+      apiKey: this.config.config.apiKey,
+      inboxId: this.config.config.inboxId,
+      endpoint: this.config.config.url
     };
   }
 
@@ -98,4 +98,4 @@ class MailTrapClient {
   }
 }
 
-const create = exports.create = (requestClient = _nodeFetch2.default, config = _config2.default.email.config) => new MailTrapClient(requestClient, config);
+const create = exports.create = (requestClient = _nodeFetch2.default, config = _config2.default.email) => new MailTrapClient(requestClient, config);
