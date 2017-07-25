@@ -55,7 +55,7 @@ if (isInitCommand()) {
 
   const argv = ['./dist/protractor.conf.js', `--config=${getConfigPath()}`, `--projectPath=${process.cwd()}`, '--disableChecks', ...getScenariosTags(), ...commandLineArgs];
 
-  child_process.spawn(path.join('node_modules', '.bin', 'protractor'), argv, {
+  child_process.spawn(path.join('..', '.bin', 'protractor'), argv, {
     stdio: 'inherit',
     cwd: path.join(__dirname, '..')
   }).once('close', () => {

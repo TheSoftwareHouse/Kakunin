@@ -29,7 +29,8 @@
   "main": "./dist/index",
   "scripts": {
     "postinstall": "webdriver-manager update",
-    "test": "NODE_ENV=test mocha --require ./src/tests/init.js --require babel-register $(find src -name '*.spec.js')",
+    "units": "NODE_ENV=test mocha --require ./src/tests/init.js --require babel-register $(find src -name '*.spec.js')",
+    "test": "npm run units && npm i --prefix example && npm run test --prefix example",
     "build": "babel src --out-dir dist --ignore 'tests','*.spec.js' && babel templates --out-dir dist/templates --copy-files"
   },
   "engines": {
@@ -55,9 +56,8 @@
     "node-fetch": "^1.6.3",
     "node-xlsx": "^0.7.4",
     "path": "^0.12.7",
-    "protractor": "^5.1.1",
-    "protractor-cucumber-framework": "^3.1.0",
-    "sg-protractor-tools": "^1.0.4",
+    "protractor": "5.1.2",
+    "protractor-cucumber-framework": "3.1.2",
     "sugar-date": "^2.0.4",
     "inquirer": "^3.0.6",
     "jasmine": "^2.5.2",
