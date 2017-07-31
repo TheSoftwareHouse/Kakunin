@@ -69,6 +69,7 @@ class Initializer {
         browserWidth: 1600,
         browserHeight: 900,
         timeout: 60,
+        intervalEmail: 5000,
         elementsVisibilityTimeout: 5,
         waitForPageTimeout: 5,
         downloadTimeout: 30,
@@ -136,6 +137,7 @@ class Initializer {
         conf.browserHeight = yield _this.promptFolders('What is desired browser height?', conf.browserHeight);
 
         conf.timeout = yield _this.promptFolders('What is desired step timeout in seconds?', conf.timeout);
+        conf.intervalEmail = yield _this.promptFolders('What is desired step email interval in seconds?', conf.intervalEmail);
         conf.elementsVisibilityTimeout = yield _this.promptFolders('What is desired elements visibility timeout in seconds?', conf.elementsVisibilityTimeout);
         conf.waitForPageTimeout = yield _this.promptFolders('How long should I wait for page to load in seconds?', conf.waitForPageTimeout);
         conf.downloadTimeout = yield _this.promptFolders('How long should I wait for files to download in seconds?', conf.downloadTimeout);

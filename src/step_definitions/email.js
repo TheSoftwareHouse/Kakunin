@@ -3,6 +3,7 @@ import sugar from 'sugar-date';
 import { filters } from '../emails/filters';
 import { regexBuilder } from '../matchers';
 import { create } from '../emails/email.service';
+import config from '../helpers/config.helper';
 
 const emailService = create();
 
@@ -100,7 +101,8 @@ defineSupportCode(function ({ Then }) {
 
   Then(/^the email has been sent and contains:$/, function (data, sync) {
     const self = this;
-    let maxRepeats = 10;
+    const timeout = parseInt(config.intervalEmail);
+    let maxRepeats = 4;
 
     const interval = setInterval(() => {
       console.log('Checking mailbox for email...');
@@ -113,6 +115,6 @@ defineSupportCode(function ({ Then }) {
         .then((filteredEmails) => validateEmailContentAndAttachments(filteredEmails, data, interval, sync))
         .then(() => maxRepeats--)
         .catch((err) => stopInterval(interval, sync.bind(null, err)));
-    }, 5000);
+    }, timeout);
   });
 });

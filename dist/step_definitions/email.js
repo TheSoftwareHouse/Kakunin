@@ -12,6 +12,10 @@ var _matchers = require('../matchers');
 
 var _email = require('../emails/email.service');
 
+var _config = require('../helpers/config.helper');
+
+var _config2 = _interopRequireDefault(_config);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const emailService = (0, _email.create)();
@@ -105,12 +109,13 @@ const emailService = (0, _email.create)();
 
   Then(/^the email has been sent and contains:$/, function (data, sync) {
     const self = this;
-    let maxRepeats = 10;
+    const timeout = parseInt(_config2.default.intervalEmail);
+    let maxRepeats = 4;
 
     const interval = setInterval(() => {
       console.log('Checking mailbox for email...');
 
       emailService.getEmails().then(emails => filterEmails.call(self, emails, data)).then(filteredEmails => rejectIfMaxRepeatsReached(filteredEmails, maxRepeats)).then(filteredEmails => rejectIfMoreThanOneEmailFound(filteredEmails)).then(filteredEmails => validateEmailDate(filteredEmails)).then(filteredEmails => validateEmailContentAndAttachments(filteredEmails, data, interval, sync)).then(() => maxRepeats--).catch(err => stopInterval(interval, sync.bind(null, err)));
-    }, 5000);
+    }, timeout);
   });
 });
