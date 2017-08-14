@@ -442,4 +442,10 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
     return Promise.all(promise);
   });
+
+  When(/^I click the "([^"]*)" key$/, function (key) {
+    const keyTransformed = key.toUpperCase();
+
+    return Promise.resolve(browser.actions().sendKeys(protractor.Key[keyTransformed]).perform());
+  });
 });

@@ -109,7 +109,7 @@ const emailService = (0, _email.create)();
 
   Then(/^the email has been sent and contains:$/, function (data, sync) {
     const self = this;
-    const timeout = parseInt(_config2.default.intervalEmail);
+    const timeout = parseInt(_config2.default.intervalEmail) * 1000;
     let maxRepeats = 4;
 
     const interval = setInterval(() => {

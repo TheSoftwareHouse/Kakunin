@@ -69,7 +69,7 @@ class Initializer {
         browserWidth: 1600,
         browserHeight: 900,
         timeout: 60,
-        intervalEmail: 5000,
+        intervalEmail: 5,
         elementsVisibilityTimeout: 5,
         waitForPageTimeout: 5,
         downloadTimeout: 30,

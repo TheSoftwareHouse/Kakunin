@@ -101,7 +101,7 @@ defineSupportCode(function ({ Then }) {
 
   Then(/^the email has been sent and contains:$/, function (data, sync) {
     const self = this;
-    const timeout = parseInt(config.intervalEmail);
+    const timeout = parseInt(config.intervalEmail) * 1000;
     let maxRepeats = 4;
 
     const interval = setInterval(() => {
