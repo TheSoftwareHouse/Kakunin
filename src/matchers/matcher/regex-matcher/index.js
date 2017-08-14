@@ -6,19 +6,22 @@ class RegexMatcher {
     return prefix === 'r' && typeof regex[name] !== 'undefined';
   }
 
-  async match(element, matcherName) {
-    const text = await element.getText();
-    const value = await element.getAttribute('value');
+  match(element, matcherName) {
+    return element.getText()
+      .then(text => {
+        return element.getAttribute('value')
+          .then(value => {
+            if (text === '') {
+              if (value === null) {
+                return false
+              }
 
-    if (text === '') {
-      if (value === null) {
-        return false
-      }
+              return regexBuilder.buildRegex(`r:${matcherName}`).test(value);
+            }
 
-      return regexBuilder.buildRegex(`r:${matcherName}`).test(value);
-    }
-
-    return regexBuilder.buildRegex(`r:${matcherName}`).test(text);
+            return regexBuilder.buildRegex(`r:${matcherName}`).test(text);
+          })
+      })
   }
 }
 
