@@ -7,6 +7,7 @@
     "kakunin": "NODE_ENV=prod kakunin",
     "start": "pm2 start ./node_modules/.bin/http-server -- www -s",
     "stop": "pm2 delete http-server",
+    "test-ci": "npm run kakunin -- --seleniumAddress http://127.0.0.1:4444/wd/hub",
     "test": "npm run start | npm run kakunin && npm run stop"
   },
   "author": "",
@@ -17,8 +18,8 @@
     "eslint-plugin-jsx-a11y": "^5.0.1",
     "eslint-plugin-react": "^7.0.0",
     "http-server": "^0.10.0",
-    "protractor": "^5.1.2",
     "webdriver-manager": "12.0.6",
+    "protractor": "^5.1.2",
     "kakunin": "file:../"
   },
   "license": "ISC",

@@ -6,4 +6,4 @@ Feature:
         Given I visit the "main" page
         When I click the "formLink" element
         Then the "simpleForm" page is displayed
-        And the "form" element is visible
+        And the "forms" element is visible

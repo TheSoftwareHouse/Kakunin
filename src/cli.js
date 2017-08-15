@@ -56,7 +56,7 @@ if (isInitCommand()) {
     ...commandLineArgs
   ];
 
-  child_process.spawn(path.join('..', '.bin', 'protractor'), argv, {
+  child_process.spawn(path.join('protractor'), argv, {
     stdio: 'inherit',
     cwd: path.join(__dirname, '..')
   }).once('close', () => {

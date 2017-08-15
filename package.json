@@ -30,7 +30,8 @@
   "scripts": {
     "postinstall": "webdriver-manager update",
     "units": "NODE_ENV=test mocha --require ./src/tests/init.js --require babel-register $(find src -name '*.spec.js')",
-    "test": "npm run units && npm i --prefix example && npm run test --prefix example",
+    "functional": "cd example && npm i && npm run test",
+    "test": "npm run units && npm run functional",
     "build": "babel src --out-dir dist --ignore 'tests','*.spec.js' && babel templates --out-dir dist/templates --copy-files"
   },
   "engines": {
