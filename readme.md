@@ -10,7 +10,12 @@
 
 1. Add Kakunin package to `package.json`. We advice to use newest possible version.
 You can easily add Kakunin by adding this line:
-`"pascal": "git+ssh://git@bitbucket.org/thesoftwarehouse/e2e-pascal.git#fixes"` to `devDependencies` in `package.json`
+```
+"webdriver-manager": "12.0.6",
+"protractor": "5.1.2",
+"kakunin": "git+ssh://git@bitbucket.org/thesoftwarehouse/e2e-pascal.git#fixes"
+```
+to `devDependencies` in `package.json`
 2. Add `"kakunin": "NODE_ENV=prod kakunin"` to `scripts` section in `package.json`
 3. Run `npm run kakunin init` to create ready to use project
 4. Run `npm run kakunin` to run tests. Kakunin comes with example feature, so you can test it just after configuration.
