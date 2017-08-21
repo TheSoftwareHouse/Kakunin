@@ -3,7 +3,7 @@ const path = require('path');
 const chai = require('chai');
 const modulesLoader = require('./helpers/modules-loader.helper.js').create();
 const chaiAsPromised = require('chai-as-promised');
-const emailService = require('./emails/email.service').create();
+const { emailService } = require('./emails');
 chai.use(chaiAsPromised);
 
 const config = require('./helpers/config.helper.js').default;
@@ -87,6 +87,7 @@ exports.config = {
     modulesLoader.getModules('comparators');
     modulesLoader.getModules('form_handlers');
     modulesLoader.getModules('transformers');
+    modulesLoader.getModules('emails');
 
     browser.page = modulesLoader
       .getModulesAsObject(
