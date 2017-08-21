@@ -2,10 +2,9 @@ import { defineSupportCode } from 'cucumber';
 import sugar from 'sugar-date';
 import { filters } from '../emails/filters';
 import { regexBuilder } from '../matchers';
-import { create } from '../emails/email.service';
 import config from '../helpers/config.helper';
 
-const emailService = create();
+import { emailService } from  '../emails';
 
 defineSupportCode(function ({ Then }) {
   function stopInterval(interval, callback) {

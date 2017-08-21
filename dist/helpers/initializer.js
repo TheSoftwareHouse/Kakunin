@@ -73,6 +73,7 @@ class Initializer {
         elementsVisibilityTimeout: 5,
         waitForPageTimeout: 5,
         downloadTimeout: 30,
+        emails: ['/emails'],
         reports: '/reports',
         downloads: '/downloads',
         data: '/data',
@@ -211,6 +212,7 @@ class Initializer {
       _this3.createProjectDirectory(config.regexes[0]);
       _this3.createProjectDirectory(config.hooks[0]);
       _this3.createProjectDirectory(config.transformers[0]);
+      _this3.createProjectDirectory(config.emails[0]);
 
       _this3.createTemplateFileWithContentFrom(config.features[0] + '/example.feature', 'example.feature');
       _this3.createTemplateFileWithContentFrom(config.pages[0] + '/page.js', 'page.js');

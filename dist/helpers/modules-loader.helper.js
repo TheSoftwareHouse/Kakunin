@@ -28,7 +28,8 @@ class ModulesLoader {
       generators: [],
       matchers: [],
       regexes: [],
-      transformers: []
+      transformers: [],
+      emails: []
     };
 
     Object.keys(this.paths).forEach(group => {

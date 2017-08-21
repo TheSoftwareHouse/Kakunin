@@ -52,6 +52,7 @@ class Initializer {
       elementsVisibilityTimeout: 5,
       waitForPageTimeout: 5,
       downloadTimeout: 30,
+      emails: ['/emails'],
       reports: '/reports',
       downloads: '/downloads',
       data: '/data',
@@ -196,6 +197,7 @@ class Initializer {
     this.createProjectDirectory(config.regexes[0]);
     this.createProjectDirectory(config.hooks[0]);
     this.createProjectDirectory(config.transformers[0]);
+    this.createProjectDirectory(config.emails[0]);
 
     this.createTemplateFileWithContentFrom(config.features[0] + '/example.feature', 'example.feature');
     this.createTemplateFileWithContentFrom(config.pages[0] + '/page.js', 'page.js');
