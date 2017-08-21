@@ -21,6 +21,11 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 (0, _cucumber.defineSupportCode)(function ({ When, Then }) {
   When(/^I wait for "([^"]*)" of the "([^"]*)" element$/, function (condition, elementName) {
     const timeout = parseInt(_config2.default.elementsVisibilityTimeout) * 1000;
+
+    if (this.currentPage[elementName] instanceof protractor.ElementArrayFinder) {
+      return browser.wait(protractor.ExpectedConditions[condition](this.currentPage[elementName].get(0), timeout));
+    }
+
     return browser.wait(protractor.ExpectedConditions[condition](this.currentPage[elementName], timeout));
   });
 

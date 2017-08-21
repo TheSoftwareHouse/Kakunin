@@ -7,6 +7,11 @@ import config from '../helpers/config.helper';
 defineSupportCode(function ({ When, Then }) {
   When(/^I wait for "([^"]*)" of the "([^"]*)" element$/, function (condition, elementName) {
     const timeout = parseInt(config.elementsVisibilityTimeout) * 1000;
+
+    if (this.currentPage[elementName] instanceof protractor.ElementArrayFinder) {
+      return browser.wait(protractor.ExpectedConditions[condition](this.currentPage[elementName].get(0), timeout));
+    }
+
     return browser.wait(protractor.ExpectedConditions[condition](this.currentPage[elementName], timeout));
   });
 
