@@ -463,7 +463,7 @@ defineSupportCode(function ({ When, Then }) {
     return Promise.all(promise);
   });
 
-  When(/^I click the "([^"]*)" key$/, function (key) {
+  When(/^I press the "([^"]*)" key$/, function (key) {
     const keyTransformed = key.toUpperCase();
 
     return Promise.resolve(browser.actions().sendKeys(protractor.Key[keyTransformed]).perform())
