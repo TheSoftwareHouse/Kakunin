@@ -9,10 +9,10 @@ defineSupportCode(function ({ When, Then }) {
     const timeout = parseInt(config.elementsVisibilityTimeout) * 1000;
 
     if (this.currentPage[elementName] instanceof protractor.ElementArrayFinder) {
-      return browser.wait(protractor.ExpectedConditions[condition](this.currentPage[elementName].get(0), timeout));
+      return browser.wait(protractor.ExpectedConditions[condition](this.currentPage[elementName].get(0)), timeout);
     }
 
-    return browser.wait(protractor.ExpectedConditions[condition](this.currentPage[elementName], timeout));
+    return browser.wait(protractor.ExpectedConditions[condition](this.currentPage[elementName]), timeout);
   });
 
   When(/^I scroll to the "([^"]*)" element$/, function (elementName) {

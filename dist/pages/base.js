@@ -25,6 +25,16 @@ class Page {
     return protractor.browser.setLocation(page.url);
   }
 
+  visitWithParameters(data) {
+    let url = this.url;
+
+    for (const item of data.raw()) {
+      url = url.replace(item[0], item[1]);
+    }
+
+    return protractor.browser.setLocation(this.url);
+  }
+
   click(element) {
     return this[element].click();
   }
