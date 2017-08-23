@@ -21,7 +21,12 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 (0, _cucumber.defineSupportCode)(function ({ When, Then }) {
   When(/^I wait for "([^"]*)" of the "([^"]*)" element$/, function (condition, elementName) {
     const timeout = parseInt(_config2.default.elementsVisibilityTimeout) * 1000;
-    return browser.wait(protractor.ExpectedConditions[condition](this.currentPage[elementName], timeout));
+
+    if (this.currentPage[elementName] instanceof protractor.ElementArrayFinder) {
+      return browser.wait(protractor.ExpectedConditions[condition](this.currentPage[elementName].get(0)), timeout);
+    }
+
+    return browser.wait(protractor.ExpectedConditions[condition](this.currentPage[elementName]), timeout);
   });
 
   When(/^I scroll to the "([^"]*)" element$/, function (elementName) {
@@ -443,7 +448,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     return Promise.all(promise);
   });
 
-  When(/^I click the "([^"]*)" key$/, function (key) {
+  When(/^I press the "([^"]*)" key$/, function (key) {
     const keyTransformed = key.toUpperCase();
 
     return Promise.resolve(browser.actions().sendKeys(protractor.Key[keyTransformed]).perform());

@@ -11,6 +11,14 @@ var _cucumber = require('cucumber');
     return this.currentPage.visit();
   });
 
+  Given(/^I visit the "([^"]*)" page with parameters:$/, function (pageName, data) {
+    expect(browser.page[pageName]).to.not.be.undefined;
+
+    this.currentPage = browser.page[pageName];
+
+    return this.currentPage.visitWithParameters(data);
+  });
+
   Then(/^the "([^"]*)" page is displayed$/, function (pageName) {
     const self = this;
 
