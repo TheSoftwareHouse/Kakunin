@@ -219,7 +219,13 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
       return allElements.each(function (element) {
         hashedData.forEach(function (hash) {
-          promises.push(expect(_matchers.matchers.match(element.element(self.currentPage[hash.element]), _variableStore2.default.replaceTextVariables(hash.value))).to.eventually.be.true);
+          promises.push(_matchers.matchers.match(element.element(self.currentPage[hash.element]), _variableStore2.default.replaceTextVariables(hash.value)).then(result => {
+            if (result) {
+              return Promise.resolve();
+            }
+
+            return Promise.reject(`Expected element "${hash.element}" to match matcher "${hash.value}"`);
+          }));
         });
       }).then(function () {
         return Promise.all(promises);
