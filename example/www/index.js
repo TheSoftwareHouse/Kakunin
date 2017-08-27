@@ -33,6 +33,13 @@ app.post('/form/simple/post', function (req, res) {
   })
 });
 
+app.get('/navigation/pages/:pageId/titles/:title', function (req, res) {
+  res.render('navigation/page.njs', {
+    pageId: req.params.pageId,
+    title: req.params.title
+  })
+});
+
 app.listen(8080, function () {
   console.log('Example app listening on port 8080!')
 });
