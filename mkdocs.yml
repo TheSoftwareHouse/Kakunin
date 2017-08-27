@@ -1,0 +1,9 @@
+site_name: Kakunin Docs
+theme: 'material'
+pages:
+  - Getting started: index.md
+  - Configuration: configuration.md
+  - How it works: how-it-works.md
+  - Built-in steps: steps.md
+  - Extending Kakunin: extending.md
+  - Changelog: changelog.md
