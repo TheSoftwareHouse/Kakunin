@@ -6,9 +6,10 @@ class MainPage extends BasePage {
   constructor() {
     super();
 
-    this.url = '/index.html';
+    this.url = '/';
 
-    this.formLink = $('a[href="form/form.html"]');
+    this.formLink = $('a[href="/form/simple"]');
+    this.tabularDataLink = $('a[href="/tabular-data"]');
   }
 }
 

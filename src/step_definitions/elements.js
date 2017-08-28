@@ -215,9 +215,18 @@ defineSupportCode(function ({ When, Then }) {
 
       return allElements.each(function (element) {
         hashedData.forEach(function (hash) {
-          promises.push(expect(matchers.match(
-            element.element(self.currentPage[hash.element]),
-            variableStore.replaceTextVariables(hash.value))).to.eventually.be.true
+          promises.push(
+            matchers.match(
+              element.element(self.currentPage[hash.element]),
+              variableStore.replaceTextVariables(hash.value)
+            )
+              .then((result) => {
+                if (result) {
+                  return Promise.resolve();
+                }
+                
+                return Promise.reject(`Expected element "${hash.element}" to match matcher "${hash.value}"`);
+              })
           );
         });
       }).then(function () {

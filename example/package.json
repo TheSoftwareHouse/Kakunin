@@ -5,22 +5,24 @@
   "main": "index.js",
   "scripts": {
     "kakunin": "NODE_ENV=prod kakunin",
-    "start": "pm2 start ./node_modules/.bin/http-server -- www -s",
-    "stop": "pm2 delete http-server",
+    "start": "pm2 update && pm2 start www",
+    "stop": "pm2 delete www",
     "test-ci": "npm run kakunin -- --seleniumAddress http://127.0.0.1:4444/wd/hub",
     "test": "npm run start | npm run kakunin && npm run stop"
   },
   "author": "",
   "dependencies": {
+    "body-parser": "^1.17.2",
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^14.1.0",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^5.0.1",
     "eslint-plugin-react": "^7.0.0",
-    "http-server": "^0.10.0",
-    "webdriver-manager": "12.0.6",
+    "express": "^4.15.4",
+    "kakunin": "file:../",
+    "nunjucks": "^3.0.1",
     "protractor": "^5.1.2",
-    "kakunin": "file:../"
+    "webdriver-manager": "12.0.6"
   },
   "license": "ISC",
   "devDependencies": {
