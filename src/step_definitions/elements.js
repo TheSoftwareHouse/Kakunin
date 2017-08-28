@@ -47,7 +47,7 @@ defineSupportCode(function ({ When, Then }) {
   When(/^I click the "([^"]*)" "([^"]*)" element$/, function (elementName, parameter) {
     const self = this;
 
-    return browser.executeScript('arguments[0].scrollIntoView(false);', this.currentPage[elementName](parameter).getWebElement())
+    return self.currentPage.scrollIntoElement(elementName)
       .then(function () {
         return self.currentPage[elementName](parameter).click();
       });

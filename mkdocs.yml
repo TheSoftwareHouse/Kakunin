@@ -5,5 +5,7 @@ pages:
   - Configuration: configuration.md
   - How it works: how-it-works.md
   - Built-in steps: steps.md
+  - Matchers: matchers.md
+  - Transformers: transformers.md
   - Extending Kakunin: extending.md
   - Changelog: changelog.md
