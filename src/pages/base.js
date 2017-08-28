@@ -6,23 +6,25 @@ class Page {
   }
 
   visit() {
-    const page = this;
-
-    if (page.isExternal || config.type === 'otherWeb') {
-      return protractor.browser.get(page.url);
+    if (this.isExternal || config.type === 'otherWeb') {
+      return protractor.browser.get(this.url);
     }
 
-    return protractor.browser.setLocation(page.url);
+    return protractor.browser.setLocation(this.url);
   }
 
   visitWithParameters(data) {
     let url  = this.url;
 
     for (const item of data.raw()) {
-      url = url.replace(item[0], item[1]);
+      url = url.replace(`:${item[0]}`, item[1]);
     }
 
-    return protractor.browser.setLocation(this.url);
+    if (this.isExternal || config.type === 'otherWeb') {
+      return protractor.browser.get(url);
+    }
+
+    return protractor.browser.setLocation(url);
   }
 
   click(element) {
