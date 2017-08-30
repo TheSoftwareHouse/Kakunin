@@ -12,3 +12,5 @@ pages:
   - Transformers: transformers.md
   - Extending Kakunin: extending.md
   - Changelog: changelog.md
+markdown_extensions:
+  - codehilite

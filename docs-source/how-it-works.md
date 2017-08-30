@@ -1,14 +1,14 @@
 Kakunin is built with `no-js` experience in mind. Because of that you're able to test even complicated apps just
-by knowing Kakunin steps and a few good practices.
+by knowing Kakunin (Gherkin) steps and a few good practices.
 
-##Concepts
+## Concepts
 
 Kakunin uses `cucumber-js` internally, because of that all tests (or rather scenarios) are using `Gherkin` as a "programming"
 language.
 
 A simple scenario could look like this:
 
-``` 
+```gherkin
 Feature:
     Scenario: Display user profile for logged user
         Given I am logged in as a "user"
@@ -22,6 +22,7 @@ This is how most of Kakunin test scenarios look like.
 
 There are a few concepts to be explained.
 
+
 ### Page objects
 
 Page object is a code representation of a page displayed in browser. Kakunin has a two type of page objects built-in:
@@ -29,15 +30,13 @@ Page object is a code representation of a page displayed in browser. Kakunin has
 * `BasePage` - for all kind of pages that do not have any kind of a form
 * `FormPage` - the same as `BasePage` + support for form interactions
 
-In your code, you're going to create own page objects, that will extend one of Kakunin's.
-
-We recommend to use `FormPage` as the one you're going to extend.
+In your code, you're going to create your own page objects, that will extend one of Kakunin's. We recommend to use `FormPage` as the one you're going to extend.
 
 Page object contains information about page url, its elements, locators, but can also have some custom methods if necessary.
 
-A very simple Kakunin's page object could look like this.
+A very simple example of Kakunin's Page Object could look like the following:
 
-``` 
+```javascript
 const { FormPage } = require('kakunin');
 
 class DashboardPage extends FromPage {
@@ -52,26 +51,31 @@ class DashboardPage extends FromPage {
 module.exports = new DashboardPage();
 ```
 
-As you see a basic page object must extend one of Kakunin's and have to have url defined `this.url`.
+As you can see a basic Page Object must extend one of the Kakunin's Objects and needs to have url field defined (`this.url`).
  
-Optionally if the page is a main page to be displayed then for `ng1` and `ng2` apps you have to provider `this.isExternal = true;` flag.
+Optionally, if the page is a main page to be displayed then for `AngularJS` and `Angular` apps you need to set the `this.isExternal` flag to `true`.
  
-This code should be saved inside `pages` directory in a file with `js` extension. What is important is a name of this file, because we're going to use it
-as parameter for steps, for example `When the "dashboard" page is displayed` expects that there is a file named `dashboard.js` inside the `pages` directory. 
- 
-Every step that we are using is somehow connected to a object called `currentPage`. This object value is set to a 
+This code should be saved inside `pages` directory in a file with `js` extension. 
+Note that a file name is very important, because we're going to use it as parameter for steps. For example, the following step:
+```gherkin
+When the "dashboard" page is displayed
+``` 
+expects that there is a file named `dashboard.js` inside the `pages` directory. 
+
+
+Every step that we are using is somehow connected to an object called `currentPage`. This object value is set to a 
 page object that we expect to be on.
 
-This is done by two kind of steps:
+This is done by two kinds of steps:
 
-* `the "dashboard" page is displayed` - this one checks if current url in browser is the same as the one inside page object and changes a value of `currentPage`
+* `Then the "dashboard" page is displayed` - this one checks if current url in browser is the same as the one inside Page Object and changes a value of the `currentPage` field
  to this page object
-* `I visit the "dashboard" page` - this one goes to the url specified in page object and sets the `currentPage` to that page object
+* `When I visit the "dashboard" page` - this one goes to the url specified in Page Object and attaches the Page Object to the `currentPage` field as above 
 
-This concept is a very simple one and allows you to easily debug the Kakunin. You can assume that every step that is below one of this methods is executed in context of a page object specified in those methods.
-For example if we have such code:
+This concept is a very simple and allows you to easily debug the framework. You can be sure that each subsequent step that declared below the ones above will be executed in context of a page object specified in those methods.
+For example, having the following code:
 
-``` 
+```gherkin 
 Feature:
     Scenario: Display user profile for logged user
         Given I am logged in as a "user"
@@ -81,10 +85,10 @@ Feature:
         And the "myName" element is visible
 ```
 
-`And I click the "profileButton" element` is executed in context of `dashboard` page objects. So we can assume that `profileButton` should be defined inside the
-`dashboard.js` file.
+The step named `And I click the "profileButton" element` is executed in context of `dashboard` Page Object, thus we can assume that `profileButton` should be defined inside the
+`pages/dashboard.js` file.
 
-At the same time `And the "myName" element is visible` is executed in context of `myProfile`, so `myName` should be inside `myProfile.js`.
+At the same time the step `And the "myName" element is visible` is executed in context of `myProfile`, so `myName` should be defined in `pages/myProfile.js` file.
 
 
 ### Elements and locators

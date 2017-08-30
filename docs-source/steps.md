@@ -20,7 +20,7 @@ The same as `I visit the ":pageFileName" page` except allows to pass url paramet
 
 If url of `myPage` is defined as `this.url = /orders/:orderId/products/:productId` then we can use this step to visit this page by:
 
-``` 
+```gherkin
 I visit the "myPage" page with parameters:
     | orderId   | 1 |
     | productId | 2 |

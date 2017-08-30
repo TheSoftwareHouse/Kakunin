@@ -380,12 +380,13 @@
 <p>For example a select requires to pass a value <code>/options/1b30f17e-e445-4d28-a30c-dedad95829ab</code>. This one is quite unreadable, but with the help of transformers you are
 able to write it like this: <code>d:options:someOptionName</code>.</p>
 <p>In real-life example it will look similar to:</p>
-<pre><code>I fill the &quot;myForm&quot; form with:
+<div class="codehilite"><pre><span></span>I fill the &quot;myForm&quot; form with:
   | inputElement    | d:someDictionary:someKey            |
   | textareaElement | g:someGenerator                     |
   | radioElement    | v:someVariableName                  |
   | checkboxElement | standard value                      |
-</code></pre>
+</pre></div>
+
 
 <p>There are 3 types of built-in transformers:</p>
 <h3 id="dictionaries">Dictionaries</h3>

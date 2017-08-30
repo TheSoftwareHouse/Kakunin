@@ -1,26 +1,42 @@
-# Kakunin - automated testing framework by TSH & Takamol
+# Kakunin - automated testing framework
 
-## Docs:
+## Documentation
+
+You can find documentation on the official page:   
 [https://thesoftwarehouse.github.io/Kakunin/](https://thesoftwarehouse.github.io/Kakunin/)
 
-## Requirements:
 
+## Requirements
+
+TO run the framework you'll need few tools installed:
 1. `node v7.0+`
-2. `JDK` installed
-3. `Chrome` installed
+2. `JDK` (for selenium to work)
+3. `Chrome`
 
-## Update docs
 
-1. Install `mkdocs` - `pip install mkdocs`
-2. Install `material` theme for mkdocs - `pip install mkdocs-material`
+## Contributing
+
+Feel free to contribute to this project! Just fork the code, make any updated and let us know!
+
+
+### How to test?
+
+Run `npm run test` to execute both units and functional tests.
+
+
+### How to build?
+
+Run `npm run build` to build the project
+
+
+### How to update docs?
+
+Install `mkdocs` tool and its requirements (python required):
+
+```bash
+pip install mkdocs mkdocs-material pygments
+```
 
 In order to preview documentation type `mkdocs serve` inside kakunin directory.
 
 In order to build static version of documentation type `mkdocs build`.
-
-## How to test?
-1. Run `npm run test` to execute both units and functional tests.
-
-## How to build?
-
-1. Run `npm run build` to build
