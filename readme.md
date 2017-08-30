@@ -1,5 +1,8 @@
 # Kakunin - automated testing framework by TSH & Takamol
 
+## Docs:
+[https://thesoftwarehouse.github.io/Kakunin/](https://thesoftwarehouse.github.io/Kakunin/)
+
 ## Requirements:
 
 1. `node v7.0+`
@@ -21,6 +24,3 @@ In order to build static version of documentation type `mkdocs build`.
 ## How to build?
 
 1. Run `npm run build` to build
-
-# Docs
-[http://link.do.dokumentacji](http://link.do.dokumentacji)
