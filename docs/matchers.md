@@ -49,3 +49,7 @@ Regexes have to be specified inside `regex` directory or be a kakunin built ones
 `number` - must be a number
 
 You can add your own matchers. In order to do so please read `Extending Kakunin` section.
+
+###Text matcher
+
+`t:text you are looking for` - allows you to check if an element contains a expected text

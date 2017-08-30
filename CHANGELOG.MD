@@ -1,3 +1,7 @@
+##### v1.16.4
+
+- updated documentation and readme
+
 ##### v1.16.3
 
 - changed `There are "equal 4" following elements for element "rows":` error message to be more descriptive
