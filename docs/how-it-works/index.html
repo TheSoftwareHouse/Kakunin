@@ -389,19 +389,20 @@
                   <h1>How it works</h1>
                 
                 <p>Kakunin is built with <code>no-js</code> experience in mind. Because of that you're able to test even complicated apps just
-by knowing Kakunin steps and a few good practices.</p>
+by knowing Kakunin (Gherkin) steps and a few good practices.</p>
 <h2 id="concepts">Concepts</h2>
 <p>Kakunin uses <code>cucumber-js</code> internally, because of that all tests (or rather scenarios) are using <code>Gherkin</code> as a "programming"
 language.</p>
 <p>A simple scenario could look like this:</p>
-<pre><code>Feature:
-    Scenario: Display user profile for logged user
-        Given I am logged in as a &quot;user&quot;
-        When the &quot;dashboard&quot; page is displayed
-        And I click the &quot;profileButton&quot; element
-        Then the &quot;myProfile&quot; page is displayed
-        And the &quot;myName&quot; element is visible
-</code></pre>
+<div class="codehilite"><pre><span></span><span class="k">Feature:</span><span class="nf"></span>
+<span class="nf">    </span><span class="k">Scenario:</span><span class="nf"> Display user profile for logged user</span>
+<span class="k">        Given </span><span class="nf">I am logged in as a &quot;</span><span class="s">user</span><span class="nf">&quot;</span>
+<span class="nf">        </span><span class="k">When </span><span class="nf">the &quot;</span><span class="s">dashboard</span><span class="nf">&quot; page is displayed</span>
+<span class="nf">        </span><span class="k">And </span><span class="nf">I click the &quot;</span><span class="s">profileButton</span><span class="nf">&quot; element</span>
+<span class="nf">        </span><span class="k">Then </span><span class="nf">the &quot;</span><span class="s">myProfile</span><span class="nf">&quot; page is displayed</span>
+<span class="nf">        </span><span class="k">And </span><span class="nf">the &quot;</span><span class="s">myName</span><span class="nf">&quot; element is visible</span>
+</pre></div>
+
 
 <p>This is how most of Kakunin test scenarios look like.</p>
 <p>There are a few concepts to be explained.</p>
@@ -411,85 +412,93 @@ language.</p>
 <li><code>BasePage</code> - for all kind of pages that do not have any kind of a form</li>
 <li><code>FormPage</code> - the same as <code>BasePage</code> + support for form interactions</li>
 </ul>
-<p>In your code, you're going to create own page objects, that will extend one of Kakunin's.</p>
-<p>We recommend to use <code>FormPage</code> as the one you're going to extend.</p>
+<p>In your code, you're going to create your own page objects, that will extend one of Kakunin's. We recommend to use <code>FormPage</code> as the one you're going to extend.</p>
 <p>Page object contains information about page url, its elements, locators, but can also have some custom methods if necessary.</p>
-<p>A very simple Kakunin's page object could look like this.</p>
-<pre><code>const { FormPage } = require('kakunin');
+<p>A very simple example of Kakunin's Page Object could look like the following:</p>
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="p">{</span> <span class="nx">FormPage</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;kakunin&#39;</span><span class="p">);</span>
 
-class DashboardPage extends FromPage {
-    constructor() {
-        super();
+<span class="kr">class</span> <span class="nx">DashboardPage</span> <span class="kr">extends</span> <span class="nx">FromPage</span> <span class="p">{</span>
+    <span class="nx">constructor</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kr">super</span><span class="p">();</span>
 
-        this.url = '/dashboard';
-        this.isExternal = false; // optional
-    }
-}
+        <span class="k">this</span><span class="p">.</span><span class="nx">url</span> <span class="o">=</span> <span class="s1">&#39;/dashboard&#39;</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">isExternal</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span> <span class="c1">// optional</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 
-module.exports = new DashboardPage();
-</code></pre>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">DashboardPage</span><span class="p">();</span>
+</pre></div>
 
-<p>As you see a basic page object must extend one of Kakunin's and have to have url defined <code>this.url</code>.</p>
-<p>Optionally if the page is a main page to be displayed then for <code>ng1</code> and <code>ng2</code> apps you have to provider <code>this.isExternal = true;</code> flag.</p>
-<p>This code should be saved inside <code>pages</code> directory in a file with <code>js</code> extension. What is important is a name of this file, because we're going to use it
-as parameter for steps, for example <code>When the "dashboard" page is displayed</code> expects that there is a file named <code>dashboard.js</code> inside the <code>pages</code> directory. </p>
-<p>Every step that we are using is somehow connected to a object called <code>currentPage</code>. This object value is set to a 
+
+<p>As you can see a basic Page Object must extend one of the Kakunin's Objects and needs to have url field defined (<code>this.url</code>).</p>
+<p>Optionally, if the page is a main page to be displayed then for <code>AngularJS</code> and <code>Angular</code> apps you need to set the <code>this.isExternal</code> flag to <code>true</code>.</p>
+<p>This code should be saved inside <code>pages</code> directory in a file with <code>js</code> extension. 
+Note that a file name is very important, because we're going to use it as parameter for steps. For example, the following step:</p>
+<div class="codehilite"><pre><span></span><span class="k">When </span><span class="nf">the &quot;</span><span class="s">dashboard</span><span class="nf">&quot; page is displayed</span>
+</pre></div>
+
+
+<p>expects that there is a file named <code>dashboard.js</code> inside the <code>pages</code> directory. </p>
+<p>Every step that we are using is somehow connected to an object called <code>currentPage</code>. This object value is set to a 
 page object that we expect to be on.</p>
-<p>This is done by two kind of steps:</p>
+<p>This is done by two kinds of steps:</p>
 <ul>
-<li><code>the "dashboard" page is displayed</code> - this one checks if current url in browser is the same as the one inside page object and changes a value of <code>currentPage</code>
+<li><code>Then the "dashboard" page is displayed</code> - this one checks if current url in browser is the same as the one inside Page Object and changes a value of the <code>currentPage</code> field
  to this page object</li>
-<li><code>I visit the "dashboard" page</code> - this one goes to the url specified in page object and sets the <code>currentPage</code> to that page object</li>
+<li><code>When I visit the "dashboard" page</code> - this one goes to the url specified in Page Object and attaches the Page Object to the <code>currentPage</code> field as above </li>
 </ul>
-<p>This concept is a very simple one and allows you to easily debug the Kakunin. You can assume that every step that is below one of this methods is executed in context of a page object specified in those methods.
-For example if we have such code:</p>
-<pre><code>Feature:
-    Scenario: Display user profile for logged user
-        Given I am logged in as a &quot;user&quot;
-        When the &quot;dashboard&quot; page is displayed
-        And I click the &quot;profileButton&quot; element
-        Then the &quot;myProfile&quot; page is displayed
-        And the &quot;myName&quot; element is visible
-</code></pre>
+<p>This concept is a very simple and allows you to easily debug the framework. You can be sure that each subsequent step that declared below the ones above will be executed in context of a page object specified in those methods.
+For example, having the following code:</p>
+<div class="codehilite"><pre><span></span><span class="k">Feature:</span><span class="nf"></span>
+<span class="nf">    </span><span class="k">Scenario:</span><span class="nf"> Display user profile for logged user</span>
+<span class="k">        Given </span><span class="nf">I am logged in as a &quot;</span><span class="s">user</span><span class="nf">&quot;</span>
+<span class="nf">        </span><span class="k">When </span><span class="nf">the &quot;</span><span class="s">dashboard</span><span class="nf">&quot; page is displayed</span>
+<span class="nf">        </span><span class="k">And </span><span class="nf">I click the &quot;</span><span class="s">profileButton</span><span class="nf">&quot; element</span>
+<span class="nf">        </span><span class="k">Then </span><span class="nf">the &quot;</span><span class="s">myProfile</span><span class="nf">&quot; page is displayed</span>
+<span class="nf">        </span><span class="k">And </span><span class="nf">the &quot;</span><span class="s">myName</span><span class="nf">&quot; element is visible</span>
+</pre></div>
 
-<p><code>And I click the "profileButton" element</code> is executed in context of <code>dashboard</code> page objects. So we can assume that <code>profileButton</code> should be defined inside the
-<code>dashboard.js</code> file.</p>
-<p>At the same time <code>And the "myName" element is visible</code> is executed in context of <code>myProfile</code>, so <code>myName</code> should be inside <code>myProfile.js</code>.</p>
+
+<p>The step named <code>And I click the "profileButton" element</code> is executed in context of <code>dashboard</code> Page Object, thus we can assume that <code>profileButton</code> should be defined inside the
+<code>pages/dashboard.js</code> file.</p>
+<p>At the same time the step <code>And the "myName" element is visible</code> is executed in context of <code>myProfile</code>, so <code>myName</code> should be defined in <code>pages/myProfile.js</code> file.</p>
 <h3 id="elements-and-locators">Elements and locators</h3>
 <p>The second concept that you have to understand are elements and locators.</p>
 <p>Every element that you see on website can be represented as a element inside the page object. This allows us to use it as a parameter for a step, as we did in:
 <code>And the "myName" element is visible</code>.</p>
 <p>Defining elements is very simple. Let's say we have such page object:</p>
-<pre><code>const { FormPage } = require('kakunin');
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="p">{</span> <span class="nx">FormPage</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;kakunin&#39;</span><span class="p">);</span>
 
-class DashboardPage extends FromPage {
-    constructor() {
-        super();
+<span class="kr">class</span> <span class="nx">DashboardPage</span> <span class="kr">extends</span> <span class="nx">FromPage</span> <span class="p">{</span>
+    <span class="kr">constructor</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kr">super</span><span class="p">();</span>
 
-        this.url = '/dashboard';
-        this.isExternal = false; // optional
-    }
-}
+        <span class="k">this</span><span class="p">.</span><span class="nx">url</span> <span class="o">=</span> <span class="s1">&#39;/dashboard&#39;</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">isExternal</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span> <span class="c1">// optional</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 
-module.exports = new DashboardPage();
-</code></pre>
+<span class="kr">module</span><span class="nx">.exports</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">DashboardPage</span><span class="p">();</span>
+</pre></div>
+
 
 <p>Elements should be defined inside <code>constructor</code> method. Let's add element for <code>myName</code>:</p>
-<pre><code>const { FormPage } = require('kakunin');
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="p">{</span> <span class="nx">FormPage</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;kakunin&#39;</span><span class="p">);</span>
 
-class DashboardPage extends FromPage {
-    constructor() {
-        super();
+<span class="kr">class</span> <span class="nx">DashboardPage</span> <span class="kr">extends</span> <span class="nx">FromPage</span> <span class="p">{</span>
+    <span class="kr">constructor</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kr">super</span><span class="p">();</span>
 
-        this.url = '/dashboard';
-        this.isExternal = false; // optional
+        <span class="k">this</span><span class="p">.</span><span class="nx">url</span> <span class="o">=</span> <span class="s1">&#39;/dashboard&#39;</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">isExternal</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span> <span class="c1">// optional</span>
 
-        this.myName = element(by.css('.myName'));
-    }
-}
+        <span class="k">this</span><span class="p">.</span><span class="nx">myName</span> <span class="o">=</span> <span class="nx">element</span><span class="p">(</span><span class="nx">by</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span><span class="s1">&#39;.myName&#39;</span><span class="p">));</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 
-module.exports = new DashboardPage();
-</code></pre>
+<span class="kr">module</span><span class="nx">.exports</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">DashboardPage</span><span class="p">();</span>
+</pre></div>
+
 
 <p>As you see we added a single line <code>this.myName = element(by.css('.myName'));</code>.</p>
 <p><code>by.css('.myName')</code> - is a locator, this is a standard protractor syntax, you can read more on protractors documentation</p>

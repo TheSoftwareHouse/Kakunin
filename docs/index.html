@@ -219,8 +219,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#tips" title="Tips" class="md-nav__link">
-    Tips
+  <a href="#configuration" title="Configuration" class="md-nav__link">
+    Configuration
   </a>
   
 </li>
@@ -228,6 +228,13 @@
         <li class="md-nav__item">
   <a href="#commands" title="Commands" class="md-nav__link">
     Commands
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting-tips" title="Troubleshooting &amp; Tips" class="md-nav__link">
+    Troubleshooting &amp; Tips
   </a>
   
 </li>
@@ -358,8 +365,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#tips" title="Tips" class="md-nav__link">
-    Tips
+  <a href="#configuration" title="Configuration" class="md-nav__link">
+    Configuration
   </a>
   
 </li>
@@ -367,6 +374,13 @@
         <li class="md-nav__item">
   <a href="#commands" title="Commands" class="md-nav__link">
     Commands
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting-tips" title="Troubleshooting &amp; Tips" class="md-nav__link">
+    Troubleshooting &amp; Tips
   </a>
   
 </li>
@@ -395,49 +409,73 @@
 to write e2e test scenarios with a help of Gherkin language and JavaScript for all kind of applications - Angular, React and others.</p>
 <h2 id="installation">Installation</h2>
 <p>In order to install Kakunin you have to make sure that you have installed:</p>
-<pre><code>node.js - v7.8.0 min
+<div class="codehilite"><pre><span></span>node.js - v7.8.0 min
 JDK
 Chrome
-</code></pre>
-<ul>
-<li>Create directory for your project <code>mkdir my_project</code></li>
-<li>Go to project directory <code>cd my_project</code></li>
-<li>Initialize JavaScript project by typing <code>npm init</code></li>
-<li>Open <code>package.json</code> file and add required dev dependencies:</li>
-</ul>
-<pre><code>&quot;webdriver-manager&quot;: &quot;12.0.6&quot;,
-&quot;protractor&quot;: &quot;5.1.2&quot;,
-&quot;kakunin&quot;: &quot;git+ssh://git@bitbucket.org/thesoftwarehouse/e2e-pascal.git#fixes&quot;
-</code></pre>
+</pre></div>
+
 
 <ul>
-<li>In <code>package.json</code> add new script in <code>scripts</code> section:</li>
+<li>Create directory for your project</li>
 </ul>
-<pre><code>&quot;kakunin&quot;: &quot;NODE_ENV=prod kakunin&quot;
-</code></pre>
+<div class="codehilite"><pre><span></span>mkdir my_project
+</pre></div>
+
 
 <ul>
-<li>Install dependencies <code>npm install</code></li>
-<li>Create kakunin project <code>npm run kakunin init</code></li>
-<li>Answer what kind of app you're going to test (<code>default: NG1</code>)</li>
-<li>Fill url for your app (<code>default: http://localhost:3000</code>)</li>
-<li>Are you going to use some emails checking service ? (<code>default: none</code>)</li>
-<li>Run Kakunin's testing features <code>npm run kakunin</code></li>
+<li>Go to project directory </li>
 </ul>
-<p>You're read to use Kakunin.</p>
-<h2 id="tips">Tips</h2>
-<p>In order to use autosuggest functionality in JETBrains tools, make sure your project is <code>ECMAScript 6</code> compatible and you have <code>cucumberjs</code> plugin installed.</p>
-<p>If it is, go to <code>step_definitions</code> directory <code>cd step_definitions</code> and paste this code into terminal and restart your IDE:</p>
-<pre><code>ln -s ../node_modules/kakunin/dist/step_definitions/elements.js kakunin-elements.js
-ln -s ../node_modules/kakunin/dist/step_definitions/debug.js kakunin-debug.js
-ln -s ../node_modules/kakunin/dist/step_definitions/file.js kakunin-file.js
-ln -s ../node_modules/kakunin/dist/step_definitions/form.js kakunin-form.js
-ln -s ../node_modules/kakunin/dist/step_definitions/email.js kakunin-email.js
-ln -s ../node_modules/kakunin/dist/step_definitions/generators.js kakunin-generators.js
-ln -s ../node_modules/kakunin/dist/step_definitions/navigation.js kakunin-navigation.js 
-</code></pre>
+<div class="codehilite"><pre><span></span><span class="nb">cd</span> my_project
+</pre></div>
 
-<p>This will create symlinks inside <code>step_definitions</code> directory and make <code>cucumberjs</code> plugin recognize kakunin built-in steps.</p>
+
+<ul>
+<li>Initialize JavaScript project</li>
+</ul>
+<div class="codehilite"><pre><span></span>npm init
+</pre></div>
+
+
+<ul>
+<li>Open <code>package.json</code> file and add required <code>devDependencies</code>:</li>
+</ul>
+<div class="codehilite"><pre><span></span><span class="s2">&quot;webdriver-manager&quot;</span><span class="err">:</span> <span class="s2">&quot;12.0.6&quot;</span><span class="err">,</span>
+<span class="s2">&quot;protractor&quot;</span><span class="err">:</span> <span class="s2">&quot;5.1.2&quot;</span><span class="err">,</span>
+<span class="s2">&quot;kakunin&quot;</span><span class="err">:</span> <span class="s2">&quot;git+ssh://git@bitbucket.org/thesoftwarehouse/e2e-pascal.git#fixes&quot;</span>
+</pre></div>
+
+
+<ul>
+<li>Still inside <code>package.json</code> file; add new script in <code>scripts</code> section:</li>
+</ul>
+<div class="codehilite"><pre><span></span><span class="s2">&quot;kakunin&quot;</span><span class="err">:</span> <span class="s2">&quot;NODE_ENV=prod kakunin&quot;</span>
+</pre></div>
+
+
+<ul>
+<li>Install dependencies </li>
+</ul>
+<div class="codehilite"><pre><span></span>npm install
+</pre></div>
+
+
+<h2 id="configuration">Configuration</h2>
+<ul>
+<li>Create kakunin project </li>
+</ul>
+<div class="codehilite"><pre><span></span>npm run kakunin init
+</pre></div>
+
+
+<p>The above command will run Kakunin's init script.
+<em> Answer what kind of app you're going to test (<code>default: AngularJS</code>)
+</em> Enter URL where your tested app will be running (<code>default: http://localhost:3000</code>)
+* Choose if you plan to use some emails checking service (<code>default: none</code>)</p>
+<p>And you're set! Now you can run the tests using Kakunin:</p>
+<div class="codehilite"><pre><span></span>npm run kakunin
+</pre></div>
+
+
 <h2 id="commands">Commands</h2>
 <ul>
 <li><code>npm run kakunin init [-- --advanced]</code> - Create a new project by answering few simple questions (you can pass additional parameter to enter advanced mode where you can configure all Kakunin options by yourself)</li>
@@ -447,6 +485,27 @@ ln -s ../node_modules/kakunin/dist/step_definitions/navigation.js kakunin-naviga
 <li><code>npm run kakunin -- --tags "@someTag or @otherTag"</code> - Run only scenarios tagged by <code>@someTag</code> or <code>@otherTag</code></li>
 <li><code>npm run kakunin -- --tags "not @someTag"</code> - Run only scenarios not tagged by <code>@someTag</code></li>
 </ul>
+<h2 id="troubleshooting-tips">Troubleshooting &amp; Tips</h2>
+<p>In order to make cucumber steps autosuggestion work properly in JetBrains tools, make sure your project is <code>ECMAScript 6</code> compatible and you have <code>cucumberjs</code> plugin installed.
+Due to non-resolved issue in Jetbrains editors (<a href="https://youtrack.jetbrains.com/issue/WEB-11505">see here</a>) we'll have to do one more step:</p>
+<p>Go to <code>step_definitions</code> directory </p>
+<div class="codehilite"><pre><span></span><span class="nb">cd</span> step_definitions
+</pre></div>
+
+
+<p>Paste this code into terminal and restart your IDE:
+(if you're using Windows, you'll have to adapt the command by yourself. Or switch to Linux :) )</p>
+<div class="codehilite"><pre><span></span>ln -s ../node_modules/kakunin/dist/step_definitions/elements.js kakunin-elements.js
+ln -s ../node_modules/kakunin/dist/step_definitions/debug.js kakunin-debug.js
+ln -s ../node_modules/kakunin/dist/step_definitions/file.js kakunin-file.js
+ln -s ../node_modules/kakunin/dist/step_definitions/form.js kakunin-form.js
+ln -s ../node_modules/kakunin/dist/step_definitions/email.js kakunin-email.js
+ln -s ../node_modules/kakunin/dist/step_definitions/generators.js kakunin-generators.js
+ln -s ../node_modules/kakunin/dist/step_definitions/navigation.js kakunin-navigation.js 
+</pre></div>
+
+
+<p>This will create symlinks inside <code>step_definitions</code> directory and make <code>cucumberjs</code> plugin recognize kakunin built-in steps.</p>
                 
                   
                 

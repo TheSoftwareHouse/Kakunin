@@ -559,27 +559,29 @@
 <h3 id="regex-builder">Regex builder</h3>
 <p>Regex builder is a special builder for creating <code>RegExp</code> objects based on regexp name. Internally it has access to not only to all built-in 
 regular expression files, but also custom ones specified by user. </p>
-<pre><code>const { regexBuilder } = require('kakunin');
+<div class="codehilite"><pre><span></span><span class="nt">const</span> <span class="p">{</span> <span class="err">regexBuilder</span> <span class="p">}</span> <span class="o">=</span> <span class="nt">require</span><span class="o">(</span><span class="s1">&#39;kakunin&#39;</span><span class="o">);</span>
 
-const myRegex = regexBuilder.buildRegex('r:number');
+<span class="nt">const</span> <span class="nt">myRegex</span> <span class="o">=</span> <span class="nt">regexBuilder</span><span class="p">.</span><span class="nc">buildRegex</span><span class="o">(</span><span class="s1">&#39;r:number&#39;</span><span class="o">);</span>
 
-//myRegex will contain RegExp object that matches regular expression under the name &quot;number&quot; in regexes file.
-</code></pre>
+<span class="o">//</span><span class="nt">myRegex</span> <span class="nt">will</span> <span class="nt">contain</span> <span class="nt">RegExp</span> <span class="nt">object</span> <span class="nt">that</span> <span class="nt">matches</span> <span class="nt">regular</span> <span class="nt">expression</span> <span class="nt">under</span> <span class="nt">the</span> <span class="nt">name</span> <span class="s2">&quot;number&quot;</span> <span class="nt">in</span> <span class="nt">regexes</span> <span class="nt">file</span><span class="o">.</span>
+</pre></div>
+
 
 <h3 id="variable-store">Variable store</h3>
 <p>Variable store allows you to store and read some values to be used during given scenario.</p>
-<pre><code>const { variableStore } = require('kakunin');
+<div class="codehilite"><pre><span></span>const { variableStore } = require(&#39;kakunin&#39;);
 
-variableStore.storeVariable('some-name', 'some-value');
+variableStore.storeVariable(&#39;some-name&#39;, &#39;some-value&#39;);
 
-const myValue = variableStore.getVariableValue('some-name'); //contains 'some-value'
-</code></pre>
+const myValue = variableStore.getVariableValue(&#39;some-name&#39;); //contains &#39;some-value&#39;
+</pre></div>
+
 
 <h3 id="user-provider">User provider</h3>
 <p>Kakunin comes with functionality that allows you to easily load credentials for a given account type - <code>UserProvider</code>.</p>
 <p>In <code>kakunin.conf.js</code> you can find a section <code>accounts</code>.</p>
 <p>The structure it has is very simple: </p>
-<pre><code>&quot;accounts&quot;: {
+<div class="codehilite"><pre><span></span>&quot;accounts&quot;: {
     &quot;someAccount&quot;: {
         &quot;accounts&quot;: [
             {
@@ -589,7 +591,8 @@ const myValue = variableStore.getVariableValue('some-name'); //contains 'some-va
         ]
     }
 }
-</code></pre>
+</pre></div>
+
 
 <p><code>someAccount</code> - the name of accounts group</p>
 <p><code>accounts</code> - an array of account credentials (in order to be able to check if a <code>currentUser</code> got an email, this has to have an <code>email</code> key, otherwise account can have any kind of
@@ -601,150 +604,157 @@ properties)</p>
 <h3 id="custom-step">Custom step</h3>
 <p>In order to add a custom step, you have to create inside of a directory specified as <code>step_definitions</code> in kakunin configuration file <code>default: /step_definitions</code>.</p>
 <p>We're using <code>cucumber-js 2.X</code> so in order to add custom step you have to use <code>defineSupportCode</code> method like this:</p>
-<pre><code>  const { defineSupportCode } = require('kakunin');
+<div class="codehilite"><pre><span></span>  const { defineSupportCode } = require(&#39;kakunin&#39;);
 
   defineSupportCode(({ When }) =&gt; {
     When(/^I use kakunin$/, function() {
       expect(true).to.equal(true);
     });
   });
-</code></pre>
+</pre></div>
+
 
 <h3 id="page-objects">Page objects</h3>
 <p>Kakunin comes with some built-in page objects, that should be used as a base for your page objects.</p>
 <p>In order to create a custom one, create a file inside the <code>pages</code> directory and extend either <code>BasePage</code> or <code>FormPage</code> from kakunin package.</p>
-<pre><code>const { BasePage } = require('kakunin');
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="p">{</span> <span class="nx">BasePage</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;kakunin&#39;</span><span class="p">);</span>
 
-class MyPageObject extends BasePage {
-  constructor() {
-    this.myElement = element(by.css('.some-elemnt'));
-  }
-}
+<span class="kr">class</span> <span class="nx">MyPageObject</span> <span class="kr">extends</span> <span class="nx">BasePage</span> <span class="p">{</span>
+  <span class="kr">constructor</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">myElement</span> <span class="o">=</span> <span class="nx">element</span><span class="p">(</span><span class="nx">by</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span><span class="s1">&#39;.some-elemnt&#39;</span><span class="p">));</span>
+  <span class="p">}</span>
+<span class="p">}</span>
 
-module.exports = new MyPageObject();
-</code></pre>
+<span class="kr">module</span><span class="nx">.exports</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">MyPageObject</span><span class="p">();</span>
+</pre></div>
+
 
 <p>The only difference between <code>BasePage</code> and <code>FormPage</code> is a support for form submission.</p>
-<pre><code>const { FormPage } = require('kakunin');
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="p">{</span> <span class="nx">FormPage</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;kakunin&#39;</span><span class="p">);</span>
 
-class MyFormTypePage extends FormPage {
-  constructor() {
-    this.myElement = element(by.css('.some-elemnt'));
-  }
-}
+<span class="kr">class</span> <span class="nx">MyFormTypePage</span> <span class="kr">extends</span> <span class="nx">FormPage</span> <span class="p">{</span>
+  <span class="kr">constructor</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">myElement</span> <span class="o">=</span> <span class="nx">element</span><span class="p">(</span><span class="nx">by</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span><span class="s1">&#39;.some-elemnt&#39;</span><span class="p">));</span>
+  <span class="p">}</span>
+<span class="p">}</span>
 
-module.exports = new MyFormTypePage();
-</code></pre>
+<span class="kr">module</span><span class="nx">.exports</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">MyFormTypePage</span><span class="p">();</span>
+</pre></div>
+
 
 <h3 id="matchers">Matchers</h3>
 <p>Matchers are used to compare if given value is matching our expectation. For example if a value in table is a number.</p>
 <p>You can add your own matcher as below:</p>
-<pre><code>const { matchers } = require('kakunin');
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="p">{</span> <span class="nx">matchers</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;kakunin&#39;</span><span class="p">);</span>
 
-class MyMatcher {
-  isSatisfiedBy(prefix, name) {
-    return prefix === 'm:' &amp;&amp; name === 'pending';
-  }
+<span class="kr">class</span> <span class="nx">MyMatcher</span> <span class="p">{</span>
+  <span class="nx">isSatisfiedBy</span><span class="p">(</span><span class="nx">prefix</span><span class="p">,</span> <span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">prefix</span> <span class="o">===</span> <span class="s1">&#39;m:&#39;</span> <span class="o">&amp;&amp;</span> <span class="nx">name</span> <span class="o">===</span> <span class="s1">&#39;pending&#39;</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  match(protractorElement, matcherName) {
-    return protractorElement.getText().then((value) =&gt; value === 'pending'); 
-  }
-}
+  <span class="nx">match</span><span class="p">(</span><span class="nx">protractorElement</span><span class="p">,</span> <span class="nx">matcherName</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">protractorElement</span><span class="p">.</span><span class="nx">getText</span><span class="p">().</span><span class="nx">then</span><span class="p">((</span><span class="nx">value</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">value</span> <span class="o">===</span> <span class="s1">&#39;pending&#39;</span><span class="p">);</span> 
+  <span class="p">}</span>
+<span class="p">}</span>
 
-matchers.addMatcher(new MyMatcher());
-</code></pre>
+<span class="nx">matchers</span><span class="p">.</span><span class="nx">addMatcher</span><span class="p">(</span><span class="k">new</span> <span class="nx">MyMatcher</span><span class="p">());</span>
+</pre></div>
+
 
 <h3 id="dictionaries">Dictionaries</h3>
 <p>Dictionaries allows you to present complicated values in much more readable way. For example if an element must be
 in a form of IRI <code>/some-resource/123-123-123-23</code> and you wish to use <code>pending-resource</code> as it's alias.</p>
 <p>You can add your own dictionary:</p>
-<pre><code>const { dictionaries } = require('kakunin');
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="p">{</span> <span class="nx">dictionaries</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;kakunin&#39;</span><span class="p">);</span>
 
-class MyDictionary{
-  constructor() {
-    this.values = {
-      '/some-resource/123-123-123-23':'pending-resource'
-    };
+<span class="kr">class</span> <span class="nx">MyDictionary</span><span class="p">{</span>
+  <span class="kr">constructor</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">values</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="s1">&#39;/some-resource/123-123-123-23&#39;</span><span class="o">:</span><span class="s1">&#39;pending-resource&#39;</span>
+    <span class="p">};</span>
 
-    this.name === 'resources';
-  }
+    <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">===</span> <span class="s1">&#39;resources&#39;</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  isSatisfiedBy(name) {
-    return this.name === name;
-  }
+  <span class="nx">isSatisfiedBy</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">===</span> <span class="nx">name</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  getMappedValue(key) {
-    return this.values[key];
-  }
-}
+  <span class="nx">getMappedValue</span><span class="p">(</span><span class="nx">key</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">values</span><span class="p">[</span><span class="nx">key</span><span class="p">];</span>
+  <span class="p">}</span>
+<span class="p">}</span>
 
-dictionaries.addDictionary(new MyDictionary());
-</code></pre>
+<span class="nx">dictionaries</span><span class="p">.</span><span class="nx">addDictionary</span><span class="p">(</span><span class="k">new</span> <span class="nx">MyDictionary</span><span class="p">());</span>
+</pre></div>
+
 
 <h3 id="generators">Generators</h3>
 <p>Generators allows you to create random values</p>
 <p>You can add your own generator:</p>
-<pre><code>const { generators } = require('kakunin');
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="p">{</span> <span class="nx">generators</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;kakunin&#39;</span><span class="p">);</span>
 
-class MyGeneerator{
-  isSatisfiedBy(name) {
-    return this.name === 'my-generator';
-  }
+<span class="kr">class</span> <span class="nx">MyGeneerator</span><span class="p">{</span>
+  <span class="nx">isSatisfiedBy</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">===</span> <span class="s1">&#39;my-generator&#39;</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  generate(params) {
-    return Promise.resolve('some-random-value');
-  }
-}
+  <span class="nx">generate</span><span class="p">(</span><span class="nx">params</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="s1">&#39;some-random-value&#39;</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
 
-generators.addGenerator(new MyGeneerator());
-</code></pre>
+<span class="nx">generators</span><span class="p">.</span><span class="nx">addGenerator</span><span class="p">(</span><span class="k">new</span> <span class="nx">MyGeneerator</span><span class="p">());</span>
+</pre></div>
+
 
 <h3 id="comparators">Comparators</h3>
 <p>Comparators allows you to check if a set of values has an expected order</p>
 <p>You can add your own comparators:</p>
-<pre><code>const { comparators } = require('kakunin');
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="p">{</span> <span class="nx">comparators</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;kakunin&#39;</span><span class="p">);</span>
 
-class MyComparator {
-  isSatisfiedBy(values) {
-    for(let i=0; i&lt;values.length; i++) {
-      if (values[i] !== 'foo' &amp;&amp; values[i] !== 'bar') {
-        return false;
-      }
-    }
+<span class="kr">class</span> <span class="nx">MyComparator</span> <span class="p">{</span>
+  <span class="nx">isSatisfiedBy</span><span class="p">(</span><span class="nx">values</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="nx">values</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">values</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">!==</span> <span class="s1">&#39;foo&#39;</span> <span class="o">&amp;&amp;</span> <span class="nx">values</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">!==</span> <span class="s1">&#39;bar&#39;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
 
-    return true;
-  }
+    <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  compare(values, order) {
-    for (let i = 1; i &lt; values.length; i++) {
-      const previousValue = values[i - 1];
-      const currentValue = values[i];
+  <span class="nx">compare</span><span class="p">(</span><span class="nx">values</span><span class="p">,</span> <span class="nx">order</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">values</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kr">const</span> <span class="nx">previousValue</span> <span class="o">=</span> <span class="nx">values</span><span class="p">[</span><span class="nx">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">];</span>
+      <span class="kr">const</span> <span class="nx">currentValue</span> <span class="o">=</span> <span class="nx">values</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
 
-      if (previousValue === currentValue) {
-        return Promise.reject('Wrong order');
-      }
-    }
+      <span class="k">if</span> <span class="p">(</span><span class="nx">previousValue</span> <span class="o">===</span> <span class="nx">currentValue</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">Promise</span><span class="p">.</span><span class="nx">reject</span><span class="p">(</span><span class="s1">&#39;Wrong order&#39;</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
 
-    return Promise.resolve('Foo bar!');
-  }
-};
+    <span class="k">return</span> <span class="nx">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="s1">&#39;Foo bar!&#39;</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">};</span>
 
-comparators.addComparator(new MyComparator());
-</code></pre>
+<span class="nx">comparators</span><span class="p">.</span><span class="nx">addComparator</span><span class="p">(</span><span class="k">new</span> <span class="nx">MyComparator</span><span class="p">());</span>
+</pre></div>
+
 
 <h3 id="form-handlers">Form handlers</h3>
 <p>Form handlers allows you to fill the form inputs and check value of filled fields</p>
 <p>You can add your own handlers:</p>
-<pre><code>const { handlers } = require('kakunin');
+<div class="codehilite"><pre><span></span>const { handlers } = require(&#39;kakunin&#39;);
 
 const MyHandler {
   constructor() {
     this.registerFieldType = false;
-    this.fieldType = 'default';
+    this.fieldType = &#39;default&#39;;
   }
 
   isSatisfiedBy(element, elementName) {
-    return Promise.resolve(elementName === 'someElementName');
+    return Promise.resolve(elementName === &#39;someElementName&#39;);
   }
 
   handleFill(page, elementName, desiredValue) {
@@ -760,12 +770,12 @@ const MyHandler {
   handleCheck(page, elementName, desiredValue) {
     return page[elementName].isDisplayed()
       .then(function () {
-        return page[elementName].getAttribute('value').then(function (value) {
+        return page[elementName].getAttribute(&#39;value&#39;).then(function (value) {
           if (value === desiredValue) {
             return Promise.resolve();
           }
 
-          return Promise.reject(`Expected ${desiredValue} got ${value} for text input element ${elementName}`);
+          return Promise.reject(`Expected <span class="cp">${</span><span class="n">desiredValue</span><span class="cp">}</span> got <span class="cp">${</span><span class="n">value</span><span class="cp">}</span> for text input element <span class="cp">${</span><span class="n">elementName</span><span class="cp">}</span>`);
         });
       }
     );
@@ -773,7 +783,8 @@ const MyHandler {
 };
 
 handlers.addHandler(new MyHandler());
-</code></pre>
+</pre></div>
+
 
 <h3 id="transformers">Transformers</h3>
 <p>Transformers can be used in steps <code>When I fill the "form" form with:</code> and <code>And the "joinOurStoreForm" form is filled with:</code>.</p>
@@ -785,57 +796,59 @@ Transformers can be used in mentioned steps by using specific 'prefix', paramete
 Example:
 <code>g:generatorName:param:param</code></p>
 <p>You can add your own handlers:</p>
-<pre><code>const { transformers } = require('kakunin');
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="p">{</span> <span class="nx">transformers</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;kakunin&#39;</span><span class="p">);</span>
 
-class MyTransformer {
+<span class="kr">class</span> <span class="nx">MyTransformer</span> <span class="p">{</span>
 
-  isSatisfiedBy(prefix) {
-    return 'yourPrefix:' === prefix;
-  }
+  <span class="nx">isSatisfiedBy</span><span class="p">(</span><span class="nx">prefix</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="s1">&#39;yourPrefix:&#39;</span> <span class="o">===</span> <span class="nx">prefix</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  transform(value) {
-    //code
-  }
-}
-transformers.addTransformer(new MyTransformer());
-</code></pre>
+  <span class="nx">transform</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">//code</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+<span class="nx">transformers</span><span class="p">.</span><span class="nx">addTransformer</span><span class="p">(</span><span class="k">new</span> <span class="nx">MyTransformer</span><span class="p">());</span>
+</pre></div>
+
 
 <h3 id="email-checking-service">Email checking service</h3>
 <p>You can easily check emails with Kakunin. By default we give you MailTrap client implementation, but you can easily add your own client. </p>
-<pre><code>const { emailService } = require('kakunin');
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="p">{</span> <span class="nx">emailService</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;kakunin&#39;</span><span class="p">);</span>
 
-class MyEmailService {
-  //you have access to full kakunin config
-  isSatisfiedBy(config) {
-    return config.email.type === 'my-custom-email-service';
-  }
+<span class="kr">class</span> <span class="nx">MyEmailService</span> <span class="p">{</span>
+  <span class="c1">//you have access to full kakunin config</span>
+  <span class="nx">isSatisfiedBy</span><span class="p">(</span><span class="nx">config</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">config</span><span class="p">.</span><span class="nx">email</span><span class="p">.</span><span class="nx">type</span> <span class="o">===</span> <span class="s1">&#39;my-custom-email-service&#39;</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  //method used to clear emails before tests
-  clearInbox() {
-    ...
-  }
+  <span class="c1">//method used to clear emails before tests</span>
+  <span class="nx">clearInbox() {</span>
+    <span class="p">...</span>
+  <span class="p">}</span>
 
-  //method used to get emails - this method should return emails in format described below
-  getEmails() {
-    ...
-  }
+  <span class="c1">//method used to get emails - this method should return emails in format described below</span>
+  <span class="nx">getEmails() {</span>
+    <span class="p">...</span>
+  <span class="p">}</span>
 
-  //method used to retrive atachments for given email - should return attachments in format described below
-  getAttachments(email) {
-    ...
-  }
+  <span class="c1">//method used to retrive atachments for given email - should return attachments in format described below</span>
+  <span class="nx">getAttachments</span><span class="p">(</span><span class="nx">email</span><span class="p">)</span> <span class="p">{</span>
+    <span class="p">...</span>
+  <span class="p">}</span>
 
-  //method used to mark given email as read
-  markAsRead(email) {
-    ...
-  }
-}
+  <span class="c1">//method used to mark given email as read</span>
+  <span class="nx">markAsRead</span><span class="p">(</span><span class="nx">email</span><span class="p">)</span> <span class="p">{</span>
+    <span class="p">...</span>
+  <span class="p">}</span>
+<span class="p">}</span>
 
-emailService.addAdapter(new MyEmailService());
-</code></pre>
+<span class="nx">emailService</span><span class="p">.</span><span class="nx">addAdapter</span><span class="p">(</span><span class="k">new</span> <span class="nx">MyEmailService</span><span class="p">());</span>
+</pre></div>
+
 
 <p>Emails should be returned as an array of objects with given schema:</p>
-<pre><code>  [
+<div class="codehilite"><pre><span></span>  [
     {
       &quot;subject&quot;: &quot;SMTP e-mail test&quot;,
       &quot;sent_at&quot;: &quot;2013-08-25T19:32:07.567+03:00&quot;,
@@ -852,11 +865,12 @@ emailService.addAdapter(new MyEmailService());
       &quot;sent_at_timestamp&quot;: 1377448326
     }
   ]
-</code></pre>
+</pre></div>
+
 
 <p>this is MailTrap email format.</p>
 <p>Attachments should be returned as an array of objects with given schema:</p>
-<pre><code>[
+<div class="codehilite"><pre><span></span>[
   {
     &quot;id&quot;: 1737,
     &quot;message_id&quot;: 54508,
@@ -872,7 +886,8 @@ emailService.addAdapter(new MyEmailService());
     &quot;download_path&quot;: &quot;/api/v1/inboxes/3/messages/54508/attachments/1737/download&quot;
   }
 ]
-</code></pre>
+</pre></div>
+
 
 <p>this is MailTrap attachment format.</p>
                 
