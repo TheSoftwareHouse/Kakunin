@@ -1,7 +1,13 @@
 {
   "name": "kakunin",
-  "version": "1.0.0",
+  "version": "1.16.4",
   "description": "End-to-end testing framework",
+  "homepage": "https://thesoftwarehouse.github.io/Kakunin/",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TheSoftwareHouse/Kakunin.git"
+  },
   "author": {
     "name": "The Software House",
     "url": "http://tsh.io"
@@ -14,7 +20,7 @@
       "name": "Mariusz Richtscheid"
     },
     {
-      "name": "Tomasz Gorski"
+      "name": "Tomasz Górski"
     },
     {
       "name": "Jakub Paluch"
@@ -23,7 +29,7 @@
       "name": "Szymon Stanisz"
     },
     {
-      "name": "Wojciech Wojcik"
+      "name": "Wojciech Wójcik"
     }
   ],
   "bin": {
