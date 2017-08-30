@@ -1,5 +1,8 @@
 site_name: Kakunin Docs
 theme: 'material'
+repo_url: https://github.com/TheSoftwareHouse/Kakunin
+docs_dir: docs-source
+site_dir: docs
 pages:
   - Getting started: index.md
   - Configuration: configuration.md
