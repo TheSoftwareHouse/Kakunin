@@ -48,7 +48,7 @@ module.exports = {
     "headless": false,
     "noGpu": false,
     "type": "otherWeb",
-    "baseUrl": "http://todomvc.com",
+    "baseUrl": "http://localhost:8080",
     "accounts": {
         "someAccount": {
             "accounts": [

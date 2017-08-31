@@ -7,7 +7,7 @@ Kakunin allows you to easily add a custom code in order to extend it's functiona
 Regex builder is a special builder for creating `RegExp` objects based on regexp name. Internally it has access to not only to all built-in 
 regular expression files, but also custom ones specified by user. 
 
-```
+```javascript
 const { regexBuilder } = require('kakunin');
 
 const myRegex = regexBuilder.buildRegex('r:number');
@@ -19,7 +19,7 @@ const myRegex = regexBuilder.buildRegex('r:number');
 
 Variable store allows you to store and read some values to be used during given scenario.
 
-```
+```javascript
 const { variableStore } = require('kakunin');
 
 variableStore.storeVariable('some-name', 'some-value');
@@ -35,7 +35,7 @@ In `kakunin.conf.js` you can find a section `accounts`.
 
 The structure it has is very simple: 
 
-``` 
+```json 
 "accounts": {
     "someAccount": {
         "accounts": [
@@ -67,7 +67,7 @@ In order to add a custom step, you have to create inside of a directory specifie
 
 We're using `cucumber-js 2.X` so in order to add custom step you have to use `defineSupportCode` method like this:
 
-```
+```javascript
   const { defineSupportCode } = require('kakunin');
   
   defineSupportCode(({ When }) => {
@@ -83,7 +83,7 @@ Kakunin comes with some built-in page objects, that should be used as a base for
 
 In order to create a custom one, create a file inside the `pages` directory and extend either `BasePage` or `FormPage` from kakunin package.
 
-```
+```javascript
 const { BasePage } = require('kakunin');
 
 class MyPageObject extends BasePage {
@@ -97,7 +97,7 @@ module.exports = new MyPageObject();
 
 The only difference between `BasePage` and `FormPage` is a support for form submission.
 
-```
+```javascript
 const { FormPage } = require('kakunin');
 
 class MyFormTypePage extends FormPage {
@@ -115,7 +115,7 @@ Matchers are used to compare if given value is matching our expectation. For exa
 
 You can add your own matcher as below:
 
-```
+```javascript
 const { matchers } = require('kakunin');
 
 class MyMatcher {
@@ -138,7 +138,7 @@ in a form of IRI `/some-resource/123-123-123-23` and you wish to use `pending-re
 
 You can add your own dictionary:
 
-```
+```javascript
 const { dictionaries } = require('kakunin');
 
 class MyDictionary{
@@ -168,12 +168,12 @@ Generators allows you to create random values
 
 You can add your own generator:
 
-```
+```javascript
 const { generators } = require('kakunin');
 
 class MyGeneerator{
   isSatisfiedBy(name) {
-    return this.name === 'my-generator';
+    return name === 'my-generator';
   }
 
   generate(params) {
@@ -190,7 +190,7 @@ Comparators allows you to check if a set of values has an expected order
 
 You can add your own comparators:
 
-```
+```javascript
 const { comparators } = require('kakunin');
 
 class MyComparator {
@@ -227,7 +227,7 @@ Form handlers allows you to fill the form inputs and check value of filled field
 
 You can add your own handlers:
 
-```
+```javascript
 const { handlers } = require('kakunin');
 
 const MyHandler {
@@ -281,7 +281,7 @@ Example:
 `g:generatorName:param:param`
 
 You can add your own handlers:
-```
+```javascript
 const { transformers } = require('kakunin');
 
 class MyTransformer {
@@ -301,7 +301,7 @@ transformers.addTransformer(new MyTransformer());
 
 You can easily check emails with Kakunin. By default we give you MailTrap client implementation, but you can easily add your own client. 
 
-```
+```javascript
 const { emailService } = require('kakunin');
 
 class MyEmailService {
@@ -335,7 +335,7 @@ emailService.addAdapter(new MyEmailService());
 ```
 
 Emails should be returned as an array of objects with given schema:
-``` 
+```json 
   [
     {
       "subject": "SMTP e-mail test",
@@ -359,23 +359,23 @@ this is MailTrap email format.
 
 Attachments should be returned as an array of objects with given schema:
 
-``` 
-[
-  {
-    "id": 1737,
-    "message_id": 54508,
-    "filename": "Photos.png",
-    "attachment_type": "attachment",
-    "content_type": "image/png",
-    "content_id": "",
-    "transfer_encoding": "base64",
-    "attachment_size": 213855,
-    "created_at": "2013-08-16T00:39:34.677+03:00",
-    "updated_at": "2013-08-16T00:39:34.677+03:00",
-    "attachment_human_size": "210 KB",
-    "download_path": "/api/v1/inboxes/3/messages/54508/attachments/1737/download"
-  }
-]
+```json
+  [
+    {
+      "id": 1737,
+      "message_id": 54508,
+      "filename": "Photos.png",
+      "attachment_type": "attachment",
+      "content_type": "image/png",
+      "content_id": "",
+      "transfer_encoding": "base64",
+      "attachment_size": 213855,
+      "created_at": "2013-08-16T00:39:34.677+03:00",
+      "updated_at": "2013-08-16T00:39:34.677+03:00",
+      "attachment_human_size": "210 KB",
+      "download_path": "/api/v1/inboxes/3/messages/54508/attachments/1737/download"
+    }
+  ]
 ```
 
 this is MailTrap attachment format.
