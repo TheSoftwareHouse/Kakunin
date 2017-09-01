@@ -439,31 +439,6 @@
             "location": "/extending/#email-checking-service", 
             "text": "You can easily check emails with Kakunin. By default we give you MailTrap client implementation, but you can easily add your own client.   const   {   emailService   }   =   require ( kakunin );  class   MyEmailService   { \n   //you have access to full kakunin config \n   isSatisfiedBy ( config )   { \n     return   config . email . type   ===   my-custom-email-service ; \n   } \n\n   //method used to clear emails before tests \n   clearInbox ()   { \n     ... \n   } \n\n   //method used to get emails - this method should return emails in format described below \n   getEmails ()   { \n     ... \n   } \n\n   //method used to retrive atachments for given email - should return attachments in format described below \n   getAttachments ( email )   { \n     ... \n   } \n\n   //method used to mark given email as read \n   markAsRead ( email )   { \n     ... \n   }  }  emailService . addAdapter ( new   MyEmailService ());   Emails should be returned as an array of objects with given schema:     [ \n     { \n       subject :   SMTP e-mail test , \n       sent_at :   2013-08-25T19:32:07.567+03:00 , \n       from_email :   me@railsware.com , \n       from_name :   Private Person , \n       to_email :   test@railsware.com , \n       to_name :   A Test User , \n       html_body :   , \n       text_body :   This is a test e-mail message.\\r\\n , \n       email_size :   193 , \n       is_read :   true , \n       created_at :   2013-08-25T19:32:07.576+03:00 , \n       updated_at :   2013-08-25T19:32:09.232+03:00 , \n       sent_at_timestamp :   1377448326 \n     } \n   ]   this is MailTrap email format.  Attachments should be returned as an array of objects with given schema:     [ \n     { \n       id :   1737 , \n       message_id :   54508 , \n       filename :   Photos.png , \n       attachment_type :   attachment , \n       content_type :   image/png , \n       content_id :   , \n       transfer_encoding :   base64 , \n       attachment_size :   213855 , \n       created_at :   2013-08-16T00:39:34.677+03:00 , \n       updated_at :   2013-08-16T00:39:34.677+03:00 , \n       attachment_human_size :   210 KB , \n       download_path :   /api/v1/inboxes/3/messages/54508/attachments/1737/download \n     } \n   ]   this is MailTrap attachment format.", 
             "title": "Email checking service"
-        }, 
-        {
-            "location": "/changelog/", 
-            "text": "v1.0.0\n\n\n\n\nupdated documentation\n\n\nadded example app\n\n\nadded license\n\n\n\n\nv0.16.3\n\n\n\n\nchanged \nThere are \"equal 4\" following elements for element \"rows\":\n error message to be more descriptive\n\n\nadded express app to handle form submit tests\n\n\nadded tests form html default field types and tabular content validation\n\n\n\n\nv0.16.2\n\n\n\n\nadded new step \nI visit the \"pageName\" page with parameters:\n which replaces wildcards with a values given in the table\n\n\nfixed step \nI wait for \"condition\" of the \"element\" element\n, currently timeout is set properly to \nelementsVisibilityTimeout\n key which is placed in kakunin.config.js \n\n\nimproved step \nI wait for \"condition\" of the \"element\" element\n, currently singleElement and arrayElements can be checked\n\n\nchange step implementation: \nI click the \"keyName\" key\n to \nI press the \"keyName\" key\n\n\n\n\nv0.16.1\n\n\n\n\nadded changelog\n\n\nadded directory for mailing service adapters [\nemails\n] and connect it to modules loading system\n\n\nfixed a bug where exported mailing service and the one used internally where a different instances", 
-            "title": "Changelog"
-        }, 
-        {
-            "location": "/changelog/#v100", 
-            "text": "updated documentation  added example app  added license", 
-            "title": "v1.0.0"
-        }, 
-        {
-            "location": "/changelog/#v0163", 
-            "text": "changed  There are \"equal 4\" following elements for element \"rows\":  error message to be more descriptive  added express app to handle form submit tests  added tests form html default field types and tabular content validation", 
-            "title": "v0.16.3"
-        }, 
-        {
-            "location": "/changelog/#v0162", 
-            "text": "added new step  I visit the \"pageName\" page with parameters:  which replaces wildcards with a values given in the table  fixed step  I wait for \"condition\" of the \"element\" element , currently timeout is set properly to  elementsVisibilityTimeout  key which is placed in kakunin.config.js   improved step  I wait for \"condition\" of the \"element\" element , currently singleElement and arrayElements can be checked  change step implementation:  I click the \"keyName\" key  to  I press the \"keyName\" key", 
-            "title": "v0.16.2"
-        }, 
-        {
-            "location": "/changelog/#v0161", 
-            "text": "added changelog  added directory for mailing service adapters [ emails ] and connect it to modules loading system  fixed a bug where exported mailing service and the one used internally where a different instances", 
-            "title": "v0.16.1"
         }
     ]
 }
