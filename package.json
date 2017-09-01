@@ -1,6 +1,6 @@
 {
   "name": "kakunin",
-  "version": "1.16.4",
+  "version": "1.0.0",
   "description": "End-to-end testing framework",
   "homepage": "https://thesoftwarehouse.github.io/Kakunin/",
   "license": "MIT",
@@ -39,7 +39,7 @@
   "scripts": {
     "postinstall": "webdriver-manager update",
     "units": "NODE_ENV=test mocha --require ./src/tests/init.js --require babel-register $(find src -name '*.spec.js')",
-    "functional": "cd example && npm i && npm run test",
+    "functional": "cd functional-tests && npm i && npm run test",
     "test": "npm run units && npm run functional",
     "build": "babel src --out-dir dist --ignore 'tests','*.spec.js' && babel templates --out-dir dist/templates --copy-files"
   },

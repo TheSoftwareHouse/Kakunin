@@ -1,7 +1,7 @@
 site_name: Kakunin Docs
 theme: 'material'
 repo_url: https://github.com/TheSoftwareHouse/Kakunin
-docs_dir: docs-source
+docs_dir: docs-src
 site_dir: docs
 pages:
   - Getting started: index.md
@@ -11,6 +11,5 @@ pages:
   - Matchers: matchers.md
   - Transformers: transformers.md
   - Extending Kakunin: extending.md
-  - Changelog: changelog.md
 markdown_extensions:
   - codehilite

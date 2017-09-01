@@ -43,7 +43,7 @@ Allows to fill the form with the name `:formName` and values provided as an arra
 
 Input and values should be provided as an array for example:
 
-``` 
+```gherkin
 I fill the "myForm" form with:
   | inputElement    | value to be typed into field        |
   | textareaElement | value to be typed into textarea     |
@@ -79,7 +79,7 @@ For checkboxes:
 
 Checkbox should have a html like:
 
-``` 
+```html
 <label>
   My checkbox
   <input type="checkbox" name="some-name"/>
@@ -106,7 +106,7 @@ You can use a special handler that requires to set a element with a postfix `Upl
 
 For example you can write a step like this:
 
-``` 
+```gherkin 
 the "myform" form is filled with:
   | myFileUploaded | file.txt |
 ```
@@ -121,7 +121,7 @@ Allows you to specify the error messages that should be displayed for a specific
 
 This step requires an array of format:
 
-``` 
+```gherkin 
 the error messages should be displayed:
   | element   | errorMessage     |
   | myElement | my error message |
@@ -131,7 +131,7 @@ Keep in mind that first row of array must be `| element | errorMessage |`.
 
 You can use dictionaries in this step as follows:
 
-``` 
+```gherkin
 the error messages should be displayed:
   | element   | errorMessage                   |
   | myElement | d:dictionaryName:dictionaryKey |
@@ -219,7 +219,7 @@ Allows to store a row specified columns from a table `:tableElementName` and sav
 
 This step requires a table of columns locators, for example:
 
-```
+```gherkin
 I store table "myTable" rows as "someVariable" with columns:
   | firstName |
   | lastName  |
@@ -231,7 +231,7 @@ locator `this.firstName = by.css('.firstName');` and so on.
 
 The result of this step is an array of:
 
-``` 
+```json 
 [
   [
     'firsRowFirstNameValue',
@@ -250,7 +250,7 @@ This steps allows you to specify an array of child elements locators that will b
 
 For example:
 
-``` 
+```gherkin 
 there are following elements in table "myTable":
   | id  | firstName | lastName |
   | t:1 | t:Adam    | t:Doe    |
@@ -267,7 +267,7 @@ We can specify only a set of columns (for example if a table has 5 columns, we c
 
 Allows to check if a child elements of `:elementName` have a specified content. Element should be an array, for example:
 
-``` 
+```html 
 <table>
   <tr>
     <td>1</td>
@@ -298,7 +298,7 @@ and so on. You can check expressions on `chai.js` API dock for BDD.
 
 This step requires an array of elements locators to be checked. For example:
 
-``` 
+```gherkin 
 there are "equal 5" following elements for element "myList":
   | element    | value         |
   | viewButton | f:isClickable |
@@ -339,7 +339,7 @@ and so on. You can check expressions on `chai.js` API dock for BDD.
 
 `:elementName` should be specified as an array, for example:
 
-``` 
+```html 
 <table>
   <tr>
     <td>1</td>
@@ -360,7 +360,7 @@ Allows to check if every row defined by `:elementName` has the same value for a 
 
 `:columnElementName` must be an locator, for example:
 
-``` 
+```html 
 <table>
   <tr>
     <td>1</td>
@@ -387,7 +387,7 @@ Checks if the values for column `:columnElementName` of each row specified by `:
 
 `:columnElementName` must be a locator used to get a column on each row of an array `:elementName`. For example:
 
-``` 
+```html 
 <table>
   <tr>
     <td>1</td>
@@ -413,7 +413,7 @@ This steps requires an array of filters to be applied to mailbox in order to fin
 
 You can do this like this:
 
-``` 
+```gherkin 
 the email has been sent and contains:
 | html_body | t:some value | | |
 ```
@@ -424,14 +424,14 @@ We do support filtering by any property returned in MailTrap Api response format
 
 There are 2 custom filters:
 
-``` 
+```gherkin 
 the email has been sent and contains:
 | currentUser | | | |
 ```
 
 This one checks if the user saved in `this.currentUser` variable is a recipient of an email. This is done by comparing `email` property of `this.currentUser` object to the one returned by email.
 
-``` 
+```gherkin 
 the email has been sent and contains:
 | file | t:fileName | r:fileExtension | sizeInBytes |
 ```
@@ -440,7 +440,7 @@ This one is looking for an attachment with a name matching `t:fileName`, extensi
 
 You can use the same filter multiple times:
 
-``` 
+```gherkin 
 the email has been sent and contains:
 | file | t:fileName      | r:fileExtension | sizeInBytes |
 | file | t:otherfileName | r:fileExtension | sizeInBytes |

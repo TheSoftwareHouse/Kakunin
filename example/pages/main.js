@@ -6,10 +6,25 @@ class MainPage extends BasePage {
   constructor() {
     super();
 
-    this.url = '/';
+    this.url = '/examples/react/#/';
 
-    this.formLink = $('a[href="/form/simple"]');
-    this.tabularDataLink = $('a[href="/tabular-data"]');
+    this.addTodoForm = $('.todoapp');
+
+    this.todoInput = $('input.new-todo');
+
+    this.todos = $$('.todo-list .view');
+    this.todoLabel = by.css('label');
+
+    this.todo = this.todos.get(0);
+
+    this.removeTodoButton = this.todo.$('button.destroy');
+    this.completeTodoButton = this.todo.$('input.toggle');
+    this.toBeCompletedCount = $('.todo-count strong');
+
+    this.showAllButton = $('.filters a[href="#/"]');
+    this.showActiveButton = $('.filters a[href="#/active"]');
+    this.showCompletedButton = $('.filters a[href="#/completed"]');
+    this.clearTodosButton = $('button.clear-completed');
   }
 }
 

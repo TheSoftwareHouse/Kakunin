@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.BasePage = exports.FormPage = exports.emailService = exports.comparators = exports.handlers = exports.variableStore = exports.generators = exports.transformers = exports.dictionaries = exports.defineSupportCode = exports.regexBuilder = exports.matchers = undefined;
+exports.BasePage = exports.emailService = exports.comparators = exports.handlers = exports.variableStore = exports.generators = exports.transformers = exports.dictionaries = exports.defineSupportCode = exports.regexBuilder = exports.matchers = undefined;
 
 var _matchers = require('./matchers');
 
@@ -100,5 +100,4 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-const FormPage = exports.FormPage = pages.Form;
-const BasePage = exports.BasePage = pages.Base;
+const BasePage = exports.BasePage = pages.Form;

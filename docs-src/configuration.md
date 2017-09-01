@@ -122,7 +122,7 @@ module.exports = {
 
 for mailtrap email checking system:
 
-``` 
+```json 
 "type": "mailtrap",
 "config": {
     "apiKey": "your-mailtrap-api-key",
@@ -147,7 +147,7 @@ for custom email checking system only type is required:
 
 `accounts` - object to store accounts information. This is bound to `userProvider` and allows to use advanced email checking options like recipient checking.
 
-``` 
+```json 
 "someAccount": {
     "accounts": [
         {

@@ -5,7 +5,7 @@ able to write it like this: `d:options:someOptionName`.
 
 In real-life example it will look similar to:
 
-``` 
+```gherkin 
 I fill the "myForm" form with:
   | inputElement    | d:someDictionary:someKey            |
   | textareaElement | g:someGenerator                     |
