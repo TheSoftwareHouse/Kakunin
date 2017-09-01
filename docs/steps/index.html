@@ -1075,11 +1075,11 @@
 <p>Allows to fill the form with the name <code>:formName</code> and values provided as an array of inputs and values. The element with name <code>:formName</code> must be defined inside the 
 <code>currentPage</code> page object.</p>
 <p>Input and values should be provided as an array for example:</p>
-<div class="codehilite"><pre><span></span>I fill the &quot;myForm&quot; form with:
-  | inputElement    | value to be typed into field        |
-  | textareaElement | value to be typed into textarea     |
-  | radioElement    | radio value to be selected          |
-  | checkboxElement | checkbox label value to be selected |
+<div class="codehilite"><pre><span></span><span class="k">I </span><span class="nf">fill the &quot;</span><span class="s">myForm</span><span class="nf">&quot; form with:</span>
+<span class="k">  |</span><span class="s"> inputElement</span><span class="k">    |</span><span class="s"> value to be typed into field</span><span class="k">        |</span><span class="nf"></span>
+<span class="k">  |</span><span class="s"> textareaElement</span><span class="k"> |</span><span class="s"> value to be typed into textarea</span><span class="k">     |</span><span class="nf"></span>
+<span class="k">  |</span><span class="s"> radioElement</span><span class="k">    |</span><span class="s"> radio value to be selected</span><span class="k">          |</span><span class="nf"></span>
+<span class="k">  |</span><span class="s"> checkboxElement</span><span class="k"> |</span><span class="s"> checkbox label value to be selected</span><span class="k"> |</span>
 </pre></div>
 
 
@@ -1097,10 +1097,10 @@
 <p><code>this.element = $$('radio[name="name-of-radio"]')</code> - element should be an array of all radio input of given name and value should be an value of radio you wish to select</p>
 <p>For checkboxes:</p>
 <p>Checkbox should have a html like:</p>
-<div class="codehilite"><pre><span></span><span class="nt">&lt;label&gt;</span>
+<div class="codehilite"><pre><span></span><span class="p">&lt;</span><span class="nt">label</span><span class="p">&gt;</span>
   My checkbox
-  <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;checkbox&quot;</span> <span class="na">name=</span><span class="s">&quot;some-name&quot;</span><span class="nt">/&gt;</span>
-<span class="nt">&lt;/label&gt;</span>  
+  <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;checkbox&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;some-name&quot;</span><span class="p">/&gt;</span>
+<span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>  
 </pre></div>
 
 
@@ -1114,8 +1114,8 @@ that allow to check for some information related to a specific file.</p>
 <p>Let's assume that after upload we display an information with a file name of a uploaded file.</p>
 <p>You can use a special handler that requires to set a element with a postfix <code>Uploaded</code>. This will check if a value of that element is the same as you expected.</p>
 <p>For example you can write a step like this:</p>
-<div class="codehilite"><pre><span></span>the &quot;myform&quot; form is filled with:
-  | myFileUploaded | file.txt |
+<div class="codehilite"><pre><span></span><span class="nf">the &quot;</span><span class="s">myform</span><span class="nf">&quot; form is filled with:</span>
+<span class="k">  |</span><span class="s"> myFileUploaded</span><span class="k"> |</span><span class="s"> file.txt</span><span class="k"> |</span>
 </pre></div>
 
 
@@ -1124,17 +1124,17 @@ that allow to check for some information related to a specific file.</p>
 <h3 id="the-error-messages-should-be-displayed"><code>the error messages should be displayed:</code></h3>
 <p>Allows you to specify the error messages that should be displayed for a specific elements.</p>
 <p>This step requires an array of format:</p>
-<div class="codehilite"><pre><span></span>the error messages should be displayed:
-  | element   | errorMessage     |
-  | myElement | my error message |
+<div class="codehilite"><pre><span></span><span class="nf">the error messages should be displayed:</span>
+<span class="k">  |</span><span class="s"> element</span><span class="k">   |</span><span class="s"> errorMessage</span><span class="k">     |</span><span class="nf"></span>
+<span class="k">  |</span><span class="s"> myElement</span><span class="k"> |</span><span class="s"> my error message</span><span class="k"> |</span>
 </pre></div>
 
 
 <p>Keep in mind that first row of array must be <code>| element | errorMessage |</code>.</p>
 <p>You can use dictionaries in this step as follows:</p>
-<div class="codehilite"><pre><span></span>the error messages should be displayed:
-  | element   | errorMessage                   |
-  | myElement | d:dictionaryName:dictionaryKey |
+<div class="codehilite"><pre><span></span><span class="nf">the error messages should be displayed:</span>
+<span class="k">  |</span><span class="s"> element</span><span class="k">   |</span><span class="s"> errorMessage</span><span class="k">                   |</span><span class="nf"></span>
+<span class="k">  |</span><span class="s"> myElement</span><span class="k"> |</span><span class="s"> d:dictionaryName:dictionaryKey</span><span class="k"> |</span>
 </pre></div>
 
 
@@ -1182,24 +1182,24 @@ that allow to check for some information related to a specific file.</p>
 <h3 id="i-store-table-tableelementname-rows-as-variablename-with-columns"><code>I store table ":tableElementName" rows as ":variableName" with columns:</code></h3>
 <p>Allows to store a row specified columns from a table <code>:tableElementName</code> and save it under <code>:variableName</code> as an array of objects.</p>
 <p>This step requires a table of columns locators, for example:</p>
-<div class="codehilite"><pre><span></span>I store table &quot;myTable&quot; rows as &quot;someVariable&quot; with columns:
-  | firstName |
-  | lastName  |
-  | id        |
+<div class="codehilite"><pre><span></span><span class="k">I </span><span class="nf">store table &quot;</span><span class="s">myTable</span><span class="nf">&quot; rows as &quot;</span><span class="s">someVariable</span><span class="nf">&quot; with columns:</span>
+<span class="k">  |</span><span class="s"> firstName</span><span class="k"> |</span><span class="nf"></span>
+<span class="k">  |</span><span class="s"> lastName</span><span class="k">  |</span><span class="nf"></span>
+<span class="k">  |</span><span class="s"> id</span><span class="k">        |</span>
 </pre></div>
 
 
 <p>In order to make it work there must be not only element <code>myTable</code> in <code>this.currentPage</code>, but also
 locator <code>this.firstName = by.css('.firstName');</code> and so on.</p>
 <p>The result of this step is an array of:</p>
-<div class="codehilite"><pre><span></span>[
-  [
-    &#39;firsRowFirstNameValue&#39;,
-    &#39;firsRowLastNameValue&#39;
-    &#39;firsRowIdValue&#39;
-  ]
-  ...
-]
+<div class="codehilite"><pre><span></span><span class="p">[</span>
+  <span class="p">[</span>
+    <span class="err">&#39;firsRowFirstNameValue&#39;</span><span class="p">,</span>
+    <span class="err">&#39;firsRowLastNameValue&#39;</span>
+    <span class="err">&#39;firsRowIdValue&#39;</span>
+  <span class="p">]</span>
+  <span class="err">...</span>
+<span class="p">]</span>
 </pre></div>
 
 
@@ -1207,10 +1207,10 @@ locator <code>this.firstName = by.css('.firstName');</code> and so on.</p>
 <p>Allows to check if a child elements of <code>:elementName</code> have a specified content.</p>
 <p>This steps allows you to specify an array of child elements locators that will be checked against expected values.</p>
 <p>For example:</p>
-<div class="codehilite"><pre><span></span>there are following elements in table &quot;myTable&quot;:
-  | id  | firstName | lastName |
-  | t:1 | t:Adam    | t:Doe    |
-  | t:2 | t:John    | t:Doe    |
+<div class="codehilite"><pre><span></span><span class="nf">there are following elements in table &quot;</span><span class="s">myTable</span><span class="nf">&quot;:</span>
+<span class="k">  |</span><span class="s"> id</span><span class="k">  |</span><span class="s"> firstName</span><span class="k"> |</span><span class="s"> lastName</span><span class="k"> |</span><span class="nf"></span>
+<span class="k">  |</span><span class="s"> t:1</span><span class="k"> |</span><span class="s"> t:Adam</span><span class="k">    |</span><span class="s"> t:Doe</span><span class="k">    |</span><span class="nf"></span>
+<span class="k">  |</span><span class="s"> t:2</span><span class="k"> |</span><span class="s"> t:John</span><span class="k">    |</span><span class="s"> t:Doe</span><span class="k">    |</span>
 </pre></div>
 
 
@@ -1219,14 +1219,14 @@ locator <code>this.firstName = by.css('.firstName');</code> and so on.</p>
 <p>We can specify only a set of columns (for example if a table has 5 columns, we can specify only 1).</p>
 <h3 id="there-are-numberexpression-following-elements-for-element-elementname"><code>there are "numberExpression" following elements for element ":elementName":</code></h3>
 <p>Allows to check if a child elements of <code>:elementName</code> have a specified content. Element should be an array, for example:</p>
-<div class="codehilite"><pre><span></span><span class="nt">&lt;table&gt;</span>
-  <span class="nt">&lt;tr&gt;</span>
-    <span class="nt">&lt;td&gt;</span>1<span class="nt">&lt;/td&gt;</span>
-  <span class="nt">&lt;/tr&gt;</span>
-  <span class="nt">&lt;tr&gt;</span>
-    <span class="nt">&lt;td&gt;</span>2<span class="nt">&lt;/td&gt;</span>
-  <span class="nt">&lt;/tr&gt;</span>   
-<span class="nt">&lt;/table&gt;</span>
+<div class="codehilite"><pre><span></span><span class="p">&lt;</span><span class="nt">table</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">tr</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">td</span><span class="p">&gt;</span>1<span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">tr</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">tr</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">td</span><span class="p">&gt;</span>2<span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">tr</span><span class="p">&gt;</span>   
+<span class="p">&lt;/</span><span class="nt">table</span><span class="p">&gt;</span>
 </pre></div>
 
 
@@ -1252,10 +1252,10 @@ locator <code>this.firstName = by.css('.firstName');</code> and so on.</p>
 </ul>
 <p>and so on. You can check expressions on <code>chai.js</code> API dock for BDD.</p>
 <p>This step requires an array of elements locators to be checked. For example:</p>
-<div class="codehilite"><pre><span></span>there are &quot;equal 5&quot; following elements for element &quot;myList&quot;:
-  | element    | value         |
-  | viewButton | f:isClickable |
-  | id         | r:idRegex     |
+<div class="codehilite"><pre><span></span><span class="nf">there are &quot;</span><span class="s">equal 5</span><span class="nf">&quot; following elements for element &quot;</span><span class="s">myList</span><span class="nf">&quot;:</span>
+<span class="k">  |</span><span class="s"> element</span><span class="k">    |</span><span class="s"> value</span><span class="k">         |</span><span class="nf"></span>
+<span class="k">  |</span><span class="s"> viewButton</span><span class="k"> |</span><span class="s"> f:isClickable</span><span class="k"> |</span><span class="nf"></span>
+<span class="k">  |</span><span class="s"> id</span><span class="k">         |</span><span class="s"> r:idRegex</span><span class="k">     |</span>
 </pre></div>
 
 
@@ -1288,14 +1288,14 @@ locator <code>this.firstName = by.css('.firstName');</code> and so on.</p>
 </ul>
 <p>and so on. You can check expressions on <code>chai.js</code> API dock for BDD.</p>
 <p><code>:elementName</code> should be specified as an array, for example:</p>
-<div class="codehilite"><pre><span></span><span class="nt">&lt;table&gt;</span>
-  <span class="nt">&lt;tr&gt;</span>
-    <span class="nt">&lt;td&gt;</span>1<span class="nt">&lt;/td&gt;</span>
-  <span class="nt">&lt;/tr&gt;</span>
-  <span class="nt">&lt;tr&gt;</span>
-    <span class="nt">&lt;td&gt;</span>2<span class="nt">&lt;/td&gt;</span>
-  <span class="nt">&lt;/tr&gt;</span>   
-<span class="nt">&lt;/table&gt;</span>
+<div class="codehilite"><pre><span></span><span class="p">&lt;</span><span class="nt">table</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">tr</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">td</span><span class="p">&gt;</span>1<span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">tr</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">tr</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">td</span><span class="p">&gt;</span>2<span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">tr</span><span class="p">&gt;</span>   
+<span class="p">&lt;/</span><span class="nt">table</span><span class="p">&gt;</span>
 </pre></div>
 
 
@@ -1304,14 +1304,14 @@ locator <code>this.firstName = by.css('.firstName');</code> and so on.</p>
 <p>Allows to check if every row defined by <code>:elementName</code> has the same value for a column <code>:columnElementName</code>.</p>
 <p><code>:elementName</code> must be an array of elements</p>
 <p><code>:columnElementName</code> must be an locator, for example:</p>
-<div class="codehilite"><pre><span></span><span class="nt">&lt;table&gt;</span>
-  <span class="nt">&lt;tr&gt;</span>
-    <span class="nt">&lt;td&gt;</span>1<span class="nt">&lt;/td&gt;</span>
-  <span class="nt">&lt;/tr&gt;</span>
-  <span class="nt">&lt;tr&gt;</span>
-    <span class="nt">&lt;td&gt;</span>1<span class="nt">&lt;/td&gt;</span>
-  <span class="nt">&lt;/tr&gt;</span>   
-<span class="nt">&lt;/table&gt;</span>
+<div class="codehilite"><pre><span></span><span class="p">&lt;</span><span class="nt">table</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">tr</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">td</span><span class="p">&gt;</span>1<span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">tr</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">tr</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">td</span><span class="p">&gt;</span>1<span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">tr</span><span class="p">&gt;</span>   
+<span class="p">&lt;/</span><span class="nt">table</span><span class="p">&gt;</span>
 </pre></div>
 
 
@@ -1324,14 +1324,14 @@ attribute specified by <code>:atrributeName</code>.</p>
 <h3 id="columnelementname-value-on-the-elementname-list-is-sorted-in-ascendingdescending-order"><code>":columnElementName" value on the ":elementName" list is sorted in "ascending|descending" order</code></h3>
 <p>Checks if the values for column <code>:columnElementName</code> of each row specified by <code>:elementName</code> is sorted in either ascending or descending order.</p>
 <p><code>:columnElementName</code> must be a locator used to get a column on each row of an array <code>:elementName</code>. For example:</p>
-<div class="codehilite"><pre><span></span><span class="nt">&lt;table&gt;</span>
-  <span class="nt">&lt;tr&gt;</span>
-    <span class="nt">&lt;td&gt;</span>1<span class="nt">&lt;/td&gt;</span>
-  <span class="nt">&lt;/tr&gt;</span>
-  <span class="nt">&lt;tr&gt;</span>
-    <span class="nt">&lt;td&gt;</span>2<span class="nt">&lt;/td&gt;</span>
-  <span class="nt">&lt;/tr&gt;</span>   
-<span class="nt">&lt;/table&gt;</span>
+<div class="codehilite"><pre><span></span><span class="p">&lt;</span><span class="nt">table</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">tr</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">td</span><span class="p">&gt;</span>1<span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">tr</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">tr</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">td</span><span class="p">&gt;</span>2<span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">tr</span><span class="p">&gt;</span>   
+<span class="p">&lt;/</span><span class="nt">table</span><span class="p">&gt;</span>
 </pre></div>
 
 
@@ -1343,30 +1343,30 @@ attribute specified by <code>:atrributeName</code>.</p>
 <p>Checks if there is an email on the configured mailing service.</p>
 <p>This steps requires an array of filters to be applied to mailbox in order to find an email you're looking for.</p>
 <p>You can do this like this:</p>
-<div class="codehilite"><pre><span></span>the email has been sent and contains:
-| html_body | t:some value | | |
+<div class="codehilite"><pre><span></span><span class="nf">the email has been sent and contains:</span>
+<span class="nf">| html_body</span><span class="k"> |</span><span class="s"> t:some value</span><span class="k"> | | |</span>
 </pre></div>
 
 
 <p>The number of columns is always 4, but depending form a filter you have to use all of them or only some.</p>
 <p>We do support filtering by any property returned in MailTrap Api response format. Go check <code>Extending Kakunin</code> for more information.</p>
 <p>There are 2 custom filters:</p>
-<div class="codehilite"><pre><span></span>the email has been sent and contains:
-| currentUser | | | |
+<div class="codehilite"><pre><span></span><span class="nf">the email has been sent and contains:</span>
+<span class="nf">| currentUser</span><span class="k"> | | | |</span>
 </pre></div>
 
 
 <p>This one checks if the user saved in <code>this.currentUser</code> variable is a recipient of an email. This is done by comparing <code>email</code> property of <code>this.currentUser</code> object to the one returned by email.</p>
-<div class="codehilite"><pre><span></span>the email has been sent and contains:
-| file | t:fileName | r:fileExtension | sizeInBytes |
+<div class="codehilite"><pre><span></span><span class="nf">the email has been sent and contains:</span>
+<span class="nf">| file</span><span class="k"> |</span><span class="s"> t:fileName</span><span class="k"> |</span><span class="s"> r:fileExtension</span><span class="k"> |</span><span class="s"> sizeInBytes</span><span class="k"> |</span>
 </pre></div>
 
 
 <p>This one is looking for an attachment with a name matching <code>t:fileName</code>, extension matching <code>r:fileExtension</code>, <code>sizeInBytes</code> as a minimum bytes size.</p>
 <p>You can use the same filter multiple times:</p>
-<div class="codehilite"><pre><span></span>the email has been sent and contains:
-| file | t:fileName      | r:fileExtension | sizeInBytes |
-| file | t:otherfileName | r:fileExtension | sizeInBytes |
+<div class="codehilite"><pre><span></span><span class="nf">the email has been sent and contains:</span>
+<span class="nf">| file</span><span class="k"> |</span><span class="s"> t:fileName</span><span class="k">      |</span><span class="s"> r:fileExtension</span><span class="k"> |</span><span class="s"> sizeInBytes</span><span class="k"> |</span><span class="nf"></span>
+<span class="nf">| file</span><span class="k"> |</span><span class="s"> t:otherfileName</span><span class="k"> |</span><span class="s"> r:fileExtension</span><span class="k"> |</span><span class="s"> sizeInBytes</span><span class="k"> |</span>
 </pre></div>
 
 

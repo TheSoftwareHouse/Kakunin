@@ -470,12 +470,12 @@
 <p><code>clearLocalStorageAfterScenario</code> - flag to activate clearing local storage after every scenario <code>default: true</code></p>
 <p><code>email</code> - email configuration <code>default: null</code></p>
 <p>for mailtrap email checking system:</p>
-<div class="codehilite"><pre><span></span>&quot;type&quot;: &quot;mailtrap&quot;,
-&quot;config&quot;: {
-    &quot;apiKey&quot;: &quot;your-mailtrap-api-key&quot;,
-    &quot;inboxId&quot;: &quot;your-mailtrap-inbox&quot;,
-    &quot;url&quot;: &quot;https://mailtrap.io/api/v1&quot;
-}
+<div class="codehilite"><pre><span></span><span class="s2">&quot;type&quot;</span><span class="err">:</span> <span class="s2">&quot;mailtrap&quot;</span><span class="err">,</span>
+<span class="s2">&quot;config&quot;</span><span class="err">:</span> <span class="p">{</span>
+    <span class="nt">&quot;apiKey&quot;</span><span class="p">:</span> <span class="s2">&quot;your-mailtrap-api-key&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;inboxId&quot;</span><span class="p">:</span> <span class="s2">&quot;your-mailtrap-inbox&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;https://mailtrap.io/api/v1&quot;</span>
+<span class="p">}</span>
 </pre></div>
 
 
@@ -489,14 +489,14 @@
 <p><code>type</code> - type of application either <code>ng1 | ng2 | otherWeb</code></p>
 <p><code>baseUrl</code> - url of tested application</p>
 <p><code>accounts</code> - object to store accounts information. This is bound to <code>userProvider</code> and allows to use advanced email checking options like recipient checking.</p>
-<div class="codehilite"><pre><span></span>&quot;someAccount&quot;: {
-    &quot;accounts&quot;: [
-        {
-            &quot;email&quot;: &quot;&quot;,
-            &quot;password&quot;: &quot;&quot;
-        }
-    ]
-}
+<div class="codehilite"><pre><span></span><span class="s2">&quot;someAccount&quot;</span><span class="err">:</span> <span class="p">{</span>
+    <span class="nt">&quot;accounts&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="nt">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;password&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
 </pre></div>
 
 

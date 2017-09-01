@@ -81,7 +81,7 @@ We're using `cucumber-js 2.X` so in order to add custom step you have to use `de
 
 Kakunin comes with some built-in page objects, that should be used as a base for your page objects.
 
-In order to create a custom one, create a file inside the `pages` directory and extend either `BasePage` or `FormPage` from kakunin package.
+In order to create a custom one, create a file inside the `pages` directory and extend the `BasePage` from kakunin package.
 
 ```javascript
 const { BasePage } = require('kakunin');
@@ -93,20 +93,6 @@ class MyPageObject extends BasePage {
 }
 
 module.exports = new MyPageObject();
-```
-
-The only difference between `BasePage` and `FormPage` is a support for form submission.
-
-```javascript
-const { FormPage } = require('kakunin');
-
-class MyFormTypePage extends FormPage {
-  constructor() {
-    this.myElement = element(by.css('.some-elemnt'));
-  }
-}
-
-module.exports = new MyFormTypePage();
 ```
 
 ### Matchers

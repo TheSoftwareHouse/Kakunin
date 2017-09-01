@@ -51,7 +51,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
   When(/^I click the "([^"]*)" "([^"]*)" element$/, function (elementName, parameter) {
     const self = this;
 
-    return browser.executeScript('arguments[0].scrollIntoView(false);', this.currentPage[elementName](parameter).getWebElement()).then(function () {
+    return self.currentPage.scrollIntoElement(elementName).then(function () {
       return self.currentPage[elementName](parameter).click();
     });
   });

@@ -25,21 +25,16 @@ There are a few concepts to be explained.
 
 ### Page objects
 
-Page object is a code representation of a page displayed in browser. Kakunin has a two type of page objects built-in:
-
-* `BasePage` - for all kind of pages that do not have any kind of a form
-* `FormPage` - the same as `BasePage` + support for form interactions
-
-In your code, you're going to create your own page objects, that will extend one of Kakunin's. We recommend to use `FormPage` as the one you're going to extend.
+Page object is a code representation of a page displayed in browser. Kakunin has built-in `BasePage` page object, that you should extend.
 
 Page object contains information about page url, its elements, locators, but can also have some custom methods if necessary.
 
 A very simple example of Kakunin's Page Object could look like the following:
 
 ```javascript
-const { FormPage } = require('kakunin');
+const { BasePage } = require('kakunin');
 
-class DashboardPage extends FromPage {
+class DashboardPage extends BasePage {
     constructor() {
         super();
         
@@ -101,7 +96,7 @@ Every element that you see on website can be represented as a element inside the
 Defining elements is very simple. Let's say we have such page object:
 
 ``` 
-const { FormPage } = require('kakunin');
+const { BasePage } = require('kakunin');
 
 class DashboardPage extends FromPage {
     constructor() {
@@ -118,7 +113,7 @@ module.exports = new DashboardPage();
 Elements should be defined inside `constructor` method. Let's add element for `myName`:
 
 ``` 
-const { FormPage } = require('kakunin');
+const { BasePage } = require('kakunin');
 
 class DashboardPage extends FromPage {
     constructor() {

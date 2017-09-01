@@ -1,8 +1,8 @@
 'use strict';
 
-const { FormPage } = require('kakunin');
+const { BasePage } = require('kakunin');
 
-class SimpleForm extends FormPage {
+class SimpleForm extends BasePage {
   constructor() {
     super();
 

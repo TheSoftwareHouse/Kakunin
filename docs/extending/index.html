@@ -559,21 +559,21 @@
 <h3 id="regex-builder">Regex builder</h3>
 <p>Regex builder is a special builder for creating <code>RegExp</code> objects based on regexp name. Internally it has access to not only to all built-in 
 regular expression files, but also custom ones specified by user. </p>
-<div class="codehilite"><pre><span></span><span class="nt">const</span> <span class="p">{</span> <span class="err">regexBuilder</span> <span class="p">}</span> <span class="o">=</span> <span class="nt">require</span><span class="o">(</span><span class="s1">&#39;kakunin&#39;</span><span class="o">);</span>
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="p">{</span> <span class="nx">regexBuilder</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;kakunin&#39;</span><span class="p">);</span>
 
-<span class="nt">const</span> <span class="nt">myRegex</span> <span class="o">=</span> <span class="nt">regexBuilder</span><span class="p">.</span><span class="nc">buildRegex</span><span class="o">(</span><span class="s1">&#39;r:number&#39;</span><span class="o">);</span>
+<span class="kr">const</span> <span class="nx">myRegex</span> <span class="o">=</span> <span class="nx">regexBuilder</span><span class="p">.</span><span class="nx">buildRegex</span><span class="p">(</span><span class="s1">&#39;r:number&#39;</span><span class="p">);</span>
 
-<span class="o">//</span><span class="nt">myRegex</span> <span class="nt">will</span> <span class="nt">contain</span> <span class="nt">RegExp</span> <span class="nt">object</span> <span class="nt">that</span> <span class="nt">matches</span> <span class="nt">regular</span> <span class="nt">expression</span> <span class="nt">under</span> <span class="nt">the</span> <span class="nt">name</span> <span class="s2">&quot;number&quot;</span> <span class="nt">in</span> <span class="nt">regexes</span> <span class="nt">file</span><span class="o">.</span>
+<span class="c1">//myRegex will contain RegExp object that matches regular expression under the name &quot;number&quot; in regexes file.</span>
 </pre></div>
 
 
 <h3 id="variable-store">Variable store</h3>
 <p>Variable store allows you to store and read some values to be used during given scenario.</p>
-<div class="codehilite"><pre><span></span>const { variableStore } = require(&#39;kakunin&#39;);
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="p">{</span> <span class="nx">variableStore</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;kakunin&#39;</span><span class="p">);</span>
 
-variableStore.storeVariable(&#39;some-name&#39;, &#39;some-value&#39;);
+<span class="nx">variableStore</span><span class="p">.</span><span class="nx">storeVariable</span><span class="p">(</span><span class="s1">&#39;some-name&#39;</span><span class="p">,</span> <span class="s1">&#39;some-value&#39;</span><span class="p">);</span>
 
-const myValue = variableStore.getVariableValue(&#39;some-name&#39;); //contains &#39;some-value&#39;
+<span class="kr">const</span> <span class="nx">myValue</span> <span class="o">=</span> <span class="nx">variableStore</span><span class="p">.</span><span class="nx">getVariableValue</span><span class="p">(</span><span class="s1">&#39;some-name&#39;</span><span class="p">);</span> <span class="c1">//contains &#39;some-value&#39;</span>
 </pre></div>
 
 
@@ -581,16 +581,16 @@ const myValue = variableStore.getVariableValue(&#39;some-name&#39;); //contains 
 <p>Kakunin comes with functionality that allows you to easily load credentials for a given account type - <code>UserProvider</code>.</p>
 <p>In <code>kakunin.conf.js</code> you can find a section <code>accounts</code>.</p>
 <p>The structure it has is very simple: </p>
-<div class="codehilite"><pre><span></span>&quot;accounts&quot;: {
-    &quot;someAccount&quot;: {
-        &quot;accounts&quot;: [
-            {
-                &quot;email&quot;: &quot;&quot;,
-                &quot;password&quot;: &quot;&quot;
-            }
-        ]
-    }
-}
+<div class="codehilite"><pre><span></span><span class="s2">&quot;accounts&quot;</span><span class="err">:</span> <span class="p">{</span>
+    <span class="nt">&quot;someAccount&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;accounts&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="nt">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;password&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span>
+            <span class="p">}</span>
+        <span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 
 
@@ -604,41 +604,28 @@ properties)</p>
 <h3 id="custom-step">Custom step</h3>
 <p>In order to add a custom step, you have to create inside of a directory specified as <code>step_definitions</code> in kakunin configuration file <code>default: /step_definitions</code>.</p>
 <p>We're using <code>cucumber-js 2.X</code> so in order to add custom step you have to use <code>defineSupportCode</code> method like this:</p>
-<div class="codehilite"><pre><span></span>  const { defineSupportCode } = require(&#39;kakunin&#39;);
+<div class="codehilite"><pre><span></span>  <span class="kr">const</span> <span class="p">{</span> <span class="nx">defineSupportCode</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;kakunin&#39;</span><span class="p">);</span>
 
-  defineSupportCode(({ When }) =&gt; {
-    When(/^I use kakunin$/, function() {
-      expect(true).to.equal(true);
-    });
-  });
+  <span class="nx">defineSupportCode</span><span class="p">(({</span> <span class="nx">When</span> <span class="p">})</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="nx">When</span><span class="p">(</span><span class="sr">/^I use kakunin$/</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">expect</span><span class="p">(</span><span class="kc">true</span><span class="p">).</span><span class="nx">to</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+    <span class="p">});</span>
+  <span class="p">});</span>
 </pre></div>
 
 
 <h3 id="page-objects">Page objects</h3>
 <p>Kakunin comes with some built-in page objects, that should be used as a base for your page objects.</p>
-<p>In order to create a custom one, create a file inside the <code>pages</code> directory and extend either <code>BasePage</code> or <code>FormPage</code> from kakunin package.</p>
+<p>In order to create a custom one, create a file inside the <code>pages</code> directory and extend the <code>BasePage</code> from kakunin package.</p>
 <div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="p">{</span> <span class="nx">BasePage</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;kakunin&#39;</span><span class="p">);</span>
 
 <span class="kr">class</span> <span class="nx">MyPageObject</span> <span class="kr">extends</span> <span class="nx">BasePage</span> <span class="p">{</span>
-  <span class="kr">constructor</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">constructor</span><span class="p">()</span> <span class="p">{</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">myElement</span> <span class="o">=</span> <span class="nx">element</span><span class="p">(</span><span class="nx">by</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span><span class="s1">&#39;.some-elemnt&#39;</span><span class="p">));</span>
   <span class="p">}</span>
 <span class="p">}</span>
 
-<span class="kr">module</span><span class="nx">.exports</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">MyPageObject</span><span class="p">();</span>
-</pre></div>
-
-
-<p>The only difference between <code>BasePage</code> and <code>FormPage</code> is a support for form submission.</p>
-<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="p">{</span> <span class="nx">FormPage</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;kakunin&#39;</span><span class="p">);</span>
-
-<span class="kr">class</span> <span class="nx">MyFormTypePage</span> <span class="kr">extends</span> <span class="nx">FormPage</span> <span class="p">{</span>
-  <span class="kr">constructor</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">myElement</span> <span class="o">=</span> <span class="nx">element</span><span class="p">(</span><span class="nx">by</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span><span class="s1">&#39;.some-elemnt&#39;</span><span class="p">));</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="kr">module</span><span class="nx">.exports</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">MyFormTypePage</span><span class="p">();</span>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">MyPageObject</span><span class="p">();</span>
 </pre></div>
 
 
@@ -653,7 +640,7 @@ properties)</p>
   <span class="p">}</span>
 
   <span class="nx">match</span><span class="p">(</span><span class="nx">protractorElement</span><span class="p">,</span> <span class="nx">matcherName</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="nx">protractorElement</span><span class="p">.</span><span class="nx">getText</span><span class="p">().</span><span class="nx">then</span><span class="p">((</span><span class="nx">value</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">value</span> <span class="o">===</span> <span class="s1">&#39;pending&#39;</span><span class="p">);</span> 
+    <span class="k">return</span> <span class="nx">protractorElement</span><span class="p">.</span><span class="nx">getText</span><span class="p">().</span><span class="nx">then</span><span class="p">((</span><span class="nx">value</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">value</span> <span class="o">===</span> <span class="s1">&#39;pending&#39;</span><span class="p">);</span> 
   <span class="p">}</span>
 <span class="p">}</span>
 
@@ -668,7 +655,7 @@ in a form of IRI <code>/some-resource/123-123-123-23</code> and you wish to use 
 <div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="p">{</span> <span class="nx">dictionaries</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;kakunin&#39;</span><span class="p">);</span>
 
 <span class="kr">class</span> <span class="nx">MyDictionary</span><span class="p">{</span>
-  <span class="kr">constructor</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">constructor</span><span class="p">()</span> <span class="p">{</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">values</span> <span class="o">=</span> <span class="p">{</span>
       <span class="s1">&#39;/some-resource/123-123-123-23&#39;</span><span class="o">:</span><span class="s1">&#39;pending-resource&#39;</span>
     <span class="p">};</span>
@@ -696,11 +683,11 @@ in a form of IRI <code>/some-resource/123-123-123-23</code> and you wish to use 
 
 <span class="kr">class</span> <span class="nx">MyGeneerator</span><span class="p">{</span>
   <span class="nx">isSatisfiedBy</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">===</span> <span class="s1">&#39;my-generator&#39;</span><span class="p">;</span>
+    <span class="k">return</span> <span class="nx">name</span> <span class="o">===</span> <span class="s1">&#39;my-generator&#39;</span><span class="p">;</span>
   <span class="p">}</span>
 
   <span class="nx">generate</span><span class="p">(</span><span class="nx">params</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="nx">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="s1">&#39;some-random-value&#39;</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="s1">&#39;some-random-value&#39;</span><span class="p">);</span>
   <span class="p">}</span>
 <span class="p">}</span>
 
@@ -730,11 +717,11 @@ in a form of IRI <code>/some-resource/123-123-123-23</code> and you wish to use 
       <span class="kr">const</span> <span class="nx">currentValue</span> <span class="o">=</span> <span class="nx">values</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
 
       <span class="k">if</span> <span class="p">(</span><span class="nx">previousValue</span> <span class="o">===</span> <span class="nx">currentValue</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="nx">Promise</span><span class="p">.</span><span class="nx">reject</span><span class="p">(</span><span class="s1">&#39;Wrong order&#39;</span><span class="p">);</span>
+        <span class="k">return</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">reject</span><span class="p">(</span><span class="s1">&#39;Wrong order&#39;</span><span class="p">);</span>
       <span class="p">}</span>
     <span class="p">}</span>
 
-    <span class="k">return</span> <span class="nx">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="s1">&#39;Foo bar!&#39;</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="s1">&#39;Foo bar!&#39;</span><span class="p">);</span>
   <span class="p">}</span>
 <span class="p">};</span>
 
@@ -745,44 +732,44 @@ in a form of IRI <code>/some-resource/123-123-123-23</code> and you wish to use 
 <h3 id="form-handlers">Form handlers</h3>
 <p>Form handlers allows you to fill the form inputs and check value of filled fields</p>
 <p>You can add your own handlers:</p>
-<div class="codehilite"><pre><span></span>const { handlers } = require(&#39;kakunin&#39;);
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="p">{</span> <span class="nx">handlers</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;kakunin&#39;</span><span class="p">);</span>
 
-const MyHandler {
-  constructor() {
-    this.registerFieldType = false;
-    this.fieldType = &#39;default&#39;;
-  }
+<span class="kr">const</span> <span class="nx">MyHandler</span> <span class="p">{</span>
+  <span class="nx">constructor</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">registerFieldType</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">fieldType</span> <span class="o">=</span> <span class="s1">&#39;default&#39;</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  isSatisfiedBy(element, elementName) {
-    return Promise.resolve(elementName === &#39;someElementName&#39;);
-  }
+  <span class="nx">isSatisfiedBy</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span> <span class="nx">elementName</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">elementName</span> <span class="o">===</span> <span class="s1">&#39;someElementName&#39;</span><span class="p">);</span>
+  <span class="p">}</span>
 
-  handleFill(page, elementName, desiredValue) {
-    return page[elementName].isDisplayed()
-      .then(function () {
-        return page[elementName].clear().then(function () {
-          return page[elementName].sendKeys(desiredValue);
-        });
-      }
-    );
-  }
+  <span class="nx">handleFill</span><span class="p">(</span><span class="nx">page</span><span class="p">,</span> <span class="nx">elementName</span><span class="p">,</span> <span class="nx">desiredValue</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">page</span><span class="p">[</span><span class="nx">elementName</span><span class="p">].</span><span class="nx">isDisplayed</span><span class="p">()</span>
+      <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">page</span><span class="p">[</span><span class="nx">elementName</span><span class="p">].</span><span class="nx">clear</span><span class="p">().</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+          <span class="k">return</span> <span class="nx">page</span><span class="p">[</span><span class="nx">elementName</span><span class="p">].</span><span class="nx">sendKeys</span><span class="p">(</span><span class="nx">desiredValue</span><span class="p">);</span>
+        <span class="p">});</span>
+      <span class="p">}</span>
+    <span class="p">);</span>
+  <span class="p">}</span>
 
-  handleCheck(page, elementName, desiredValue) {
-    return page[elementName].isDisplayed()
-      .then(function () {
-        return page[elementName].getAttribute(&#39;value&#39;).then(function (value) {
-          if (value === desiredValue) {
-            return Promise.resolve();
-          }
+  <span class="nx">handleCheck</span><span class="p">(</span><span class="nx">page</span><span class="p">,</span> <span class="nx">elementName</span><span class="p">,</span> <span class="nx">desiredValue</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">page</span><span class="p">[</span><span class="nx">elementName</span><span class="p">].</span><span class="nx">isDisplayed</span><span class="p">()</span>
+      <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">page</span><span class="p">[</span><span class="nx">elementName</span><span class="p">].</span><span class="nx">getAttribute</span><span class="p">(</span><span class="s1">&#39;value&#39;</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+          <span class="k">if</span> <span class="p">(</span><span class="nx">value</span> <span class="o">===</span> <span class="nx">desiredValue</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">();</span>
+          <span class="p">}</span>
 
-          return Promise.reject(`Expected <span class="cp">${</span><span class="n">desiredValue</span><span class="cp">}</span> got <span class="cp">${</span><span class="n">value</span><span class="cp">}</span> for text input element <span class="cp">${</span><span class="n">elementName</span><span class="cp">}</span>`);
-        });
-      }
-    );
-  }
-};
+          <span class="k">return</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">reject</span><span class="p">(</span><span class="sb">`Expected </span><span class="si">${</span><span class="nx">desiredValue</span><span class="si">}</span><span class="sb"> got </span><span class="si">${</span><span class="nx">value</span><span class="si">}</span><span class="sb"> for text input element </span><span class="si">${</span><span class="nx">elementName</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+        <span class="p">});</span>
+      <span class="p">}</span>
+    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">};</span>
 
-handlers.addHandler(new MyHandler());
+<span class="nx">handlers</span><span class="p">.</span><span class="nx">addHandler</span><span class="p">(</span><span class="k">new</span> <span class="nx">MyHandler</span><span class="p">());</span>
 </pre></div>
 
 
@@ -823,12 +810,12 @@ Example:
   <span class="p">}</span>
 
   <span class="c1">//method used to clear emails before tests</span>
-  <span class="nx">clearInbox() {</span>
+  <span class="nx">clearInbox</span><span class="p">()</span> <span class="p">{</span>
     <span class="p">...</span>
   <span class="p">}</span>
 
   <span class="c1">//method used to get emails - this method should return emails in format described below</span>
-  <span class="nx">getEmails() {</span>
+  <span class="nx">getEmails</span><span class="p">()</span> <span class="p">{</span>
     <span class="p">...</span>
   <span class="p">}</span>
 
@@ -848,44 +835,44 @@ Example:
 
 
 <p>Emails should be returned as an array of objects with given schema:</p>
-<div class="codehilite"><pre><span></span>  [
-    {
-      &quot;subject&quot;: &quot;SMTP e-mail test&quot;,
-      &quot;sent_at&quot;: &quot;2013-08-25T19:32:07.567+03:00&quot;,
-      &quot;from_email&quot;: &quot;me@railsware.com&quot;,
-      &quot;from_name&quot;: &quot;Private Person&quot;,
-      &quot;to_email&quot;: &quot;test@railsware.com&quot;,
-      &quot;to_name&quot;: &quot;A Test User&quot;,
-      &quot;html_body&quot;: &quot;&quot;,
-      &quot;text_body&quot;: &quot;This is a test e-mail message.\r\n&quot;,
-      &quot;email_size&quot;: 193,
-      &quot;is_read&quot;: true,
-      &quot;created_at&quot;: &quot;2013-08-25T19:32:07.576+03:00&quot;,
-      &quot;updated_at&quot;: &quot;2013-08-25T19:32:09.232+03:00&quot;,
-      &quot;sent_at_timestamp&quot;: 1377448326
-    }
-  ]
+<div class="codehilite"><pre><span></span>  <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nt">&quot;subject&quot;</span><span class="p">:</span> <span class="s2">&quot;SMTP e-mail test&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;sent_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2013-08-25T19:32:07.567+03:00&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;from_email&quot;</span><span class="p">:</span> <span class="s2">&quot;me@railsware.com&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;from_name&quot;</span><span class="p">:</span> <span class="s2">&quot;Private Person&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;to_email&quot;</span><span class="p">:</span> <span class="s2">&quot;test@railsware.com&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;to_name&quot;</span><span class="p">:</span> <span class="s2">&quot;A Test User&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;html_body&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;text_body&quot;</span><span class="p">:</span> <span class="s2">&quot;This is a test e-mail message.\r\n&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;email_size&quot;</span><span class="p">:</span> <span class="mi">193</span><span class="p">,</span>
+      <span class="nt">&quot;is_read&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="nt">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2013-08-25T19:32:07.576+03:00&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;updated_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2013-08-25T19:32:09.232+03:00&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;sent_at_timestamp&quot;</span><span class="p">:</span> <span class="mi">1377448326</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
 </pre></div>
 
 
 <p>this is MailTrap email format.</p>
 <p>Attachments should be returned as an array of objects with given schema:</p>
-<div class="codehilite"><pre><span></span>[
-  {
-    &quot;id&quot;: 1737,
-    &quot;message_id&quot;: 54508,
-    &quot;filename&quot;: &quot;Photos.png&quot;,
-    &quot;attachment_type&quot;: &quot;attachment&quot;,
-    &quot;content_type&quot;: &quot;image/png&quot;,
-    &quot;content_id&quot;: &quot;&quot;,
-    &quot;transfer_encoding&quot;: &quot;base64&quot;,
-    &quot;attachment_size&quot;: 213855,
-    &quot;created_at&quot;: &quot;2013-08-16T00:39:34.677+03:00&quot;,
-    &quot;updated_at&quot;: &quot;2013-08-16T00:39:34.677+03:00&quot;,
-    &quot;attachment_human_size&quot;: &quot;210 KB&quot;,
-    &quot;download_path&quot;: &quot;/api/v1/inboxes/3/messages/54508/attachments/1737/download&quot;
-  }
-]
+<div class="codehilite"><pre><span></span>  <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="mi">1737</span><span class="p">,</span>
+      <span class="nt">&quot;message_id&quot;</span><span class="p">:</span> <span class="mi">54508</span><span class="p">,</span>
+      <span class="nt">&quot;filename&quot;</span><span class="p">:</span> <span class="s2">&quot;Photos.png&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;attachment_type&quot;</span><span class="p">:</span> <span class="s2">&quot;attachment&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;content_type&quot;</span><span class="p">:</span> <span class="s2">&quot;image/png&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;content_id&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;transfer_encoding&quot;</span><span class="p">:</span> <span class="s2">&quot;base64&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;attachment_size&quot;</span><span class="p">:</span> <span class="mi">213855</span><span class="p">,</span>
+      <span class="nt">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2013-08-16T00:39:34.677+03:00&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;updated_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2013-08-16T00:39:34.677+03:00&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;attachment_human_size&quot;</span><span class="p">:</span> <span class="s2">&quot;210 KB&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;download_path&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/inboxes/3/messages/54508/attachments/1737/download&quot;</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
 </pre></div>
 
 
