@@ -403,47 +403,28 @@ Chrome
 </pre></div>
 
 
-<ul>
-<li>Create directory for your project</li>
-</ul>
+<p>Create directory for your project</p>
 <div class="codehilite"><pre><span></span>mkdir my_project
 </pre></div>
 
 
-<ul>
-<li>Go to project directory </li>
-</ul>
+<p>Go to project directory </p>
 <div class="codehilite"><pre><span></span><span class="nb">cd</span> my_project
 </pre></div>
 
 
-<ul>
-<li>Initialize JavaScript project</li>
-</ul>
+<p>Initialize JavaScript project</p>
 <div class="codehilite"><pre><span></span>npm init
 </pre></div>
 
 
-<ul>
-<li>Open <code>package.json</code> file and add required <code>devDependencies</code>:</li>
-</ul>
-<div class="codehilite"><pre><span></span><span class="s2">&quot;webdriver-manager&quot;</span><span class="err">:</span> <span class="s2">&quot;12.0.6&quot;</span><span class="err">,</span>
-<span class="s2">&quot;protractor&quot;</span><span class="err">:</span> <span class="s2">&quot;5.1.2&quot;</span><span class="err">,</span>
-<span class="s2">&quot;kakunin&quot;</span><span class="err">:</span> <span class="s2">&quot;git+ssh://git@bitbucket.org/thesoftwarehouse/e2e-pascal.git#fixes&quot;</span>
+<p>Install dependencies</p>
+<div class="codehilite"><pre><span></span>npm install protractor webdriver-manager kakunin  --save
 </pre></div>
 
 
-<ul>
-<li>Still inside <code>package.json</code> file; add new script in <code>scripts</code> section:</li>
-</ul>
+<p>Inside <code>package.json</code> file; add new script in <code>scripts</code> section:</p>
 <div class="codehilite"><pre><span></span><span class="s2">&quot;kakunin&quot;</span><span class="err">:</span> <span class="s2">&quot;NODE_ENV=prod kakunin&quot;</span>
-</pre></div>
-
-
-<ul>
-<li>Install dependencies </li>
-</ul>
-<div class="codehilite"><pre><span></span>npm install
 </pre></div>
 
 

@@ -11,38 +11,30 @@ In order to install Kakunin you have to make sure that you have installed:
     JDK
     Chrome
     
-* Create directory for your project
+Create directory for your project
 ```bash
 mkdir my_project
 ```
     
-* Go to project directory 
+Go to project directory 
 ```bash
 cd my_project
 ```
     
-* Initialize JavaScript project
+Initialize JavaScript project
 ```bash
 npm init
 ```
-    
-* Open `package.json` file and add required `devDependencies`:
-```json
-"webdriver-manager": "12.0.6",
-"protractor": "5.1.2",
-"kakunin": "git+ssh://git@bitbucket.org/thesoftwarehouse/e2e-pascal.git#fixes"
-```
 
-* Still inside `package.json` file; add new script in `scripts` section:
+Install dependencies
+```bash
+npm install protractor webdriver-manager kakunin  --save
+```
+    
+Inside `package.json` file; add new script in `scripts` section:
 ```json
 "kakunin": "NODE_ENV=prod kakunin"
 ``` 
-
-* Install dependencies 
-```bash
-npm install
-```
-
 
 ## Configuration
 
