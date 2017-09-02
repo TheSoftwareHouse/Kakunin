@@ -13,6 +13,39 @@ TO run the framework you'll need few tools installed:
 2. `JDK` (for selenium to work)
 3. `Chrome`
 
+## Installation
+
+In order to install Kakunin you have to make sure that you have installed:
+
+    node.js - v7.8.0 min
+    JDK
+    Chrome
+    
+Create directory for your project
+```bash
+mkdir my_project
+```
+    
+Go to project directory 
+```bash
+cd my_project
+```
+    
+Initialize JavaScript project
+```bash
+npm init
+```
+
+Install dependencies
+```bash
+npm install protractor webdriver-manager kakunin  --save
+```
+    
+Inside `package.json` file; add new script in `scripts` section:
+```json
+"kakunin": "NODE_ENV=prod kakunin"
+``` 
+
 
 ## Contributing
 
