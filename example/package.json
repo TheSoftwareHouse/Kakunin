@@ -1,0 +1,16 @@
+{
+  "name": "kakunin-example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "kakunin": "NODE_ENV=prod kakunin"
+  },
+  "author": "",
+  "dependencies": {
+    "kakunin": "^1.0.0",
+    "protractor": "^5.1.2",
+    "webdriver-manager": "12.0.6"
+  },
+  "license": "ISC"
+}

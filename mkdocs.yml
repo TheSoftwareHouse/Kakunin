@@ -1,0 +1,15 @@
+site_name: Kakunin Docs
+theme: 'material'
+repo_url: https://github.com/TheSoftwareHouse/Kakunin
+docs_dir: docs-src
+site_dir: docs
+pages:
+  - Getting started: index.md
+  - Configuration: configuration.md
+  - How it works: how-it-works.md
+  - Built-in steps: steps.md
+  - Matchers: matchers.md
+  - Transformers: transformers.md
+  - Extending Kakunin: extending.md
+markdown_extensions:
+  - codehilite

@@ -1,0 +1,17 @@
+# dependencies
+node_modules
+
+#tests
+selenium-debug.log
+reports
+screenshots
+testium
+tmp-*
+npm-debug.log
+.idea
+downloads/*
+docker-compose.override.yml
+!downloads/.gitkeep
+reports/*
+!reports/.gitkeep
+.DS_Store

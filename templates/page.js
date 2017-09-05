@@ -1,0 +1,11 @@
+const { BasePage } = require('kakunin');
+
+class ExamplePage extends BasePage {
+  constructor() {
+    super();
+
+    this.url = '/';
+  }
+}
+
+module.exports = new ExamplePage();
