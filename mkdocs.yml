@@ -4,6 +4,7 @@ repo_url: https://github.com/TheSoftwareHouse/Kakunin
 docs_dir: docs-src
 site_dir: docs
 pages:
+  - Quick start: quickstart.md
   - Getting started: index.md
   - Configuration: configuration.md
   - How it works: how-it-works.md
