@@ -5,6 +5,7 @@
 You can find documentation on the official page:   
 [https://thesoftwarehouse.github.io/Kakunin/](https://thesoftwarehouse.github.io/Kakunin/)
 
+Or watch a short presentation about the features [on Slideshare](https://www.slideshare.net/thesoftwarehouse/kakunin-e2e-framework-showcase).
 
 ## Requirements
 
