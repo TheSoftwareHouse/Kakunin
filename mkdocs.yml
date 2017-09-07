@@ -25,6 +25,7 @@ markdown_extensions:
   - codehilite
 
 extra:
+  meta_image: assets/kakunin-header.png
   social:
     - type: 'facebook'
       link: 'https://www.facebook.com/TheSoftwareHousePL/'
