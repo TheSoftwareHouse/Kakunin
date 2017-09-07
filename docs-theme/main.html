@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block site_meta %}
+  {{ super() }}
+
+  {% if config.site_name %}
+  <meta property="og:site_name" content="{{ config.site_name }}"/>
+  {% endif %}
+  {% if config.site_description %}
+  <meta property="og:title" content="{{ config.site_description }}"/>
+  {% endif %}
+  {% if config.site_url %}
+  <meta property="og:url" content="{{ config.site_url }}"/>
+  {% endif %}
+{% endblock %}
