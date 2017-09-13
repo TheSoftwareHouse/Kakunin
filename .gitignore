@@ -12,6 +12,7 @@ npm-debug.log
 downloads/*
 docker-compose.override.yml
 !downloads/.gitkeep
-reports/*
+!functional-tests/reports/.gitkeep
+!example/reports/.gitkeep
 !reports/.gitkeep
 .DS_Store
