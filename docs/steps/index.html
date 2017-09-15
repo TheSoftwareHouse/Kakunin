@@ -17,7 +17,7 @@
       
         <link rel="shortcut icon" href="../assets/images/favicon.png">
       
-      <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.8.1">
+      <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.10.0">
     
 
   <meta property="og:type" content="product"/>
@@ -32,10 +32,10 @@
       
     
     
-      <script src="../assets/javascripts/modernizr-1df76c4e58.js"></script>
+      <script src="../assets/javascripts/modernizr-e826f8942a.js"></script>
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/application-bfecc7305d.css">
+      <link rel="stylesheet" href="../assets/stylesheets/application-b6a6d08807.css">
       
     
     
@@ -73,10 +73,11 @@
   <nav class="md-header-nav md-grid">
     <div class="md-flex">
       <div class="md-flex__cell md-flex__cell--shrink">
-        
-          <a href="https://thesoftwarehouse.github.io/Kakunin/" title="Kakunin" class="md-icon md-icon--home md-header-nav__button">
-          </a>
-        
+        <a href="https://thesoftwarehouse.github.io/Kakunin/" title="Kakunin" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon md-icon--home"></i>
+          
+        </a>
       </div>
       <div class="md-flex__cell md-flex__cell--shrink">
         <label class="md-icon md-icon--menu md-header-nav__button" for="drawer"></label>
@@ -101,7 +102,7 @@
     <form class="md-search__form" name="search">
       <input type="text" class="md-search__input" name="query" required placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query">
       <label class="md-icon md-search__icon" for="search"></label>
-      <button type="reset" class="md-icon md-search__icon" data-md-component="reset">close</button>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset">&#xE5CD;</button>
     </form>
     <div class="md-search__output">
       <div class="md-search__scrollwrap" data-md-scrollfix>
@@ -158,9 +159,11 @@
                   <div class="md-sidebar__inner">
                     <nav class="md-nav md-nav--primary" data-md-level="0">
   <label class="md-nav__title md-nav__title--site" for="drawer">
-    
-      <i class="md-icon md-icon--home md-nav__button"></i>
-    
+    <div class="md-nav__button md-logo">
+      
+        <i class="md-icon md-icon--home"></i>
+      
+    </div>
     Kakunin
   </label>
   
@@ -511,6 +514,13 @@
           <li class="md-nav__item">
   <a href="#columnelementname-value-on-the-elementname-list-is-sorted-in-ascendingdescending-order" title="":columnElementName" value on the ":elementName" list is sorted in "ascending|descending" order" class="md-nav__link">
     ":columnElementName" value on the ":elementName" list is sorted in "ascending|descending" order
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#i-drag-elementdrag-element-and-drop-over-elementdrop-element" title="I drag ":elementDrag" element and drop over ":elementDrop" element" class="md-nav__link">
+    I drag ":elementDrag" element and drop over ":elementDrop" element
   </a>
   
 </li>
@@ -935,6 +945,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#i-drag-elementdrag-element-and-drop-over-elementdrop-element" title="I drag ":elementDrag" element and drop over ":elementDrop" element" class="md-nav__link">
+    I drag ":elementDrag" element and drop over ":elementDrop" element
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1055,7 +1072,7 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/TheSoftwareHouse/Kakunin/edit/master/docs-src/steps.md" title="Edit this page" class="md-icon md-content__icon">edit</a>
+                  <a href="https://github.com/TheSoftwareHouse/Kakunin/edit/master/docs-src/steps.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
                   <h1>Built-in steps</h1>
@@ -1350,6 +1367,9 @@ attribute specified by <code>:atrributeName</code>.</p>
 <p>The <code>:elementName</code> should be specified as <code>this.myElement = $$('table tr')</code></p>
 <p>The <code>:columnElementName</code> should be an locator <code>this.myColumn = by.css(td);</code>.</p>
 <p>Now we can use this step to check the order of elements.</p>
+<h3 id="i-drag-elementdrag-element-and-drop-over-elementdrop-element"><code>I drag ":elementDrag" element and drop over ":elementDrop" element</code></h3>
+<p>Clicks on <code>:elementDrag</code> and moves it onto <code>:elementDrop</code> while left mouse button is pressed, and then release it.</p>
+<p>Note: This step is not working on HTML5!</p>
 <h2 id="emails">Emails</h2>
 <h3 id="the-email-has-been-sent-and-contains"><code>the email has been sent and contains:</code></h3>
 <p>Checks if there is an email on the configured mailing service.</p>
@@ -1497,7 +1517,7 @@ variable store here.</p>
       
     </div>
     
-      <script src="../assets/javascripts/application-6940329b9f.js"></script>
+      <script src="../assets/javascripts/application-f3ab9e5ff8.js"></script>
       
       
       <script>app.initialize({url:{base:".."}})</script>

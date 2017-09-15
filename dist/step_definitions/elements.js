@@ -462,14 +462,16 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
   When(/^I drag "([^"]*)" element and drop over "([^"]*)" element$/, (() => {
     var _ref3 = _asyncToGenerator(function* (elementDrag, elementDrop) {
-      const timeToWait = browser.sleep(1000);
+      const wait = function (timeToWait) {
+        return browser.sleep(timeToWait);
+      };
 
       yield browser.actions().mouseMove(this.currentPage[elementDrag]).perform();
-      yield timeToWait;
+      yield wait(200);
       yield browser.actions().mouseDown().perform();
-      yield timeToWait;
+      yield wait(200);
       yield browser.actions().mouseMove(this.currentPage[elementDrop]).perform();
-      yield timeToWait;
+      yield wait(200);
       yield browser.actions().mouseUp().perform();
     });
 
