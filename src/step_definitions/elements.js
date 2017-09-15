@@ -479,14 +479,14 @@ defineSupportCode(function ({ When, Then }) {
   });
 
   When(/^I drag "([^"]*)" element and drop over "([^"]*)" element$/, async function (elementDrag, elementDrop) {
-    const timeToWait = browser.sleep(1000);
+    const wait = (timeToWait) => browser.sleep(timeToWait);
 
     await browser.actions().mouseMove(this.currentPage[elementDrag]).perform();
-    await timeToWait;
+    await wait(200);
     await browser.actions().mouseDown().perform();
-    await timeToWait;
+    await wait(200);
     await browser.actions().mouseMove(this.currentPage[elementDrop]).perform();
-    await timeToWait;
+    await wait(200);
     await browser.actions().mouseUp().perform();
   });
 });
