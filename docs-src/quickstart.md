@@ -54,9 +54,7 @@ In order to install Kakunin you have to make sure that you have installed:
       
     `What is base url? [http://localhost:3000]`: `http://todomvc.com`
        
-    `What kind of email service would you like to use?`: `none`
-      
-    `Define FIXTURES_RELOAD_HOST`: `<leave empty>`  
+    `What kind of email service would you like to use?`: `none` 
     
 And you're set! Now let's write some test!
 
