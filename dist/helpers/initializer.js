@@ -134,6 +134,7 @@ class Initializer {
       }
 
       if (advancedConfiguration) {
+        yield _this.initEnv();
         conf.browserWidth = yield _this.promptFolders('What is desired browser width?', conf.browserWidth);
         conf.browserHeight = yield _this.promptFolders('What is desired browser height?', conf.browserHeight);
 
@@ -172,8 +173,6 @@ class Initializer {
           }]
         }
       };
-
-      yield _this.initEnv();
 
       _this.createTemplateFile('/kakunin.conf.js', 'module.exports = ' + JSON.stringify(conf, null, 4));
     })();
