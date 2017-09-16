@@ -162,7 +162,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
       for (const columnIndex in columns) {
         if (columns.hasOwnProperty(columnIndex)) {
-          rowPromises.push(element.element(self.currentPage[columns[columnIndex]]).getText());
+          rowPromises.push(element.element(self.currentPage[columns[columnIndex]].locator()).getText());
         }
       }
 
