@@ -125,6 +125,7 @@ class Initializer {
     }
 
     if (advancedConfiguration) {
+      await this.initEnv();
       conf.browserWidth = await this.promptFolders('What is desired browser width?', conf.browserWidth);
       conf.browserHeight = await this.promptFolders('What is desired browser height?', conf.browserHeight);
 
@@ -165,8 +166,6 @@ class Initializer {
         ]
       }
     };
-
-    await this.initEnv();
 
     this.createTemplateFile('/kakunin.conf.js', 'module.exports = ' + JSON.stringify(conf, null, 4));
   }
