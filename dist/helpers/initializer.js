@@ -214,6 +214,8 @@ class Initializer {
       _this3.createProjectDirectory(config.transformers[0]);
       _this3.createProjectDirectory(config.emails[0]);
 
+      _this3.createTemplateFile(config.reports + '/.gitkeep', '');
+      _this3.createTemplateFile(config.downloads + '/.gitkeep', '');
       _this3.createTemplateFileWithContentFrom(config.features[0] + '/example.feature', 'example.feature');
       _this3.createTemplateFileWithContentFrom(config.pages[0] + '/page.js', 'page.js');
       _this3.createTemplateFileWithContentFrom(config.matchers[0] + '/matcher.js', 'matcher.js');
