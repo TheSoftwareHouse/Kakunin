@@ -209,21 +209,21 @@ Checks if element `:elementName` is available in HTML DOM but is not visible and
 
 Checks if element is disabled
 
-### `I store table ":tableElementName" rows as ":variableName" with columns:`
+### `I store table ":tableRow" rows as ":variableName" with columns:`
 
-Allows to store a row specified columns from a table `:tableElementName` and save it under `:variableName` as an array of objects.
+Allows to store a row specified columns from a table `:tableRow` and save it under `:variableName` as an array of objects.
 
-This step requires a table of columns locators, for example:
+This step requires a table of columns elements, for example:
 
 ```gherkin
-I store table "myTable" rows as "someVariable" with columns:
+I store table "someRow" rows as "someVariable" with columns:
   | firstName |
   | lastName  |
   | id        |
 ```
 
-In order to make it work there must be not only element `myTable` in `this.currentPage`, but also
-locator `this.firstName = by.css('.firstName');` and so on.
+In order to make it work there must be not only array element `this.someRow = $$('.rows')` in `this.currentPage`, but also
+element `this.firstName = $('.firstName');` and so on.
 
 The result of this step is an array of:
 

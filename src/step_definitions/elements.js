@@ -158,7 +158,7 @@ defineSupportCode(function ({ When, Then }) {
 
       for (const columnIndex in columns) {
         if (columns.hasOwnProperty(columnIndex)) {
-          rowPromises.push(element.element(self.currentPage[columns[columnIndex]]).getText());
+          rowPromises.push(element.element(self.currentPage[columns[columnIndex]].locator()).getText());
         }
       }
 

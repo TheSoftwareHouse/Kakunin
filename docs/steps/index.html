@@ -453,8 +453,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#i-store-table-tableelementname-rows-as-variablename-with-columns" title="I store table ":tableElementName" rows as ":variableName" with columns:" class="md-nav__link">
-    I store table ":tableElementName" rows as ":variableName" with columns:
+  <a href="#i-store-table-tablerow-rows-as-variablename-with-columns" title="I store table ":tableRow" rows as ":variableName" with columns:" class="md-nav__link">
+    I store table ":tableRow" rows as ":variableName" with columns:
   </a>
   
 </li>
@@ -880,8 +880,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#i-store-table-tableelementname-rows-as-variablename-with-columns" title="I store table ":tableElementName" rows as ":variableName" with columns:" class="md-nav__link">
-    I store table ":tableElementName" rows as ":variableName" with columns:
+  <a href="#i-store-table-tablerow-rows-as-variablename-with-columns" title="I store table ":tableRow" rows as ":variableName" with columns:" class="md-nav__link">
+    I store table ":tableRow" rows as ":variableName" with columns:
   </a>
   
 </li>
@@ -1202,18 +1202,18 @@ that allow to check for some information related to a specific file.</p>
 <p>Checks if element <code>:elementName</code> is available in HTML DOM but is not visible and clickable</p>
 <h3 id="the-elementname-element-is-disabled"><code>the ":elementName" element is disabled</code></h3>
 <p>Checks if element is disabled</p>
-<h3 id="i-store-table-tableelementname-rows-as-variablename-with-columns"><code>I store table ":tableElementName" rows as ":variableName" with columns:</code></h3>
-<p>Allows to store a row specified columns from a table <code>:tableElementName</code> and save it under <code>:variableName</code> as an array of objects.</p>
-<p>This step requires a table of columns locators, for example:</p>
-<div class="codehilite"><pre><span></span><span class="k">I </span><span class="nf">store table &quot;</span><span class="s">myTable</span><span class="nf">&quot; rows as &quot;</span><span class="s">someVariable</span><span class="nf">&quot; with columns:</span>
+<h3 id="i-store-table-tablerow-rows-as-variablename-with-columns"><code>I store table ":tableRow" rows as ":variableName" with columns:</code></h3>
+<p>Allows to store a row specified columns from a table <code>:tableRow</code> and save it under <code>:variableName</code> as an array of objects.</p>
+<p>This step requires a table of columns elements, for example:</p>
+<div class="codehilite"><pre><span></span><span class="k">I </span><span class="nf">store table &quot;</span><span class="s">someRow</span><span class="nf">&quot; rows as &quot;</span><span class="s">someVariable</span><span class="nf">&quot; with columns:</span>
 <span class="k">  |</span><span class="s"> firstName</span><span class="k"> |</span><span class="nf"></span>
 <span class="k">  |</span><span class="s"> lastName</span><span class="k">  |</span><span class="nf"></span>
 <span class="k">  |</span><span class="s"> id</span><span class="k">        |</span>
 </pre></div>
 
 
-<p>In order to make it work there must be not only element <code>myTable</code> in <code>this.currentPage</code>, but also
-locator <code>this.firstName = by.css('.firstName');</code> and so on.</p>
+<p>In order to make it work there must be not only array element <code>this.someRow = $$('.rows')</code> in <code>this.currentPage</code>, but also
+element <code>this.firstName = $('.firstName');</code> and so on.</p>
 <p>The result of this step is an array of:</p>
 <div class="codehilite"><pre><span></span><span class="p">[</span>
   <span class="p">[</span>
