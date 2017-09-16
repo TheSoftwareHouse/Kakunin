@@ -477,4 +477,16 @@ defineSupportCode(function ({ When, Then }) {
 
     return Promise.resolve(browser.actions().sendKeys(protractor.Key[keyTransformed]).perform())
   });
+
+  When(/^I drag "([^"]*)" element and drop over "([^"]*)" element$/, async function (elementDrag, elementDrop) {
+    const wait = (timeToWait) => browser.sleep(timeToWait);
+
+    await browser.actions().mouseMove(this.currentPage[elementDrag]).perform();
+    await wait(200);
+    await browser.actions().mouseDown().perform();
+    await wait(200);
+    await browser.actions().mouseMove(this.currentPage[elementDrop]).perform();
+    await wait(200);
+    await browser.actions().mouseUp().perform();
+  });
 });

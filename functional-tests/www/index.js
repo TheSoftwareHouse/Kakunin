@@ -19,12 +19,16 @@ app.get('/', function (req, res) {
   res.render('index.njs')
 });
 
+app.get('/drag-and-drop', function (req, res) {
+  res.render('drag-and-drop/index.njs');
+});
+
 app.get('/tabular-data', function (req, res) {
-  res.render('table/tabular-data.njs')
+  res.render('table/tabular-data.njs');
 });
 
 app.get('/form/simple', function (req, res) {
-  res.render('form/simple.njs')
+  res.render('form/simple.njs');
 });
 
 app.post('/form/simple/post', function (req, res) {

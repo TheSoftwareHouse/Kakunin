@@ -12,6 +12,8 @@ Feature:
         Given I visit the "main" page
         When I click the "tabularDataLink" element
         Then the "tabularData" page is displayed
+        And the "rows" element is present
+        And the "rows" element is visible
         And there are "equal 4" following elements for element "rows":
             | element      | value           |
             | indexLocator | r:validNumber   |

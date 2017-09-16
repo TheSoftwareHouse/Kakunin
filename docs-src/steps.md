@@ -404,6 +404,12 @@ The `:columnElementName` should be an locator `this.myColumn = by.css(td);`.
 
 Now we can use this step to check the order of elements.
 
+###`I drag ":elementDrag" element and drop over ":elementDrop" element`
+
+Clicks on `:elementDrag` and moves it onto `:elementDrop` while left mouse button is pressed, and then release it.
+
+Note: This step is not working on HTML5!
+
 ##Emails
 ###`the email has been sent and contains:`
 
