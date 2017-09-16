@@ -125,6 +125,7 @@ class Initializer {
     }
 
     if (advancedConfiguration) {
+      await this.initEnv();
       conf.browserWidth = await this.promptFolders('What is desired browser width?', conf.browserWidth);
       conf.browserHeight = await this.promptFolders('What is desired browser height?', conf.browserHeight);
 
@@ -166,8 +167,6 @@ class Initializer {
       }
     };
 
-    await this.initEnv();
-
     this.createTemplateFile('/kakunin.conf.js', 'module.exports = ' + JSON.stringify(conf, null, 4));
   }
 
@@ -199,6 +198,8 @@ class Initializer {
     this.createProjectDirectory(config.transformers[0]);
     this.createProjectDirectory(config.emails[0]);
 
+    this.createTemplateFile(config.reports + '/.gitkeep', '');
+    this.createTemplateFile(config.downloads + '/.gitkeep', '');
     this.createTemplateFileWithContentFrom(config.features[0] + '/example.feature', 'example.feature');
     this.createTemplateFileWithContentFrom(config.pages[0] + '/page.js', 'page.js');
     this.createTemplateFileWithContentFrom(config.matchers[0] + '/matcher.js', 'matcher.js');
