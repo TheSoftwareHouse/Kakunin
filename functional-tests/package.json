@@ -8,7 +8,7 @@
     "start": "pm2 update && pm2 start www",
     "stop": "pm2 delete www",
     "test-ci": "npm run kakunin -- --seleniumAddress http://127.0.0.1:4444/wd/hub",
-    "test": "npm run start | npm run kakunin && npm run stop"
+    "test": "npm run start | webdriver-manager update && npm run kakunin && npm run stop"
   },
   "author": "",
   "dependencies": {
