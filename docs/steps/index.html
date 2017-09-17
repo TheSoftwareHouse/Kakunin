@@ -17,7 +17,7 @@
       
         <link rel="shortcut icon" href="../assets/images/favicon.png">
       
-      <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.10.0">
+      <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.8.1">
     
 
   <meta property="og:type" content="product"/>
@@ -32,10 +32,10 @@
       
     
     
-      <script src="../assets/javascripts/modernizr-e826f8942a.js"></script>
+      <script src="../assets/javascripts/modernizr-1df76c4e58.js"></script>
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/application-b6a6d08807.css">
+      <link rel="stylesheet" href="../assets/stylesheets/application-bfecc7305d.css">
       
     
     
@@ -73,11 +73,10 @@
   <nav class="md-header-nav md-grid">
     <div class="md-flex">
       <div class="md-flex__cell md-flex__cell--shrink">
-        <a href="https://thesoftwarehouse.github.io/Kakunin/" title="Kakunin" class="md-header-nav__button md-logo">
-          
-            <i class="md-icon md-icon--home"></i>
-          
-        </a>
+        
+          <a href="https://thesoftwarehouse.github.io/Kakunin/" title="Kakunin" class="md-icon md-icon--home md-header-nav__button">
+          </a>
+        
       </div>
       <div class="md-flex__cell md-flex__cell--shrink">
         <label class="md-icon md-icon--menu md-header-nav__button" for="drawer"></label>
@@ -102,7 +101,7 @@
     <form class="md-search__form" name="search">
       <input type="text" class="md-search__input" name="query" required placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query">
       <label class="md-icon md-search__icon" for="search"></label>
-      <button type="reset" class="md-icon md-search__icon" data-md-component="reset">&#xE5CD;</button>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset">close</button>
     </form>
     <div class="md-search__output">
       <div class="md-search__scrollwrap" data-md-scrollfix>
@@ -159,11 +158,9 @@
                   <div class="md-sidebar__inner">
                     <nav class="md-nav md-nav--primary" data-md-level="0">
   <label class="md-nav__title md-nav__title--site" for="drawer">
-    <div class="md-nav__button md-logo">
-      
-        <i class="md-icon md-icon--home"></i>
-      
-    </div>
+    
+      <i class="md-icon md-icon--home md-nav__button"></i>
+    
     Kakunin
   </label>
   
@@ -1072,7 +1069,7 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/TheSoftwareHouse/Kakunin/edit/master/docs-src/steps.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                  <a href="https://github.com/TheSoftwareHouse/Kakunin/edit/master/docs-src/steps.md" title="Edit this page" class="md-icon md-content__icon">edit</a>
                 
                 
                   <h1>Built-in steps</h1>
@@ -1154,15 +1151,12 @@ that allow to check for some information related to a specific file.</p>
 <p>Allows you to specify the error messages that should be displayed for a specific elements.</p>
 <p>This step requires an array of format:</p>
 <div class="codehilite"><pre><span></span><span class="nf">the error messages should be displayed:</span>
-<span class="k">  |</span><span class="s"> element</span><span class="k">   |</span><span class="s"> errorMessage</span><span class="k">     |</span><span class="nf"></span>
 <span class="k">  |</span><span class="s"> myElement</span><span class="k"> |</span><span class="s"> my error message</span><span class="k"> |</span>
 </pre></div>
 
 
-<p>Keep in mind that first row of array must be <code>| element | errorMessage |</code>.</p>
 <p>You can use dictionaries in this step as follows:</p>
 <div class="codehilite"><pre><span></span><span class="nf">the error messages should be displayed:</span>
-<span class="k">  |</span><span class="s"> element</span><span class="k">   |</span><span class="s"> errorMessage</span><span class="k">                   |</span><span class="nf"></span>
 <span class="k">  |</span><span class="s"> myElement</span><span class="k"> |</span><span class="s"> d:dictionaryName:dictionaryKey</span><span class="k"> |</span>
 </pre></div>
 
@@ -1282,13 +1276,11 @@ locator <code>this.firstName = by.css('.firstName');</code> and so on.</p>
 <p>and so on. You can check expressions on <code>chai.js</code> API dock for BDD.</p>
 <p>This step requires an array of elements locators to be checked. For example:</p>
 <div class="codehilite"><pre><span></span><span class="nf">there are &quot;</span><span class="s">equal 5</span><span class="nf">&quot; following elements for element &quot;</span><span class="s">myList</span><span class="nf">&quot;:</span>
-<span class="k">  |</span><span class="s"> element</span><span class="k">    |</span><span class="s"> value</span><span class="k">         |</span><span class="nf"></span>
 <span class="k">  |</span><span class="s"> viewButton</span><span class="k"> |</span><span class="s"> f:isClickable</span><span class="k"> |</span><span class="nf"></span>
 <span class="k">  |</span><span class="s"> id</span><span class="k">         |</span><span class="s"> r:idRegex</span><span class="k">     |</span>
 </pre></div>
 
 
-<p>The first row must be <code>| element    | value |</code>, after that we specify a list of element locators to be checked for each element of <code>:elementName</code> array.</p>
 <p>The child elements must be a locators, for example <code>this.viewButton = by.css('button.viewButton');</code>.</p>
 <p>You can use all kind of matchers here.</p>
 <h3 id="there-is-element-elementname-with-value-matcher"><code>there is element ":elementName" with value ":matcher"</code></h3>
@@ -1517,7 +1509,7 @@ variable store here.</p>
       
     </div>
     
-      <script src="../assets/javascripts/application-f3ab9e5ff8.js"></script>
+      <script src="../assets/javascripts/application-6940329b9f.js"></script>
       
       
       <script>app.initialize({url:{base:".."}})</script>

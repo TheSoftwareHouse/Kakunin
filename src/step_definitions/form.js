@@ -48,20 +48,20 @@ defineSupportCode(function ({ When, Then }) {
 
   Then(/^the error messages should be displayed:$/, function (data) {
     const self = this;
-    const table = data.hashes();
+    const table = data.rows();
 
     const promise = [];
 
     table.forEach(function (item) {
       promise.push(
-        expect(self.currentPage.isVisible(item.element))
+        expect(self.currentPage.isVisible(item[0]))
           .to.eventually.be.fulfilled.then(function () {
-            return self.currentPage[item.element].getText().then(function (text) {
-              if (text.indexOf(dictionaries.findMappedValueByPhrase(item.errorMessage)) >= 0) {
+            return self.currentPage[item[0]].getText().then(function (text) {
+              if (text.indexOf(dictionaries.findMappedValueByPhrase(item[1])) >= 0) {
                 return Promise.resolve();
               }
 
-              return Promise.reject(`Error "${dictionaries.findMappedValueByPhrase(item.errorMessage)}" for element "${item.element}" was not found.`);
+              return Promise.reject(`Error "${dictionaries.findMappedValueByPhrase(item[1])}" for element "${item[0]}" was not found.`);
             });
           })
       );
