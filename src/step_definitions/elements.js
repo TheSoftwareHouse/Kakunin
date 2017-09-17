@@ -225,7 +225,7 @@ defineSupportCode(function ({ When, Then }) {
                   return Promise.resolve();
                 }
 
-                return Promise.reject(`Expected element "${hash[0]}" to match matcher "${hash[0]}"`);
+                return Promise.reject(`Expected element "${hash[0]}" to match matcher "${hash[1]}"`);
               })
           );
         });

@@ -224,7 +224,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
               return Promise.resolve();
             }
 
-            return Promise.reject(`Expected element "${hash[0]}" to match matcher "${hash[0]}"`);
+            return Promise.reject(`Expected element "${hash[0]}" to match matcher "${hash[1]}"`);
           }));
         });
       }).then(function () {

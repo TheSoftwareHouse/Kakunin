@@ -8,7 +8,6 @@ Feature:
         Then the "tabularData" page is displayed
         And there are "equal 4" "rows" elements
 
-    @wip
     Scenario: Validate tabular data count and content
         Given I visit the "main" page
         When I click the "tabularDataLink" element
