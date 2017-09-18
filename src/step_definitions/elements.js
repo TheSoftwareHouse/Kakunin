@@ -185,7 +185,7 @@ defineSupportCode(function ({ When, Then }) {
           if (hash.hasOwnProperty(prop)) {
             const propValue = hash[prop];
 
-            promises.push(expect(matchers.match(element.element(self.currentPage[prop]), variableStore.replaceTextVariables(propValue))).to.eventually.be.true);
+            promises.push(expect(matchers.match(element.element(self.currentPage[prop].locator()), variableStore.replaceTextVariables(propValue))).to.eventually.be.true);
           }
         }
       }).then(function () {
@@ -217,7 +217,7 @@ defineSupportCode(function ({ When, Then }) {
         hashedData.forEach(function (hash) {
           promises.push(
             matchers.match(
-              element.element(self.currentPage[hash[0]]),
+              element.element(self.currentPage[hash[0]].locator()),
               variableStore.replaceTextVariables(hash[1])
             )
               .then((result) => {
@@ -281,12 +281,12 @@ defineSupportCode(function ({ When, Then }) {
 
     return this.currentPage[containerName]
       .first()
-      .element(self.currentPage[elementName])
+      .element(self.currentPage[elementName].locator())
       .getText()
       .then(
         function (firstElementText) {
           return self.currentPage[containerName].each(function (containerElement) {
-            containerElement.element(self.currentPage[elementName]).getText().then(
+            containerElement.element(self.currentPage[elementName].locator()).getText().then(
               function (elementText) {
                 expect(elementText).to.be.equal(firstElementText);
               }
@@ -301,12 +301,12 @@ defineSupportCode(function ({ When, Then }) {
 
     return this.currentPage[containerName]
       .first()
-      .element(self.currentPage[elementName])
+      .element(self.currentPage[elementName].locator())
       .getAttribute(self.currentPage[attributeName + 'Attribute'])
       .then(
         function (firstElementAttributeValue) {
           return self.currentPage[containerName].each(function (containerElement) {
-            containerElement.element(self.currentPage[elementName]).getAttribute(self.currentPage[attributeName + 'Attribute']).then(
+            containerElement.element(self.currentPage[elementName].locator()).getAttribute(self.currentPage[attributeName + 'Attribute']).then(
               function (attributeValue) {
                 expect(attributeValue).to.be.equal(firstElementAttributeValue);
               }
@@ -401,7 +401,7 @@ defineSupportCode(function ({ When, Then }) {
     const promise = [];
 
     return self.currentPage[elementList].each(function (singleElement) {
-      promise.push(singleElement.element(self.currentPage[elementValue]).getText());
+      promise.push(singleElement.element(self.currentPage[elementValue].locator()).getText());
     }).then(function () {
       return Promise.all(promise);
     }).then(function (elementsValues) {
