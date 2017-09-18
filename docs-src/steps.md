@@ -242,7 +242,7 @@ The result of this step is an array of:
 
 Allows to check if a child elements of `:elementName` have a specified content.
 
-This steps allows you to specify an array of child elements locators that will be checked against expected values.
+This steps allows you to specify an array of child elements that will be checked against expected values.
 
 For example:
 
@@ -253,7 +253,7 @@ there are following elements in table "myTable":
   | t:2 | t:John    | t:Doe    |
 ```
 
-First row must specify columns locators. Starting from second row we must provider a matchers for each row that must be displayed.
+First row must specify columns elements. Starting from second row we must provide a matchers for each row that must be displayed.
 
 This step checks exact match, so if the table has 5 rows, there must be a 5 rows in this table.
 
@@ -292,7 +292,7 @@ Allows to check if a number of elements is the one that we expect.
 
 and so on. You can check expressions on `chai.js` API dock for BDD.
 
-This step requires an array of elements locators to be checked. For example:
+This step requires an array of elements to be checked. For example:
 
 ```gherkin 
 there are "equal 5" following elements for element "myList":
@@ -300,7 +300,7 @@ there are "equal 5" following elements for element "myList":
   | id         | r:idRegex     |
 ```
 
-The child elements must be a locators, for example `this.viewButton = by.css('button.viewButton');`.
+The child elements must be an elements, for example `this.viewButton = $('button.viewButton');`.
 
 You can use all kind of matchers here.
 
@@ -351,7 +351,7 @@ Allows to check if every row defined by `:elementName` has the same value for a 
 
 `:elementName` must be an array of elements
 
-`:columnElementName` must be an locator, for example:
+`:columnElementName` must be an element, for example:
 
 ```html 
 <table>
@@ -364,8 +364,8 @@ Allows to check if every row defined by `:elementName` has the same value for a 
 </table>
 ```
 
-for this case the `:elementName` should be specified as `$$('table tr')` and we can specify column locator
-`this.myColumn = by.css('td');`. This allows us to write:
+for this case the `:elementName` should be specified as `$$('table tr')` and we can specify column element
+`this.myColumn = $('td');`. This allows us to write:
 
 `every "myElement" element should have the same value for element "myColumn"`
 
@@ -378,7 +378,7 @@ attribute specified by `:atrributeName`.
 
 Checks if the values for column `:columnElementName` of each row specified by `:elementName` is sorted in either ascending or descending order.
 
-`:columnElementName` must be a locator used to get a column on each row of an array `:elementName`. For example:
+`:columnElementName` must be an element used to get a column on each row of an array `:elementName`. For example:
 
 ```html 
 <table>
@@ -393,7 +393,7 @@ Checks if the values for column `:columnElementName` of each row specified by `:
 
 The `:elementName` should be specified as `this.myElement = $$('table tr')`
 
-The `:columnElementName` should be an locator `this.myColumn = by.css(td);`.
+The `:columnElementName` should be an element `this.myColumn = $('td');`.
 
 Now we can use this step to check the order of elements.
 
