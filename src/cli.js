@@ -48,7 +48,7 @@ if (isInitCommand()) {
   }
 
   const argv = [
-    './dist/protractor.conf.js',
+    './node_modules/kakunin/dist/protractor.conf.js',
     `--config=${getConfigPath()}`,
     `--projectPath=${process.cwd()}`,
     '--disableChecks',
@@ -56,9 +56,9 @@ if (isInitCommand()) {
     ...commandLineArgs
   ];
 
-  child_process.spawn(path.join('protractor'), argv, {
+  child_process.spawn(path.join('node_modules', '.bin', 'protractor'), argv, {
     stdio: 'inherit',
-    cwd: path.join(__dirname, '..')
+    cwd: process.cwd()
   }).once('close', () => {
     console.log('Protractor has finished');
   });

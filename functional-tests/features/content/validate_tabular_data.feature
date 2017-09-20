@@ -15,7 +15,6 @@ Feature:
         And the "rows" element is present
         And the "rows" element is visible
         And there are "equal 4" following elements for element "rows":
-            | element      | value           |
             | indexLocator | r:validNumber   |
             | idLocator    | t:MY_CUSTOM_ID_ |
             | nameLocator  | r:notEmpty      |

@@ -50,7 +50,7 @@ exports.config = {
 
   cucumberOpts: {
     require: ['./configuration/config.js', './configuration/hooks.js', './step_definitions/**/*.js', ...config.step_definitions.map(file => config.projectPath + file + '/**/*.js'), ...config.hooks.map(file => config.projectPath + file + '/**/*.js')],
-    format: ['pretty', `json:../..${config.reports}/features-report.json`],
+    format: ['pretty', `json:./${config.reports}/features-report.json`],
     profile: false,
     'no-source': true
   },

@@ -204,7 +204,7 @@ defineSupportCode(function ({ When, Then }) {
   Then(/^there are "([^"]*)" following elements for element "([^"]*)":$/, function (numberExpression, element, data) {
     const self = this;
     const allElements = this.currentPage[element];
-    const hashedData = data.hashes();
+    const hashedData = data.rows();
 
     if (hashedData.length === 0) {
       return Promise.reject('Missing element and value header columns in step.');
@@ -217,15 +217,15 @@ defineSupportCode(function ({ When, Then }) {
         hashedData.forEach(function (hash) {
           promises.push(
             matchers.match(
-              element.element(self.currentPage[hash.element]),
-              variableStore.replaceTextVariables(hash.value)
+              element.element(self.currentPage[hash[0]]),
+              variableStore.replaceTextVariables(hash[1])
             )
               .then((result) => {
                 if (result) {
                   return Promise.resolve();
                 }
-                
-                return Promise.reject(`Expected element "${hash.element}" to match matcher "${hash.value}"`);
+
+                return Promise.reject(`Expected element "${hash[0]}" to match matcher "${hash[1]}"`);
               })
           );
         });
@@ -319,7 +319,7 @@ defineSupportCode(function ({ When, Then }) {
   Then(/^the element "([^"]*)" should have an item with values:$/, function (element, data) {
     const self = this;
     const allElements = this.currentPage[element];
-    const hashedData = data.hashes();
+    const hashedData = data.rows();
 
     if (hashedData.length === 0) {
       return Promise.reject('Missing element and value header columns in step.');
@@ -330,8 +330,8 @@ defineSupportCode(function ({ When, Then }) {
     return allElements.each(function (element) {
       hashedData.forEach(function (hash) {
         promises.push(matchers.match(
-          element.element(self.currentPage[hash.element]),
-          variableStore.replaceTextVariables(hash.value))
+          element.element(self.currentPage[hash[0]]),
+          variableStore.replaceTextVariables(hash[1]))
         );
       });
     }).then(function () {
@@ -359,7 +359,7 @@ defineSupportCode(function ({ When, Then }) {
   Then(/^the element "([^"]*)" should not have an item with values:$/, function (element, data) {
     const self = this;
     const allElements = this.currentPage[element];
-    const hashedData = data.hashes();
+    const hashedData = data.rows();
 
     if (hashedData.length === 0) {
       return Promise.reject('Missing element and value header columns in step.');
@@ -370,8 +370,8 @@ defineSupportCode(function ({ When, Then }) {
     return allElements.each(function (element) {
       hashedData.forEach(function (hash) {
         promises.push(matchers.match(
-          element.element(self.currentPage[hash.element]),
-          variableStore.replaceTextVariables(hash.value))
+          element.element(self.currentPage[hash[0]]),
+          variableStore.replaceTextVariables(hash[1]))
         );
       });
     }).then(function () {

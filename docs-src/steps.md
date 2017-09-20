@@ -123,17 +123,13 @@ This step requires an array of format:
 
 ```gherkin 
 the error messages should be displayed:
-  | element   | errorMessage     |
   | myElement | my error message |
 ```
-
-Keep in mind that first row of array must be `| element | errorMessage |`.
 
 You can use dictionaries in this step as follows:
 
 ```gherkin
 the error messages should be displayed:
-  | element   | errorMessage                   |
   | myElement | d:dictionaryName:dictionaryKey |
 ```
 
@@ -300,12 +296,9 @@ This step requires an array of elements locators to be checked. For example:
 
 ```gherkin 
 there are "equal 5" following elements for element "myList":
-  | element    | value         |
   | viewButton | f:isClickable |
   | id         | r:idRegex     |
 ```
-
-The first row must be `| element    | value |`, after that we specify a list of element locators to be checked for each element of `:elementName` array.
 
 The child elements must be a locators, for example `this.viewButton = by.css('button.viewButton');`.
 
