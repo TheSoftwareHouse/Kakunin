@@ -9,10 +9,11 @@ class TabularData extends BasePage {
     this.url = '/tabular-data';
 
     this.rows = $$('table tr');
-    this.indexLocator = by.css('.index');
-    this.idLocator = by.css('.id');
-    this.nameLocator = by.css('.name');
-    this.viewButton = by.css('button.view');
+    this.indexLocator = $('.index');
+    this.descendingIndex = $('.descending-sort');
+    this.idLocator = $('.id');
+    this.nameLocator = $('.name');
+    this.viewButton = $('button.view');
   }
 }
 
