@@ -10,5 +10,12 @@ Feature:
             | indexLocator    |
             | descendingIndex |
             | viewButton      |
-        Then compare given JSON string with stored "tableValue" JSON array:
-            | [["1","4","View"],["2","3","View"],["3","2","View"],["4","1","View"]] |
+        Then compare given JSON string with stored "tableValue" JSON:
+            """
+            [
+                ["1", "4", "View"],
+                ["2", "3", "View"],
+                ["3", "2", "View"],
+                ["4", "1", "View"]
+            ]
+            """
