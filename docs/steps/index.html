@@ -1154,15 +1154,12 @@ that allow to check for some information related to a specific file.</p>
 <p>Allows you to specify the error messages that should be displayed for a specific elements.</p>
 <p>This step requires an array of format:</p>
 <div class="codehilite"><pre><span></span><span class="nf">the error messages should be displayed:</span>
-<span class="k">  |</span><span class="s"> element</span><span class="k">   |</span><span class="s"> errorMessage</span><span class="k">     |</span><span class="nf"></span>
 <span class="k">  |</span><span class="s"> myElement</span><span class="k"> |</span><span class="s"> my error message</span><span class="k"> |</span>
 </pre></div>
 
 
-<p>Keep in mind that first row of array must be <code>| element | errorMessage |</code>.</p>
 <p>You can use dictionaries in this step as follows:</p>
 <div class="codehilite"><pre><span></span><span class="nf">the error messages should be displayed:</span>
-<span class="k">  |</span><span class="s"> element</span><span class="k">   |</span><span class="s"> errorMessage</span><span class="k">                   |</span><span class="nf"></span>
 <span class="k">  |</span><span class="s"> myElement</span><span class="k"> |</span><span class="s"> d:dictionaryName:dictionaryKey</span><span class="k"> |</span>
 </pre></div>
 
@@ -1282,14 +1279,12 @@ element <code>this.firstName = $('.firstName');</code> and so on.</p>
 <p>and so on. You can check expressions on <code>chai.js</code> API dock for BDD.</p>
 <p>This step requires an array of elements to be checked. For example:</p>
 <div class="codehilite"><pre><span></span><span class="nf">there are &quot;</span><span class="s">equal 5</span><span class="nf">&quot; following elements for element &quot;</span><span class="s">myList</span><span class="nf">&quot;:</span>
-<span class="k">  |</span><span class="s"> element</span><span class="k">    |</span><span class="s"> value</span><span class="k">         |</span><span class="nf"></span>
 <span class="k">  |</span><span class="s"> viewButton</span><span class="k"> |</span><span class="s"> f:isClickable</span><span class="k"> |</span><span class="nf"></span>
 <span class="k">  |</span><span class="s"> id</span><span class="k">         |</span><span class="s"> r:idRegex</span><span class="k">     |</span>
 </pre></div>
 
 
-<p>The first row must be <code>| element    | value |</code>, after that we specify a list of elements to be checked for each element of <code>:elementName</code> array.</p>
-<p>The child elements must be an element, for example <code>this.viewButton =</code>$('button.viewButton');`.</p>
+<p>The child elements must be an elements, for example <code>this.viewButton = $('button.viewButton');</code>.</p>
 <p>You can use all kind of matchers here.</p>
 <h3 id="there-is-element-elementname-with-value-matcher"><code>there is element ":elementName" with value ":matcher"</code></h3>
 <p>Allows to check if <code>:elementName</code> has a value that matches the <code>:matcher</code>.</p>
