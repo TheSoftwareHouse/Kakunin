@@ -208,7 +208,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
   Then(/^there are "([^"]*)" following elements for element "([^"]*)":$/, function (numberExpression, element, data) {
     const self = this;
     const allElements = this.currentPage[element];
-    const hashedData = data.hashes();
+    const hashedData = data.rows();
 
     if (hashedData.length === 0) {
       return Promise.reject('Missing element and value header columns in step.');
@@ -219,12 +219,12 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
       return allElements.each(function (element) {
         hashedData.forEach(function (hash) {
-          promises.push(_matchers.matchers.match(element.element(self.currentPage[hash.element].locator()), _variableStore2.default.replaceTextVariables(hash.value)).then(result => {
+          promises.push(_matchers.matchers.match(element.element(self.currentPage[hash[0]].locator()), _variableStore2.default.replaceTextVariables(hash[1])).then(result => {
             if (result) {
               return Promise.resolve();
             }
 
-            return Promise.reject(`Expected element "${hash.element}" to match matcher "${hash.value}"`);
+            return Promise.reject(`Expected element "${hash[0]}" to match matcher "${hash[1]}"`);
           }));
         });
       }).then(function () {
@@ -298,7 +298,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
   Then(/^the element "([^"]*)" should have an item with values:$/, function (element, data) {
     const self = this;
     const allElements = this.currentPage[element];
-    const hashedData = data.hashes();
+    const hashedData = data.rows();
 
     if (hashedData.length === 0) {
       return Promise.reject('Missing element and value header columns in step.');
@@ -308,7 +308,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
     return allElements.each(function (element) {
       hashedData.forEach(function (hash) {
-        promises.push(_matchers.matchers.match(element.element(self.currentPage[hash.element]), _variableStore2.default.replaceTextVariables(hash.value)));
+        promises.push(_matchers.matchers.match(element.element(self.currentPage[hash[0]]), _variableStore2.default.replaceTextVariables(hash[1])));
       });
     }).then(function () {
       return Promise.all(promises).then(function (resolvedPromises) {
@@ -335,7 +335,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
   Then(/^the element "([^"]*)" should not have an item with values:$/, function (element, data) {
     const self = this;
     const allElements = this.currentPage[element];
-    const hashedData = data.hashes();
+    const hashedData = data.rows();
 
     if (hashedData.length === 0) {
       return Promise.reject('Missing element and value header columns in step.');
@@ -345,7 +345,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
     return allElements.each(function (element) {
       hashedData.forEach(function (hash) {
-        promises.push(_matchers.matchers.match(element.element(self.currentPage[hash.element]), _variableStore2.default.replaceTextVariables(hash.value)));
+        promises.push(_matchers.matchers.match(element.element(self.currentPage[hash[0]]), _variableStore2.default.replaceTextVariables(hash[1])));
       });
     }).then(function () {
       return Promise.all(promises).then(function (resolvedPromises) {
