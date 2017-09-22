@@ -162,7 +162,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
       for (const columnIndex in columns) {
         if (columns.hasOwnProperty(columnIndex)) {
-          rowPromises.push(element.element(self.currentPage[columns[columnIndex]]).getText());
+          rowPromises.push(element.element(self.currentPage[columns[columnIndex]].locator()).getText());
         }
       }
 
@@ -189,7 +189,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
           if (hash.hasOwnProperty(prop)) {
             const propValue = hash[prop];
 
-            promises.push(expect(_matchers.matchers.match(element.element(self.currentPage[prop]), _variableStore2.default.replaceTextVariables(propValue))).to.eventually.be.true);
+            promises.push(expect(_matchers.matchers.match(element.element(self.currentPage[prop].locator()), _variableStore2.default.replaceTextVariables(propValue))).to.eventually.be.true);
           }
         }
       }).then(function () {
@@ -219,7 +219,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
       return allElements.each(function (element) {
         hashedData.forEach(function (hash) {
-          promises.push(_matchers.matchers.match(element.element(self.currentPage[hash[0]]), _variableStore2.default.replaceTextVariables(hash[1])).then(result => {
+          promises.push(_matchers.matchers.match(element.element(self.currentPage[hash[0]].locator()), _variableStore2.default.replaceTextVariables(hash[1])).then(result => {
             if (result) {
               return Promise.resolve();
             }
@@ -274,9 +274,9 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
   Then(/^every "([^"]*)" element should have the same value for element "([^"]*)"$/, function (containerName, elementName) {
     const self = this;
 
-    return this.currentPage[containerName].first().element(self.currentPage[elementName]).getText().then(function (firstElementText) {
+    return this.currentPage[containerName].first().element(self.currentPage[elementName].locator()).getText().then(function (firstElementText) {
       return self.currentPage[containerName].each(function (containerElement) {
-        containerElement.element(self.currentPage[elementName]).getText().then(function (elementText) {
+        containerElement.element(self.currentPage[elementName].locator()).getText().then(function (elementText) {
           expect(elementText).to.be.equal(firstElementText);
         });
       });
@@ -286,9 +286,9 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
   Then(/^every "([^"]*)" element should have the same value for element "([^"]*)" attribute "([^"]*)"$/, function (containerName, elementName, attributeName) {
     const self = this;
 
-    return this.currentPage[containerName].first().element(self.currentPage[elementName]).getAttribute(self.currentPage[attributeName + 'Attribute']).then(function (firstElementAttributeValue) {
+    return this.currentPage[containerName].first().element(self.currentPage[elementName].locator()).getAttribute(self.currentPage[attributeName + 'Attribute']).then(function (firstElementAttributeValue) {
       return self.currentPage[containerName].each(function (containerElement) {
-        containerElement.element(self.currentPage[elementName]).getAttribute(self.currentPage[attributeName + 'Attribute']).then(function (attributeValue) {
+        containerElement.element(self.currentPage[elementName].locator()).getAttribute(self.currentPage[attributeName + 'Attribute']).then(function (attributeValue) {
           expect(attributeValue).to.be.equal(firstElementAttributeValue);
         });
       });
@@ -374,7 +374,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     const promise = [];
 
     return self.currentPage[elementList].each(function (singleElement) {
-      promise.push(singleElement.element(self.currentPage[elementValue]).getText());
+      promise.push(singleElement.element(self.currentPage[elementValue].locator()).getText());
     }).then(function () {
       return Promise.all(promise);
     }).then(function (elementsValues) {
