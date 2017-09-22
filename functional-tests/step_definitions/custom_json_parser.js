@@ -3,12 +3,13 @@ const variableStore = require('kakunin').variableStore;
 const { defineSupportCode } = require('kakunin');
 
 defineSupportCode(function ({ When }) {
-  When(/^compare given JSON string with stored "([^"]*)" JSON array:$/, function(storedJsonArray, data) {
-    const table = data.raw();
-    const storedJsonString = JSON.stringify(variableStore.getVariableValue(storedJsonArray));
-    const jsonString = table[0];
+  When(/^compare given JSON string with stored "([^"]*)" JSON:$/, function(storedJsonArray, json) {
+    const removeNewLines = (str) => str.replace(/(\r\n|\n|\r)/gm, '');
 
-    if (storedJsonString.includes(jsonString)) {
+    const storedJsonString = JSON.stringify(variableStore.getVariableValue(storedJsonArray));
+    const expectedJsonString = JSON.stringify(JSON.parse(removeNewLines(json)));
+
+    if (storedJsonString === expectedJsonString) {
       return Promise.resolve();
     }
 
