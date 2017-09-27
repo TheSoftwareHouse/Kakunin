@@ -1,6 +1,6 @@
 Feature:
     As a kakunin user
-    I want to wait for element disappear
+    I want to wait for element to disappear
 
     Scenario: Fill and check form fields
         Given I visit the "main" page
