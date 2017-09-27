@@ -13,10 +13,10 @@ nunjucks.configure(app.get('views'), {
 });
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({extended: true}));
 
 app.get('/', function (req, res) {
-  res.render('index.njs')
+  res.render('index.njs');
 });
 
 app.get('/drag-and-drop', function (req, res) {
@@ -31,19 +31,23 @@ app.get('/form/simple', function (req, res) {
   res.render('form/simple.njs');
 });
 
+app.get('/form/disappear', function (req, res) {
+  res.render('form/disappear.njs');
+});
+
 app.post('/form/simple/post', function (req, res) {
   res.render('form/simple.njs', {
     form: req.body
-  })
+  });
 });
 
 app.get('/navigation/pages/:pageId/titles/:title', function (req, res) {
   res.render('navigation/page.njs', {
     pageId: req.params.pageId,
     title: req.params.title
-  })
+  });
 });
 
 app.listen(8080, function () {
-  console.log('Example app listening on port 8080!')
+  console.log('Example app listening on port 8080!');
 });

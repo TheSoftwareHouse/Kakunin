@@ -113,16 +113,14 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
         if (!isPresent) {
           clearInterval(interval);
         }
+        maxRepeats--;
 
+        if (maxRepeats === 0) {
+          clearInterval(interval);
+          sync('Element is still visible');
+        }
         sync();
       });
-
-      maxRepeats--;
-
-      if (maxRepeats === 0) {
-        clearInterval(interval);
-        sync('Element is still visible');
-      }
     }, 1500);
   });
 

@@ -107,16 +107,16 @@ defineSupportCode(function ({ When, Then }) {
         if (!isPresent) {
           clearInterval(interval);
         }
+        maxRepeats--;
 
+        if (maxRepeats === 0) {
+          clearInterval(interval);
+          sync('Element is still visible');
+        }
         sync();
       });
 
-      maxRepeats--;
 
-      if (maxRepeats === 0) {
-        clearInterval(interval);
-        sync('Element is still visible');
-      }
     }, 1500);
   });
 
