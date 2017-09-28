@@ -103,20 +103,25 @@ defineSupportCode(function ({ When, Then }) {
     const interval = setInterval(() => {
       console.log('Waiting for element to disappear...');
 
-      self.currentPage.isPresent(element).then((isPresent) => {
+      return self.currentPage.isPresent(element).then(isPresent => {
+
         if (!isPresent) {
           clearInterval(interval);
+          sync();
+          return;
         }
 
-        sync();
+        maxRepeats--;
+
+        if (maxRepeats === 0) {
+          clearInterval(interval);
+          sync('Element is still visible');
+          return;
+        }
+
+
+
       });
-
-      maxRepeats--;
-
-      if (maxRepeats === 0) {
-        clearInterval(interval);
-        sync('Element is still visible');
-      }
     }, 1500);
   });
 

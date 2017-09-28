@@ -10,6 +10,7 @@ class MainPage extends BasePage {
 
     this.formLink = $('a[href="/form/simple"]');
     this.tabularDataLink = $('a[href="/tabular-data"]');
+    this.buttonLink = $('a[href="/form/disappear"]');
   }
 }
 
