@@ -105,19 +105,21 @@ defineSupportCode(function ({ When, Then }) {
 
       return self.currentPage.isPresent(element).then(isPresent => {
 
+        if (!isPresent) {
+          clearInterval(interval);
+          sync();
+          return;
+        }
+
         maxRepeats--;
 
         if (maxRepeats === 0) {
           clearInterval(interval);
-          sync();
-          return Promise.reject('Element is still visible');
+          sync('Element is still visible');
+          return;
         }
 
-        if (!isPresent) {
-          clearInterval(interval);
-          sync();
-          return Promise.resolve();
-        }
+
 
       });
     }, 1500);

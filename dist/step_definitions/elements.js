@@ -111,18 +111,18 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
       return self.currentPage.isPresent(element).then(isPresent => {
 
+        if (!isPresent) {
+          clearInterval(interval);
+          sync();
+          return;
+        }
+
         maxRepeats--;
 
         if (maxRepeats === 0) {
           clearInterval(interval);
-          sync();
-          return Promise.reject('Element is still visible');
-        }
-
-        if (!isPresent) {
-          clearInterval(interval);
-          sync();
-          return Promise.resolve();
+          sync('Element is still visible');
+          return;
         }
       });
     }, 1500);
