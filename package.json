@@ -38,7 +38,7 @@
   "main": "./dist/index",
   "scripts": {
     "postinstall": "webdriver-manager update",
-    "units": "NODE_ENV=test mocha --require ./src/tests/init.js --require babel-register $(find src -name '*.spec.js')",
+    "units": "cross-env NODE_ENV=test mocha --require ./src/tests/init.js --require babel-register \"./src/**/*.spec.js\"",
     "functional": "cd functional-tests && npm i && npm run test",
     "test": "npm run units && npm run functional",
     "build": "babel src --out-dir dist --ignore 'tests','*.spec.js' && babel templates --out-dir dist/templates --copy-files"
@@ -52,6 +52,7 @@
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "babel-preset-env": "^1.5.0",
     "babel-register": "^6.24.1",
+    "cross-env": "^5.0.5",
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^15.0.1",
     "eslint-plugin-import": "^2.2.0",

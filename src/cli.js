@@ -5,6 +5,7 @@ const commandArgs = require('minimist')(process.argv.slice(2));
 const path = require('path');
 const child_process = require('child_process');
 const envfile = require('node-env-file');
+const os = require('os');
 
 const isInitCommand = () => {
   return process.argv.length > 2 && process.argv[2] === 'init';
@@ -56,7 +57,9 @@ if (isInitCommand()) {
     ...commandLineArgs
   ];
 
-  child_process.spawn(path.join('node_modules', '.bin', 'protractor'), argv, {
+  const protractorExecutable = os.platform() === 'win32' ? 'protractor.cmd' : 'protractor';
+
+  child_process.spawn(path.join('node_modules', '.bin', protractorExecutable), argv, {
     stdio: 'inherit',
     cwd: process.cwd()
   }).once('close', () => {
