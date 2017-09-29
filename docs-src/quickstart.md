@@ -29,13 +29,13 @@ In order to install Kakunin you have to make sure that you have installed:
 * Install dependencies
 
     ```bash
-    npm install protractor webdriver-manager kakunin  --save
+    npm install cross-env protractor webdriver-manager kakunin  --save
     ```
 
 * Inside `package.json` file add new script in `scripts` section:
 
     ```json
-    "kakunin": "NODE_ENV=prod kakunin"
+    "kakunin": "cross-env NODE_ENV=prod kakunin"
     ``` 
 
 ## Configure Kakunin

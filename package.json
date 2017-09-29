@@ -38,7 +38,7 @@
   "main": "./dist/index",
   "scripts": {
     "postinstall": "webdriver-manager update",
-    "units": "cross-env NODE_ENV=test mocha --require ./src/tests/init.js --require babel-register --recursive src/**/*.spec.js",
+    "units": "cross-env NODE_ENV=test mocha --require ./src/tests/init.js --require babel-register './src/**/*.spec.js'",
     "functional": "cd functional-tests && npm i && npm run test",
     "test": "npm run units && npm run functional",
     "build": "babel src --out-dir dist --ignore 'tests','*.spec.js' && babel templates --out-dir dist/templates --copy-files"
