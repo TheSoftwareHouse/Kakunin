@@ -97,9 +97,9 @@ const clearDownload = callback => {
   callback();
 };
 
-(0, _cucumber.defineSupportCode)(({ registerHandler, After, Before }) => {
+(0, _cucumber.defineSupportCode)(({ AfterAll, After, Before }) => {
   After(function (scenario, callback) {
-    if (scenario.isFailed()) {
+    if (scenario.result.status !== 'passed') {
       takeScreenshot(this).then(() => {
         clearCookiesAndLocalStorage(callback);
       });
@@ -160,7 +160,7 @@ const clearDownload = callback => {
     callback();
   });
 
-  registerHandler('AfterFeatures', function (features, callback) {
+  AfterAll(function (callback) {
     if (!_fs2.default.existsSync(outputDir)) {
       _fs2.default.mkdirSync(outputDir);
     }

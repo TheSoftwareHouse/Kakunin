@@ -69,9 +69,9 @@ const clearDownload = (callback) => {
   callback();
 };
 
-defineSupportCode(({registerHandler, After, Before}) => {
+defineSupportCode(({AfterAll, After, Before}) => {
   After(function (scenario, callback) {
-    if (scenario.isFailed()) {
+    if (scenario.result.status !== 'passed') {
       takeScreenshot(this).then(() => { clearCookiesAndLocalStorage(callback); });
     } else {
       clearCookiesAndLocalStorage(callback);
@@ -130,7 +130,7 @@ defineSupportCode(({registerHandler, After, Before}) => {
     callback();
   });
 
-  registerHandler('AfterFeatures', function (features, callback) {
+  AfterAll(function (callback) {
     if (!fs.existsSync(outputDir)) {
       fs.mkdirSync(outputDir);
     }
