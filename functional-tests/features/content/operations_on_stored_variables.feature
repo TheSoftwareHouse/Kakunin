@@ -1,4 +1,4 @@
-Feature:
+Feature: Store table and compare jsons
     As a kakunin user
     I want to store values as variables
 

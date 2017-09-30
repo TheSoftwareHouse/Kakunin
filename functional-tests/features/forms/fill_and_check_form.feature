@@ -1,4 +1,4 @@
-Feature:
+Feature: Forms
     As a kakunin user
     I want fill and check form fields
 

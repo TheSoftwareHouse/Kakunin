@@ -17,7 +17,7 @@
       
         <link rel="shortcut icon" href="../assets/images/favicon.png">
       
-      <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.10.0">
+      <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.8.1">
     
 
   <meta property="og:type" content="product"/>
@@ -32,10 +32,10 @@
       
     
     
-      <script src="../assets/javascripts/modernizr-e826f8942a.js"></script>
+      <script src="../assets/javascripts/modernizr-1df76c4e58.js"></script>
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/application-b6a6d08807.css">
+      <link rel="stylesheet" href="../assets/stylesheets/application-bfecc7305d.css">
       
     
     
@@ -73,11 +73,10 @@
   <nav class="md-header-nav md-grid">
     <div class="md-flex">
       <div class="md-flex__cell md-flex__cell--shrink">
-        <a href="https://thesoftwarehouse.github.io/Kakunin/" title="Kakunin" class="md-header-nav__button md-logo">
-          
-            <i class="md-icon md-icon--home"></i>
-          
-        </a>
+        
+          <a href="https://thesoftwarehouse.github.io/Kakunin/" title="Kakunin" class="md-icon md-icon--home md-header-nav__button">
+          </a>
+        
       </div>
       <div class="md-flex__cell md-flex__cell--shrink">
         <label class="md-icon md-icon--menu md-header-nav__button" for="drawer"></label>
@@ -102,7 +101,7 @@
     <form class="md-search__form" name="search">
       <input type="text" class="md-search__input" name="query" required placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query">
       <label class="md-icon md-search__icon" for="search"></label>
-      <button type="reset" class="md-icon md-search__icon" data-md-component="reset">&#xE5CD;</button>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset">close</button>
     </form>
     <div class="md-search__output">
       <div class="md-search__scrollwrap" data-md-scrollfix>
@@ -159,11 +158,9 @@
                   <div class="md-sidebar__inner">
                     <nav class="md-nav md-nav--primary" data-md-level="0">
   <label class="md-nav__title md-nav__title--site" for="drawer">
-    <div class="md-nav__button md-logo">
-      
-        <i class="md-icon md-icon--home"></i>
-      
-    </div>
+    
+      <i class="md-icon md-icon--home md-nav__button"></i>
+    
     Kakunin
   </label>
   
@@ -398,7 +395,7 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/TheSoftwareHouse/Kakunin/edit/master/docs-src/how-it-works.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                  <a href="https://github.com/TheSoftwareHouse/Kakunin/edit/master/docs-src/how-it-works.md" title="Edit this page" class="md-icon md-content__icon">edit</a>
                 
                 
                   <h1>How it works</h1>
@@ -432,7 +429,6 @@ language.</p>
         <span class="kr">super</span><span class="p">();</span>
 
         <span class="k">this</span><span class="p">.</span><span class="nx">url</span> <span class="o">=</span> <span class="s1">&#39;/dashboard&#39;</span><span class="p">;</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">isExternal</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span> <span class="c1">// optional</span>
     <span class="p">}</span>
 <span class="p">}</span>
 
@@ -441,7 +437,6 @@ language.</p>
 
 
 <p>As you can see a basic Page Object must extend one of the Kakunin's Objects and needs to have url field defined (<code>this.url</code>).</p>
-<p>Optionally, if the page is a main page to be displayed then for <code>AngularJS</code> and <code>Angular</code> apps you need to set the <code>this.isExternal</code> flag to <code>true</code>.</p>
 <p>This code should be saved inside <code>pages</code> directory in a file with <code>js</code> extension. 
 Note that a file name is very important, because we're going to use it as parameter for steps. For example, the following step:</p>
 <div class="codehilite"><pre><span></span><span class="k">When </span><span class="nf">the &quot;</span><span class="s">dashboard</span><span class="nf">&quot; page is displayed</span>
@@ -484,7 +479,6 @@ For example, having the following code:</p>
         <span class="kr">super</span><span class="p">();</span>
 
         <span class="k">this</span><span class="p">.</span><span class="nx">url</span> <span class="o">=</span> <span class="s1">&#39;/dashboard&#39;</span><span class="p">;</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">isExternal</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span> <span class="c1">// optional</span>
     <span class="p">}</span>
 <span class="p">}</span>
 
@@ -500,7 +494,6 @@ For example, having the following code:</p>
         <span class="kr">super</span><span class="p">();</span>
 
         <span class="k">this</span><span class="p">.</span><span class="nx">url</span> <span class="o">=</span> <span class="s1">&#39;/dashboard&#39;</span><span class="p">;</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">isExternal</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span> <span class="c1">// optional</span>
 
         <span class="k">this</span><span class="p">.</span><span class="nx">myName</span> <span class="o">=</span> <span class="nx">element</span><span class="p">(</span><span class="nx">by</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span><span class="s1">&#39;.myName&#39;</span><span class="p">));</span>
     <span class="p">}</span>
@@ -594,7 +587,7 @@ For example, having the following code:</p>
       
     </div>
     
-      <script src="../assets/javascripts/application-f3ab9e5ff8.js"></script>
+      <script src="../assets/javascripts/application-6940329b9f.js"></script>
       
       
       <script>app.initialize({url:{base:".."}})</script>
