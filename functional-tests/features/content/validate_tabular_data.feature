@@ -34,5 +34,13 @@ Feature:
             | t:2          | t:Some custom name 2 |
             | t:3          | t:Some custom name 3 |
             | t:4          | t:Some custom name 4 |
+        And the element "rows" should have an item with values:
+            | indexLocator | t:1         |
+            | indexLocator | f:isVisible |
+        And the element "rows" should not have an item with values:
+            | indexLocator | t:incorrect-number-value |
 
-
+    Scenario: Navigate to pages by using click steps
+        Given I visit the "main" page
+        When I click the "valueToClick" on the first item of "linkDivs" element
+        Then the "tabularData" page is displayed

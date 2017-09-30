@@ -99,7 +99,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
   });
 
   When(/^I click the "([^"]*)" on the first item of "([^"]*)" element$/, function (element, container) {
-    return this.currentPage[container].first().element(this.currentPage[element]).click();
+    return this.currentPage[container].first().element(this.currentPage[element].locator()).click();
   });
 
   When(/^I wait for the "([^"]*)" element to disappear$/, function (element, sync) {
@@ -210,10 +210,10 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
   Then(/^there are "([^"]*)" following elements for element "([^"]*)":$/, function (numberExpression, element, data) {
     const self = this;
     const allElements = this.currentPage[element];
-    const hashedData = data.rows();
+    const hashedData = data.raw();
 
     if (hashedData.length === 0) {
-      return Promise.reject('Missing element and value header columns in step.');
+      return Promise.reject('Missing table under the step.');
     }
 
     return checkNumberOfElements.call(this, numberExpression, element).then(function () {
@@ -300,17 +300,17 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
   Then(/^the element "([^"]*)" should have an item with values:$/, function (element, data) {
     const self = this;
     const allElements = this.currentPage[element];
-    const hashedData = data.rows();
+    const hashedData = data.raw();
 
     if (hashedData.length === 0) {
-      return Promise.reject('Missing element and value header columns in step.');
+      return Promise.reject('Missing table under the step.');
     }
 
     const promises = [];
 
     return allElements.each(function (element) {
       hashedData.forEach(function (hash) {
-        promises.push(_matchers.matchers.match(element.element(self.currentPage[hash[0]]), _variableStore2.default.replaceTextVariables(hash[1])));
+        promises.push(_matchers.matchers.match(element.element(self.currentPage[hash[0]].locator()), _variableStore2.default.replaceTextVariables(hash[1])));
       });
     }).then(function () {
       return Promise.all(promises).then(function (resolvedPromises) {
@@ -337,17 +337,17 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
   Then(/^the element "([^"]*)" should not have an item with values:$/, function (element, data) {
     const self = this;
     const allElements = this.currentPage[element];
-    const hashedData = data.rows();
+    const hashedData = data.raw();
 
     if (hashedData.length === 0) {
-      return Promise.reject('Missing element and value header columns in step.');
+      return Promise.reject('Missing table under the step.');
     }
 
     const promises = [];
 
     return allElements.each(function (element) {
       hashedData.forEach(function (hash) {
-        promises.push(_matchers.matchers.match(element.element(self.currentPage[hash[0]]), _variableStore2.default.replaceTextVariables(hash[1])));
+        promises.push(_matchers.matchers.match(element.element(self.currentPage[hash[0]].locator()), _variableStore2.default.replaceTextVariables(hash[1])));
       });
     }).then(function () {
       return Promise.all(promises).then(function (resolvedPromises) {

@@ -93,7 +93,7 @@ defineSupportCode(function ({ When, Then }) {
   });
 
   When(/^I click the "([^"]*)" on the first item of "([^"]*)" element$/, function (element, container) {
-    return this.currentPage[container].first().element(this.currentPage[element]).click();
+    return this.currentPage[container].first().element(this.currentPage[element].locator()).click();
   });
 
   When(/^I wait for the "([^"]*)" element to disappear$/, function (element, sync) {
@@ -209,10 +209,10 @@ defineSupportCode(function ({ When, Then }) {
   Then(/^there are "([^"]*)" following elements for element "([^"]*)":$/, function (numberExpression, element, data) {
     const self = this;
     const allElements = this.currentPage[element];
-    const hashedData = data.rows();
+    const hashedData = data.raw();
 
     if (hashedData.length === 0) {
-      return Promise.reject('Missing element and value header columns in step.');
+      return Promise.reject('Missing table under the step.');
     }
 
     return checkNumberOfElements.call(this, numberExpression, element).then(function () {
@@ -324,10 +324,10 @@ defineSupportCode(function ({ When, Then }) {
   Then(/^the element "([^"]*)" should have an item with values:$/, function (element, data) {
     const self = this;
     const allElements = this.currentPage[element];
-    const hashedData = data.rows();
+    const hashedData = data.raw();
 
     if (hashedData.length === 0) {
-      return Promise.reject('Missing element and value header columns in step.');
+      return Promise.reject('Missing table under the step.');
     }
 
     const promises = [];
@@ -335,7 +335,7 @@ defineSupportCode(function ({ When, Then }) {
     return allElements.each(function (element) {
       hashedData.forEach(function (hash) {
         promises.push(matchers.match(
-          element.element(self.currentPage[hash[0]]),
+          element.element(self.currentPage[hash[0]].locator()),
           variableStore.replaceTextVariables(hash[1]))
         );
       });
@@ -364,10 +364,10 @@ defineSupportCode(function ({ When, Then }) {
   Then(/^the element "([^"]*)" should not have an item with values:$/, function (element, data) {
     const self = this;
     const allElements = this.currentPage[element];
-    const hashedData = data.rows();
+    const hashedData = data.raw();
 
     if (hashedData.length === 0) {
-      return Promise.reject('Missing element and value header columns in step.');
+      return Promise.reject('Missing table under the step.');
     }
 
     const promises = [];
@@ -375,7 +375,7 @@ defineSupportCode(function ({ When, Then }) {
     return allElements.each(function (element) {
       hashedData.forEach(function (hash) {
         promises.push(matchers.match(
-          element.element(self.currentPage[hash[0]]),
+          element.element(self.currentPage[hash[0]].locator()),
           variableStore.replaceTextVariables(hash[1]))
         );
       });
