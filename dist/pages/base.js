@@ -26,7 +26,7 @@ class Page {
       url = url.replace(`:${item[0]}`, item[1]);
     }
 
-    if (this.isExternal || _config2.default.type === 'otherWeb') {
+    if (_config2.default.type === 'otherWeb') {
       return protractor.browser.get(url);
     }
 
