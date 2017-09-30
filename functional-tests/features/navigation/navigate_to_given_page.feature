@@ -1,4 +1,4 @@
-Feature:
+Feature: Navigation
     As a kakunin user
     I want to navigate to selected page
 

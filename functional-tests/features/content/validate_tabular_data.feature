@@ -1,4 +1,4 @@
-Feature:
+Feature: Tabular data
     As a kakunin user
     I want validate tabular data
 

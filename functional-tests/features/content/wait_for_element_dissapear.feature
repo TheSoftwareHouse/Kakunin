@@ -1,8 +1,8 @@
-Feature:
+Feature: Element visibility
     As a kakunin user
     I want to wait for element to disappear
 
-    Scenario: Fill and check form fields
+    Scenario: Check visibility
         Given I visit the "main" page
         When I click the "buttonLink" element
         Then the "buttonForm" page is displayed
