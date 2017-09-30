@@ -8,9 +8,11 @@ class MainPage extends BasePage {
 
     this.url = '/';
 
+    this.linkDivs = $$('.available-examples-links');
     this.formLink = $('a[href="/form/simple"]');
     this.tabularDataLink = $('a[href="/tabular-data"]');
     this.buttonLink = $('a[href="/form/disappear"]');
+    this.valueToClick = $('.valueForClickStep');
   }
 }
 

@@ -93,7 +93,7 @@ defineSupportCode(function ({ When, Then }) {
   });
 
   When(/^I click the "([^"]*)" on the first item of "([^"]*)" element$/, function (element, container) {
-    return this.currentPage[container].first().element(this.currentPage[element]).click();
+    return this.currentPage[container].first().element(this.currentPage[element].locator()).click();
   });
 
   When(/^I wait for the "([^"]*)" element to disappear$/, function (element, sync) {
@@ -335,7 +335,7 @@ defineSupportCode(function ({ When, Then }) {
     return allElements.each(function (element) {
       hashedData.forEach(function (hash) {
         promises.push(matchers.match(
-          element.element(self.currentPage[hash[0]]),
+          element.element(self.currentPage[hash[0]].locator()),
           variableStore.replaceTextVariables(hash[1]))
         );
       });
@@ -375,7 +375,7 @@ defineSupportCode(function ({ When, Then }) {
     return allElements.each(function (element) {
       hashedData.forEach(function (hash) {
         promises.push(matchers.match(
-          element.element(self.currentPage[hash[0]]),
+          element.element(self.currentPage[hash[0]].locator()),
           variableStore.replaceTextVariables(hash[1]))
         );
       });
