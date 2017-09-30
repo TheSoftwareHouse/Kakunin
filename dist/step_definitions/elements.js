@@ -210,10 +210,10 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
   Then(/^there are "([^"]*)" following elements for element "([^"]*)":$/, function (numberExpression, element, data) {
     const self = this;
     const allElements = this.currentPage[element];
-    const hashedData = data.rows();
+    const hashedData = data.raw();
 
     if (hashedData.length === 0) {
-      return Promise.reject('Missing element and value header columns in step.');
+      return Promise.reject('Missing table under the step.');
     }
 
     return checkNumberOfElements.call(this, numberExpression, element).then(function () {
@@ -300,10 +300,10 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
   Then(/^the element "([^"]*)" should have an item with values:$/, function (element, data) {
     const self = this;
     const allElements = this.currentPage[element];
-    const hashedData = data.rows();
+    const hashedData = data.raw();
 
     if (hashedData.length === 0) {
-      return Promise.reject('Missing element and value header columns in step.');
+      return Promise.reject('Missing table under the step.');
     }
 
     const promises = [];
@@ -337,10 +337,10 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
   Then(/^the element "([^"]*)" should not have an item with values:$/, function (element, data) {
     const self = this;
     const allElements = this.currentPage[element];
-    const hashedData = data.rows();
+    const hashedData = data.raw();
 
     if (hashedData.length === 0) {
-      return Promise.reject('Missing element and value header columns in step.');
+      return Promise.reject('Missing table under the step.');
     }
 
     const promises = [];
