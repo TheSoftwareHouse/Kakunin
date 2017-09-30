@@ -173,9 +173,9 @@ Conditionally clicks on element `:elementName` of `this.currentPage` only if it 
 
 ###`I click the ":elementName" on the first item of ":containerElementName" element`
 
-Allows to click on the first child element of `:containerElementName` specified in `this.currentName`.
+Allows to click on the first child element of `:containerElementName` specified in `this.currentPage`.
 
-The child element must be specified by `:elementName` nd must be available in `this.currentPage`
+The child element must be specified by `:elementName` and must be available in `this.currentPage`.
 
 ###`I store the ":elementName" element text as ":variableName" variable`
 
@@ -368,6 +368,62 @@ for this case the `:elementName` should be specified as `$$('table tr')` and we 
 `this.myColumn = $('td');`. This allows us to write:
 
 `every "myElement" element should have the same value for element "myColumn"`
+
+###`the element ":elementName" should have an item with values:`
+
+Allows to check if any of the child elements of `:elementName` have a specified content (one matching element is enough). Element should be an array, for example:
+
+```html 
+<table>
+  <tr>
+    <td>1</td>
+  </tr>
+  <tr>
+    <td>2</td>
+  </tr>   
+</table>
+```
+
+for this case the `:elementName` should be specified as `$$('table tr')`.
+
+This step requires an array of elements to be checked. For example:
+
+```gherkin 
+the element "myList" should have an item with values:
+  | id | t:1 |
+```
+
+The child elements must be an elements, for example `this.id = $('td');`.
+
+You can use all kind of matchers here.
+
+###`the element ":elementName" should not have an item with values:`
+
+Allows to check if the child elements of `:elementName` have a different content than that given in the table. Element should be an array, for example:
+
+```html 
+<table>
+  <tr>
+    <td>1</td>
+  </tr>
+  <tr>
+    <td>2</td>
+  </tr>   
+</table>
+```
+
+for this case the `:elementName` should be specified as `$$('table tr')`.
+
+This step requires an array of elements to be checked. For example:
+
+```gherkin 
+the element "myList" should have an item with values:
+  | id | t:does-not-exist |
+```
+
+The child elements must be an elements, for example `this.id = $('td');`.
+
+You can use all kind of matchers here.
 
 ###`every ":elementName" element should have the same value for element ":columnElementName" attribute ":attributeName"`
 

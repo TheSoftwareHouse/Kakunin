@@ -35,10 +35,9 @@ Feature:
             | t:3          | t:Some custom name 3 |
             | t:4          | t:Some custom name 4 |
         And the element "rows" should have an item with values:
-            | element      | value |
-            | indexLocator | t:1   |
+            | indexLocator | t:1         |
+            | indexLocator | f:isVisible |
         And the element "rows" should not have an item with values:
-            | element      | value                    |
             | indexLocator | t:incorrect-number-value |
 
     Scenario: Navigate to pages by using click steps
