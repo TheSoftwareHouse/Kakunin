@@ -39,7 +39,6 @@ class DashboardPage extends BasePage {
         super();
         
         this.url = '/dashboard';
-        this.isExternal = false; // optional
     }
 }
 
@@ -47,8 +46,6 @@ module.exports = new DashboardPage();
 ```
 
 As you can see a basic Page Object must extend one of the Kakunin's Objects and needs to have url field defined (`this.url`).
- 
-Optionally, if the page is a main page to be displayed then for `AngularJS` and `Angular` apps you need to set the `this.isExternal` flag to `true`.
  
 This code should be saved inside `pages` directory in a file with `js` extension. 
 Note that a file name is very important, because we're going to use it as parameter for steps. For example, the following step:
@@ -103,7 +100,6 @@ class DashboardPage extends FromPage {
         super();
         
         this.url = '/dashboard';
-        this.isExternal = false; // optional
     }
 }
 
@@ -120,7 +116,6 @@ class DashboardPage extends FromPage {
         super();
         
         this.url = '/dashboard';
-        this.isExternal = false; // optional
         
         this.myName = element(by.css('.myName'));
     }

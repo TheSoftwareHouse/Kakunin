@@ -11,16 +11,12 @@ var _config2 = _interopRequireDefault(_config);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 class Page {
-  constructor() {
-    this.isExternal = false;
-  }
-
   visit() {
-    if (this.isExternal || _config2.default.type === 'otherWeb') {
+    if (_config2.default.type === 'otherWeb') {
       return protractor.browser.get(this.url);
     }
 
-    return protractor.browser.setLocation(this.url);
+    return protractor.browser.get(this.url).then(() => protractor.browser.waitForAngular());
   }
 
   visitWithParameters(data) {
@@ -30,11 +26,11 @@ class Page {
       url = url.replace(`:${item[0]}`, item[1]);
     }
 
-    if (this.isExternal || _config2.default.type === 'otherWeb') {
+    if (_config2.default.type === 'otherWeb') {
       return protractor.browser.get(url);
     }
 
-    return protractor.browser.setLocation(url);
+    return protractor.browser.get(url).then(() => protractor.browser.waitForAngular());
   }
 
   click(element) {

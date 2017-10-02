@@ -1,4 +1,4 @@
-Feature:
+Feature: Drag and drop
     As a kakunin user
     I want to be able to make operations on elements
 

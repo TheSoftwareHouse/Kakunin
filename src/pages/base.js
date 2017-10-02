@@ -1,16 +1,12 @@
 import config from '../helpers/config.helper';
 
 class Page {
-  constructor() {
-    this.isExternal = false;
-  }
-
   visit() {
-    if (this.isExternal || config.type === 'otherWeb') {
+    if (config.type === 'otherWeb') {
       return protractor.browser.get(this.url);
     }
 
-    return protractor.browser.setLocation(this.url);
+    return protractor.browser.get(this.url).then(() => protractor.browser.waitForAngular());
   }
 
   visitWithParameters(data) {
@@ -20,11 +16,11 @@ class Page {
       url = url.replace(`:${item[0]}`, item[1]);
     }
 
-    if (this.isExternal || config.type === 'otherWeb') {
+    if (config.type === 'otherWeb') {
       return protractor.browser.get(url);
     }
 
-    return protractor.browser.setLocation(url);
+    return protractor.browser.get(url).then(() => protractor.browser.waitForAngular());
   }
 
   click(element) {

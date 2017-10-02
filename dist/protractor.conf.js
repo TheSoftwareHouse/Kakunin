@@ -55,6 +55,16 @@ exports.config = {
     'no-source': true
   },
 
+  plugins: [{
+    package: 'protractor-multiple-cucumber-html-reporter-plugin',
+    options: {
+      removeExistingJsonReportFile: true,
+      removeOriginalJsonReportFile: true,
+      automaticallyGenerateReport: true,
+      saveCollectedJSON: true
+    }
+  }],
+
   onPrepare: function () {
     if (!config.headless) {
       browser.driver.manage().window().setSize(parseInt(config.browserWidth), parseInt(config.browserHeight));
