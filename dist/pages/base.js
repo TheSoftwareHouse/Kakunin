@@ -59,23 +59,37 @@ class Page {
     });
   }
 
+  isRelativePage() {
+    return (this.url.indexOf('http://') > 1 || this.url.indexOf('http://') === -1) && (this.url.indexOf('https://') > 1 || this.url.indexOf('https://') === -1);
+  }
+
   waitForUrlChangeTo(newUrl) {
     return () => {
       const self = this;
 
       return browser.getCurrentUrl().then(function (url) {
+        if (!self.isRelativePage()) {
+          const pageDomain = self.extractDomain(newUrl);
+          const currentUrlDomain = self.extractDomain(url);
+
+          if (pageDomain !== currentUrlDomain) {
+            return false;
+          }
+        }
+
+        const baseUrl = self.extractUrl(newUrl);
         url = self.extractUrl(url);
 
         const urlSplit = url.split('/');
-        const newUrlSplit = newUrl.split('/');
+        const baseUrlSplit = baseUrl.split('/');
         const resultParameters = {};
 
-        if (urlSplit.length !== newUrlSplit.length) {
+        if (urlSplit.length !== baseUrlSplit.length) {
           return false;
         }
 
         for (let i = 0; i < urlSplit.length; i++) {
-          const template = newUrlSplit[i];
+          const template = baseUrlSplit[i];
           const actual = urlSplit[i];
 
           if (template.startsWith(':')) {
@@ -88,6 +102,21 @@ class Page {
         return resultParameters;
       });
     };
+  }
+
+  extractDomain(url) {
+    let domain = url;
+    let startIndex = 0;
+
+    if (domain.indexOf('://') > 0) {
+      startIndex = domain.indexOf('://') + 1;
+    }
+
+    if (domain.indexOf('/', startIndex) > 0) {
+      domain = domain.substr(domain.indexOf('/', startIndex));
+    }
+
+    return domain;
   }
 
   extractUrl(url) {

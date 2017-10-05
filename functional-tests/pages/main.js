@@ -10,6 +10,7 @@ class MainPage extends BasePage {
 
     this.linkDivs = $$('.available-examples-links');
     this.formLink = $('a[href="/form/simple"]');
+    this.externalPageLink = $('a[href="/external-page"]');
     this.tabularDataLink = $('a[href="/tabular-data"]');
     this.buttonLink = $('a[href="/form/disappear"]');
     this.valueToClick = $('.valueForClickStep');
