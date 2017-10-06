@@ -12,7 +12,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 class Page {
   visit() {
-    if (_config2.default.type === 'otherWeb') {
+    if (_config2.default.type === 'otherWeb' && !this.isRelativePage()) {
+      protractor.browser.ignoreSynchronization = true;
+
       return protractor.browser.get(this.url);
     }
 
@@ -54,6 +56,10 @@ class Page {
   isOn() {
     const self = this;
 
+    if (this.isRelativePage() && _config2.default.type !== 'otherWeb') {
+      protractor.browser.ignoreSynchronization = false;
+    }
+
     return browser.wait(this.waitForUrlChangeTo(self.url), _config2.default.waitForPageTimeout * 1000).then(function (resultParameters) {
       return resultParameters;
     });
@@ -83,8 +89,6 @@ class Page {
         const urlSplit = url.split('/');
         const baseUrlSplit = baseUrl.split('/');
         const resultParameters = {};
-
-        console.log(url, baseUrl, urlSplit, baseUrlSplit);
 
         if (urlSplit.length !== baseUrlSplit.length) {
           return false;
