@@ -2,7 +2,9 @@ import config from '../helpers/config.helper';
 
 class Page {
   visit() {
-    if (config.type === 'otherWeb') {
+    if (config.type === 'otherWeb' && !this.isRelativePage()) {
+      protractor.browser.ignoreSynchronization = true;
+
       return protractor.browser.get(this.url);
     }
 
@@ -43,6 +45,10 @@ class Page {
 
   isOn() {
     const self = this;
+
+    if (this.isRelativePage() && config.type !== 'otherWeb') {
+      protractor.browser.ignoreSynchronization = false;
+    }
 
     return browser.wait(this.waitForUrlChangeTo(self.url), config.waitForPageTimeout * 1000).then(function (resultParameters) {
       return resultParameters;
