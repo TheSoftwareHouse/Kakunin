@@ -77,12 +77,14 @@ class Page {
           }
         }
 
-        const baseUrl = self.extractUrl(newUrl);
-        url = self.extractUrl(url);
+        const baseUrl = self.normalizeUrl(newUrl);
+        url = self.normalizeUrl(url);
 
         const urlSplit = url.split('/');
         const baseUrlSplit = baseUrl.split('/');
         const resultParameters = {};
+
+        console.log(url, baseUrl, urlSplit, baseUrlSplit);
 
         if (urlSplit.length !== baseUrlSplit.length) {
           return false;
@@ -105,18 +107,26 @@ class Page {
   }
 
   extractDomain(url) {
-    let domain = url;
-    let startIndex = 0;
+    let domain;
 
-    if (domain.indexOf('://') > 0) {
-      startIndex = domain.indexOf('://') + 1;
+    if (url.indexOf("://") > -1) {
+      domain = url.split('/')[2];
+    } else {
+      domain = url.split('/')[0];
     }
 
-    if (domain.indexOf('/', startIndex) > 0) {
-      domain = domain.substr(domain.indexOf('/', startIndex));
-    }
+    domain = domain.split(':')[0];
+    domain = domain.split('?')[0];
 
     return domain;
+  }
+
+  normalizeUrl(url) {
+    if (url[url.length - 1] === '/') {
+      return this.extractUrl(url.substr(0, url.length - 1));
+    }
+
+    return this.extractUrl(url);
   }
 
   extractUrl(url) {
@@ -124,7 +134,10 @@ class Page {
 
     if (newUrl.indexOf('://') > 0) {
       newUrl = newUrl.substr(newUrl.indexOf('://') + 3);
-      newUrl = newUrl.substr(newUrl.indexOf('/'));
+
+      if (newUrl.indexOf('/') > 0) {
+        newUrl = newUrl.substr(newUrl.indexOf('/'));
+      }
     }
 
     return newUrl;
