@@ -2,7 +2,7 @@ import config from '../helpers/config.helper';
 
 class Page {
   visit() {
-    if (config.type === 'otherWeb' && !this.isRelativePage()) {
+    if (config.type === 'otherWeb' || !this.isRelativePage()) {
       protractor.browser.ignoreSynchronization = true;
 
       return protractor.browser.get(this.url);

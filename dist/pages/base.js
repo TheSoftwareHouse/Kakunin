@@ -12,7 +12,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 class Page {
   visit() {
-    if (_config2.default.type === 'otherWeb' && !this.isRelativePage()) {
+    if (_config2.default.type === 'otherWeb' || !this.isRelativePage()) {
       protractor.browser.ignoreSynchronization = true;
 
       return protractor.browser.get(this.url);
