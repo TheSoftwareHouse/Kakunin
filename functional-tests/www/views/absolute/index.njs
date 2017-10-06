@@ -1,5 +1,5 @@
 {% extends 'layout/default.njs' %}
 
 {% block content %}
-  <p>External page</p>
+  <p>Absolute page</p>
 {% endblock %}

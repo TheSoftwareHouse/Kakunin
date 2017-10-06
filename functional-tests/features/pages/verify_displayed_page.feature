@@ -7,7 +7,12 @@ Feature: Verify displayed pge
         When I click the "formLink" element
         Then the "simpleForm" page is displayed
 
-    Scenario: Verify external page
+    Scenario: Verify absolute url page
         Given I visit the "main" page
-        When I click the "externalPageLink" element
-        Then the "externalPage" page is displayed
+        When I click the "absolutePageLink" element
+        Then the "absolutePage" page is displayed
+
+    Scenario: Verify external url page
+        Given I visit the "main" page
+        When I click the "googleLink" element
+        Then the "google" page is displayed

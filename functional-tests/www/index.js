@@ -27,8 +27,8 @@ app.get('/tabular-data', function (req, res) {
   res.render('table/tabular-data.njs');
 });
 
-app.get('/external-page', function (req, res) {
-  res.render('external/index.njs');
+app.get('/absolute-page', function (req, res) {
+  res.render('absolute/index.njs');
 });
 
 app.get('/form/simple', function (req, res) {
