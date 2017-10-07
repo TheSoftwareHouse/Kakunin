@@ -126,26 +126,18 @@ You can add your own dictionary:
 
 ```javascript
 const { dictionaries } = require('kakunin');
+const { BaseDictionary } = require('kakunin');
 
-class MyDictionary{
+class TestDictionary extends BaseDictionary {
   constructor() {
-    this.values = {
-      '/some-resource/123-123-123-23':'pending-resource'
-    };
-    
-    this.name === 'resources';
-  }
-  
-  isSatisfiedBy(name) {
-    return this.name === name;
-  }
-
-  getMappedValue(key) {
-    return this.values[key];
+    super('name-of-dictionary', {
+      'pending-resource': '/some-resource/123-123-123-23',
+      'test-value': 'some other value'
+    });
   }
 }
 
-dictionaries.addDictionary(new MyDictionary());
+dictionaries.addDictionary(new TestDictionary());
 ```
 
 ###Generators

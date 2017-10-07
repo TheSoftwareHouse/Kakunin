@@ -17,7 +17,7 @@
       
         <link rel="shortcut icon" href="../assets/images/favicon.png">
       
-      <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.8.1">
+      <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.10.0">
     
 
   <meta property="og:type" content="product"/>
@@ -32,10 +32,10 @@
       
     
     
-      <script src="../assets/javascripts/modernizr-1df76c4e58.js"></script>
+      <script src="../assets/javascripts/modernizr-e826f8942a.js"></script>
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/application-bfecc7305d.css">
+      <link rel="stylesheet" href="../assets/stylesheets/application-b6a6d08807.css">
       
     
     
@@ -73,10 +73,11 @@
   <nav class="md-header-nav md-grid">
     <div class="md-flex">
       <div class="md-flex__cell md-flex__cell--shrink">
-        
-          <a href="https://thesoftwarehouse.github.io/Kakunin/" title="Kakunin" class="md-icon md-icon--home md-header-nav__button">
-          </a>
-        
+        <a href="https://thesoftwarehouse.github.io/Kakunin/" title="Kakunin" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon md-icon--home"></i>
+          
+        </a>
       </div>
       <div class="md-flex__cell md-flex__cell--shrink">
         <label class="md-icon md-icon--menu md-header-nav__button" for="drawer"></label>
@@ -101,7 +102,7 @@
     <form class="md-search__form" name="search">
       <input type="text" class="md-search__input" name="query" required placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query">
       <label class="md-icon md-search__icon" for="search"></label>
-      <button type="reset" class="md-icon md-search__icon" data-md-component="reset">close</button>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset">&#xE5CD;</button>
     </form>
     <div class="md-search__output">
       <div class="md-search__scrollwrap" data-md-scrollfix>
@@ -158,9 +159,11 @@
                   <div class="md-sidebar__inner">
                     <nav class="md-nav md-nav--primary" data-md-level="0">
   <label class="md-nav__title md-nav__title--site" for="drawer">
-    
-      <i class="md-icon md-icon--home md-nav__button"></i>
-    
+    <div class="md-nav__button md-logo">
+      
+        <i class="md-icon md-icon--home"></i>
+      
+    </div>
     Kakunin
   </label>
   
@@ -561,7 +564,7 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/TheSoftwareHouse/Kakunin/edit/master/docs-src/extending.md" title="Edit this page" class="md-icon md-content__icon">edit</a>
+                  <a href="https://github.com/TheSoftwareHouse/Kakunin/edit/master/docs-src/extending.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
                   <h1>Extending Kakunin</h1>
@@ -665,26 +668,18 @@ properties)</p>
 in a form of IRI <code>/some-resource/123-123-123-23</code> and you wish to use <code>pending-resource</code> as it's alias.</p>
 <p>You can add your own dictionary:</p>
 <div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="p">{</span> <span class="nx">dictionaries</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;kakunin&#39;</span><span class="p">);</span>
+<span class="kr">const</span> <span class="p">{</span> <span class="nx">BaseDictionary</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;kakunin&#39;</span><span class="p">);</span>
 
-<span class="kr">class</span> <span class="nx">MyDictionary</span><span class="p">{</span>
+<span class="kr">class</span> <span class="nx">TestDictionary</span> <span class="kr">extends</span> <span class="nx">BaseDictionary</span> <span class="p">{</span>
   <span class="nx">constructor</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">values</span> <span class="o">=</span> <span class="p">{</span>
-      <span class="s1">&#39;/some-resource/123-123-123-23&#39;</span><span class="o">:</span><span class="s1">&#39;pending-resource&#39;</span>
-    <span class="p">};</span>
-
-    <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">===</span> <span class="s1">&#39;resources&#39;</span><span class="p">;</span>
-  <span class="p">}</span>
-
-  <span class="nx">isSatisfiedBy</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">===</span> <span class="nx">name</span><span class="p">;</span>
-  <span class="p">}</span>
-
-  <span class="nx">getMappedValue</span><span class="p">(</span><span class="nx">key</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">values</span><span class="p">[</span><span class="nx">key</span><span class="p">];</span>
+    <span class="kr">super</span><span class="p">(</span><span class="s1">&#39;name-of-dictionary&#39;</span><span class="p">,</span> <span class="p">{</span>
+      <span class="s1">&#39;pending-resource&#39;</span><span class="o">:</span> <span class="s1">&#39;/some-resource/123-123-123-23&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;test-value&#39;</span><span class="o">:</span> <span class="s1">&#39;some other value&#39;</span>
+    <span class="p">});</span>
   <span class="p">}</span>
 <span class="p">}</span>
 
-<span class="nx">dictionaries</span><span class="p">.</span><span class="nx">addDictionary</span><span class="p">(</span><span class="k">new</span> <span class="nx">MyDictionary</span><span class="p">());</span>
+<span class="nx">dictionaries</span><span class="p">.</span><span class="nx">addDictionary</span><span class="p">(</span><span class="k">new</span> <span class="nx">TestDictionary</span><span class="p">());</span>
 </pre></div>
 
 
@@ -956,7 +951,7 @@ Example:
       
     </div>
     
-      <script src="../assets/javascripts/application-6940329b9f.js"></script>
+      <script src="../assets/javascripts/application-f3ab9e5ff8.js"></script>
       
       
       <script>app.initialize({url:{base:".."}})</script>
