@@ -1,21 +1,12 @@
 const { dictionaries } = require('kakunin');
+const { BaseDictionary } = require('kakunin');
 
-class TestDictionary {
+class TestDictionary extends BaseDictionary {
   constructor() {
-    this.values = {
+    super('test-dictionary', {
       'test-name': 'Janek',
       'test-value': 'lux'
-    };
-
-    this.name = 'test-dictionary';
-  }
-
-  isSatisfiedBy(name) {
-    return this.name === name;
-  }
-
-  getMappedValue(key) {
-    return this.values[key];
+    });
   }
 }
 
