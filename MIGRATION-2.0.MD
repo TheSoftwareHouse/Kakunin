@@ -7,7 +7,7 @@ What needs to be done:
 this.exampleLocator = by.css('.unique-class');
 ```
 
-needs to be change to:
+needs to be changed to:
 
 ```javascript
 this.exampleLocator = $('.unique-class');
@@ -21,7 +21,7 @@ And there are "equal 1" following elements for element "rows":
    | lastName  | t:Doe  |
 ```
 
-needs to be change to:
+needs to be changed to:
 
 ```gherkin
 And there are "equal 1" following elements for element "rows":
@@ -42,7 +42,7 @@ class ExamplePage extends BasePage {
   }
 ```
 
-needs to be change to:
+needs to be changed to:
 
 ```javascript
 class ExamplePage extends BasePage {
@@ -81,7 +81,7 @@ class TestDictionary {
 dictionaries.addDictionary(new TestDictionary());
 ```
 
-needs to be change to:
+needs to be changed to:
 
 ```javascript
 const { dictionaries } = require('kakunin');
