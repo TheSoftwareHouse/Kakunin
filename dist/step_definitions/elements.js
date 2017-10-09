@@ -34,49 +34,41 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
   });
 
   When(/^I click the "([^"]*)" element$/, function (elementName) {
-    const self = this;
-
-    return self.currentPage.scrollIntoElement(elementName).then(function () {
-      return self.currentPage.click(elementName).then(null, function () {
-        console.warn('Warning! Element was not clickable. We need to scroll it down.');
-        return browser.executeScript('window.scrollBy(0,50);').then(function () {
-          return self.currentPage.click(elementName).then(null, function () {
-            return Promise.reject(`Error, after scrolling the element "${elementName}" is still not clickable.`);
-          });
-        });
-      });
+    return this.currentPage.waitForVisibilityOf(elementName).then(() => this.currentPage.scrollIntoElement(elementName)).then(() => this.currentPage.click(elementName)).catch(error => {
+      console.warn('Warning! Element was not clickable. We need to scroll it down.');
+      return browser.executeScript('window.scrollBy(0,50);').then(() => this.currentPage.click(elementName));
+    }).catch(error => {
+      return Promise.reject(`Error, after scrolling the element "${elementName}" is still not clickable.`);
     });
   });
 
   When(/^I click the "([^"]*)" "([^"]*)" element$/, function (elementName, parameter) {
-    const self = this;
-
-    return self.currentPage.scrollIntoElement(elementName).then(function () {
-      return self.currentPage[elementName](parameter).click();
-    });
+    return this.currentPage.waitForVisibilityOf(elementName).then(() => this.currentPage.scrollIntoElement(elementName)).then(() => this.currentPage[elementName](parameter).click());
   });
 
   When(/^I click the "([^"]*)" element if it is visible$/, function (elementName) {
-    const self = this;
-
-    return this.currentPage.isVisible(elementName).then(function () {
-      return self.currentPage.scrollIntoElement(elementName).then(function () {
-        return self.currentPage.click(elementName);
+    return this.currentPage.isVisible(elementName).then(() => {
+      return this.currentPage.scrollIntoElement(elementName).then(() => {
+        return this.currentPage.click(elementName);
       });
     }).catch(function () {
       return Promise.resolve();
     });
   });
 
-  When(/^I store the "([^"]*)" element text as "([^"]*)" variable$/, function (element, variable) {
-    return this.currentPage[element].getText().then(text => {
-      _variableStore2.default.storeVariable(variable, text);
+  When(/^I store the "([^"]*)" element text as "([^"]*)" variable$/, function (elementName, variable) {
+    return this.currentPage.waitForVisibilityOf(elementName).then(() => {
+      return this.currentPage[elementName].getText().then(text => {
+        _variableStore2.default.storeVariable(variable, text);
+      });
     });
   });
 
-  When(/^I update the "([^"]*)" element text as "([^"]*)" variable$/, function (element, variable) {
-    return this.currentPage[element].getText().then(text => {
-      _variableStore2.default.updateVariable(variable, text);
+  When(/^I update the "([^"]*)" element text as "([^"]*)" variable$/, function (elementName, variable) {
+    return this.currentPage.waitForVisibilityOf(elementName).then(() => {
+      this.currentPage[element].getText().then(text => {
+        _variableStore2.default.updateVariable(variable, text);
+      });
     });
   });
 
@@ -98,8 +90,10 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     });
   });
 
-  When(/^I click the "([^"]*)" on the first item of "([^"]*)" element$/, function (element, container) {
-    return this.currentPage[container].first().element(this.currentPage[element].locator()).click();
+  When(/^I click the "([^"]*)" on the first item of "([^"]*)" element$/, function (elementName, container) {
+    return this.currentPage.waitForVisibilityOf(container).then(() => {
+      return this.currentPage[container].first().element(this.currentPage[elementName].locator()).click();
+    });
   });
 
   When(/^I wait for the "([^"]*)" element to disappear$/, function (element, sync) {
@@ -216,30 +210,36 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
       return Promise.reject('Missing table under the step.');
     }
 
-    return checkNumberOfElements.call(this, numberExpression, element).then(function () {
-      const promises = [];
+    this.currentPage.waitForVisibilityOf(element).then(() => {
 
-      return allElements.each(function (element) {
-        hashedData.forEach(function (hash) {
-          promises.push(_matchers.matchers.match(element.element(self.currentPage[hash[0]].locator()), _variableStore2.default.replaceTextVariables(hash[1])).then(result => {
-            if (result) {
-              return Promise.resolve();
-            }
+      return checkNumberOfElements.call(this, numberExpression, element).then(function () {
+        const promises = [];
 
-            return Promise.reject(`Expected element "${hash[0]}" to match matcher "${hash[1]}"`);
-          }));
+        return allElements.each(function (element) {
+          hashedData.forEach(function (hash) {
+            promises.push(_matchers.matchers.match(element.element(self.currentPage[hash[0]].locator()), _variableStore2.default.replaceTextVariables(hash[1])).then(result => {
+              if (result) {
+                return Promise.resolve();
+              }
+
+              return Promise.reject(`Expected element "${hash[0]}" to match matcher "${hash[1]}"`);
+            }));
+          });
+        }).then(function () {
+          return Promise.all(promises);
         });
-      }).then(function () {
-        return Promise.all(promises);
       });
     });
   });
 
-  Then(/^there is element "([^"]*)" with value "([^"]*)"$/, function (element, value) {
-    const pageElement = this.currentPage[element];
+  Then(/^there is element "([^"]*)" with value "([^"]*)"$/, function (elementName, value) {
+    const pageElement = this.currentPage[elementName];
 
-    return _matchers.matchers.match(pageElement, _variableStore2.default.replaceTextVariables(value)).then(function (matcherResult) {
-      return expect(matcherResult).to.be.true;
+    return this.currentPage.waitForVisibilityOf(elementName).then(() => {
+
+      return _matchers.matchers.match(pageElement, _variableStore2.default.replaceTextVariables(value)).then(function (matcherResult) {
+        return expect(matcherResult).to.be.true;
+      });
     });
   });
 
@@ -288,10 +288,12 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
   Then(/^every "([^"]*)" element should have the same value for element "([^"]*)" attribute "([^"]*)"$/, function (containerName, elementName, attributeName) {
     const self = this;
 
-    return this.currentPage[containerName].first().element(self.currentPage[elementName].locator()).getAttribute(self.currentPage[attributeName + 'Attribute']).then(function (firstElementAttributeValue) {
-      return self.currentPage[containerName].each(function (containerElement) {
-        containerElement.element(self.currentPage[elementName].locator()).getAttribute(self.currentPage[attributeName + 'Attribute']).then(function (attributeValue) {
-          expect(attributeValue).to.be.equal(firstElementAttributeValue);
+    this.currentPage.waitForVisibilityOf(containerName).then(() => {
+      return this.currentPage[containerName].first().element(self.currentPage[elementName].locator()).getAttribute(self.currentPage[attributeName + 'Attribute']).then(function (firstElementAttributeValue) {
+        return self.currentPage[containerName].each(function (containerElement) {
+          containerElement.element(self.currentPage[elementName].locator()).getAttribute(self.currentPage[attributeName + 'Attribute']).then(function (attributeValue) {
+            expect(attributeValue).to.be.equal(firstElementAttributeValue);
+          });
         });
       });
     });
@@ -307,10 +309,12 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     }
 
     const promises = [];
+    return this.currentPage.waitForVisibilityOf(element).then(() => {
 
-    return allElements.each(function (element) {
-      hashedData.forEach(function (hash) {
-        promises.push(_matchers.matchers.match(element.element(self.currentPage[hash[0]].locator()), _variableStore2.default.replaceTextVariables(hash[1])));
+      return allElements.each(function (element) {
+        hashedData.forEach(function (hash) {
+          promises.push(_matchers.matchers.match(element.element(self.currentPage[hash[0]].locator()), _variableStore2.default.replaceTextVariables(hash[1])));
+        });
       });
     }).then(function () {
       return Promise.all(promises).then(function (resolvedPromises) {

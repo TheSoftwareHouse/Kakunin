@@ -113,7 +113,7 @@ class Page {
   extractDomain(url) {
     let domain;
 
-    if (url.indexOf("://") > -1) {
+    if (url.indexOf('://') > -1) {
       domain = url.split('/')[2];
     } else {
       domain = url.split('/')[0];
@@ -157,6 +157,26 @@ class Page {
     }
 
     return browser.executeScript('arguments[0].scrollIntoView(false);', this[elementName].getWebElement());
+  }
+
+  waitForVisibilityOf(elementName) {
+    const timeout = parseInt(_config2.default.elementsVisibilityTimeout) * 1000;
+
+    if (this[elementName] instanceof protractor.ElementArrayFinder) {
+      return browser.wait(protractor.ExpectedConditions['visibilityOf'](this[elementName].get(0)), timeout);
+    }
+
+    return browser.wait(protractor.ExpectedConditions['visibilityOf'](this[elementName]), timeout);
+  }
+
+  waitForInvisibilityOf(elementName) {
+    const timeout = parseInt(_config2.default.elementsVisibilityTimeout) * 1000;
+
+    if (this[elementName] instanceof protractor.ElementArrayFinder) {
+      return browser.wait(protractor.ExpectedConditions['invisibilityOf'](this[elementName].get(0)), timeout);
+    }
+
+    return browser.wait(protractor.ExpectedConditions['invisibilityOf'](this[elementName]), timeout);
   }
 }
 

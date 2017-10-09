@@ -20,58 +20,50 @@ defineSupportCode(function ({ When, Then }) {
   });
 
   When(/^I click the "([^"]*)" element$/, function (elementName) {
-    const self = this;
-
-    return self.currentPage.scrollIntoElement(elementName)
-      .then(function () {
-        return self.currentPage.click(elementName)
-          .then(
-            null,
-            function () {
-              console.warn('Warning! Element was not clickable. We need to scroll it down.');
-              return browser.executeScript('window.scrollBy(0,50);')
-                .then(function () {
-                  return self.currentPage.click(elementName)
-                    .then(
-                      null,
-                      function () {
-                        return Promise.reject(`Error, after scrolling the element "${elementName}" is still not clickable.`);
-                      }
-                    );
-                });
-            }
-          );
+    return this.currentPage.waitForVisibilityOf(elementName)
+      .then(() => this.currentPage.scrollIntoElement(elementName))
+      .then(() => this.currentPage.click(elementName))
+      .catch(error => {
+        console.warn('Warning! Element was not clickable. We need to scroll it down.');
+        return browser.executeScript('window.scrollBy(0,50);')
+          .then(() => this.currentPage.click(elementName));
+      }).catch(error => {
+        return Promise.reject(`Error, after scrolling the element "${elementName}" is still not clickable.`);
       });
+
   });
 
   When(/^I click the "([^"]*)" "([^"]*)" element$/, function (elementName, parameter) {
-    const self = this;
-
-    return self.currentPage.scrollIntoElement(elementName)
-      .then(function () {
-        return self.currentPage[elementName](parameter).click();
-      });
+    return this.currentPage.waitForVisibilityOf(elementName)
+      .then(() => this.currentPage.scrollIntoElement(elementName))
+      .then(() => this.currentPage[elementName](parameter).click());
   });
 
   When(/^I click the "([^"]*)" element if it is visible$/, function (elementName) {
-    const self = this;
-
-    return this.currentPage.isVisible(elementName).then(function () {
-      return self.currentPage.scrollIntoElement(elementName)
-          .then(function () {
-            return self.currentPage.click(elementName);
+    return this.currentPage.isVisible(elementName)
+      .then(() => {
+        return this.currentPage.scrollIntoElement(elementName)
+          .then(() => {
+            return this.currentPage.click(elementName);
           });
-    }).catch(function () {
-      return Promise.resolve();
+      }).catch(function() {
+        return Promise.resolve();
+      });
+  });
+
+  When(/^I store the "([^"]*)" element text as "([^"]*)" variable$/, function (elementName, variable) {
+    return this.currentPage.waitForVisibilityOf(elementName)
+      .then(() => {
+        return this.currentPage[elementName].getText()
+          .then((text) => { variableStore.storeVariable(variable, text); });
+      });
+  });
+
+  When(/^I update the "([^"]*)" element text as "([^"]*)" variable$/, function (elementName, variable) {
+    return this.currentPage.waitForVisibilityOf(elementName).then(() => {
+      this.currentPage[element].getText()
+        .then((text) => { variableStore.updateVariable(variable, text); });
     });
-  });
-
-  When(/^I store the "([^"]*)" element text as "([^"]*)" variable$/, function (element, variable) {
-    return this.currentPage[element].getText().then((text) => { variableStore.storeVariable(variable, text); });
-  });
-
-  When(/^I update the "([^"]*)" element text as "([^"]*)" variable$/, function (element, variable) {
-    return this.currentPage[element].getText().then((text) => { variableStore.updateVariable(variable, text); });
   });
 
   When(/^I store the "([^"]*)" element text matched by "([^"]*)" as "([^"]*)" variable$/, function (element, matcher, variable) {
@@ -92,8 +84,13 @@ defineSupportCode(function ({ When, Then }) {
     });
   });
 
-  When(/^I click the "([^"]*)" on the first item of "([^"]*)" element$/, function (element, container) {
-    return this.currentPage[container].first().element(this.currentPage[element].locator()).click();
+  When(/^I click the "([^"]*)" on the first item of "([^"]*)" element$/, function (elementName, container) {
+    return this.currentPage.waitForVisibilityOf(container).then(() => {
+      return this.currentPage[container].first()
+        .element(this.currentPage[elementName].locator())
+        .click();
+    });
+
   });
 
   When(/^I wait for the "([^"]*)" element to disappear$/, function (element, sync) {
@@ -118,8 +115,6 @@ defineSupportCode(function ({ When, Then }) {
           sync('Element is still visible');
           return;
         }
-
-
 
       });
     }, 1500);
@@ -215,36 +210,42 @@ defineSupportCode(function ({ When, Then }) {
       return Promise.reject('Missing table under the step.');
     }
 
-    return checkNumberOfElements.call(this, numberExpression, element).then(function () {
-      const promises = [];
+    this.currentPage.waitForVisibilityOf(element).then(() => {
 
-      return allElements.each(function (element) {
-        hashedData.forEach(function (hash) {
-          promises.push(
-            matchers.match(
-              element.element(self.currentPage[hash[0]].locator()),
-              variableStore.replaceTextVariables(hash[1])
-            )
-              .then((result) => {
-                if (result) {
-                  return Promise.resolve();
-                }
+      return checkNumberOfElements.call(this, numberExpression, element).then(function () {
+        const promises = [];
 
-                return Promise.reject(`Expected element "${hash[0]}" to match matcher "${hash[1]}"`);
-              })
-          );
+        return allElements.each(function (element) {
+          hashedData.forEach(function (hash) {
+            promises.push(
+              matchers.match(
+                element.element(self.currentPage[hash[0]].locator()),
+                variableStore.replaceTextVariables(hash[1])
+              )
+                .then((result) => {
+                  if (result) {
+                    return Promise.resolve();
+                  }
+
+                  return Promise.reject(`Expected element "${hash[0]}" to match matcher "${hash[1]}"`);
+                })
+            );
+          });
+        }).then(function () {
+          return Promise.all(promises);
         });
-      }).then(function () {
-        return Promise.all(promises);
       });
     });
   });
 
-  Then(/^there is element "([^"]*)" with value "([^"]*)"$/, function (element, value) {
-    const pageElement = this.currentPage[element];
+  Then(/^there is element "([^"]*)" with value "([^"]*)"$/, function (elementName, value) {
+    const pageElement = this.currentPage[elementName];
 
-    return matchers.match(pageElement, variableStore.replaceTextVariables(value)).then(function (matcherResult) {
-      return expect(matcherResult).to.be.true;
+    return this.currentPage.waitForVisibilityOf(elementName).then(() => {
+
+      return matchers.match(pageElement, variableStore.replaceTextVariables(value)).then(function (matcherResult) {
+        return expect(matcherResult).to.be.true;
+      });
     });
   });
 
@@ -256,7 +257,7 @@ defineSupportCode(function ({ When, Then }) {
     });
   });
 
-  function checkNumberOfElements(numberExpression, element) {
+  function checkNumberOfElements (numberExpression, element) {
     const self = this;
     const numberPattern = /\d+/g;
     const numbers = numberExpression.match(numberPattern).map((item) => parseInt(item));
@@ -304,21 +305,23 @@ defineSupportCode(function ({ When, Then }) {
   Then(/^every "([^"]*)" element should have the same value for element "([^"]*)" attribute "([^"]*)"$/, function (containerName, elementName, attributeName) {
     const self = this;
 
-    return this.currentPage[containerName]
-      .first()
-      .element(self.currentPage[elementName].locator())
-      .getAttribute(self.currentPage[attributeName + 'Attribute'])
-      .then(
-        function (firstElementAttributeValue) {
-          return self.currentPage[containerName].each(function (containerElement) {
-            containerElement.element(self.currentPage[elementName].locator()).getAttribute(self.currentPage[attributeName + 'Attribute']).then(
-              function (attributeValue) {
-                expect(attributeValue).to.be.equal(firstElementAttributeValue);
-              }
-            );
-          });
-        }
-      );
+    this.currentPage.waitForVisibilityOf(containerName).then(() => {
+      return this.currentPage[containerName]
+        .first()
+        .element(self.currentPage[elementName].locator())
+        .getAttribute(self.currentPage[attributeName + 'Attribute'])
+        .then(
+          function (firstElementAttributeValue) {
+            return self.currentPage[containerName].each(function (containerElement) {
+              containerElement.element(self.currentPage[elementName].locator()).getAttribute(self.currentPage[attributeName + 'Attribute']).then(
+                function (attributeValue) {
+                  expect(attributeValue).to.be.equal(firstElementAttributeValue);
+                }
+              );
+            });
+          }
+        );
+    });
   });
 
   Then(/^the element "([^"]*)" should have an item with values:$/, function (element, data) {
@@ -331,13 +334,15 @@ defineSupportCode(function ({ When, Then }) {
     }
 
     const promises = [];
+    return this.currentPage.waitForVisibilityOf(element).then(() => {
 
-    return allElements.each(function (element) {
-      hashedData.forEach(function (hash) {
-        promises.push(matchers.match(
-          element.element(self.currentPage[hash[0]].locator()),
-          variableStore.replaceTextVariables(hash[1]))
-        );
+      return allElements.each(function (element) {
+        hashedData.forEach(function (hash) {
+          promises.push(matchers.match(
+            element.element(self.currentPage[hash[0]].locator()),
+            variableStore.replaceTextVariables(hash[1]))
+          );
+        });
       });
     }).then(function () {
       return Promise.all(promises).then(function (resolvedPromises) {
@@ -418,21 +423,21 @@ defineSupportCode(function ({ When, Then }) {
     const self = this;
 
     const scrollToLoader = () => self.currentPage.isPresent(elementName)
-    .then((isPresent) => {
-      if (isPresent) {
-        return self.currentPage.scrollIntoElement(elementName);
-      }
+      .then((isPresent) => {
+        if (isPresent) {
+          return self.currentPage.scrollIntoElement(elementName);
+        }
 
-      return Promise.resolve();
-    })
-    .then(() => self.currentPage.isPresent(elementName))
-    .then((isPresent) => {
-      if (isPresent) {
-        return browser.sleep(1000).then(() => scrollToLoader());
-      }
+        return Promise.resolve();
+      })
+      .then(() => self.currentPage.isPresent(elementName))
+      .then((isPresent) => {
+        if (isPresent) {
+          return browser.sleep(1000).then(() => scrollToLoader());
+        }
 
-      return Promise.resolve();
-    });
+        return Promise.resolve();
+      });
 
     return scrollToLoader();
   });
@@ -466,7 +471,7 @@ defineSupportCode(function ({ When, Then }) {
           await this.currentPage.scrollIntoElement(rating, parseInt(table[rating]) - 1);
 
           if (expectedRating !== selectedRating) {
-            return Promise.reject('Values in the rating are different!')
+            return Promise.reject('Values in the rating are different!');
           }
 
           return Promise.resolve();
@@ -480,7 +485,7 @@ defineSupportCode(function ({ When, Then }) {
   When(/^I press the "([^"]*)" key$/, function (key) {
     const keyTransformed = key.toUpperCase();
 
-    return Promise.resolve(browser.actions().sendKeys(protractor.Key[keyTransformed]).perform())
+    return Promise.resolve(browser.actions().sendKeys(protractor.Key[keyTransformed]).perform());
   });
 
   When(/^I drag "([^"]*)" element and drop over "([^"]*)" element$/, async function (elementDrag, elementDrop) {

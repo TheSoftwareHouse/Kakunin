@@ -12,7 +12,7 @@ class Page {
   }
 
   visitWithParameters(data) {
-    let url  = this.url;
+    let url = this.url;
 
     for (const item of data.raw()) {
       url = url.replace(`:${item[0]}`, item[1]);
@@ -104,7 +104,7 @@ class Page {
   extractDomain(url) {
     let domain;
 
-    if (url.indexOf("://") > -1) {
+    if (url.indexOf('://') > -1) {
       domain = url.split('/')[2];
     }
     else {
@@ -118,8 +118,8 @@ class Page {
   }
 
   normalizeUrl(url) {
-    if (url[url.length-1] === '/') {
-      return this.extractUrl(url.substr(0, url.length-1));
+    if (url[url.length - 1] === '/') {
+      return this.extractUrl(url.substr(0, url.length - 1));
     }
 
     return this.extractUrl(url);
@@ -149,6 +149,26 @@ class Page {
     }
 
     return browser.executeScript('arguments[0].scrollIntoView(false);', this[elementName].getWebElement());
+  }
+
+  waitForVisibilityOf(elementName) {
+    const timeout = parseInt(config.elementsVisibilityTimeout) * 1000;
+
+    if (this[elementName] instanceof protractor.ElementArrayFinder) {
+      return browser.wait(protractor.ExpectedConditions['visibilityOf'](this[elementName].get(0)), timeout);
+    }
+
+    return browser.wait(protractor.ExpectedConditions['visibilityOf'](this[elementName]), timeout);
+  }
+
+  waitForInvisibilityOf(elementName) {
+    const timeout = parseInt(config.elementsVisibilityTimeout) * 1000;
+
+    if (this[elementName] instanceof protractor.ElementArrayFinder) {
+      return browser.wait(protractor.ExpectedConditions['invisibilityOf'](this[elementName].get(0)), timeout);
+    }
+
+    return browser.wait(protractor.ExpectedConditions['invisibilityOf'](this[elementName]), timeout);
   }
 }
 
