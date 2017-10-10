@@ -17,4 +17,4 @@ class TabularData extends BasePage {
   }
 }
 
-module.exports = new TabularData();
+module.exports = TabularData;

@@ -13,4 +13,4 @@ class ButtonForm extends BasePage {
   }
 }
 
-module.exports = new ButtonForm();
+module.exports = ButtonForm;

@@ -99,10 +99,13 @@ exports.config = {
     modulesLoader.getModules('transformers');
     modulesLoader.getModules('emails');
 
-    browser.page = modulesLoader
+    const modules = modulesLoader
       .getModulesAsObject(
         config.pages.map((page) => path.join(config.projectPath, page))
       );
+
+    browser.page = Object.keys(modules)
+      .reduce((pages, moduleName) => ({ ...pages, [moduleName]: new modules[moduleName]() }), {});
 
     global.expect = chai.expect;
 
