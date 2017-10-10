@@ -42,7 +42,7 @@ class DashboardPage extends BasePage {
     }
 }
 
-module.exports = new DashboardPage();
+module.exports = DashboardPage;
 ```
 
 As you can see a basic Page Object must extend one of the Kakunin's Objects and needs to have url field defined (`this.url`).
@@ -95,7 +95,7 @@ Defining elements is very simple. Let's say we have such page object:
 ``` 
 const { BasePage } = require('kakunin');
 
-class DashboardPage extends FromPage {
+class DashboardPage extends BasePage {
     constructor() {
         super();
         
@@ -103,7 +103,7 @@ class DashboardPage extends FromPage {
     }
 }
 
-module.exports = new DashboardPage();
+module.exports = DashboardPage;
 ```
 
 Elements should be defined inside `constructor` method. Let's add element for `myName`:
@@ -111,7 +111,7 @@ Elements should be defined inside `constructor` method. Let's add element for `m
 ``` 
 const { BasePage } = require('kakunin');
 
-class DashboardPage extends FromPage {
+class DashboardPage extends BasePage {
     constructor() {
         super();
         
@@ -121,7 +121,7 @@ class DashboardPage extends FromPage {
     }
 }
 
-module.exports = new DashboardPage();
+module.exports = DashboardPage;
 ```
 
 As you see we added a single line `this.myName = element(by.css('.myName'));`.

@@ -90,7 +90,7 @@ class MainPage extends BasePage {
     }
 }
 
-module.exports = new MainPage();
+module.exports = MainPage;
 ```
 
 Now that we have prepared the locators, we can start writing our test. Let's test adding new todo item. 
