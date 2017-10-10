@@ -1,5 +1,7 @@
 'use strict';
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 require('./helpers/prototypes');
 const path = require('path');
 const chai = require('chai');
@@ -78,7 +80,9 @@ exports.config = {
     modulesLoader.getModules('transformers');
     modulesLoader.getModules('emails');
 
-    browser.page = modulesLoader.getModulesAsObject(config.pages.map(page => path.join(config.projectPath, page)));
+    const modules = modulesLoader.getModulesAsObject(config.pages.map(page => path.join(config.projectPath, page)));
+
+    browser.page = Object.keys(modules).reduce((pages, moduleName) => _extends({}, pages, { [moduleName]: new modules[moduleName]() }), {});
 
     global.expect = chai.expect;
 

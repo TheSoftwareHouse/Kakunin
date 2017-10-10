@@ -13,4 +13,4 @@ class NavigationPagesPage extends BasePage {
   }
 }
 
-module.exports = new NavigationPagesPage();
+module.exports = NavigationPagesPage;

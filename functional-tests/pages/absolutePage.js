@@ -10,4 +10,4 @@ class AbsolutePage extends BasePage {
   }
 }
 
-module.exports = new AbsolutePage();
+module.exports = AbsolutePage;

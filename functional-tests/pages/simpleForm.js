@@ -19,4 +19,4 @@ class SimpleForm extends BasePage {
   }
 }
 
-module.exports = new SimpleForm();
+module.exports = SimpleForm;

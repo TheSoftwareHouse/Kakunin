@@ -10,4 +10,4 @@ class GooglePage extends BasePage {
   }
 }
 
-module.exports = new GooglePage();
+module.exports = GooglePage;

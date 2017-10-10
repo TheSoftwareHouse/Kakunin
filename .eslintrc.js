@@ -1,7 +1,8 @@
 module.exports = {
   "extends": "airbnb/legacy",
   "parserOptions": {
-    "ecmaVersion": 2017
+    "ecmaVersion": 2017,
+    "experimentalObjectRestSpread": true
   },
   "rules": {
     "no-plusplus": 0,

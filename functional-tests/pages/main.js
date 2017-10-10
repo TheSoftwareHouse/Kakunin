@@ -18,4 +18,4 @@ class MainPage extends BasePage {
   }
 }
 
-module.exports = new MainPage();
+module.exports = MainPage;

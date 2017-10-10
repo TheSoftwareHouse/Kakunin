@@ -14,4 +14,4 @@ class DragAndDropPage extends BasePage {
   }
 }
 
-module.exports = new DragAndDropPage();
+module.exports = DragAndDropPage;
