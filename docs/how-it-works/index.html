@@ -435,7 +435,7 @@ language.</p>
     <span class="p">}</span>
 <span class="p">}</span>
 
-<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">DashboardPage</span><span class="p">();</span>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">DashboardPage</span><span class="p">;</span>
 </pre></div>
 
 
@@ -477,7 +477,7 @@ For example, having the following code:</p>
 <p>Defining elements is very simple. Let's say we have such page object:</p>
 <div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="p">{</span> <span class="nx">BasePage</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;kakunin&#39;</span><span class="p">);</span>
 
-<span class="kr">class</span> <span class="nx">DashboardPage</span> <span class="kr">extends</span> <span class="nx">FromPage</span> <span class="p">{</span>
+<span class="kr">class</span> <span class="nx">DashboardPage</span> <span class="kr">extends</span> <span class="nx">BasePage</span> <span class="p">{</span>
     <span class="kr">constructor</span><span class="p">()</span> <span class="p">{</span>
         <span class="kr">super</span><span class="p">();</span>
 
@@ -485,14 +485,14 @@ For example, having the following code:</p>
     <span class="p">}</span>
 <span class="p">}</span>
 
-<span class="kr">module</span><span class="nx">.exports</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">DashboardPage</span><span class="p">();</span>
+<span class="kr">module</span><span class="nx">.exports</span> <span class="o">=</span> <span class="nx">DashboardPage</span><span class="p">;</span>
 </pre></div>
 
 
 <p>Elements should be defined inside <code>constructor</code> method. Let's add element for <code>myName</code>:</p>
 <div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="p">{</span> <span class="nx">BasePage</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;kakunin&#39;</span><span class="p">);</span>
 
-<span class="kr">class</span> <span class="nx">DashboardPage</span> <span class="kr">extends</span> <span class="nx">FromPage</span> <span class="p">{</span>
+<span class="kr">class</span> <span class="nx">DashboardPage</span> <span class="kr">extends</span> <span class="nx">BasePage</span> <span class="p">{</span>
     <span class="kr">constructor</span><span class="p">()</span> <span class="p">{</span>
         <span class="kr">super</span><span class="p">();</span>
 
@@ -502,7 +502,7 @@ For example, having the following code:</p>
     <span class="p">}</span>
 <span class="p">}</span>
 
-<span class="kr">module</span><span class="nx">.exports</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">DashboardPage</span><span class="p">();</span>
+<span class="kr">module</span><span class="nx">.exports</span> <span class="o">=</span> <span class="nx">DashboardPage</span><span class="p">;</span>
 </pre></div>
 
 
