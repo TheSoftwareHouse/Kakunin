@@ -92,7 +92,7 @@ class MyPageObject extends BasePage {
   }
 }
 
-module.exports = new MyPageObject();
+module.exports = MyPageObject;
 ```
 
 ### Matchers

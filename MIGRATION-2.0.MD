@@ -55,7 +55,20 @@ class ExamplePage extends BasePage {
   }
 ```
 
-4. Change `dictionaries`, example:
+4. Change `exports` in Page Objects:
+The last line in each of the page objects
+```javascript
+module.exports = new ExamplePage();
+```
+
+needs to be changed to:
+
+```javascript
+module.exports = ExamplePage;
+```
+
+
+5. Change `dictionaries`, example:
 ```javascript
 const { dictionaries } = require('kakunin');
 
