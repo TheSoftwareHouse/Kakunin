@@ -1,24 +1,14 @@
 import config from '../helpers/config.helper';
 import fs from 'fs';
-import path from 'path';
 import userProvider from '../helpers/user-provider.helper';
 import fixturesLoader from '../helpers/fixtures-loader.helper';
 import parameters from './parameters';
 import chalk from 'chalk';
 import { defineSupportCode } from 'cucumber';
-import report from 'cucumber-html-report';
+import report from 'multiple-cucumber-html-reporter';
 import variableStore from '../helpers/variable-store.helper';
 
 const outputDir = config.projectPath + config.reports;
-
-const createHtmlReport = (sourceJson) => {
-  report.create({
-    source: sourceJson,
-    dest: outputDir,
-    name: 'index.html'
-  }).then((res) => console.log(res))
-    .catch((err) => console.log(err));
-};
 
 const logRequestTime = (timeStart) => {
   const timeDiff = process.hrtime(timeStart);
@@ -69,9 +59,9 @@ const clearDownload = (callback) => {
   callback();
 };
 
-defineSupportCode(({registerHandler, After, Before}) => {
+defineSupportCode(({AfterAll, After, Before}) => {
   After(function (scenario, callback) {
-    if (scenario.isFailed()) {
+    if (scenario.result.status !== 'passed') {
       takeScreenshot(this).then(() => { clearCookiesAndLocalStorage(callback); });
     } else {
       clearCookiesAndLocalStorage(callback);
@@ -128,29 +118,6 @@ defineSupportCode(({registerHandler, After, Before}) => {
     }
 
     callback();
-  });
-
-  registerHandler('AfterFeatures', function (features, callback) {
-    if (!fs.existsSync(outputDir)) {
-      fs.mkdirSync(outputDir);
-    }
-
-    const files = fs.readdirSync(outputDir).filter((file) => file.indexOf('features-report') >= 0);
-    const targetJson = path.join(outputDir, 'cucumber_report.json');
-
-    const content = fs.readFileSync(path.join(outputDir, files[0]))
-
-    fs.writeFile(targetJson, content, (err) => {
-      fs.unlinkSync(path.join(outputDir, files[0]));
-      if (err) {
-        console.log('Failed to save cucumber test results to json file.');
-        console.log(err);
-        callback();
-      } else {
-        createHtmlReport(targetJson);
-        callback();
-      }
-    });
   });
 
   protractor.browser.ignoreSynchronization = config.type === 'otherWeb';

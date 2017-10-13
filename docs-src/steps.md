@@ -123,17 +123,13 @@ This step requires an array of format:
 
 ```gherkin 
 the error messages should be displayed:
-  | element   | errorMessage     |
   | myElement | my error message |
 ```
-
-Keep in mind that first row of array must be `| element | errorMessage |`.
 
 You can use dictionaries in this step as follows:
 
 ```gherkin
 the error messages should be displayed:
-  | element   | errorMessage                   |
   | myElement | d:dictionaryName:dictionaryKey |
 ```
 
@@ -177,9 +173,9 @@ Conditionally clicks on element `:elementName` of `this.currentPage` only if it 
 
 ###`I click the ":elementName" on the first item of ":containerElementName" element`
 
-Allows to click on the first child element of `:containerElementName` specified in `this.currentName`.
+Allows to click on the first child element of `:containerElementName` specified in `this.currentPage`.
 
-The child element must be specified by `:elementName` nd must be available in `this.currentPage`
+The child element must be specified by `:elementName` and must be available in `this.currentPage`.
 
 ###`I store the ":elementName" element text as ":variableName" variable`
 
@@ -213,21 +209,21 @@ Checks if element `:elementName` is available in HTML DOM but is not visible and
 
 Checks if element is disabled
 
-### `I store table ":tableElementName" rows as ":variableName" with columns:`
+### `I store table ":tableRow" rows as ":variableName" with columns:`
 
-Allows to store a row specified columns from a table `:tableElementName` and save it under `:variableName` as an array of objects.
+Allows to store a row specified columns from a table `:tableRow` and save it under `:variableName` as an array of objects.
 
-This step requires a table of columns locators, for example:
+This step requires a table of columns elements, for example:
 
 ```gherkin
-I store table "myTable" rows as "someVariable" with columns:
+I store table "someRow" rows as "someVariable" with columns:
   | firstName |
   | lastName  |
   | id        |
 ```
 
-In order to make it work there must be not only element `myTable` in `this.currentPage`, but also
-locator `this.firstName = by.css('.firstName');` and so on.
+In order to make it work there must be not only array element `this.someRow = $$('.rows')` in `this.currentPage`, but also
+element `this.firstName = $('.firstName');` and so on.
 
 The result of this step is an array of:
 
@@ -246,7 +242,7 @@ The result of this step is an array of:
 
 Allows to check if a child elements of `:elementName` have a specified content.
 
-This steps allows you to specify an array of child elements locators that will be checked against expected values.
+This steps allows you to specify an array of child elements that will be checked against expected values.
 
 For example:
 
@@ -257,7 +253,7 @@ there are following elements in table "myTable":
   | t:2 | t:John    | t:Doe    |
 ```
 
-First row must specify columns locators. Starting from second row we must provider a matchers for each row that must be displayed.
+First row must specify columns elements. Starting from second row we must provide a matchers for each row that must be displayed.
 
 This step checks exact match, so if the table has 5 rows, there must be a 5 rows in this table.
 
@@ -296,18 +292,15 @@ Allows to check if a number of elements is the one that we expect.
 
 and so on. You can check expressions on `chai.js` API dock for BDD.
 
-This step requires an array of elements locators to be checked. For example:
+This step requires an array of elements to be checked. For example:
 
 ```gherkin 
 there are "equal 5" following elements for element "myList":
-  | element    | value         |
   | viewButton | f:isClickable |
   | id         | r:idRegex     |
 ```
 
-The first row must be `| element    | value |`, after that we specify a list of element locators to be checked for each element of `:elementName` array.
-
-The child elements must be a locators, for example `this.viewButton = by.css('button.viewButton');`.
+The child elements must be an elements, for example `this.viewButton = $('button.viewButton');`.
 
 You can use all kind of matchers here.
 
@@ -358,7 +351,7 @@ Allows to check if every row defined by `:elementName` has the same value for a 
 
 `:elementName` must be an array of elements
 
-`:columnElementName` must be an locator, for example:
+`:columnElementName` must be an element, for example:
 
 ```html 
 <table>
@@ -371,10 +364,66 @@ Allows to check if every row defined by `:elementName` has the same value for a 
 </table>
 ```
 
-for this case the `:elementName` should be specified as `$$('table tr')` and we can specify column locator
-`this.myColumn = by.css('td');`. This allows us to write:
+for this case the `:elementName` should be specified as `$$('table tr')` and we can specify column element
+`this.myColumn = $('td');`. This allows us to write:
 
 `every "myElement" element should have the same value for element "myColumn"`
+
+###`the element ":elementName" should have an item with values:`
+
+Allows to check if any of the child elements of `:elementName` have a specified content (one matching element is enough). Element should be an array, for example:
+
+```html 
+<table>
+  <tr>
+    <td>1</td>
+  </tr>
+  <tr>
+    <td>2</td>
+  </tr>   
+</table>
+```
+
+for this case the `:elementName` should be specified as `$$('table tr')`.
+
+This step requires an array of elements to be checked. For example:
+
+```gherkin 
+the element "myList" should have an item with values:
+  | id | t:1 |
+```
+
+The child elements must be an elements, for example `this.id = $('td');`.
+
+You can use all kind of matchers here.
+
+###`the element ":elementName" should not have an item with values:`
+
+Allows to check if the child elements of `:elementName` have a different content than that given in the table. Element should be an array, for example:
+
+```html 
+<table>
+  <tr>
+    <td>1</td>
+  </tr>
+  <tr>
+    <td>2</td>
+  </tr>   
+</table>
+```
+
+for this case the `:elementName` should be specified as `$$('table tr')`.
+
+This step requires an array of elements to be checked. For example:
+
+```gherkin 
+the element "myList" should have an item with values:
+  | id | t:does-not-exist |
+```
+
+The child elements must be an elements, for example `this.id = $('td');`.
+
+You can use all kind of matchers here.
 
 ###`every ":elementName" element should have the same value for element ":columnElementName" attribute ":attributeName"`
 
@@ -385,7 +434,7 @@ attribute specified by `:atrributeName`.
 
 Checks if the values for column `:columnElementName` of each row specified by `:elementName` is sorted in either ascending or descending order.
 
-`:columnElementName` must be a locator used to get a column on each row of an array `:elementName`. For example:
+`:columnElementName` must be an element used to get a column on each row of an array `:elementName`. For example:
 
 ```html 
 <table>
@@ -400,9 +449,15 @@ Checks if the values for column `:columnElementName` of each row specified by `:
 
 The `:elementName` should be specified as `this.myElement = $$('table tr')`
 
-The `:columnElementName` should be an locator `this.myColumn = by.css(td);`.
+The `:columnElementName` should be an element `this.myColumn = $('td');`.
 
 Now we can use this step to check the order of elements.
+
+###`I drag ":elementDrag" element and drop over ":elementDrop" element`
+
+Clicks on `:elementDrag` and moves it onto `:elementDrop` while left mouse button is pressed, and then release it.
+
+Note: This step is not working on HTML5!
 
 ##Emails
 ###`the email has been sent and contains:`

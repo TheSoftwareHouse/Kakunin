@@ -17,7 +17,7 @@
       
         <link rel="shortcut icon" href="./assets/images/favicon.png">
       
-      <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.8.1">
+      <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.10.0">
     
 
   <meta property="og:type" content="product"/>
@@ -32,10 +32,10 @@
       
     
     
-      <script src="./assets/javascripts/modernizr-1df76c4e58.js"></script>
+      <script src="./assets/javascripts/modernizr-e826f8942a.js"></script>
     
     
-      <link rel="stylesheet" href="./assets/stylesheets/application-bfecc7305d.css">
+      <link rel="stylesheet" href="./assets/stylesheets/application-b6a6d08807.css">
       
     
     
@@ -73,10 +73,11 @@
   <nav class="md-header-nav md-grid">
     <div class="md-flex">
       <div class="md-flex__cell md-flex__cell--shrink">
-        
-          <a href="https://thesoftwarehouse.github.io/Kakunin/" title="Kakunin" class="md-icon md-icon--home md-header-nav__button">
-          </a>
-        
+        <a href="https://thesoftwarehouse.github.io/Kakunin/" title="Kakunin" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon md-icon--home"></i>
+          
+        </a>
       </div>
       <div class="md-flex__cell md-flex__cell--shrink">
         <label class="md-icon md-icon--menu md-header-nav__button" for="drawer"></label>
@@ -101,7 +102,7 @@
     <form class="md-search__form" name="search">
       <input type="text" class="md-search__input" name="query" required placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query">
       <label class="md-icon md-search__icon" for="search"></label>
-      <button type="reset" class="md-icon md-search__icon" data-md-component="reset">close</button>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset">&#xE5CD;</button>
     </form>
     <div class="md-search__output">
       <div class="md-search__scrollwrap" data-md-scrollfix>
@@ -158,9 +159,11 @@
                   <div class="md-sidebar__inner">
                     <nav class="md-nav md-nav--primary" data-md-level="0">
   <label class="md-nav__title md-nav__title--site" for="drawer">
-    
-      <i class="md-icon md-icon--home md-nav__button"></i>
-    
+    <div class="md-nav__button md-logo">
+      
+        <i class="md-icon md-icon--home"></i>
+      
+    </div>
     Kakunin
   </label>
   
@@ -411,7 +414,7 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/TheSoftwareHouse/Kakunin/edit/master/docs-src/index.md" title="Edit this page" class="md-icon md-content__icon">edit</a>
+                  <a href="https://github.com/TheSoftwareHouse/Kakunin/edit/master/docs-src/index.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
                   <h1>Getting started</h1>
@@ -443,12 +446,12 @@ Chrome
 
 
 <p>Install dependencies</p>
-<div class="codehilite"><pre><span></span>npm install protractor webdriver-manager kakunin  --save
+<div class="codehilite"><pre><span></span>npm install cross-env protractor webdriver-manager kakunin  --save
 </pre></div>
 
 
 <p>Inside <code>package.json</code> file; add new script in <code>scripts</code> section:</p>
-<div class="codehilite"><pre><span></span><span class="s2">&quot;kakunin&quot;</span><span class="err">:</span> <span class="s2">&quot;NODE_ENV=prod kakunin&quot;</span>
+<div class="codehilite"><pre><span></span><span class="s2">&quot;kakunin&quot;</span><span class="err">:</span> <span class="s2">&quot;cross-env NODE_ENV=prod kakunin&quot;</span>
 </pre></div>
 
 
@@ -486,8 +489,8 @@ Due to non-resolved issue in Jetbrains editors (<a href="https://youtrack.jetbra
 </pre></div>
 
 
-<p>Paste this code into terminal and restart your IDE:
-(if you're using Windows, you'll have to adapt the command by yourself. Or switch to Linux :) )</p>
+<p>Paste this code into terminal and restart your IDE:</p>
+<p>For Linux/MacOs:</p>
 <div class="codehilite"><pre><span></span>ln -s ../node_modules/kakunin/dist/step_definitions/elements.js kakunin-elements.js
 ln -s ../node_modules/kakunin/dist/step_definitions/debug.js kakunin-debug.js
 ln -s ../node_modules/kakunin/dist/step_definitions/file.js kakunin-file.js
@@ -498,6 +501,18 @@ ln -s ../node_modules/kakunin/dist/step_definitions/navigation.js kakunin-naviga
 </pre></div>
 
 
+<p>For Windows 8+: (you have to do this as administrator)</p>
+<div class="codehilite"><pre><span></span>mklink kakunin-elements.js ..<span class="se">\n</span>ode_modules<span class="se">\k</span>akunin<span class="se">\d</span>ist<span class="se">\s</span>tep_definitions<span class="se">\e</span>lements.js<span class="s2">&quot;</span>
+<span class="s2">mklink kakunin-debug.js ..\node_modules\kakunin\dist\step_definitions\debug.js&quot;</span>
+mklink kakunin-file.js ..<span class="se">\n</span>ode_modules<span class="se">\k</span>akunin<span class="se">\d</span>ist<span class="se">\s</span>tep_definitions<span class="se">\f</span>ile.js<span class="s2">&quot;</span>
+<span class="s2">mklink kakunin-form.js ..\node_modules\kakunin\dist\step_definitions\form.js&quot;</span>
+mklink kakunin-email.js ..<span class="se">\n</span>ode_modules<span class="se">\k</span>akunin<span class="se">\d</span>ist<span class="se">\s</span>tep_definitions<span class="se">\e</span>mail.js<span class="s2">&quot;</span>
+<span class="s2">mklink kakunin-generators.js ..\node_modules\kakunin\dist\step_definitions\generators.js&quot;</span>
+mklink kakunin-navigation.js ..<span class="se">\n</span>ode_modules<span class="se">\k</span>akunin<span class="se">\d</span>ist<span class="se">\s</span>tep_definitions<span class="se">\n</span>avigation.js<span class="s2">&quot;</span>
+</pre></div>
+
+
+<p>Keep in mind that <code>mklink</code> is not available in older Windows distributions.</p>
 <p>This will create symlinks inside <code>step_definitions</code> directory and make <code>cucumberjs</code> plugin recognize kakunin built-in steps.</p>
                 
                   
@@ -580,7 +595,7 @@ ln -s ../node_modules/kakunin/dist/step_definitions/navigation.js kakunin-naviga
       
     </div>
     
-      <script src="./assets/javascripts/application-6940329b9f.js"></script>
+      <script src="./assets/javascripts/application-f3ab9e5ff8.js"></script>
       
       
       <script>app.initialize({url:{base:"."}})</script>

@@ -28,12 +28,12 @@ npm init
 
 Install dependencies
 ```bash
-npm install protractor webdriver-manager kakunin  --save
+npm install cross-env protractor webdriver-manager kakunin  --save
 ```
     
 Inside `package.json` file; add new script in `scripts` section:
 ```json
-"kakunin": "NODE_ENV=prod kakunin"
+"kakunin": "cross-env NODE_ENV=prod kakunin"
 ``` 
 
 ## Configuration
@@ -75,7 +75,8 @@ cd step_definitions
 ``` 
 
 Paste this code into terminal and restart your IDE:
-(if you're using Windows, you'll have to adapt the command by yourself. Or switch to Linux :) )
+
+For Linux/MacOs:
 
 ```bash
 ln -s ../node_modules/kakunin/dist/step_definitions/elements.js kakunin-elements.js
@@ -86,5 +87,19 @@ ln -s ../node_modules/kakunin/dist/step_definitions/email.js kakunin-email.js
 ln -s ../node_modules/kakunin/dist/step_definitions/generators.js kakunin-generators.js
 ln -s ../node_modules/kakunin/dist/step_definitions/navigation.js kakunin-navigation.js 
 ```
+
+For Windows 8+: (you have to do this as administrator)
+
+```bash
+mklink kakunin-elements.js ..\node_modules\kakunin\dist\step_definitions\elements.js"
+mklink kakunin-debug.js ..\node_modules\kakunin\dist\step_definitions\debug.js"
+mklink kakunin-file.js ..\node_modules\kakunin\dist\step_definitions\file.js"
+mklink kakunin-form.js ..\node_modules\kakunin\dist\step_definitions\form.js"
+mklink kakunin-email.js ..\node_modules\kakunin\dist\step_definitions\email.js"
+mklink kakunin-generators.js ..\node_modules\kakunin\dist\step_definitions\generators.js"
+mklink kakunin-navigation.js ..\node_modules\kakunin\dist\step_definitions\navigation.js"
+```
+
+Keep in mind that `mklink` is not available in older Windows distributions.
 
 This will create symlinks inside `step_definitions` directory and make `cucumberjs` plugin recognize kakunin built-in steps.

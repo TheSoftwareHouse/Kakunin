@@ -17,4 +17,4 @@ class SimpleFormPost extends BasePage {
   }
 }
 
-module.exports = new SimpleFormPost();
+module.exports = SimpleFormPost;

@@ -39,12 +39,12 @@ npm init
 
 Install dependencies
 ```bash
-npm install protractor webdriver-manager kakunin  --save
+npm install cross-env protractor webdriver-manager kakunin  --save
 ```
     
 Inside `package.json` file; add new script in `scripts` section:
 ```json
-"kakunin": "NODE_ENV=prod kakunin"
+"kakunin": "cross-env NODE_ENV=prod kakunin"
 ``` 
 
 

@@ -68,10 +68,20 @@ exports.config = {
       ...config.step_definitions.map(file => config.projectPath + file + '/**/*.js'),
       ...config.hooks.map(file => config.projectPath + file + '/**/*.js')
     ],
-    format: ['pretty', `json:../..${config.reports}/features-report.json`],
+    format: [`json:./${config.reports}/features-report.json`],
     profile: false,
     'no-source': true
   },
+
+  plugins: [{
+    package: 'protractor-multiple-cucumber-html-reporter-plugin',
+    options: {
+      removeExistingJsonReportFile: true,
+      removeOriginalJsonReportFile: true,
+      automaticallyGenerateReport: true,
+      saveCollectedJSON: true
+    }
+  }],
 
   onPrepare: function () {
     if (!config.headless) {
@@ -89,10 +99,13 @@ exports.config = {
     modulesLoader.getModules('transformers');
     modulesLoader.getModules('emails');
 
-    browser.page = modulesLoader
+    const modules = modulesLoader
       .getModulesAsObject(
         config.pages.map((page) => path.join(config.projectPath, page))
       );
+
+    browser.page = Object.keys(modules)
+      .reduce((pages, moduleName) => ({ ...pages, [moduleName]: new modules[moduleName]() }), {});
 
     global.expect = chai.expect;
 

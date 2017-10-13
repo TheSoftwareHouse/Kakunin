@@ -8,10 +8,6 @@ var _fs = require('fs');
 
 var _fs2 = _interopRequireDefault(_fs);
 
-var _path = require('path');
-
-var _path2 = _interopRequireDefault(_path);
-
 var _userProvider = require('../helpers/user-provider.helper');
 
 var _userProvider2 = _interopRequireDefault(_userProvider);
@@ -30,9 +26,9 @@ var _chalk2 = _interopRequireDefault(_chalk);
 
 var _cucumber = require('cucumber');
 
-var _cucumberHtmlReport = require('cucumber-html-report');
+var _multipleCucumberHtmlReporter = require('multiple-cucumber-html-reporter');
 
-var _cucumberHtmlReport2 = _interopRequireDefault(_cucumberHtmlReport);
+var _multipleCucumberHtmlReporter2 = _interopRequireDefault(_multipleCucumberHtmlReporter);
 
 var _variableStore = require('../helpers/variable-store.helper');
 
@@ -41,14 +37,6 @@ var _variableStore2 = _interopRequireDefault(_variableStore);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const outputDir = _config2.default.projectPath + _config2.default.reports;
-
-const createHtmlReport = sourceJson => {
-  _cucumberHtmlReport2.default.create({
-    source: sourceJson,
-    dest: outputDir,
-    name: 'index.html'
-  }).then(res => console.log(res)).catch(err => console.log(err));
-};
 
 const logRequestTime = timeStart => {
   const timeDiff = process.hrtime(timeStart);
@@ -97,9 +85,9 @@ const clearDownload = callback => {
   callback();
 };
 
-(0, _cucumber.defineSupportCode)(({ registerHandler, After, Before }) => {
+(0, _cucumber.defineSupportCode)(({ AfterAll, After, Before }) => {
   After(function (scenario, callback) {
-    if (scenario.isFailed()) {
+    if (scenario.result.status !== 'passed') {
       takeScreenshot(this).then(() => {
         clearCookiesAndLocalStorage(callback);
       });
@@ -158,29 +146,6 @@ const clearDownload = callback => {
     }
 
     callback();
-  });
-
-  registerHandler('AfterFeatures', function (features, callback) {
-    if (!_fs2.default.existsSync(outputDir)) {
-      _fs2.default.mkdirSync(outputDir);
-    }
-
-    const files = _fs2.default.readdirSync(outputDir).filter(file => file.indexOf('features-report') >= 0);
-    const targetJson = _path2.default.join(outputDir, 'cucumber_report.json');
-
-    const content = _fs2.default.readFileSync(_path2.default.join(outputDir, files[0]));
-
-    _fs2.default.writeFile(targetJson, content, err => {
-      _fs2.default.unlinkSync(_path2.default.join(outputDir, files[0]));
-      if (err) {
-        console.log('Failed to save cucumber test results to json file.');
-        console.log(err);
-        callback();
-      } else {
-        createHtmlReport(targetJson);
-        callback();
-      }
-    });
   });
 
   protractor.browser.ignoreSynchronization = _config2.default.type === 'otherWeb';

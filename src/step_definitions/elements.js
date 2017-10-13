@@ -93,7 +93,7 @@ defineSupportCode(function ({ When, Then }) {
   });
 
   When(/^I click the "([^"]*)" on the first item of "([^"]*)" element$/, function (element, container) {
-    return this.currentPage[container].first().element(this.currentPage[element]).click();
+    return this.currentPage[container].first().element(this.currentPage[element].locator()).click();
   });
 
   When(/^I wait for the "([^"]*)" element to disappear$/, function (element, sync) {
@@ -103,20 +103,25 @@ defineSupportCode(function ({ When, Then }) {
     const interval = setInterval(() => {
       console.log('Waiting for element to disappear...');
 
-      self.currentPage.isPresent(element).then((isPresent) => {
+      return self.currentPage.isPresent(element).then(isPresent => {
+
         if (!isPresent) {
           clearInterval(interval);
+          sync();
+          return;
         }
 
-        sync();
+        maxRepeats--;
+
+        if (maxRepeats === 0) {
+          clearInterval(interval);
+          sync('Element is still visible');
+          return;
+        }
+
+
+
       });
-
-      maxRepeats--;
-
-      if (maxRepeats === 0) {
-        clearInterval(interval);
-        sync('Element is still visible');
-      }
     }, 1500);
   });
 
@@ -158,7 +163,7 @@ defineSupportCode(function ({ When, Then }) {
 
       for (const columnIndex in columns) {
         if (columns.hasOwnProperty(columnIndex)) {
-          rowPromises.push(element.element(self.currentPage[columns[columnIndex]]).getText());
+          rowPromises.push(element.element(self.currentPage[columns[columnIndex]].locator()).getText());
         }
       }
 
@@ -185,7 +190,7 @@ defineSupportCode(function ({ When, Then }) {
           if (hash.hasOwnProperty(prop)) {
             const propValue = hash[prop];
 
-            promises.push(expect(matchers.match(element.element(self.currentPage[prop]), variableStore.replaceTextVariables(propValue))).to.eventually.be.true);
+            promises.push(expect(matchers.match(element.element(self.currentPage[prop].locator()), variableStore.replaceTextVariables(propValue))).to.eventually.be.true);
           }
         }
       }).then(function () {
@@ -204,10 +209,10 @@ defineSupportCode(function ({ When, Then }) {
   Then(/^there are "([^"]*)" following elements for element "([^"]*)":$/, function (numberExpression, element, data) {
     const self = this;
     const allElements = this.currentPage[element];
-    const hashedData = data.hashes();
+    const hashedData = data.raw();
 
     if (hashedData.length === 0) {
-      return Promise.reject('Missing element and value header columns in step.');
+      return Promise.reject('Missing table under the step.');
     }
 
     return checkNumberOfElements.call(this, numberExpression, element).then(function () {
@@ -217,15 +222,15 @@ defineSupportCode(function ({ When, Then }) {
         hashedData.forEach(function (hash) {
           promises.push(
             matchers.match(
-              element.element(self.currentPage[hash.element]),
-              variableStore.replaceTextVariables(hash.value)
+              element.element(self.currentPage[hash[0]].locator()),
+              variableStore.replaceTextVariables(hash[1])
             )
               .then((result) => {
                 if (result) {
                   return Promise.resolve();
                 }
-                
-                return Promise.reject(`Expected element "${hash.element}" to match matcher "${hash.value}"`);
+
+                return Promise.reject(`Expected element "${hash[0]}" to match matcher "${hash[1]}"`);
               })
           );
         });
@@ -281,12 +286,12 @@ defineSupportCode(function ({ When, Then }) {
 
     return this.currentPage[containerName]
       .first()
-      .element(self.currentPage[elementName])
+      .element(self.currentPage[elementName].locator())
       .getText()
       .then(
         function (firstElementText) {
           return self.currentPage[containerName].each(function (containerElement) {
-            containerElement.element(self.currentPage[elementName]).getText().then(
+            containerElement.element(self.currentPage[elementName].locator()).getText().then(
               function (elementText) {
                 expect(elementText).to.be.equal(firstElementText);
               }
@@ -301,12 +306,12 @@ defineSupportCode(function ({ When, Then }) {
 
     return this.currentPage[containerName]
       .first()
-      .element(self.currentPage[elementName])
+      .element(self.currentPage[elementName].locator())
       .getAttribute(self.currentPage[attributeName + 'Attribute'])
       .then(
         function (firstElementAttributeValue) {
           return self.currentPage[containerName].each(function (containerElement) {
-            containerElement.element(self.currentPage[elementName]).getAttribute(self.currentPage[attributeName + 'Attribute']).then(
+            containerElement.element(self.currentPage[elementName].locator()).getAttribute(self.currentPage[attributeName + 'Attribute']).then(
               function (attributeValue) {
                 expect(attributeValue).to.be.equal(firstElementAttributeValue);
               }
@@ -319,10 +324,10 @@ defineSupportCode(function ({ When, Then }) {
   Then(/^the element "([^"]*)" should have an item with values:$/, function (element, data) {
     const self = this;
     const allElements = this.currentPage[element];
-    const hashedData = data.hashes();
+    const hashedData = data.raw();
 
     if (hashedData.length === 0) {
-      return Promise.reject('Missing element and value header columns in step.');
+      return Promise.reject('Missing table under the step.');
     }
 
     const promises = [];
@@ -330,8 +335,8 @@ defineSupportCode(function ({ When, Then }) {
     return allElements.each(function (element) {
       hashedData.forEach(function (hash) {
         promises.push(matchers.match(
-          element.element(self.currentPage[hash.element]),
-          variableStore.replaceTextVariables(hash.value))
+          element.element(self.currentPage[hash[0]].locator()),
+          variableStore.replaceTextVariables(hash[1]))
         );
       });
     }).then(function () {
@@ -359,10 +364,10 @@ defineSupportCode(function ({ When, Then }) {
   Then(/^the element "([^"]*)" should not have an item with values:$/, function (element, data) {
     const self = this;
     const allElements = this.currentPage[element];
-    const hashedData = data.hashes();
+    const hashedData = data.raw();
 
     if (hashedData.length === 0) {
-      return Promise.reject('Missing element and value header columns in step.');
+      return Promise.reject('Missing table under the step.');
     }
 
     const promises = [];
@@ -370,8 +375,8 @@ defineSupportCode(function ({ When, Then }) {
     return allElements.each(function (element) {
       hashedData.forEach(function (hash) {
         promises.push(matchers.match(
-          element.element(self.currentPage[hash.element]),
-          variableStore.replaceTextVariables(hash.value))
+          element.element(self.currentPage[hash[0]].locator()),
+          variableStore.replaceTextVariables(hash[1]))
         );
       });
     }).then(function () {
@@ -401,7 +406,7 @@ defineSupportCode(function ({ When, Then }) {
     const promise = [];
 
     return self.currentPage[elementList].each(function (singleElement) {
-      promise.push(singleElement.element(self.currentPage[elementValue]).getText());
+      promise.push(singleElement.element(self.currentPage[elementValue].locator()).getText());
     }).then(function () {
       return Promise.all(promise);
     }).then(function (elementsValues) {
@@ -476,5 +481,17 @@ defineSupportCode(function ({ When, Then }) {
     const keyTransformed = key.toUpperCase();
 
     return Promise.resolve(browser.actions().sendKeys(protractor.Key[keyTransformed]).perform())
+  });
+
+  When(/^I drag "([^"]*)" element and drop over "([^"]*)" element$/, async function (elementDrag, elementDrop) {
+    const wait = (timeToWait) => browser.sleep(timeToWait);
+
+    await browser.actions().mouseMove(this.currentPage[elementDrag]).perform();
+    await wait(200);
+    await browser.actions().mouseDown().perform();
+    await wait(200);
+    await browser.actions().mouseMove(this.currentPage[elementDrop]).perform();
+    await wait(200);
+    await browser.actions().mouseUp().perform();
   });
 });

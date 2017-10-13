@@ -1,5 +1,6 @@
 // entry file
 import * as pages from './pages';
+import * as dictionaries from './dictionaries';
 
 export { matchers, regexBuilder } from './matchers';
 export { defineSupportCode } from 'cucumber';
@@ -12,3 +13,4 @@ export { comparators } from './comparators';
 export { emailService } from './emails';
 
 export const BasePage = pages.Form;
+export const BaseDictionary = dictionaries.Base;

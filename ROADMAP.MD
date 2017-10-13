@@ -1,5 +1,9 @@
 ## Roadmap
 
+### v2.1.0
+
+* Allow to test REST endpoints against expected JSON Schema
+
 ### v2.0.0
 
 * full support for Windows OS,

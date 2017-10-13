@@ -4,14 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "kakunin": "NODE_ENV=prod kakunin",
+    "kakunin": "cross-env NODE_ENV=prod kakunin",
     "start": "pm2 update && pm2 start www",
     "stop": "pm2 delete www",
     "test-ci": "npm run kakunin -- --seleniumAddress http://127.0.0.1:4444/wd/hub",
-    "test": "npm run start | npm run kakunin && npm run stop"
+    "test": "npm run start | webdriver-manager update && npm run kakunin && npm run stop"
   },
   "author": "",
   "dependencies": {
+    "cross-env": "^5.0.5",
     "body-parser": "^1.17.2",
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^14.1.0",

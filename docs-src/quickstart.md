@@ -29,13 +29,13 @@ In order to install Kakunin you have to make sure that you have installed:
 * Install dependencies
 
     ```bash
-    npm install protractor webdriver-manager kakunin  --save
+    npm install cross-env protractor webdriver-manager kakunin  --save
     ```
 
 * Inside `package.json` file add new script in `scripts` section:
 
     ```json
-    "kakunin": "NODE_ENV=prod kakunin"
+    "kakunin": "cross-env NODE_ENV=prod kakunin"
     ``` 
 
 ## Configure Kakunin
@@ -54,9 +54,7 @@ In order to install Kakunin you have to make sure that you have installed:
       
     `What is base url? [http://localhost:3000]`: `http://todomvc.com`
        
-    `What kind of email service would you like to use?`: `none`
-      
-    `Define FIXTURES_RELOAD_HOST`: `<leave empty>`  
+    `What kind of email service would you like to use?`: `none` 
     
 And you're set! Now let's write some test!
 
@@ -92,7 +90,7 @@ class MainPage extends BasePage {
     }
 }
 
-module.exports = new MainPage();
+module.exports = MainPage;
 ```
 
 Now that we have prepared the locators, we can start writing our test. Let's test adding new todo item. 

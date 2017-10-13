@@ -39,16 +39,13 @@ class DashboardPage extends BasePage {
         super();
         
         this.url = '/dashboard';
-        this.isExternal = false; // optional
     }
 }
 
-module.exports = new DashboardPage();
+module.exports = DashboardPage;
 ```
 
 As you can see a basic Page Object must extend one of the Kakunin's Objects and needs to have url field defined (`this.url`).
- 
-Optionally, if the page is a main page to be displayed then for `AngularJS` and `Angular` apps you need to set the `this.isExternal` flag to `true`.
  
 This code should be saved inside `pages` directory in a file with `js` extension. 
 Note that a file name is very important, because we're going to use it as parameter for steps. For example, the following step:
@@ -98,16 +95,15 @@ Defining elements is very simple. Let's say we have such page object:
 ``` 
 const { BasePage } = require('kakunin');
 
-class DashboardPage extends FromPage {
+class DashboardPage extends BasePage {
     constructor() {
         super();
         
         this.url = '/dashboard';
-        this.isExternal = false; // optional
     }
 }
 
-module.exports = new DashboardPage();
+module.exports = DashboardPage;
 ```
 
 Elements should be defined inside `constructor` method. Let's add element for `myName`:
@@ -115,18 +111,17 @@ Elements should be defined inside `constructor` method. Let's add element for `m
 ``` 
 const { BasePage } = require('kakunin');
 
-class DashboardPage extends FromPage {
+class DashboardPage extends BasePage {
     constructor() {
         super();
         
         this.url = '/dashboard';
-        this.isExternal = false; // optional
         
         this.myName = element(by.css('.myName'));
     }
 }
 
-module.exports = new DashboardPage();
+module.exports = DashboardPage;
 ```
 
 As you see we added a single line `this.myName = element(by.css('.myName'));`.

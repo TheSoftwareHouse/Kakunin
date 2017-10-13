@@ -1,3 +1,22 @@
+##### v2.0.0
+
+- updated documentation
+- added more functional tests
+- added support for Windows
+- added support for `relative` and `absolute` urls in Page Objects
+- added `BaseDictionary` functionality
+- added new step (support drag and drop) `I drag "elementName" element and drop over "dropOnElementName" element`
+- fixed reports
+- fixed step `I wait for the "elementName" element to disappear`
+- updated libs (e.g. cucumber js)
+- `isExternal` is no longer required in Page Objects (Angular)
+- locators are no longer supported in Page Objects
+- export `module.exports` has been changed in Page Objects
+- removed `| element | value |` headers from first row in a steps
+- `.gitkeep` is automatically created in reports catalog
+- `RELOAD_FIXTURES_URL` has been moved to advanced configuration
+- step `the "arrayElementName" element is visible` can be used now for an array element
+
 ##### v1.0.0
 
 - updated documentation

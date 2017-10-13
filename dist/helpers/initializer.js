@@ -134,6 +134,7 @@ class Initializer {
       }
 
       if (advancedConfiguration) {
+        yield _this.initEnv();
         conf.browserWidth = yield _this.promptFolders('What is desired browser width?', conf.browserWidth);
         conf.browserHeight = yield _this.promptFolders('What is desired browser height?', conf.browserHeight);
 
@@ -172,8 +173,6 @@ class Initializer {
           }]
         }
       };
-
-      yield _this.initEnv();
 
       _this.createTemplateFile('/kakunin.conf.js', 'module.exports = ' + JSON.stringify(conf, null, 4));
     })();
@@ -214,6 +213,8 @@ class Initializer {
       _this3.createProjectDirectory(config.transformers[0]);
       _this3.createProjectDirectory(config.emails[0]);
 
+      _this3.createTemplateFile(config.reports + '/.gitkeep', '');
+      _this3.createTemplateFile(config.downloads + '/.gitkeep', '');
       _this3.createTemplateFileWithContentFrom(config.features[0] + '/example.feature', 'example.feature');
       _this3.createTemplateFileWithContentFrom(config.pages[0] + '/page.js', 'page.js');
       _this3.createTemplateFileWithContentFrom(config.matchers[0] + '/matcher.js', 'matcher.js');

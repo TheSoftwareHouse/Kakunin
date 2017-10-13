@@ -99,7 +99,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
   });
 
   When(/^I click the "([^"]*)" on the first item of "([^"]*)" element$/, function (element, container) {
-    return this.currentPage[container].first().element(this.currentPage[element]).click();
+    return this.currentPage[container].first().element(this.currentPage[element].locator()).click();
   });
 
   When(/^I wait for the "([^"]*)" element to disappear$/, function (element, sync) {
@@ -109,20 +109,22 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     const interval = setInterval(() => {
       console.log('Waiting for element to disappear...');
 
-      self.currentPage.isPresent(element).then(isPresent => {
+      return self.currentPage.isPresent(element).then(isPresent => {
+
         if (!isPresent) {
           clearInterval(interval);
+          sync();
+          return;
         }
 
-        sync();
+        maxRepeats--;
+
+        if (maxRepeats === 0) {
+          clearInterval(interval);
+          sync('Element is still visible');
+          return;
+        }
       });
-
-      maxRepeats--;
-
-      if (maxRepeats === 0) {
-        clearInterval(interval);
-        sync('Element is still visible');
-      }
     }, 1500);
   });
 
@@ -162,7 +164,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
       for (const columnIndex in columns) {
         if (columns.hasOwnProperty(columnIndex)) {
-          rowPromises.push(element.element(self.currentPage[columns[columnIndex]]).getText());
+          rowPromises.push(element.element(self.currentPage[columns[columnIndex]].locator()).getText());
         }
       }
 
@@ -189,7 +191,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
           if (hash.hasOwnProperty(prop)) {
             const propValue = hash[prop];
 
-            promises.push(expect(_matchers.matchers.match(element.element(self.currentPage[prop]), _variableStore2.default.replaceTextVariables(propValue))).to.eventually.be.true);
+            promises.push(expect(_matchers.matchers.match(element.element(self.currentPage[prop].locator()), _variableStore2.default.replaceTextVariables(propValue))).to.eventually.be.true);
           }
         }
       }).then(function () {
@@ -208,10 +210,10 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
   Then(/^there are "([^"]*)" following elements for element "([^"]*)":$/, function (numberExpression, element, data) {
     const self = this;
     const allElements = this.currentPage[element];
-    const hashedData = data.hashes();
+    const hashedData = data.raw();
 
     if (hashedData.length === 0) {
-      return Promise.reject('Missing element and value header columns in step.');
+      return Promise.reject('Missing table under the step.');
     }
 
     return checkNumberOfElements.call(this, numberExpression, element).then(function () {
@@ -219,12 +221,12 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
       return allElements.each(function (element) {
         hashedData.forEach(function (hash) {
-          promises.push(_matchers.matchers.match(element.element(self.currentPage[hash.element]), _variableStore2.default.replaceTextVariables(hash.value)).then(result => {
+          promises.push(_matchers.matchers.match(element.element(self.currentPage[hash[0]].locator()), _variableStore2.default.replaceTextVariables(hash[1])).then(result => {
             if (result) {
               return Promise.resolve();
             }
 
-            return Promise.reject(`Expected element "${hash.element}" to match matcher "${hash.value}"`);
+            return Promise.reject(`Expected element "${hash[0]}" to match matcher "${hash[1]}"`);
           }));
         });
       }).then(function () {
@@ -274,9 +276,9 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
   Then(/^every "([^"]*)" element should have the same value for element "([^"]*)"$/, function (containerName, elementName) {
     const self = this;
 
-    return this.currentPage[containerName].first().element(self.currentPage[elementName]).getText().then(function (firstElementText) {
+    return this.currentPage[containerName].first().element(self.currentPage[elementName].locator()).getText().then(function (firstElementText) {
       return self.currentPage[containerName].each(function (containerElement) {
-        containerElement.element(self.currentPage[elementName]).getText().then(function (elementText) {
+        containerElement.element(self.currentPage[elementName].locator()).getText().then(function (elementText) {
           expect(elementText).to.be.equal(firstElementText);
         });
       });
@@ -286,9 +288,9 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
   Then(/^every "([^"]*)" element should have the same value for element "([^"]*)" attribute "([^"]*)"$/, function (containerName, elementName, attributeName) {
     const self = this;
 
-    return this.currentPage[containerName].first().element(self.currentPage[elementName]).getAttribute(self.currentPage[attributeName + 'Attribute']).then(function (firstElementAttributeValue) {
+    return this.currentPage[containerName].first().element(self.currentPage[elementName].locator()).getAttribute(self.currentPage[attributeName + 'Attribute']).then(function (firstElementAttributeValue) {
       return self.currentPage[containerName].each(function (containerElement) {
-        containerElement.element(self.currentPage[elementName]).getAttribute(self.currentPage[attributeName + 'Attribute']).then(function (attributeValue) {
+        containerElement.element(self.currentPage[elementName].locator()).getAttribute(self.currentPage[attributeName + 'Attribute']).then(function (attributeValue) {
           expect(attributeValue).to.be.equal(firstElementAttributeValue);
         });
       });
@@ -298,17 +300,17 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
   Then(/^the element "([^"]*)" should have an item with values:$/, function (element, data) {
     const self = this;
     const allElements = this.currentPage[element];
-    const hashedData = data.hashes();
+    const hashedData = data.raw();
 
     if (hashedData.length === 0) {
-      return Promise.reject('Missing element and value header columns in step.');
+      return Promise.reject('Missing table under the step.');
     }
 
     const promises = [];
 
     return allElements.each(function (element) {
       hashedData.forEach(function (hash) {
-        promises.push(_matchers.matchers.match(element.element(self.currentPage[hash.element]), _variableStore2.default.replaceTextVariables(hash.value)));
+        promises.push(_matchers.matchers.match(element.element(self.currentPage[hash[0]].locator()), _variableStore2.default.replaceTextVariables(hash[1])));
       });
     }).then(function () {
       return Promise.all(promises).then(function (resolvedPromises) {
@@ -335,17 +337,17 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
   Then(/^the element "([^"]*)" should not have an item with values:$/, function (element, data) {
     const self = this;
     const allElements = this.currentPage[element];
-    const hashedData = data.hashes();
+    const hashedData = data.raw();
 
     if (hashedData.length === 0) {
-      return Promise.reject('Missing element and value header columns in step.');
+      return Promise.reject('Missing table under the step.');
     }
 
     const promises = [];
 
     return allElements.each(function (element) {
       hashedData.forEach(function (hash) {
-        promises.push(_matchers.matchers.match(element.element(self.currentPage[hash.element]), _variableStore2.default.replaceTextVariables(hash.value)));
+        promises.push(_matchers.matchers.match(element.element(self.currentPage[hash[0]].locator()), _variableStore2.default.replaceTextVariables(hash[1])));
       });
     }).then(function () {
       return Promise.all(promises).then(function (resolvedPromises) {
@@ -374,7 +376,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     const promise = [];
 
     return self.currentPage[elementList].each(function (singleElement) {
-      promise.push(singleElement.element(self.currentPage[elementValue]).getText());
+      promise.push(singleElement.element(self.currentPage[elementValue].locator()).getText());
     }).then(function () {
       return Promise.all(promise);
     }).then(function (elementsValues) {
@@ -459,4 +461,24 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
     return Promise.resolve(browser.actions().sendKeys(protractor.Key[keyTransformed]).perform());
   });
+
+  When(/^I drag "([^"]*)" element and drop over "([^"]*)" element$/, (() => {
+    var _ref3 = _asyncToGenerator(function* (elementDrag, elementDrop) {
+      const wait = function (timeToWait) {
+        return browser.sleep(timeToWait);
+      };
+
+      yield browser.actions().mouseMove(this.currentPage[elementDrag]).perform();
+      yield wait(200);
+      yield browser.actions().mouseDown().perform();
+      yield wait(200);
+      yield browser.actions().mouseMove(this.currentPage[elementDrop]).perform();
+      yield wait(200);
+      yield browser.actions().mouseUp().perform();
+    });
+
+    return function (_x3, _x4) {
+      return _ref3.apply(this, arguments);
+    };
+  })());
 });

@@ -1,4 +1,4 @@
-Feature:
+Feature: Forms
     As a kakunin user
     I want fill and check form fields
 
@@ -7,18 +7,18 @@ Feature:
         When I click the "formLink" element
         Then the "simpleForm" page is displayed
         When I fill the "form" form with:
-            | nameInput           | some value             |
-            | descriptionTextarea | some description       |
-            | optionCheckboxes    | Checkbox Option 2      |
-            | optionCheckboxes    | Checkbox Option 3      |
-            | optionRadios        | third-radio-option     |
-            | statusSelect        | unknown                |
+            | nameInput           | d:test-dictionary:test-name |
+            | descriptionTextarea | some description            |
+            | optionCheckboxes    | Checkbox Option 2           |
+            | optionCheckboxes    | Checkbox Option 3           |
+            | optionRadios        | third-radio-option          |
+            | statusSelect        | unknown                     |
         And I click the "submitButton" element
         Then the "simpleFormPost" page is displayed
         And the "form" form is filled with:
-            | nameInput           | some value             |
-            | descriptionTextarea | some description       |
-            | optionCheckboxes    | Checkbox Option 2      |
-            | optionCheckboxes    | Checkbox Option 3      |
-            | optionRadios        | third-radio-option     |
-            | statusSelect        | unknown                |
+            | nameInput           | d:test-dictionary:test-name |
+            | descriptionTextarea | some description            |
+            | optionCheckboxes    | Checkbox Option 2           |
+            | optionCheckboxes    | Checkbox Option 3           |
+            | optionRadios        | third-radio-option          |
+            | statusSelect        | unknown                     |
