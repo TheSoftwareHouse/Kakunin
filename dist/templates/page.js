@@ -10,4 +10,4 @@ class ExamplePage extends BasePage {
   }
 }
 
-module.exports = new ExamplePage();
+module.exports = ExamplePage;
