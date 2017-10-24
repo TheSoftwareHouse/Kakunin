@@ -51,6 +51,8 @@ if (isInitCommand()) {
   for (const prop in commandArgs) {
     if (prop !== '_' && !optionsToFilter.includes(prop)) {
       if (commandArgs[prop] === true || commandArgs[prop] === false) {
+        commandLineArgs.push(`--cucumberOpts.tags`);
+        commandLineArgs.push(`@performance`);
         commandLineArgs.push(`--${prop}`);
       } else {
         commandLineArgs.push(`--${prop}=${commandArgs[prop]}`);

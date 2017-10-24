@@ -37,7 +37,9 @@ You can use one of the following methods to configure browsermob-proxy:
 
 1. `performance steps` must be used in the scenario where you are testing performance
 
-2. Run tests with special parameter `performance`:
+2. Scenario must have a tag `@performance`
+
+3. Run tests with special parameter:
 
 ```
 npm run kakunin -- --performance
