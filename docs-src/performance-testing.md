@@ -40,7 +40,7 @@ You can use one of the following methods to configure browsermob-proxy:
 2. Run tests with special parameter `performance`:
 
 ```
-npm run kakunin -- --tags @wip --performance
+npm run kakunin -- --performance
 ```
 
 #Results
