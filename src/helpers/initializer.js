@@ -140,17 +140,17 @@ class Initializer {
       conf.downloads = await this.promptFolders('Where are your downloads stored?', conf.downloads);
       conf.data = await this.promptFolders('Where is your data stored?', conf.data);
 
-      conf.features = [await this.promptFolders('Where are your features stored?', conf.features)];
-      conf.pages = [await this.promptFolders('Where are your pages stored?', conf.pages)];
-      conf.matchers = [await this.promptFolders('Where are your matchers stored?', conf.matchers)];
-      conf.generators = [await this.promptFolders('Where are your generators stored?', conf.generators)];
-      conf.form_handlers = [await this.promptFolders('Where are your form handlers stored?', conf.form_handlers)];
-      conf.step_definitions = [await this.promptFolders('Where are your step definitions stored?', conf.step_definitions)];
-      conf.comparators = [await this.promptFolders('Where are your comparators stored?', conf.comparators)];
-      conf.dictionaries = [await this.promptFolders('Where are your dictionaries stored?', conf.dictionaries)];
-      conf.regexes = [await this.promptFolders('Where are your regexes stored?', conf.regexes)];
-      conf.hooks = [await this.promptFolders('Where are your hooks stored?', conf.hooks)];
-      conf.transformers = [await this.promptFolders('Where are your transformers stored?', conf.transformers)];
+      conf.features = [await this.promptFolders('Where are your features stored?', conf.features[0])];
+      conf.pages = [await this.promptFolders('Where are your pages stored?', conf.pages[0])];
+      conf.matchers = [await this.promptFolders('Where are your matchers stored?', conf.matchers[0])];
+      conf.generators = [await this.promptFolders('Where are your generators stored?', conf.generators[0])];
+      conf.form_handlers = [await this.promptFolders('Where are your form handlers stored?', conf.form_handlers[0])];
+      conf.step_definitions = [await this.promptFolders('Where are your step definitions stored?', conf.step_definitions[0])];
+      conf.comparators = [await this.promptFolders('Where are your comparators stored?', conf.comparators[0])];
+      conf.dictionaries = [await this.promptFolders('Where are your dictionaries stored?', conf.dictionaries[0])];
+      conf.regexes = [await this.promptFolders('Where are your regexes stored?', conf.regexes[0])];
+      conf.hooks = [await this.promptFolders('Where are your hooks stored?', conf.hooks[0])];
+      conf.transformers = [await this.promptFolders('Where are your transformers stored?', conf.transformers[0])];
 
       conf.clearEmailInboxBeforeTests = await this.promptFolders('Should email inbox be cleared before tests?', conf.clearEmailInboxBeforeTests, 'confirm');
       conf.clearCookiesAfterScenario = await this.promptFolders('Should cookies be cleared after scenario?', conf.clearCookiesAfterScenario, 'confirm');
@@ -205,6 +205,7 @@ class Initializer {
     this.createProjectDirectory(config.transformers[0]);
     this.createProjectDirectory(config.emails[0]);
 
+    this.createTemplateFile(config.performance + '/.gitkeep', '');
     this.createTemplateFile(config.reports + '/.gitkeep', '');
     this.createTemplateFile(config.downloads + '/.gitkeep', '');
     this.createTemplateFileWithContentFrom(config.features[0] + '/example.feature', 'example.feature');

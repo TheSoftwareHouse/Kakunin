@@ -149,17 +149,17 @@ class Initializer {
         conf.downloads = yield _this.promptFolders('Where are your downloads stored?', conf.downloads);
         conf.data = yield _this.promptFolders('Where is your data stored?', conf.data);
 
-        conf.features = [yield _this.promptFolders('Where are your features stored?', conf.features)];
-        conf.pages = [yield _this.promptFolders('Where are your pages stored?', conf.pages)];
-        conf.matchers = [yield _this.promptFolders('Where are your matchers stored?', conf.matchers)];
-        conf.generators = [yield _this.promptFolders('Where are your generators stored?', conf.generators)];
-        conf.form_handlers = [yield _this.promptFolders('Where are your form handlers stored?', conf.form_handlers)];
-        conf.step_definitions = [yield _this.promptFolders('Where are your step definitions stored?', conf.step_definitions)];
-        conf.comparators = [yield _this.promptFolders('Where are your comparators stored?', conf.comparators)];
-        conf.dictionaries = [yield _this.promptFolders('Where are your dictionaries stored?', conf.dictionaries)];
-        conf.regexes = [yield _this.promptFolders('Where are your regexes stored?', conf.regexes)];
-        conf.hooks = [yield _this.promptFolders('Where are your hooks stored?', conf.hooks)];
-        conf.transformers = [yield _this.promptFolders('Where are your transformers stored?', conf.transformers)];
+        conf.features = [yield _this.promptFolders('Where are your features stored?', conf.features[0])];
+        conf.pages = [yield _this.promptFolders('Where are your pages stored?', conf.pages[0])];
+        conf.matchers = [yield _this.promptFolders('Where are your matchers stored?', conf.matchers[0])];
+        conf.generators = [yield _this.promptFolders('Where are your generators stored?', conf.generators[0])];
+        conf.form_handlers = [yield _this.promptFolders('Where are your form handlers stored?', conf.form_handlers[0])];
+        conf.step_definitions = [yield _this.promptFolders('Where are your step definitions stored?', conf.step_definitions[0])];
+        conf.comparators = [yield _this.promptFolders('Where are your comparators stored?', conf.comparators[0])];
+        conf.dictionaries = [yield _this.promptFolders('Where are your dictionaries stored?', conf.dictionaries[0])];
+        conf.regexes = [yield _this.promptFolders('Where are your regexes stored?', conf.regexes[0])];
+        conf.hooks = [yield _this.promptFolders('Where are your hooks stored?', conf.hooks[0])];
+        conf.transformers = [yield _this.promptFolders('Where are your transformers stored?', conf.transformers[0])];
 
         conf.clearEmailInboxBeforeTests = yield _this.promptFolders('Should email inbox be cleared before tests?', conf.clearEmailInboxBeforeTests, 'confirm');
         conf.clearCookiesAfterScenario = yield _this.promptFolders('Should cookies be cleared after scenario?', conf.clearCookiesAfterScenario, 'confirm');
@@ -220,6 +220,7 @@ class Initializer {
       _this3.createProjectDirectory(config.transformers[0]);
       _this3.createProjectDirectory(config.emails[0]);
 
+      _this3.createTemplateFile(config.performance + '/.gitkeep', '');
       _this3.createTemplateFile(config.reports + '/.gitkeep', '');
       _this3.createTemplateFile(config.downloads + '/.gitkeep', '');
       _this3.createTemplateFileWithContentFrom(config.features[0] + '/example.feature', 'example.feature');
