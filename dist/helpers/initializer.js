@@ -61,6 +61,12 @@ class Initializer {
     })();
   }
 
+  parse(value) {
+    return _asyncToGenerator(function* () {
+      parseInt((yield value));
+    })();
+  }
+
   initConfig(advancedConfiguration = false) {
     var _this = this;
 
@@ -75,6 +81,7 @@ class Initializer {
         downloadTimeout: 30,
         emails: ['/emails'],
         reports: '/reports',
+        performance: '/reports/performance',
         downloads: '/downloads',
         data: '/data',
         features: ['/features'],
@@ -135,14 +142,14 @@ class Initializer {
 
       if (advancedConfiguration) {
         yield _this.initEnv();
-        conf.browserWidth = yield _this.promptFolders('What is desired browser width?', conf.browserWidth);
-        conf.browserHeight = yield _this.promptFolders('What is desired browser height?', conf.browserHeight);
+        conf.browserWidth = parseInt((yield _this.promptFolders('What is desired browser width?', conf.browserWidth)));
+        conf.browserHeight = parseInt((yield _this.promptFolders('What is desired browser height?', conf.browserHeight)));
 
-        conf.timeout = yield _this.promptFolders('What is desired step timeout in seconds?', conf.timeout);
-        conf.intervalEmail = yield _this.promptFolders('What is desired step email interval in seconds?', conf.intervalEmail);
-        conf.elementsVisibilityTimeout = yield _this.promptFolders('What is desired elements visibility timeout in seconds?', conf.elementsVisibilityTimeout);
-        conf.waitForPageTimeout = yield _this.promptFolders('How long should I wait for page to load in seconds?', conf.waitForPageTimeout);
-        conf.downloadTimeout = yield _this.promptFolders('How long should I wait for files to download in seconds?', conf.downloadTimeout);
+        conf.timeout = parseInt((yield _this.promptFolders('What is desired step timeout in seconds?', conf.timeout)));
+        conf.intervalEmail = parseInt((yield _this.promptFolders('What is desired step email interval in seconds?', conf.intervalEmail)));
+        conf.elementsVisibilityTimeout = parseInt((yield _this.promptFolders('What is desired elements visibility timeout in seconds?', conf.elementsVisibilityTimeout)));
+        conf.waitForPageTimeout = parseInt((yield _this.promptFolders('How long should I wait for page to load in seconds?', conf.waitForPageTimeout)));
+        conf.downloadTimeout = parseInt((yield _this.promptFolders('How long should I wait for files to download in seconds?', conf.downloadTimeout)));
 
         conf.reports = yield _this.promptFolders('Where are your reports stored?', conf.reports);
         conf.downloads = yield _this.promptFolders('Where are your downloads stored?', conf.downloads);
@@ -163,6 +170,11 @@ class Initializer {
         conf.clearEmailInboxBeforeTests = yield _this.promptFolders('Should email inbox be cleared before tests?', conf.clearEmailInboxBeforeTests, 'confirm');
         conf.clearCookiesAfterScenario = yield _this.promptFolders('Should cookies be cleared after scenario?', conf.clearCookiesAfterScenario, 'confirm');
         conf.clearLocalStorageAfterScenario = yield _this.promptFolders('Should local storage be cleared after scenario?', conf.clearLocalStorageAfterScenario, 'confirm');
+        conf.browserMob = {
+          serverPort: parseInt((yield _this.promptFolders('Define port where browsermob-proxy is running!', 8887))),
+          port: parseInt((yield _this.promptFolders('Define port where browsermob-proxy should be listening!', 8888))),
+          host: yield _this.promptFolders('Define host where browsermob-proxy is running!', 'localhost')
+        };
       }
 
       conf.accounts = {
@@ -197,6 +209,7 @@ class Initializer {
       const config = require(process.cwd() + '/kakunin.conf.js');
 
       _this3.createProjectDirectory(config.reports);
+      _this3.createProjectDirectory(config.performance);
       _this3.createProjectDirectory(config.downloads);
       _this3.createProjectDirectory(config.data);
 
@@ -214,6 +227,7 @@ class Initializer {
       _this3.createProjectDirectory(config.emails[0]);
 
       _this3.createTemplateFile(config.reports + '/.gitkeep', '');
+      _this3.createTemplateFile(config.performance + '/.gitkeep', '');
       _this3.createTemplateFile(config.downloads + '/.gitkeep', '');
       _this3.createTemplateFileWithContentFrom(config.features[0] + '/example.feature', 'example.feature');
       _this3.createTemplateFileWithContentFrom(config.pages[0] + '/page.js', 'page.js');

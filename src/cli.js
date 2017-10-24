@@ -42,9 +42,13 @@ if (isInitCommand()) {
 
   const commandLineArgs = [];
 
-  for(const prop in commandArgs) {
+  for (const prop in commandArgs) {
     if (prop !== '_' && !optionsToFilter.includes(prop)) {
-      commandLineArgs.push(`--${prop}=${commandArgs[prop]}`);
+      if (commandArgs[prop] === true || commandArgs[prop] === false) {
+        commandLineArgs.push(`--${prop}`);
+      } else {
+        commandLineArgs.push(`--${prop}=${commandArgs[prop]}`);
+      }
     }
   }
 

@@ -43,6 +43,10 @@ class Initializer {
     });
   }
 
+  async parse(value) {
+    parseInt(await value)
+  }
+
   async initConfig(advancedConfiguration = false) {
     const conf = {
       browserWidth: 1600,
@@ -54,6 +58,7 @@ class Initializer {
       downloadTimeout: 30,
       emails: ['/emails'],
       reports: '/reports',
+      performance: '/reports/performance',
       downloads: '/downloads',
       data: '/data',
       features: ['/features'],
@@ -126,14 +131,14 @@ class Initializer {
 
     if (advancedConfiguration) {
       await this.initEnv();
-      conf.browserWidth = await this.promptFolders('What is desired browser width?', conf.browserWidth);
-      conf.browserHeight = await this.promptFolders('What is desired browser height?', conf.browserHeight);
+      conf.browserWidth = parseInt(await this.promptFolders('What is desired browser width?', conf.browserWidth));
+      conf.browserHeight = parseInt(await this.promptFolders('What is desired browser height?', conf.browserHeight));
 
-      conf.timeout = await this.promptFolders('What is desired step timeout in seconds?', conf.timeout);
-      conf.intervalEmail = await this.promptFolders('What is desired step email interval in seconds?', conf.intervalEmail);
-      conf.elementsVisibilityTimeout = await this.promptFolders('What is desired elements visibility timeout in seconds?', conf.elementsVisibilityTimeout);
-      conf.waitForPageTimeout = await this.promptFolders('How long should I wait for page to load in seconds?', conf.waitForPageTimeout);
-      conf.downloadTimeout = await this.promptFolders('How long should I wait for files to download in seconds?', conf.downloadTimeout);
+      conf.timeout = parseInt(await this.promptFolders('What is desired step timeout in seconds?', conf.timeout));
+      conf.intervalEmail = parseInt(await this.promptFolders('What is desired step email interval in seconds?', conf.intervalEmail));
+      conf.elementsVisibilityTimeout = parseInt(await this.promptFolders('What is desired elements visibility timeout in seconds?', conf.elementsVisibilityTimeout));
+      conf.waitForPageTimeout = parseInt(await this.promptFolders('How long should I wait for page to load in seconds?', conf.waitForPageTimeout));
+      conf.downloadTimeout = parseInt(await this.promptFolders('How long should I wait for files to download in seconds?', conf.downloadTimeout));
 
       conf.reports = await this.promptFolders('Where are your reports stored?', conf.reports);
       conf.downloads = await this.promptFolders('Where are your downloads stored?', conf.downloads);
@@ -154,6 +159,11 @@ class Initializer {
       conf.clearEmailInboxBeforeTests = await this.promptFolders('Should email inbox be cleared before tests?', conf.clearEmailInboxBeforeTests, 'confirm');
       conf.clearCookiesAfterScenario = await this.promptFolders('Should cookies be cleared after scenario?', conf.clearCookiesAfterScenario, 'confirm');
       conf.clearLocalStorageAfterScenario = await this.promptFolders('Should local storage be cleared after scenario?', conf.clearLocalStorageAfterScenario, 'confirm');
+      conf.browserMob = {
+        serverPort: parseInt(await this.promptFolders('Define port where browsermob-proxy is running!', 8887)),
+        port: parseInt(await this.promptFolders('Define port where browsermob-proxy should be listening!', 8888)),
+        host: await this.promptFolders('Define host where browsermob-proxy is running!', 'localhost')
+      };
     }
 
     conf.accounts = {
@@ -182,6 +192,7 @@ class Initializer {
     const config = require(process.cwd() + '/kakunin.conf.js');
 
     this.createProjectDirectory(config.reports);
+    this.createProjectDirectory(config.performance);
     this.createProjectDirectory(config.downloads);
     this.createProjectDirectory(config.data);
 
@@ -199,6 +210,7 @@ class Initializer {
     this.createProjectDirectory(config.emails[0]);
 
     this.createTemplateFile(config.reports + '/.gitkeep', '');
+    this.createTemplateFile(config.performance + '/.gitkeep', '');
     this.createTemplateFile(config.downloads + '/.gitkeep', '');
     this.createTemplateFileWithContentFrom(config.features[0] + '/example.feature', 'example.feature');
     this.createTemplateFileWithContentFrom(config.pages[0] + '/page.js', 'page.js');
