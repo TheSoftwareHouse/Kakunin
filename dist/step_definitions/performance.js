@@ -39,7 +39,7 @@ let proxy;
 
     proxy.getHAR(_config2.default.browserMob.port, (err, resp) => {
       if (!err) {
-        console.log('har saved at output.har');
+        console.log(`har saved at ${fileName}.har`);
         fs.writeFileSync(`reports/performance/${fileName}-${Date.now()}.har`, resp, 'utf8');
       } else {
         console.err('Error getting HAR file: ' + err);
