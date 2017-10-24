@@ -549,3 +549,27 @@ Pauses tests execution and allows to continue manually by pressing combination o
 ###`I wait for ":seconds" seconds`
 
 Waits with execution of next step for an amount provided by parameter `:seconds`.
+
+###`I start performance monitor mode`
+
+It starts performance monitor mode. 
+
+Keep in mind that REST API must be started on the port which must configured in `kakunin.conf.js` - `serverPort: 8887`.
+
+More details can be found in documentation file `performance-testing.md`.
+
+###`I save performance report file as "fileName"`
+
+It saves `.har` file with a name `fileName` in `reports/performance` catalog. 
+
+Data is generated during the test - network tab in Chrome Chrome console.
+
+Keep in mind:
+
+* `I start performance monitor mode` must be used before this step
+
+* `browserMob.port` must be configured in `kakunin.conf.js`
+
+* `browserMob.host` must be configured in `kakunin.conf.js`
+
+More details can be found in documentation file `performance-testing.md`.

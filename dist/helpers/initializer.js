@@ -61,12 +61,6 @@ class Initializer {
     })();
   }
 
-  parse(value) {
-    return _asyncToGenerator(function* () {
-      parseInt((yield value));
-    })();
-  }
-
   initConfig(advancedConfiguration = false) {
     var _this = this;
 
@@ -227,7 +221,6 @@ class Initializer {
       _this3.createProjectDirectory(config.emails[0]);
 
       _this3.createTemplateFile(config.reports + '/.gitkeep', '');
-      _this3.createTemplateFile(config.performance + '/.gitkeep', '');
       _this3.createTemplateFile(config.downloads + '/.gitkeep', '');
       _this3.createTemplateFileWithContentFrom(config.features[0] + '/example.feature', 'example.feature');
       _this3.createTemplateFileWithContentFrom(config.pages[0] + '/page.js', 'page.js');

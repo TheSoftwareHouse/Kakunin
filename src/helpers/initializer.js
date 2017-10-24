@@ -43,10 +43,6 @@ class Initializer {
     });
   }
 
-  async parse(value) {
-    parseInt(await value)
-  }
-
   async initConfig(advancedConfiguration = false) {
     const conf = {
       browserWidth: 1600,
@@ -210,7 +206,6 @@ class Initializer {
     this.createProjectDirectory(config.emails[0]);
 
     this.createTemplateFile(config.reports + '/.gitkeep', '');
-    this.createTemplateFile(config.performance + '/.gitkeep', '');
     this.createTemplateFile(config.downloads + '/.gitkeep', '');
     this.createTemplateFileWithContentFrom(config.features[0] + '/example.feature', 'example.feature');
     this.createTemplateFileWithContentFrom(config.pages[0] + '/page.js', 'page.js');

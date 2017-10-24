@@ -640,6 +640,20 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#i-start-performance-monitor-mode" title="I start performance monitor mode" class="md-nav__link">
+    I start performance monitor mode
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#i-save-performance-report-file-as-filename" title="I save performance report file as "fileName"" class="md-nav__link">
+    I save performance report file as "fileName"
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -674,6 +688,18 @@
   <li class="md-nav__item">
     <a href="../transformers/" title="Transformers" class="md-nav__link">
       Transformers
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../performance-testing/" title="Performance testing" class="md-nav__link">
+      Performance testing
     </a>
   </li>
 
@@ -1077,6 +1103,20 @@
           <li class="md-nav__item">
   <a href="#i-wait-for-seconds-seconds" title="I wait for ":seconds" seconds" class="md-nav__link">
     I wait for ":seconds" seconds
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#i-start-performance-monitor-mode" title="I start performance monitor mode" class="md-nav__link">
+    I start performance monitor mode
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#i-save-performance-report-file-as-filename" title="I save performance report file as "fileName"" class="md-nav__link">
+    I save performance report file as "fileName"
   </a>
   
 </li>
@@ -1503,6 +1543,26 @@ variable store here.</p>
 <p>Pauses tests execution and allows to continue manually by pressing combination of <code>ctrl+c</code> inside terminal.</p>
 <h3 id="i-wait-for-seconds-seconds"><code>I wait for ":seconds" seconds</code></h3>
 <p>Waits with execution of next step for an amount provided by parameter <code>:seconds</code>.</p>
+<h3 id="i-start-performance-monitor-mode"><code>I start performance monitor mode</code></h3>
+<p>It starts performance monitor mode. </p>
+<p>Keep in mind that REST API must be started on the port which must configured in <code>kakunin.conf.js</code> - <code>serverPort: 8887</code>.</p>
+<p>More details can be found in documentation file <code>performance-testing.md</code>.</p>
+<h3 id="i-save-performance-report-file-as-filename"><code>I save performance report file as "fileName"</code></h3>
+<p>It saves <code>.har</code> file with a name <code>fileName</code> in <code>reports/performance</code> catalog. </p>
+<p>Data is generated during the test - network tab in Chrome Chrome console.</p>
+<p>Keep in mind:</p>
+<ul>
+<li>
+<p><code>I start performance monitor mode</code> must be used before this step</p>
+</li>
+<li>
+<p><code>browserMob.port</code> must be configured in <code>kakunin.conf.js</code></p>
+</li>
+<li>
+<p><code>browserMob.host</code> must be configured in <code>kakunin.conf.js</code></p>
+</li>
+</ul>
+<p>More details can be found in documentation file <code>performance-testing.md</code>.</p>
                 
                   
                 
