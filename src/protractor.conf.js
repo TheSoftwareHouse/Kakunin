@@ -26,6 +26,14 @@ const chromeConfig = {
   }
 };
 
+if (config.performance) {
+  chromeConfig.proxy = {
+    proxyType: 'manual',
+    httpProxy: `${config.browserMob.host}:${config.browserMob.port}`,
+    sslProxy: `${config.browserMob.host}:${config.browserMob.port}`
+  };
+}
+
 if (config.noGpu) {
   chromeConfig.chromeOptions.args = [
     ...chromeConfig.chromeOptions.args,

@@ -11,7 +11,7 @@
         <meta name="description" content="Kakunin - E2E testing framework on steroids">
       
       
-        <link rel="canonical" href="https://thesoftwarehouse.github.io/Kakunin/matchers/">
+        <link rel="canonical" href="https://thesoftwarehouse.github.io/Kakunin/performance-testing/">
       
       
       
@@ -28,7 +28,7 @@
 
     
       
-        <title>Matchers - Kakunin</title>
+        <title>Performance testing - Kakunin</title>
       
     
     
@@ -88,7 +88,7 @@
             
               
             
-            Matchers
+            Performance testing
           
         </span>
       </div>
@@ -255,92 +255,11 @@
       
       
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
-    
-    
-      <label class="md-nav__link md-nav__link--active" for="toc">
-        Matchers
-      </label>
-    
-    <a href="./" title="Matchers" class="md-nav__link md-nav__link--active">
+  <li class="md-nav__item">
+    <a href="../matchers/" title="Matchers" class="md-nav__link">
       Matchers
     </a>
-    
-      
-<nav class="md-nav md-nav--secondary">
-  
-  
-  
-    <label class="md-nav__title" for="toc">Table of contents</label>
-    <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#visibility-matcher" title="Visibility matcher" class="md-nav__link">
-    Visibility matcher
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#invisibility-matcher" title="Invisibility matcher" class="md-nav__link">
-    Invisibility matcher
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#present-matcher" title="Present matcher" class="md-nav__link">
-    Present matcher
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#clickable-matcher" title="Clickable matcher" class="md-nav__link">
-    Clickable matcher
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#not-clickable-matcher" title="Not clickable matcher" class="md-nav__link">
-    Not clickable matcher
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#attribute-matcher" title="Attribute matcher" class="md-nav__link">
-    Attribute matcher
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#regex-matcher" title="Regex matcher" class="md-nav__link">
-    Regex matcher
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#text-matcher" title="Text matcher" class="md-nav__link">
-    Text matcher
-  </a>
-  
-</li>
-      
-      
-      
-    </ul>
-  
-</nav>
-    
   </li>
 
     
@@ -360,11 +279,20 @@
       
       
 
+  
 
-  <li class="md-nav__item">
-    <a href="../performance-testing/" title="Performance testing" class="md-nav__link">
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
+    
+      
+    
+    
+    <a href="./" title="Performance testing" class="md-nav__link md-nav__link--active">
       Performance testing
     </a>
+    
   </li>
 
     
@@ -394,69 +322,8 @@
 <nav class="md-nav md-nav--secondary">
   
   
+    
   
-    <label class="md-nav__title" for="toc">Table of contents</label>
-    <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#visibility-matcher" title="Visibility matcher" class="md-nav__link">
-    Visibility matcher
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#invisibility-matcher" title="Invisibility matcher" class="md-nav__link">
-    Invisibility matcher
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#present-matcher" title="Present matcher" class="md-nav__link">
-    Present matcher
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#clickable-matcher" title="Clickable matcher" class="md-nav__link">
-    Clickable matcher
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#not-clickable-matcher" title="Not clickable matcher" class="md-nav__link">
-    Not clickable matcher
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#attribute-matcher" title="Attribute matcher" class="md-nav__link">
-    Attribute matcher
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#regex-matcher" title="Regex matcher" class="md-nav__link">
-    Regex matcher
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#text-matcher" title="Text matcher" class="md-nav__link">
-    Text matcher
-  </a>
-  
-</li>
-      
-      
-      
-    </ul>
   
 </nav>
                   </div>
@@ -468,40 +335,69 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/TheSoftwareHouse/Kakunin/edit/master/docs-src/matchers.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                  <a href="https://github.com/TheSoftwareHouse/Kakunin/edit/master/docs-src/performance-testing.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
-                  <h1>Matchers</h1>
-                
-                <p>Matchers allows you to check if a element content matches your expectation.</p>
-<p>For example you can check if a value has a specified pattern or if a button is clickable.</p>
-<p>Using matcher is very straightforward, for example: <code>f:isClickable</code>.</p>
-<p>Matchers can be used in most of the steps related to checking content (with exception of checking form values).</p>
-<p>Kakunin comes with a set of built in matchers:</p>
-<h3 id="visibility-matcher">Visibility matcher</h3>
-<p><code>f:isVisible</code> - checks if element is visible (must be in viewport and cannot be hidden behind any other element)</p>
-<h3 id="invisibility-matcher">Invisibility matcher</h3>
-<p><code>f:isNotVisible</code> - checks if element is not visible</p>
-<h3 id="present-matcher">Present matcher</h3>
-<p><code>f:isPresent</code> - checks if element is in html code (does not have to be visible)</p>
-<h3 id="clickable-matcher">Clickable matcher</h3>
-<p><code>f:isClickable</code> - checks if element is clickable</p>
-<h3 id="not-clickable-matcher">Not clickable matcher</h3>
-<p><code>f:isNotClickable</code> - checks if element is not clickable</p>
-<h3 id="attribute-matcher">Attribute matcher</h3>
-<p><code>attribute:attributeName:regexName</code> - allows to check if element has attribute with a name specified by <code>attributeName</code> and it has to 
-have a format passing <code>regexName</code></p>
-<p>For example, if there is an element:</p>
-<p><code>&lt;p custom-attribute="123123"&gt;some value&lt;/p&gt;</code></p>
-<p>you can check if attribute is an number by running: <code>attribute:custom-attribute:number</code></p>
-<h3 id="regex-matcher">Regex matcher</h3>
-<p><code>r:regexName</code> - allows you to run a <code>regexName</code> against a text value of element</p>
-<p>Regexes have to be specified inside <code>regex</code> directory or be a kakunin built ones:</p>
-<p><code>notEmpty</code> - there must be a value
-<code>number</code> - must be a number</p>
-<p>You can add your own matchers. In order to do so please read <code>Extending Kakunin</code> section.</p>
-<h3 id="text-matcher">Text matcher</h3>
-<p><code>t:text you are looking for</code> - allows you to check if an element contains a expected text</p>
+                <p>Performance testing is possible thanks to <code>browsermob-proxy</code>.</p>
+<p>It saves all data from network tab (Google Chrome console) which is generated during the test.</p>
+<h3 id="what-needs-to-be-done">What needs to be done?</h3>
+<h1 id="get-started">Get started</h1>
+<ol>
+<li>
+<p>Download <code>browsermob-proxy</code> from <code>https://github.com/lightbody/browsermob-proxy</code></p>
+</li>
+<li>
+<p>Navigate in terminal to the catalog</p>
+</li>
+<li>
+<p>Use following command to start the REST API</p>
+</li>
+</ol>
+<div class="codehilite"><pre><span></span>./browsermob-proxy -port 8887
+</pre></div>
+
+
+<h1 id="configuration">Configuration</h1>
+<ol>
+<li>Add <code>browsermob-proxy</code> configuration to <code>kakunin.conf.js</code></li>
+</ol>
+<p>You can use one of the following methods to configure browsermob-proxy:</p>
+<ul>
+<li>
+<p><code>npm run kakunin init -- --advanced</code> and go through the process</p>
+</li>
+<li>
+<p>or add it manually to the config file:</p>
+</li>
+</ul>
+<div class="codehilite"><pre><span></span>    <span class="s2">&quot;browserMob&quot;</span><span class="o">:</span> <span class="p">{</span>
+      <span class="s2">&quot;serverPort&quot;</span><span class="o">:</span> <span class="mi">8887</span><span class="p">,</span>
+      <span class="s2">&quot;port&quot;</span><span class="o">:</span> <span class="mi">8888</span><span class="p">,</span>
+      <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;localhost&quot;</span>
+    <span class="p">}</span>
+</pre></div>
+
+
+<h1 id="run-tests">Run tests</h1>
+<ol>
+<li>
+<p><code>performance steps</code> must be used in the scenario where you are testing performance</p>
+</li>
+<li>
+<p>Scenario must have a tag <code>@performance</code></p>
+</li>
+<li>
+<p>Run tests with special parameter:</p>
+</li>
+</ol>
+<div class="codehilite"><pre><span></span>npm run kakunin -- --performance
+</pre></div>
+
+
+<h1 id="results">Results</h1>
+<ol>
+<li><code>.har</code> files are saved in catalog <code>reports/performance/*.har</code></li>
+</ol>
                 
                   
                 
@@ -520,7 +416,7 @@ have a format passing <code>regexName</code></p>
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../steps/" title="Built-in steps" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../transformers/" title="Transformers" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -529,19 +425,19 @@ have a format passing <code>regexName</code></p>
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Built-in steps
+                Transformers
               </span>
             </div>
           </a>
         
         
-          <a href="../transformers/" title="Transformers" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../extending/" title="Extending Kakunin" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Transformers
+                Extending Kakunin
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">

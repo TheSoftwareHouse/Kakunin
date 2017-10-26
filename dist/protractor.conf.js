@@ -30,6 +30,14 @@ const chromeConfig = {
   }
 };
 
+if (config.performance) {
+  chromeConfig.proxy = {
+    proxyType: 'manual',
+    httpProxy: `${config.browserMob.host}:${config.browserMob.port}`,
+    sslProxy: `${config.browserMob.host}:${config.browserMob.port}`
+  };
+}
+
 if (config.noGpu) {
   chromeConfig.chromeOptions.args = [...chromeConfig.chromeOptions.args, '--disable-gpu', '--disable-impl-side-painting', '--disable-gpu-sandbox', '--disable-accelerated-2d-canvas', '--disable-accelerated-jpeg-decoding', '--no-sandbox'];
 }
