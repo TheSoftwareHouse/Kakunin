@@ -2,6 +2,10 @@ Performance testing is possible thanks to `browsermob-proxy`.
 
 It saves all data from network tab (Google Chrome console) which is generated during the test.
 
+There is a possibility to compare `TTFB` value with a maximum given one. 
+
+More details can be found in documentation - `Built-in steps` section.
+
 ###What needs to be done?
 
 #Get started
