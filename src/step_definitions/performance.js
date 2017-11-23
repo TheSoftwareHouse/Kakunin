@@ -59,7 +59,7 @@ defineSupportCode(function ({ When, Then }) {
       url: item.request.url
     }));
 
-    if (mappedRequests.length !== 0) {
+    if (mappedRequests.length > 0) {
       const slowRequests = mappedRequests.filter(request => request.ttfb > maxTiming);
       let reportList = [];
 
