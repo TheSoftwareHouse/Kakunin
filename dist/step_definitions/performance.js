@@ -65,18 +65,23 @@ let proxy;
       ttfb: item.timings.wait,
       url: item.request.url
     }));
-    const slowRequests = mappedRequests.filter(request => request.ttfb > maxTiming);
-    let reportList = [];
 
-    for (let i = 0; slowRequests.length > i; i++) {
-      reportList.push('\r\n', `url: ${slowRequests[i].url}`, `TTFB: ${slowRequests[i].ttfb.toFixed(2)} ms`);
+    if (mappedRequests.length !== 0) {
+      const slowRequests = mappedRequests.filter(request => request.ttfb > maxTiming);
+      let reportList = [];
+
+      if (slowRequests.length > 0) {
+        for (let i = 0; slowRequests.length > i; i++) {
+          reportList.push('\r\n', `url: ${slowRequests[i].url}`, `TTFB: ${slowRequests[i].ttfb.toFixed(2)} ms`);
+        }
+
+        console.log(_chalk2.default.white.bgRed(`Slow requests: ${reportList.join('\r\n')}`));
+        return Promise.reject('TTFB value is too big! Details available above.');
+      }
+
+      return Promise.resolve();
     }
 
-    if (slowRequests.length > 0) {
-      console.log(_chalk2.default.white.bgRed(`Slow requests: ${reportList.join('\r\n')}`));
-      return Promise.reject('TTFB value is too big! Details available above.');
-    }
-
-    return Promise.resolve();
+    return Promise.reject(`${this.performanceReportFile} report contains incorrect data!`);
   });
 });
