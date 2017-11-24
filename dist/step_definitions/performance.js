@@ -6,9 +6,9 @@ var _config = require('../helpers/config.helper');
 
 var _config2 = _interopRequireDefault(_config);
 
-var _performanceReportParser = require('../helpers/performance-report-parser.helper');
+var _performanceReportAnalyser = require('../helpers/performance-report-analyser.helper');
 
-var _performanceReportParser2 = _interopRequireDefault(_performanceReportParser);
+var _performanceReportAnalyser2 = _interopRequireDefault(_performanceReportAnalyser);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -60,6 +60,6 @@ let proxy;
   });
 
   Then(/^the requests should take a maximum of "([^"]*)" milliseconds$/, function (maxTiming) {
-    return _performanceReportParser2.default.parse(this.performanceReportFile, maxTiming);
+    return _performanceReportAnalyser2.default.checkTiming(this.performanceReportFile, maxTiming);
   });
 });

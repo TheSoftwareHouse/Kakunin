@@ -1,6 +1,6 @@
 import { defineSupportCode } from 'cucumber';
 import config from '../helpers/config.helper';
-import performanceReportParser from '../helpers/performance-report-parser.helper';
+import performanceReportAnalyser from '../helpers/performance-report-analyser.helper';
 
 const browsermob = require('browsermob-proxy').Proxy;
 const fs = require('fs');
@@ -53,6 +53,6 @@ defineSupportCode(function ({ When, Then }) {
   });
 
   Then(/^the requests should take a maximum of "([^"]*)" milliseconds$/, function (maxTiming) {
-    return performanceReportParser.parse(this.performanceReportFile, maxTiming);
+    return performanceReportAnalyser.checkTiming(this.performanceReportFile, maxTiming);
   });
 });
