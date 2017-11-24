@@ -6,9 +6,9 @@ var _config = require('../helpers/config.helper');
 
 var _config2 = _interopRequireDefault(_config);
 
-var _chalk = require('chalk');
+var _performanceReportParser = require('../helpers/performance-report-parser.helper');
 
-var _chalk2 = _interopRequireDefault(_chalk);
+var _performanceReportParser2 = _interopRequireDefault(_performanceReportParser);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -60,28 +60,6 @@ let proxy;
   });
 
   Then(/^the requests should take a maximum of "([^"]*)" milliseconds$/, function (maxTiming) {
-    const performanceReport = JSON.parse(fs.readFileSync(`reports/performance/${this.performanceReportFile}`, 'utf8'));
-    const mappedRequests = performanceReport.log.entries.map(item => ({
-      ttfb: item.timings.wait,
-      url: item.request.url
-    }));
-
-    if (mappedRequests.length > 0) {
-      const slowRequests = mappedRequests.filter(request => request.ttfb > maxTiming);
-      let reportList = [];
-
-      if (slowRequests.length > 0) {
-        for (let i = 0; slowRequests.length > i; i++) {
-          reportList.push('\r\n', `url: ${slowRequests[i].url}`, `TTFB: ${slowRequests[i].ttfb.toFixed(2)} ms`);
-        }
-
-        console.log(_chalk2.default.white.bgRed(`Slow requests: ${reportList.join('\r\n')}`));
-        return Promise.reject('TTFB value is too big! Details available above.');
-      }
-
-      return Promise.resolve();
-    }
-
-    return Promise.reject(`${this.performanceReportFile} report contains incorrect data!`);
+    return _performanceReportParser2.default.parse(this.performanceReportFile, maxTiming);
   });
 });

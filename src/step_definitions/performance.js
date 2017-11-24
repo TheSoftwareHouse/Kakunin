@@ -1,6 +1,6 @@
 import { defineSupportCode } from 'cucumber';
 import config from '../helpers/config.helper';
-import chalk from 'chalk';
+import performanceReportParser from '../helpers/performance-report-parser.helper';
 
 const browsermob = require('browsermob-proxy').Proxy;
 const fs = require('fs');
@@ -53,28 +53,6 @@ defineSupportCode(function ({ When, Then }) {
   });
 
   Then(/^the requests should take a maximum of "([^"]*)" milliseconds$/, function (maxTiming) {
-    const performanceReport = JSON.parse(fs.readFileSync(`reports/performance/${this.performanceReportFile}`, 'utf8'));
-    const mappedRequests = performanceReport.log.entries.map(item => ({
-      ttfb: item.timings.wait,
-      url: item.request.url
-    }));
-
-    if (mappedRequests.length > 0) {
-      const slowRequests = mappedRequests.filter(request => request.ttfb > maxTiming);
-      let reportList = [];
-
-      if (slowRequests.length > 0) {
-        for (let i = 0; slowRequests.length > i; i++) {
-          reportList.push('\r\n', `url: ${slowRequests[i].url}`, `TTFB: ${slowRequests[i].ttfb.toFixed(2)} ms`);
-        }
-
-        console.log(chalk.white.bgRed(`Slow requests: ${reportList.join('\r\n')}`));
-        return Promise.reject('TTFB value is too big! Details available above.');
-      }
-
-      return Promise.resolve();
-    }
-
-    return Promise.reject(`${this.performanceReportFile} report contains incorrect data!`);
+    return performanceReportParser.parse(this.performanceReportFile, maxTiming);
   });
 });
