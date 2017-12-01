@@ -1,6 +1,7 @@
 import { defineSupportCode } from 'cucumber';
+import chalk from 'chalk';
 import config from '../helpers/config.helper';
-import performanceReportAnalyser from '../helpers/performance-report-analyser.helper';
+import { analyser } from '../helpers/time-to-first-byte-analyser.helper';
 
 const browsermob = require('browsermob-proxy').Proxy;
 const fs = require('fs');
@@ -53,6 +54,20 @@ defineSupportCode(function ({ When, Then }) {
   });
 
   Then(/^the requests should take a maximum of "([^"]*)" milliseconds$/, function (maxTiming) {
-    return performanceReportAnalyser.checkTiming(this.performanceReportFile, maxTiming);
+    const slowRequests = analyser.checkTiming(this.performanceReportFile, maxTiming);
+
+    if (slowRequests === null) {
+      return Promise.reject('Report file contains incorrect data!');
+    }
+
+    if (slowRequests.length > 0) {
+      slowRequests.forEach(item => {
+        console.log(chalk.white.bgRed('\r\n', `Slow request:`, '\r\n', `URL: ${item.url}`, '\r\n', `TTFB: ${item.ttfb.toFixed(2)} ms`, '\r\n'));
+      });
+
+      return Promise.reject('TTFB value is too big! Details available above.');
+    }
+
+    return Promise.resolve();
   });
 });

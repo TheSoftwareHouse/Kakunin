@@ -2,13 +2,15 @@
 
 var _cucumber = require('cucumber');
 
+var _chalk = require('chalk');
+
+var _chalk2 = _interopRequireDefault(_chalk);
+
 var _config = require('../helpers/config.helper');
 
 var _config2 = _interopRequireDefault(_config);
 
-var _performanceReportAnalyser = require('../helpers/performance-report-analyser.helper');
-
-var _performanceReportAnalyser2 = _interopRequireDefault(_performanceReportAnalyser);
+var _timeToFirstByteAnalyser = require('../helpers/time-to-first-byte-analyser.helper');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -60,6 +62,20 @@ let proxy;
   });
 
   Then(/^the requests should take a maximum of "([^"]*)" milliseconds$/, function (maxTiming) {
-    return _performanceReportAnalyser2.default.checkTiming(this.performanceReportFile, maxTiming);
+    const slowRequests = _timeToFirstByteAnalyser.analyser.checkTiming(this.performanceReportFile, maxTiming);
+
+    if (slowRequests === null) {
+      return Promise.reject('Report file contains incorrect data!');
+    }
+
+    if (slowRequests.length > 0) {
+      slowRequests.forEach(item => {
+        console.log(_chalk2.default.white.bgRed('\r\n', `Slow request:`, '\r\n', `URL: ${item.url}`, '\r\n', `TTFB: ${item.ttfb.toFixed(2)} ms`, '\r\n'));
+      });
+
+      return Promise.reject('TTFB value is too big! Details available above.');
+    }
+
+    return Promise.resolve();
   });
 });
