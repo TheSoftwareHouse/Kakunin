@@ -64,10 +64,6 @@ let proxy;
   Then(/^the requests should take a maximum of "([^"]*)" milliseconds$/, function (maxTiming) {
     const slowRequests = _timeToFirstByteAnalyser.analyser.checkTiming(this.performanceReportFile, maxTiming);
 
-    if (slowRequests === null) {
-      return Promise.reject('Report file contains incorrect data!');
-    }
-
     if (slowRequests.length > 0) {
       slowRequests.forEach(item => {
         console.log(_chalk2.default.white.bgRed('\r\n', `Slow request:`, '\r\n', `URL: ${item.url}`, '\r\n', `TTFB: ${item.ttfb.toFixed(2)} ms`, '\r\n'));

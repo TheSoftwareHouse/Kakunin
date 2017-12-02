@@ -12,8 +12,7 @@ class TimeToFirstByteAnalyser {
       return parsedReport.filter(parsedReport => parsedReport.ttfb > maxTiming);
     }
 
-    console.log(`${fileName} contains incorrect data!`);
-    return null;
+    throw Error(`${fileName} contains incorrect data`);
   }
 }
 
