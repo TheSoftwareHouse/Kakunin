@@ -62,7 +62,8 @@ let proxy;
   });
 
   Then(/^the requests should take a maximum of "([^"]*)" milliseconds$/, function (maxTiming) {
-    const slowRequests = _timeToFirstByteAnalyser.analyser.checkTiming(this.performanceReportFile, maxTiming);
+    const maxTimingInt = parseFloat(maxTiming);
+    const slowRequests = _timeToFirstByteAnalyser.analyser.checkTiming(this.performanceReportFile, maxTimingInt);
 
     if (slowRequests.length > 0) {
       slowRequests.forEach(item => {
