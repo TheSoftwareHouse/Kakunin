@@ -5,7 +5,7 @@ class TimeToFirstByteAnalyser {
     this.reader = jsonPerformanceReportParser;
   }
 
-  analyseTTFB(parsedReport,maxTiming) {
+  analyseTTFB(parsedReport, maxTiming) {
     return parsedReport.filter(parsedReport => parsedReport.ttfb > maxTiming);
   }
 

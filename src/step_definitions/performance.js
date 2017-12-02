@@ -58,8 +58,8 @@ defineSupportCode(function ({ When, Then }) {
     const slowRequests = analyser.checkTiming(this.performanceReportFile, maxTimingInt);
 
     if (slowRequests.length > 0) {
-      slowRequests.forEach(item => {
-        console.log(chalk.white.bgRed('\r\n', `Slow request:`, '\r\n', `URL: ${item.url}`, '\r\n', `TTFB: ${item.ttfb.toFixed(2)} ms`, '\r\n'));
+      slowRequests.forEach(({ url, ttfb }) => {
+        console.log(chalk.white.bgRed('\r\n', `Slow request:`, '\r\n', `URL: ${url}`, '\r\n', `TTFB: ${ttfb.toFixed(2)} ms`, '\r\n'));
       });
 
       return Promise.reject('TTFB value is too big! Details available above.');
