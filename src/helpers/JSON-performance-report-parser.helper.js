@@ -4,10 +4,16 @@ class JSONPerformanceReportParser {
   parse(fileName) {
     const reportFile = JSON.parse(fs.readFileSync(`reports/performance/${fileName}`, 'utf8'));
 
-    return reportFile.log.entries.map(item => ({
+    const parsedReport = reportFile.log.entries.map(item => ({
       ttfb: item.timings.wait,
       url: item.request.url
     }));
+
+    if (parsedReport.length > 0) {
+      return parsedReport;
+    }
+
+    throw Error(`${fileName} contains incorrect data!`);
   }
 }
 

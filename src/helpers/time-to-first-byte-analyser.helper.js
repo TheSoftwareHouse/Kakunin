@@ -5,14 +5,14 @@ class TimeToFirstByteAnalyser {
     this.reader = jsonPerformanceReportParser;
   }
 
+  analyseTTFB(parsedReport,maxTiming) {
+    return parsedReport.filter(parsedReport => parsedReport.ttfb > maxTiming);
+  }
+
   checkTiming(fileName, maxTiming) {
     const parsedReport = this.reader.parse(fileName);
 
-    if (parsedReport.length > 0) {
-      return parsedReport.filter(parsedReport => parsedReport.ttfb > maxTiming);
-    }
-
-    throw Error(`${fileName} contains incorrect data`);
+    return this.analyseTTFB(parsedReport, maxTiming);
   }
 }
 
