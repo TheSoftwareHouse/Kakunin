@@ -63,10 +63,9 @@ let proxy;
   });
 
   Then(/^the requests should take a maximum of "([^"]*)" milliseconds$/, function (maxTiming) {
-    const maxTimingInt = parseFloat(maxTiming);
-    const slowRequests = analyser.checkTiming(this.performanceReportFile, maxTimingInt);
-
     try {
+      const slowRequests = analyser.checkTiming(this.performanceReportFile, parseFloat(maxTiming));
+
       if (slowRequests.length > 0) {
         slowRequests.forEach(({ url, ttfb }) => {
           console.log(_chalk2.default.white.bgRed('\r\n', `Slow request:`, '\r\n', `URL: ${url}`, '\r\n', `TTFB: ${ttfb.toFixed(2)} ms`, '\r\n'));
