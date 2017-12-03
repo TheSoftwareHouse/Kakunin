@@ -1,8 +1,9 @@
 import { defineSupportCode } from 'cucumber';
 import chalk from 'chalk';
 import config from '../helpers/config.helper';
-import { analyser } from '../helpers/time-to-first-byte-analyser.helper';
+import { create as createAnalyser } from '../helpers/time-to-first-byte-analyser.helper';
 
+const analyser = createAnalyser();
 const browsermob = require('browsermob-proxy').Proxy;
 const fs = require('fs');
 let proxy;
@@ -57,14 +58,19 @@ defineSupportCode(function ({ When, Then }) {
     const maxTimingInt = parseFloat(maxTiming);
     const slowRequests = analyser.checkTiming(this.performanceReportFile, maxTimingInt);
 
-    if (slowRequests.length > 0) {
-      slowRequests.forEach(({ url, ttfb }) => {
-        console.log(chalk.white.bgRed('\r\n', `Slow request:`, '\r\n', `URL: ${url}`, '\r\n', `TTFB: ${ttfb.toFixed(2)} ms`, '\r\n'));
-      });
+    try {
+      if (slowRequests.length > 0) {
+        slowRequests.forEach(({ url, ttfb }) => {
+          console.log(chalk.white.bgRed('\r\n', `Slow request:`, '\r\n', `URL: ${url}`, '\r\n', `TTFB: ${ttfb.toFixed(2)} ms`, '\r\n'));
+        });
 
-      return Promise.reject('TTFB value is too big! Details available above.');
+        return Promise.reject('TTFB value is too big! Details available above.');
+      }
+
+      return Promise.resolve();
     }
-
-    return Promise.resolve();
+    catch (err) {
+      return Promise.reject(err);
+    }
   });
 });

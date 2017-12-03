@@ -1,19 +1,15 @@
-import JSONPerformanceReportParser from './JSON-performance-report-parser.helper';
+import { parser as pathParser } from './JSON-performance-report-parser.helper';
 
 class TimeToFirstByteAnalyser {
   constructor(jsonPerformanceReportParser) {
     this.reader = jsonPerformanceReportParser;
   }
 
-  analyseTTFB(parsedReport, maxTiming) {
-    return parsedReport.filter(parsedReport => parsedReport.ttfb > maxTiming);
-  }
-
   checkTiming(fileName, maxTiming) {
     const parsedReport = this.reader.parse(fileName);
 
-    return this.analyseTTFB(parsedReport, maxTiming);
+    return parsedReport.filter(parsedReport => parsedReport.ttfb > maxTiming);
   }
 }
 
-export const analyser = new TimeToFirstByteAnalyser(new JSONPerformanceReportParser());
+export const create = (reportParser = pathParser()) => new TimeToFirstByteAnalyser(reportParser);

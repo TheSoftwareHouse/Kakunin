@@ -14,6 +14,7 @@ var _timeToFirstByteAnalyser = require('../helpers/time-to-first-byte-analyser.h
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+const analyser = (0, _timeToFirstByteAnalyser.create)();
 const browsermob = require('browsermob-proxy').Proxy;
 const fs = require('fs');
 let proxy;
@@ -63,16 +64,20 @@ let proxy;
 
   Then(/^the requests should take a maximum of "([^"]*)" milliseconds$/, function (maxTiming) {
     const maxTimingInt = parseFloat(maxTiming);
-    const slowRequests = _timeToFirstByteAnalyser.analyser.checkTiming(this.performanceReportFile, maxTimingInt);
+    const slowRequests = analyser.checkTiming(this.performanceReportFile, maxTimingInt);
 
-    if (slowRequests.length > 0) {
-      slowRequests.forEach(({ url, ttfb }) => {
-        console.log(_chalk2.default.white.bgRed('\r\n', `Slow request:`, '\r\n', `URL: ${url}`, '\r\n', `TTFB: ${ttfb.toFixed(2)} ms`, '\r\n'));
-      });
+    try {
+      if (slowRequests.length > 0) {
+        slowRequests.forEach(({ url, ttfb }) => {
+          console.log(_chalk2.default.white.bgRed('\r\n', `Slow request:`, '\r\n', `URL: ${url}`, '\r\n', `TTFB: ${ttfb.toFixed(2)} ms`, '\r\n'));
+        });
 
-      return Promise.reject('TTFB value is too big! Details available above.');
+        return Promise.reject('TTFB value is too big! Details available above.');
+      }
+
+      return Promise.resolve();
+    } catch (err) {
+      return Promise.reject(err);
     }
-
-    return Promise.resolve();
   });
 });
