@@ -3,7 +3,6 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.parser = undefined;
 
 var _fs = require('fs');
 
@@ -16,7 +15,7 @@ const getReport = (fileName, path) => {
 };
 
 class JSONPerformanceReportParser {
-  constructor(path) {
+  constructor(path = 'reports/performance') {
     this.path = path;
   }
 
@@ -35,4 +34,4 @@ class JSONPerformanceReportParser {
   }
 }
 
-const parser = exports.parser = (path = 'reports/performance') => new JSONPerformanceReportParser(path);
+exports.default = JSONPerformanceReportParser;

@@ -7,6 +7,10 @@ exports.create = undefined;
 
 var _JSONPerformanceReportParser = require('./JSON-performance-report-parser.helper');
 
+var _JSONPerformanceReportParser2 = _interopRequireDefault(_JSONPerformanceReportParser);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 class TimeToFirstByteAnalyser {
   constructor(jsonPerformanceReportParser) {
     this.reader = jsonPerformanceReportParser;
@@ -19,4 +23,4 @@ class TimeToFirstByteAnalyser {
   }
 }
 
-const create = exports.create = (reportParser = (0, _JSONPerformanceReportParser.parser)()) => new TimeToFirstByteAnalyser(reportParser);
+const create = exports.create = (reportParser = new _JSONPerformanceReportParser2.default()) => new TimeToFirstByteAnalyser(reportParser);

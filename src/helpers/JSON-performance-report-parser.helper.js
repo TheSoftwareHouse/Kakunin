@@ -5,7 +5,7 @@ const getReport = (fileName, path) => {
 };
 
 class JSONPerformanceReportParser {
-  constructor(path) {
+  constructor(path = 'reports/performance') {
     this.path = path;
   }
 
@@ -24,4 +24,4 @@ class JSONPerformanceReportParser {
   }
 }
 
-export const parser = (path = 'reports/performance') => new JSONPerformanceReportParser(path);
+export default JSONPerformanceReportParser;

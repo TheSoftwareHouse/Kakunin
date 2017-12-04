@@ -1,4 +1,4 @@
-import { parser as pathParser } from './JSON-performance-report-parser.helper';
+import JSONPerformanceReportParser from './JSON-performance-report-parser.helper';
 
 class TimeToFirstByteAnalyser {
   constructor(jsonPerformanceReportParser) {
@@ -12,4 +12,4 @@ class TimeToFirstByteAnalyser {
   }
 }
 
-export const create = (reportParser = pathParser()) => new TimeToFirstByteAnalyser(reportParser);
+export const create = (reportParser = new JSONPerformanceReportParser()) => new TimeToFirstByteAnalyser(reportParser);

@@ -14,14 +14,16 @@ const analyser = createAnalyser(myFakeParser);
 
 describe('Time to first byte analyser', () => {
   it('returns found slow request', () => {
-    const maxTiming = 0; // equal to the lowest request's TTFB value
+    const maxTiming = 1; // value to be compared with TTFB
 
-    expect(analyser.checkTiming(myFakeParser, maxTiming)).to.deep.include({ttfb: 2, url: 'http://localhost:8080/assets/kittens.jpg'});
+    expect(analyser.checkTiming(myFakeParser, maxTiming)).to.eql([
+      {ttfb: 2, url: 'http://localhost:8080/assets/kittens.jpg'},
+      {ttfb: 2, url: 'http://localhost:8080/tabular-data'}]);
   });
 
   it('returns empty array - no slow requests', () => {
     const maxTiming = 1000; // bigger than the highest request's TTFB value
 
-    expect(analyser.checkTiming(myFakeParser, maxTiming)).to.deep.equal([]);
+    expect(analyser.checkTiming(myFakeParser, maxTiming)).to.eql([]);
   });
 });
