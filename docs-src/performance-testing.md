@@ -2,6 +2,12 @@ Performance testing is possible thanks to `browsermob-proxy`.
 
 It saves all data from network tab (Google Chrome console) which is generated during the test.
 
+There is a possibility to compare `TTFB` value with a maximum given one. 
+
+`TTFB` (Time to first byte) measures the duration from the client making an HTTP request to the first byte of a response being received by the client's browser.
+
+More details can be found in documentation - `Built-in steps` section.
+
 ###What needs to be done?
 
 #Get started

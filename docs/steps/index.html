@@ -654,6 +654,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#the-requests-should-take-a-maximum-of-maxtiming-milliseconds" title="the requests should take a maximum of "maxTiming" milliseconds" class="md-nav__link">
+    the requests should take a maximum of "maxTiming" milliseconds
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1121,6 +1128,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#the-requests-should-take-a-maximum-of-maxtiming-milliseconds" title="the requests should take a maximum of "maxTiming" milliseconds" class="md-nav__link">
+    the requests should take a maximum of "maxTiming" milliseconds
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1549,6 +1563,7 @@ variable store here.</p>
 <p>More details can be found in documentation file <code>performance-testing.md</code>.</p>
 <h3 id="i-save-performance-report-file-as-filename"><code>I save performance report file as "fileName"</code></h3>
 <p>It saves <code>.har</code> file with a name <code>fileName</code> in <code>reports/performance</code> catalog. </p>
+<p>For example: <code>exampleReport-1511470954552.har</code></p>
 <p>Data is generated during the test - network tab in Chrome Chrome console.</p>
 <p>Keep in mind:</p>
 <ul>
@@ -1563,6 +1578,10 @@ variable store here.</p>
 </li>
 </ul>
 <p>More details can be found in documentation file <code>performance-testing.md</code>.</p>
+<h3 id="the-requests-should-take-a-maximum-of-maxtiming-milliseconds"><code>the requests should take a maximum of "maxTiming" milliseconds</code></h3>
+<p>It compares every <code>TTFB</code> timing value from previously saved <code>.har</code> report with a <code>maxTiming</code> value.</p>
+<p>Slow requests are listed in your terminal in red colour.</p>
+<p>Keep in mind that <code>I start performance monitor mode</code> and <code>I save performance report file as "fileName"</code> steps must be executed before this one!</p>
                 
                   
                 

@@ -562,6 +562,8 @@ More details can be found in documentation file `performance-testing.md`.
 
 It saves `.har` file with a name `fileName` in `reports/performance` catalog. 
 
+For example: `exampleReport-1511470954552.har`
+
 Data is generated during the test - network tab in Chrome Chrome console.
 
 Keep in mind:
@@ -573,3 +575,11 @@ Keep in mind:
 * `browserMob.host` must be configured in `kakunin.conf.js`
 
 More details can be found in documentation file `performance-testing.md`.
+
+###`the requests should take a maximum of "maxTiming" milliseconds`
+
+It compares every `TTFB` timing value from previously saved `.har` report with a `maxTiming` value.
+
+Slow requests are listed in your terminal in red colour.
+
+Keep in mind that `I start performance monitor mode` and `I save performance report file as "fileName"` steps must be executed before this one!
