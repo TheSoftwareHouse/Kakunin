@@ -257,7 +257,7 @@ defineSupportCode(function ({ When, Then }) {
     });
   });
 
-  function checkNumberOfElements (numberExpression, element) {
+  function checkNumberOfElements(numberExpression, element) {
     const self = this;
     const numberPattern = /\d+/g;
     const numbers = numberExpression.match(numberPattern).map((item) => parseInt(item));
