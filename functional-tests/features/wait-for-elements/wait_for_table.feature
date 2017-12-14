@@ -1,0 +1,19 @@
+Feature: Wait for Tabular data
+    As a kakunin user
+    I want validate tabular data which will appear in future
+
+    Scenario: Validate tabular data count and content, also check sorting
+        Given I visit the "main" page
+        When I click the "appearTable" element
+        Then the "appearTabularData" page is displayed
+        When I click the "tableAppearBtn" element
+        Then there are "equal 4" following elements for element "rows":
+            | indexLocator | r:validNumber   |
+            | idLocator    | t:MY_CUSTOM_ID_ |
+            | nameLocator  | r:notEmpty      |
+            | viewButton   | f:isVisible     |
+            | viewButton   | f:isClickable   |
+        And every "rows" element should have the same value for element "viewButton"
+        And "indexLocator" value on the "rows" list is sorted in "ascending" order
+        And "descendingIndex" value on the "rows" list is sorted in "descending" order
+
