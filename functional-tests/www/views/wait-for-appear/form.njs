@@ -89,8 +89,6 @@
       }, 4000);
     };
 
-    document.getElementById('button').onclick = function() {myFunction();};
-
     function myFunction() {
       setTimeout(function() {
         document.getElementById('hiddenForm').removeAttribute('class');
