@@ -66,21 +66,23 @@ defineSupportCode(function ({ When, Then }) {
     });
   });
 
-  When(/^I store the "([^"]*)" element text matched by "([^"]*)" as "([^"]*)" variable$/, function (element, matcher, variable) {
+  When(/^I store the "([^"]*)" element text matched by "([^"]*)" as "([^"]*)" variable$/, function (elementName, matcher, variable) {
     const regex = regexBuilder.buildRegex(matcher);
 
-    return this.currentPage[element].getText().then((text) => {
-      const matchedText = text.match(regex);
+    return this.currentPage.waitForVisibilityOf(elementName).then(() => {
+      return this.currentPage[element].getText().then((text) => {
+        const matchedText = text.match(regex);
 
-      if (matchedText === null) {
-        return Promise.reject(`Could not match text ${text} with matcher ${matcher}`);
-      }
+        if (matchedText === null) {
+          return Promise.reject(`Could not match text ${text} with matcher ${matcher}`);
+        }
 
-      if (matchedText.length <= 1) {
-        return Promise.reject(`Matcher ${matcher} does not contain capturing brackets`);
-      }
+        if (matchedText.length <= 1) {
+          return Promise.reject(`Matcher ${matcher} does not contain capturing brackets`);
+        }
 
-      variableStore.storeVariable(variable, matchedText[1]);
+        variableStore.storeVariable(variable, matchedText[1]);
+      });
     });
   });
 
@@ -152,20 +154,24 @@ defineSupportCode(function ({ When, Then }) {
     const self = this;
     const columns = data.raw().map((element) => element[0]);
     const promises = [];
+    return this.currentPage.waitForVisibilityOf(table).then(() => {
 
-    return this.currentPage[table].each(function (element) {
-      const rowPromises = [];
+      return this.currentPage[table].each(function(element) {
+        const rowPromises = [];
 
-      for (const columnIndex in columns) {
-        if (columns.hasOwnProperty(columnIndex)) {
-          rowPromises.push(element.element(self.currentPage[columns[columnIndex]].locator()).getText());
+        for (const columnIndex in columns) {
+          if (columns.hasOwnProperty(columnIndex)) {
+            rowPromises.push(
+              element.element(self.currentPage[columns[columnIndex]].locator()).
+                getText());
+          }
         }
-      }
 
-      promises.push(Promise.all(rowPromises));
-    }).then(function () {
-      return Promise.all(promises).then(function (resolvedPromises) {
-        variableStore.storeVariable(variableName, resolvedPromises);
+        promises.push(Promise.all(rowPromises));
+      }).then(function() {
+        return Promise.all(promises).then(function(resolvedPromises) {
+          variableStore.storeVariable(variableName, resolvedPromises);
+        });
       });
     });
   });
@@ -174,23 +180,25 @@ defineSupportCode(function ({ When, Then }) {
     const self = this;
     const allElements = this.currentPage[table];
     const hashes = data.hashes();
+    return this.currentPage.waitForVisibilityOf(table).then(() => {
+      return checkNumberOfElements.call(this, `equal ${hashes.length}`, table)
+        .then(function() {
+          const promises = [];
 
-    return checkNumberOfElements.call(this, `equal ${hashes.length}`, table).then(function () {
-      const promises = [];
+          return allElements.each(function(element, index) {
+            const hash = hashes[index];
 
-      return allElements.each(function (element, index) {
-        const hash = hashes[index];
+            for (const prop in hash) {
+              if (hash.hasOwnProperty(prop)) {
+                const propValue = hash[prop];
 
-        for (const prop in hash) {
-          if (hash.hasOwnProperty(prop)) {
-            const propValue = hash[prop];
-
-            promises.push(expect(matchers.match(element.element(self.currentPage[prop].locator()), variableStore.replaceTextVariables(propValue))).to.eventually.be.true);
-          }
-        }
-      }).then(function () {
-        return Promise.all(promises);
-      });
+                promises.push(expect(matchers.match(element.element(self.currentPage[prop].locator()), variableStore.replaceTextVariables(propValue))).to.eventually.be.true);
+              }
+            }
+          }).then(function() {
+            return Promise.all(promises);
+          });
+        });
     });
   });
 
@@ -276,30 +284,31 @@ defineSupportCode(function ({ When, Then }) {
 
   Then(/^the number of "([^"]*)" elements is the same as the number of "([^"]*)" elements$/, function (firstElement, secondElement) {
     const self = this;
-
-    return this.currentPage[secondElement].count().then(function (secondElementCount) {
-      return expect(self.currentPage[firstElement].count()).to.eventually.equal(secondElementCount);
+    return this.currentPage.waitForVisibilityOf(firstElement).then(() => {
+      return this.currentPage[secondElement].count().then(function(secondElementCount) {
+        return expect(self.currentPage[firstElement].count()).to.eventually.equal(secondElementCount);
+      });
     });
   });
 
   Then(/^every "([^"]*)" element should have the same value for element "([^"]*)"$/, function (containerName, elementName) {
     const self = this;
-
-    return this.currentPage[containerName]
-      .first()
-      .element(self.currentPage[elementName].locator())
-      .getText()
-      .then(
-        function (firstElementText) {
-          return self.currentPage[containerName].each(function (containerElement) {
-            containerElement.element(self.currentPage[elementName].locator()).getText().then(
-              function (elementText) {
-                expect(elementText).to.be.equal(firstElementText);
-              }
-            );
-          });
-        }
-      );
+    return this.currentPage.waitForVisibilityOf(containerName).then(() => {
+      return this.currentPage[containerName].first().
+        element(self.currentPage[elementName].locator()).
+        getText().then(
+          function(firstElementText) {
+            return self.currentPage[containerName].each(
+              function(containerElement) {
+                containerElement.element(self.currentPage[elementName].locator()).getText().then(
+                  function(elementText) {
+                    expect(elementText).to.be.equal(firstElementText);
+                  }
+                );
+              });
+          }
+        );
+    });
   });
 
   Then(/^every "([^"]*)" element should have the same value for element "([^"]*)" attribute "([^"]*)"$/, function (containerName, elementName, attributeName) {
@@ -410,13 +419,15 @@ defineSupportCode(function ({ When, Then }) {
     const self = this;
     const promise = [];
 
-    return self.currentPage[elementList].each(function (singleElement) {
-      promise.push(singleElement.element(self.currentPage[elementValue].locator()).getText());
-    }).then(function () {
-      return Promise.all(promise);
-    }).then(function (elementsValues) {
-      return comparators.compare(elementsValues, dependency);
-    });
+    return this.currentPage.waitForVisibilityOf(elementList).then(() => {
+      return self.currentPage[elementList].each(function(singleElement) {
+        promise.push(singleElement.element(self.currentPage[elementValue].locator()).getText());
+      }).then(function() {
+        return Promise.all(promise);
+      }).then(function(elementsValues) {
+        return comparators.compare(elementsValues, dependency);
+      });
+    })
   });
 
   When(/^I infinitely scroll to the "([^"]*)" element$/, function (elementName) {
@@ -491,6 +502,7 @@ defineSupportCode(function ({ When, Then }) {
   When(/^I drag "([^"]*)" element and drop over "([^"]*)" element$/, async function (elementDrag, elementDrop) {
     const wait = (timeToWait) => browser.sleep(timeToWait);
 
+    await this.currentPage.waitForVisibilityOf(elementDrag);
     await browser.actions().mouseMove(this.currentPage[elementDrag]).perform();
     await wait(200);
     await browser.actions().mouseDown().perform();
