@@ -4,6 +4,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _inquirer = require('inquirer');
 
 var _inquirer2 = _interopRequireDefault(_inquirer);
@@ -120,14 +122,13 @@ class Initializer {
       });
 
       if (conf.email && conf.email.type === 'mailtrap') {
-        conf.email = {
-          type: answer.type,
+        conf.email = _extends({}, conf.email, {
           config: {
             url: 'https://mailtrap.io/api/v1',
             apiKey: '',
             inboxId: ''
           }
-        };
+        });
 
         conf.email.config.apiKey = yield _this.promptFolders('Type in your mailtrap apikey:', conf.email.config.apiKey);
         conf.email.config.inboxId = yield _this.promptFolders('Type in your mailtrap inboxId:', conf.email.config.inboxId);
