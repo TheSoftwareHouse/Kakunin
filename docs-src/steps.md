@@ -136,7 +136,7 @@ the error messages should be displayed:
 ##Elements
 ###`I infinitely scroll to the ":elementName" element`
 
-Allows to scroll through infinite scroll mechanizm. 
+Allows to scroll through infinite scroll mechanism. 
 
 The `:elementName` is a name of a selector for loading trigger.
 
