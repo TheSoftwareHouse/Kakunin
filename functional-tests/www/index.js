@@ -52,6 +52,19 @@ app.get('/navigation/pages/:pageId/titles/:title', function (req, res) {
   });
 });
 
+app.get('/wait-for-appear/table', function (req, res) {
+  res.render('wait-for-appear/table.njs');
+});
+
+app.get('/wait-for-appear/form', function (req, res) {
+  res.render('wait-for-appear/form.njs');
+});
+app.post('/wait-for-appear/form/post', function (req, res) {
+  res.render('wait-for-appear/form.njs', {
+    form: req.body
+  });
+});
+
 app.listen(8080, function () {
   console.log('Example app listening on port 8080!');
 });

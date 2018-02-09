@@ -5,19 +5,23 @@ defineSupportCode(function ({ When, Then }) {
   When(/^I fill the "([^"]*)" form with:$/, function (formName, data) {
     const self = this;
 
-    return expect(this.currentPage.isVisible(formName))
-      .to.eventually.be.fulfilled.then(function () {
-        return self.currentPage.fillForm(data.raw());
-      });
+    return this.currentPage.waitForVisibilityOf(formName).then(function() {
+      return expect(self.currentPage.isVisible(formName))
+      .to.eventually.be.fulfilled.then(function() {
+          return self.currentPage.fillForm(data.raw());
+        });
+    });
   });
 
   Then(/^the "([^"]*)" form is filled with:$/, function (formName, data) {
     const self = this;
 
-    return expect(this.currentPage.isVisible(formName))
-      .to.eventually.be.fulfilled.then(function () {
+    return this.currentPage.waitForVisibilityOf(formName).then(function() {
+      return expect(self.currentPage.isVisible(formName))
+      .to.eventually.be.fulfilled.then(function() {
         return self.currentPage.checkForm(data.raw());
       });
+    });
   });
 
   When(/^I fill the "([^"]*)" form field "([^"]*)" with value from the element "([^"]*)"$/, function (form, field, valueElementSelector) {
