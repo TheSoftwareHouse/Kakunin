@@ -48,16 +48,6 @@ class FormPage extends _base2.default {
   checkField(name, value) {
     return _formHandlers.fromHandlers.handleCheck(this, name, _transformers.transformers.transform(value));
   }
-
-  acceptDialog(dialogName, dialogAcceptCheckbox, dialogAcceptButton) {
-    const self = this;
-
-    return this.isVisible(dialogName).then(function () {
-      return self.click(dialogAcceptCheckbox);
-    }).then(function () {
-      return self.click(dialogAcceptButton);
-    });
-  }
 }
 
 exports.default = FormPage;
