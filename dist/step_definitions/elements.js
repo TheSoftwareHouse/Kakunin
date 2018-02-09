@@ -82,12 +82,6 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     });
   });
 
-  When(/^I click the "([^"]*)" on the first item of "([^"]*)" element$/, function (elementName, container) {
-    return this.currentPage.waitForVisibilityOf(container).then(() => {
-      return this.currentPage[container].first().element(this.currentPage[elementName].locator()).click();
-    });
-  });
-
   When(/^I wait for the "([^"]*)" element to disappear$/, function (element, sync) {
     const self = this;
     let maxRepeats = 10;

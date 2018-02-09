@@ -173,10 +173,6 @@ Performs a key press operation on `:keyName` key.
 
 Performs a click action on element `:elementName` from `this.currentPage'
 
-###`I click the ":elementName" on the first item of ":containerElementName" element`
-
-Allows to click on the first child element of `:containerElementName` specified in `this.currentPage`.
-
 The child element must be specified by `:elementName` and must be available in `this.currentPage`.
 
 ###`I store the ":elementName" element text as ":variableName" variable`
