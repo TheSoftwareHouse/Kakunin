@@ -522,9 +522,9 @@ This step allows you to compare an xls/xlsx file `:fileName` with an existing da
 The data under `:variableName` must be an array of objects representing each row of file. 
 
 ##Generators
-### `I generate random ":generatorName" as ":variableName"`
+### `I generate random ":generatorName:param:param" as ":variableName"`
 
-Allows to generate a random value using the generator specified by `:generatorName`.
+Allows to generate a random value using the generator specified by `:generatorName:param:param`.
 
 The generator must be defined inside the any of the `generators` directories specified in `kakunin.conf.js` file `default: generators`.
 
@@ -535,10 +535,6 @@ If the generator exists, then the value will be saved under the `:variableName` 
 * by calling `variableStore.getVariableValue(:variableName)`
 
 * by using variable store transformer on supported steps `v:variableName`
-
-### `I generate random ":generatorName" ":generatorParamter" as ":variableName"`
-
-The same as `I generate random ":generatorName" as ":variableName"` but allows to pass additional parameter to generator.
 
 ##Debug
 

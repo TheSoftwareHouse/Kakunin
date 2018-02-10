@@ -600,15 +600,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#i-generate-random-generatorname-as-variablename" title="I generate random ":generatorName" as ":variableName"" class="md-nav__link">
-    I generate random ":generatorName" as ":variableName"
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#i-generate-random-generatorname-generatorparamter-as-variablename" title="I generate random ":generatorName" ":generatorParamter" as ":variableName"" class="md-nav__link">
-    I generate random ":generatorName" ":generatorParamter" as ":variableName"
+  <a href="#i-generate-random-generatornameparamparam-as-variablename" title="I generate random ":generatorName:param:param" as ":variableName"" class="md-nav__link">
+    I generate random ":generatorName:param:param" as ":variableName"
   </a>
   
 </li>
@@ -1074,15 +1067,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#i-generate-random-generatorname-as-variablename" title="I generate random ":generatorName" as ":variableName"" class="md-nav__link">
-    I generate random ":generatorName" as ":variableName"
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#i-generate-random-generatorname-generatorparamter-as-variablename" title="I generate random ":generatorName" ":generatorParamter" as ":variableName"" class="md-nav__link">
-    I generate random ":generatorName" ":generatorParamter" as ":variableName"
+  <a href="#i-generate-random-generatornameparamparam-as-variablename" title="I generate random ":generatorName:param:param" as ":variableName"" class="md-nav__link">
+    I generate random ":generatorName:param:param" as ":variableName"
   </a>
   
 </li>
@@ -1535,8 +1521,8 @@ variable store here.</p>
 <p>This step allows you to compare an xls/xlsx file <code>:fileName</code> with an existing data stored under <code>:variableName</code> variable.</p>
 <p>The data under <code>:variableName</code> must be an array of objects representing each row of file. </p>
 <h2 id="generators">Generators</h2>
-<h3 id="i-generate-random-generatorname-as-variablename"><code>I generate random ":generatorName" as ":variableName"</code></h3>
-<p>Allows to generate a random value using the generator specified by <code>:generatorName</code>.</p>
+<h3 id="i-generate-random-generatornameparamparam-as-variablename"><code>I generate random ":generatorName:param:param" as ":variableName"</code></h3>
+<p>Allows to generate a random value using the generator specified by <code>:generatorName:param:param</code>.</p>
 <p>The generator must be defined inside the any of the <code>generators</code> directories specified in <code>kakunin.conf.js</code> file <code>default: generators</code>.</p>
 <p>If the generator exists, then the value will be saved under the <code>:variableName</code> and can be accessed by:</p>
 <ul>
@@ -1550,8 +1536,6 @@ variable store here.</p>
 <p>by using variable store transformer on supported steps <code>v:variableName</code></p>
 </li>
 </ul>
-<h3 id="i-generate-random-generatorname-generatorparamter-as-variablename"><code>I generate random ":generatorName" ":generatorParamter" as ":variableName"</code></h3>
-<p>The same as <code>I generate random ":generatorName" as ":variableName"</code> but allows to pass additional parameter to generator.</p>
 <h2 id="debug">Debug</h2>
 <h3 id="i-pause"><code>I pause</code></h3>
 <p>Pauses tests execution and allows to continue manually by pressing combination of <code>ctrl+c</code> inside terminal.</p>

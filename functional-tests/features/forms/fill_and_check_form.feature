@@ -6,7 +6,7 @@ Feature: Forms
         Given I visit the "main" page
         When I click the "formLink" element
         Then the "simpleForm" page is displayed
-        When I generate random "g:stringWithLength:10" as "storedStringWithLength"
+        When I generate random "stringWithLength:10" as "storedStringWithLength"
         And I fill the "form" form with:
             | nameInput | v:storedStringWithLength |
         Then the "form" form is filled with:
