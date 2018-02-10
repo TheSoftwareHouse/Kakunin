@@ -5,10 +5,7 @@ import fixturesLoader from '../helpers/fixtures-loader.helper';
 import parameters from './parameters';
 import chalk from 'chalk';
 import { defineSupportCode } from 'cucumber';
-import report from 'multiple-cucumber-html-reporter';
 import variableStore from '../helpers/variable-store.helper';
-
-const outputDir = config.projectPath + config.reports;
 
 const logRequestTime = (timeStart) => {
   const timeDiff = process.hrtime(timeStart);

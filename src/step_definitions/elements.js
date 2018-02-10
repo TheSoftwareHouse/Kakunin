@@ -3,6 +3,7 @@ import { matchers, regexBuilder } from '../matchers';
 import variableStore from '../helpers/variable-store.helper';
 import { comparators } from '../comparators';
 import config from '../helpers/config.helper';
+import  chalk from 'chalk';
 
 defineSupportCode(function ({ When, Then }) {
   When(/^I wait for "([^"]*)" of the "([^"]*)" element$/, function (condition, elementName) {
@@ -31,24 +32,6 @@ defineSupportCode(function ({ When, Then }) {
         return Promise.reject(`Error, after scrolling the element "${elementName}" is still not clickable.`);
       });
 
-  });
-
-  When(/^I click the "([^"]*)" "([^"]*)" element$/, function (elementName, parameter) {
-    return this.currentPage.waitForVisibilityOf(elementName)
-      .then(() => this.currentPage.scrollIntoElement(elementName))
-      .then(() => this.currentPage[elementName](parameter).click());
-  });
-
-  When(/^I click the "([^"]*)" element if it is visible$/, function (elementName) {
-    return this.currentPage.isVisible(elementName)
-      .then(() => {
-        return this.currentPage.scrollIntoElement(elementName)
-          .then(() => {
-            return this.currentPage.click(elementName);
-          });
-      }).catch(function() {
-        return Promise.resolve();
-      });
   });
 
   When(/^I store the "([^"]*)" element text as "([^"]*)" variable$/, function (elementName, variable) {
@@ -85,16 +68,7 @@ defineSupportCode(function ({ When, Then }) {
       });
     });
   });
-
-  When(/^I click the "([^"]*)" on the first item of "([^"]*)" element$/, function (elementName, container) {
-    return this.currentPage.waitForVisibilityOf(container).then(() => {
-      return this.currentPage[container].first()
-        .element(this.currentPage[elementName].locator())
-        .click();
-    });
-
-  });
-
+  
   When(/^I wait for the "([^"]*)" element to disappear$/, function (element, sync) {
     const self = this;
     let maxRepeats = 10;
@@ -123,10 +97,12 @@ defineSupportCode(function ({ When, Then }) {
   });
 
   Then(/^the "([^"]*)" element is present$/, function (elementName) {
+    chalk.red('DEPRECATED: the "([^"]*)" element is present , use I wait for "([^"]*)" of the "([^"]*)" element instead.');
     return expect(this.currentPage.isPresent(elementName)).to.eventually.be.true;
   });
 
   Then(/^the "([^"]*)" element is not present$/, function (elementName) {
+    chalk.red('DEPRECATED: the "([^"]*)" element is not present , use I wait for the "([^"]*)" element to disappear instead.');
     return expect(this.currentPage.isPresent(elementName)).to.eventually.be.false;
   });
 
@@ -199,13 +175,6 @@ defineSupportCode(function ({ When, Then }) {
             return Promise.all(promises);
           });
         });
-    });
-  });
-
-  Then(/^the "([^"]*)" popup appears$/, function (popupName) {
-    const self = this;
-    return expect(this.currentPage.isVisible(popupName)).to.be.eventually.fulfilled.then(function () {
-      return self.currentPage.click(popupName + 'CloseBtn');
     });
   });
 
@@ -282,15 +251,6 @@ defineSupportCode(function ({ When, Then }) {
 
   Then(/^there are "([^"]*)" "([^"]*)" elements$/, checkNumberOfElements);
 
-  Then(/^the number of "([^"]*)" elements is the same as the number of "([^"]*)" elements$/, function (firstElement, secondElement) {
-    const self = this;
-    return this.currentPage.waitForVisibilityOf(firstElement).then(() => {
-      return this.currentPage[secondElement].count().then(function(secondElementCount) {
-        return expect(self.currentPage[firstElement].count()).to.eventually.equal(secondElementCount);
-      });
-    });
-  });
-
   Then(/^every "([^"]*)" element should have the same value for element "([^"]*)"$/, function (containerName, elementName) {
     const self = this;
     return this.currentPage.waitForVisibilityOf(containerName).then(() => {
@@ -306,28 +266,6 @@ defineSupportCode(function ({ When, Then }) {
                   }
                 );
               });
-          }
-        );
-    });
-  });
-
-  Then(/^every "([^"]*)" element should have the same value for element "([^"]*)" attribute "([^"]*)"$/, function (containerName, elementName, attributeName) {
-    const self = this;
-
-    this.currentPage.waitForVisibilityOf(containerName).then(() => {
-      return this.currentPage[containerName]
-        .first()
-        .element(self.currentPage[elementName].locator())
-        .getAttribute(self.currentPage[attributeName + 'Attribute'])
-        .then(
-          function (firstElementAttributeValue) {
-            return self.currentPage[containerName].each(function (containerElement) {
-              containerElement.element(self.currentPage[elementName].locator()).getAttribute(self.currentPage[attributeName + 'Attribute']).then(
-                function (attributeValue) {
-                  expect(attributeValue).to.be.equal(firstElementAttributeValue);
-                }
-              );
-            });
           }
         );
     });
@@ -451,46 +389,6 @@ defineSupportCode(function ({ When, Then }) {
       });
 
     return scrollToLoader();
-  });
-
-  When(/^I set the rate:$/, function (data) {
-    const table = data.rowsHash();
-    const promise = [];
-
-    Object.keys(table).forEach((ratingTitle) => {
-      promise.push(
-        (async (rating) => {
-          const expectedRating = this.currentPage[rating].get(parseInt(table[rating]) - 1);
-          await this.currentPage.scrollIntoElement(rating, parseInt(table[rating]) - 1);
-          await expectedRating.click();
-        })(ratingTitle)
-      );
-    });
-
-    return Promise.all(promise);
-  });
-
-  When(/^the rate is set:$/, function (data) {
-    const table = data.rowsHash();
-    const promise = [];
-
-    Object.keys(table).forEach((ratingTitle) => {
-      promise.push(
-        (async (rating) => {
-          const expectedRating = parseInt(table[rating]);
-          const selectedRating = await this.currentPage[rating].count();
-          await this.currentPage.scrollIntoElement(rating, parseInt(table[rating]) - 1);
-
-          if (expectedRating !== selectedRating) {
-            return Promise.reject('Values in the rating are different!');
-          }
-
-          return Promise.resolve();
-        })(ratingTitle)
-      );
-    });
-
-    return Promise.all(promise);
   });
 
   When(/^I press the "([^"]*)" key$/, function (key) {

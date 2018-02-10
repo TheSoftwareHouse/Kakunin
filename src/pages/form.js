@@ -26,18 +26,6 @@ class FormPage extends Base {
   checkField(name, value) {
     return fromHandlers.handleCheck(this, name, transformers.transform(value));
   }
-
-  acceptDialog(dialogName, dialogAcceptCheckbox, dialogAcceptButton) {
-    const self = this;
-
-    return this.isVisible(dialogName)
-      .then(function () {
-        return self.click(dialogAcceptCheckbox);
-      })
-      .then(function () {
-        return self.click(dialogAcceptButton);
-      });
-  }
 }
 
 export default FormPage;

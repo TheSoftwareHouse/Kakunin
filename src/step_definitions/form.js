@@ -24,32 +24,6 @@ defineSupportCode(function ({ When, Then }) {
     });
   });
 
-  When(/^I fill the "([^"]*)" form field "([^"]*)" with value from the element "([^"]*)"$/, function (form, field, valueElementSelector) {
-    const self = this;
-
-    return expect(this.currentPage.isVisible(form))
-      .to.eventually.be.fulfilled.then(function () {
-        return self.currentPage[valueElementSelector].getText();
-      }).then(function (text) {
-        return self.currentPage.fillField(field, text);
-      });
-  });
-
-  When(/^I fill the "([^"]*)" form field "([^"]*)" with value from the element "([^"]*)" translated by dictionary "([^"]*)"$/, function (form, field, valueElementSelector, dictionaryName) {
-    const self = this;
-
-    return expect(this.currentPage.isVisible(form))
-      .to.eventually.be.fulfilled.then(function () {
-        return self.currentPage[valueElementSelector].getText();
-      })
-      .then(function (text) {
-        return dictionaries.getMappedValue(dictionaryName, text);
-      })
-      .then(function (mappedValue) {
-        return self.currentPage.fillField(field, mappedValue);
-      });
-  });
-
   Then(/^the error messages should be displayed:$/, function (data) {
     const self = this;
     const table = data.rows();

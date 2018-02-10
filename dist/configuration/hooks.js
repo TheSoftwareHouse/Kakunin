@@ -26,17 +26,11 @@ var _chalk2 = _interopRequireDefault(_chalk);
 
 var _cucumber = require('cucumber');
 
-var _multipleCucumberHtmlReporter = require('multiple-cucumber-html-reporter');
-
-var _multipleCucumberHtmlReporter2 = _interopRequireDefault(_multipleCucumberHtmlReporter);
-
 var _variableStore = require('../helpers/variable-store.helper');
 
 var _variableStore2 = _interopRequireDefault(_variableStore);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-const outputDir = _config2.default.projectPath + _config2.default.reports;
 
 const logRequestTime = timeStart => {
   const timeDiff = process.hrtime(timeStart);

@@ -14,6 +14,10 @@ var _config = require('../helpers/config.helper');
 
 var _config2 = _interopRequireDefault(_config);
 
+var _chalk = require('chalk');
+
+var _chalk2 = _interopRequireDefault(_chalk);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
@@ -39,20 +43,6 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
       return browser.executeScript('window.scrollBy(0,50);').then(() => this.currentPage.click(elementName));
     }).catch(error => {
       return Promise.reject(`Error, after scrolling the element "${elementName}" is still not clickable.`);
-    });
-  });
-
-  When(/^I click the "([^"]*)" "([^"]*)" element$/, function (elementName, parameter) {
-    return this.currentPage.waitForVisibilityOf(elementName).then(() => this.currentPage.scrollIntoElement(elementName)).then(() => this.currentPage[elementName](parameter).click());
-  });
-
-  When(/^I click the "([^"]*)" element if it is visible$/, function (elementName) {
-    return this.currentPage.isVisible(elementName).then(() => {
-      return this.currentPage.scrollIntoElement(elementName).then(() => {
-        return this.currentPage.click(elementName);
-      });
-    }).catch(function () {
-      return Promise.resolve();
     });
   });
 
@@ -92,12 +82,6 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     });
   });
 
-  When(/^I click the "([^"]*)" on the first item of "([^"]*)" element$/, function (elementName, container) {
-    return this.currentPage.waitForVisibilityOf(container).then(() => {
-      return this.currentPage[container].first().element(this.currentPage[elementName].locator()).click();
-    });
-  });
-
   When(/^I wait for the "([^"]*)" element to disappear$/, function (element, sync) {
     const self = this;
     let maxRepeats = 10;
@@ -125,10 +109,12 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
   });
 
   Then(/^the "([^"]*)" element is present$/, function (elementName) {
+    _chalk2.default.red('DEPRECATED: the "([^"]*)" element is present , use I wait for "([^"]*)" of the "([^"]*)" element instead.');
     return expect(this.currentPage.isPresent(elementName)).to.eventually.be.true;
   });
 
   Then(/^the "([^"]*)" element is not present$/, function (elementName) {
+    _chalk2.default.red('DEPRECATED: the "([^"]*)" element is not present , use I wait for the "([^"]*)" element to disappear instead.');
     return expect(this.currentPage.isPresent(elementName)).to.eventually.be.false;
   });
 
@@ -199,13 +185,6 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     });
   });
 
-  Then(/^the "([^"]*)" popup appears$/, function (popupName) {
-    const self = this;
-    return expect(this.currentPage.isVisible(popupName)).to.be.eventually.fulfilled.then(function () {
-      return self.currentPage.click(popupName + 'CloseBtn');
-    });
-  });
-
   Then(/^there are "([^"]*)" following elements for element "([^"]*)":$/, function (numberExpression, element, data) {
     const self = this;
     const allElements = this.currentPage[element];
@@ -270,15 +249,6 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
   Then(/^there are "([^"]*)" "([^"]*)" elements$/, checkNumberOfElements);
 
-  Then(/^the number of "([^"]*)" elements is the same as the number of "([^"]*)" elements$/, function (firstElement, secondElement) {
-    const self = this;
-    return this.currentPage.waitForVisibilityOf(firstElement).then(() => {
-      return this.currentPage[secondElement].count().then(function (secondElementCount) {
-        return expect(self.currentPage[firstElement].count()).to.eventually.equal(secondElementCount);
-      });
-    });
-  });
-
   Then(/^every "([^"]*)" element should have the same value for element "([^"]*)"$/, function (containerName, elementName) {
     const self = this;
     return this.currentPage.waitForVisibilityOf(containerName).then(() => {
@@ -286,20 +256,6 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
         return self.currentPage[containerName].each(function (containerElement) {
           containerElement.element(self.currentPage[elementName].locator()).getText().then(function (elementText) {
             expect(elementText).to.be.equal(firstElementText);
-          });
-        });
-      });
-    });
-  });
-
-  Then(/^every "([^"]*)" element should have the same value for element "([^"]*)" attribute "([^"]*)"$/, function (containerName, elementName, attributeName) {
-    const self = this;
-
-    this.currentPage.waitForVisibilityOf(containerName).then(() => {
-      return this.currentPage[containerName].first().element(self.currentPage[elementName].locator()).getAttribute(self.currentPage[attributeName + 'Attribute']).then(function (firstElementAttributeValue) {
-        return self.currentPage[containerName].each(function (containerElement) {
-          containerElement.element(self.currentPage[elementName].locator()).getAttribute(self.currentPage[attributeName + 'Attribute']).then(function (attributeValue) {
-            expect(attributeValue).to.be.equal(firstElementAttributeValue);
           });
         });
       });
@@ -417,58 +373,6 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     return scrollToLoader();
   });
 
-  When(/^I set the rate:$/, function (data) {
-    var _this = this;
-
-    const table = data.rowsHash();
-    const promise = [];
-
-    Object.keys(table).forEach(ratingTitle => {
-      promise.push((() => {
-        var _ref = _asyncToGenerator(function* (rating) {
-          const expectedRating = _this.currentPage[rating].get(parseInt(table[rating]) - 1);
-          yield _this.currentPage.scrollIntoElement(rating, parseInt(table[rating]) - 1);
-          yield expectedRating.click();
-        });
-
-        return function (_x) {
-          return _ref.apply(this, arguments);
-        };
-      })()(ratingTitle));
-    });
-
-    return Promise.all(promise);
-  });
-
-  When(/^the rate is set:$/, function (data) {
-    var _this2 = this;
-
-    const table = data.rowsHash();
-    const promise = [];
-
-    Object.keys(table).forEach(ratingTitle => {
-      promise.push((() => {
-        var _ref2 = _asyncToGenerator(function* (rating) {
-          const expectedRating = parseInt(table[rating]);
-          const selectedRating = yield _this2.currentPage[rating].count();
-          yield _this2.currentPage.scrollIntoElement(rating, parseInt(table[rating]) - 1);
-
-          if (expectedRating !== selectedRating) {
-            return Promise.reject('Values in the rating are different!');
-          }
-
-          return Promise.resolve();
-        });
-
-        return function (_x2) {
-          return _ref2.apply(this, arguments);
-        };
-      })()(ratingTitle));
-    });
-
-    return Promise.all(promise);
-  });
-
   When(/^I press the "([^"]*)" key$/, function (key) {
     const keyTransformed = key.toUpperCase();
 
@@ -476,7 +380,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
   });
 
   When(/^I drag "([^"]*)" element and drop over "([^"]*)" element$/, (() => {
-    var _ref3 = _asyncToGenerator(function* (elementDrag, elementDrop) {
+    var _ref = _asyncToGenerator(function* (elementDrag, elementDrop) {
       const wait = function (timeToWait) {
         return browser.sleep(timeToWait);
       };
@@ -491,8 +395,8 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
       yield browser.actions().mouseUp().perform();
     });
 
-    return function (_x3, _x4) {
-      return _ref3.apply(this, arguments);
+    return function (_x, _x2) {
+      return _ref.apply(this, arguments);
     };
   })());
 });
