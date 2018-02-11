@@ -522,9 +522,9 @@ This step allows you to compare an xls/xlsx file `:fileName` with an existing da
 The data under `:variableName` must be an array of objects representing each row of file. 
 
 ##Generators
-### `I generate random ":generatorName:param:param" as ":variableName"`
+### `I generate random ":generator:param:param" as ":variableName"`
 
-Allows to generate a random value using the generator specified by `:generatorName:param:param`.
+Allows to generate a random value using the generator specified by `:generator:param:param`.
 
 The generator must be defined inside the any of the `generators` directories specified in `kakunin.conf.js` file `default: generators`.
 

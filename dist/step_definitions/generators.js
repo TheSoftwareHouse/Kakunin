@@ -11,7 +11,7 @@ var _transformers = require('../transformers');
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 (0, _cucumber.defineSupportCode)(function ({ When }) {
-  When(/^I generate random "([^"]*)" as "([^"]*)"$/, function (generatorName, variableName) {
-    return _transformers.transformers.transform(`g:${generatorName}`).then(result => _variableStore2.default.storeVariable(variableName, result));
+  When(/^I generate random "([^"]*)" as "([^"]*)"$/, function (generator, variableName) {
+    return _transformers.transformers.transform(`g:${generator}`).then(result => _variableStore2.default.storeVariable(variableName, result));
   });
 });
