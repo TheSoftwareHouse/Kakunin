@@ -1,5 +1,4 @@
 import fetch from 'node-fetch';
-import { URL } from 'url';
 import configuration from '../../helpers/config.helper';
 
 class MailTrapClient {

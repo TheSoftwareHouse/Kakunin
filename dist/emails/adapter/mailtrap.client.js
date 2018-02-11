@@ -9,8 +9,6 @@ var _nodeFetch = require('node-fetch');
 
 var _nodeFetch2 = _interopRequireDefault(_nodeFetch);
 
-var _url = require('url');
-
 var _config = require('../../helpers/config.helper');
 
 var _config2 = _interopRequireDefault(_config);
