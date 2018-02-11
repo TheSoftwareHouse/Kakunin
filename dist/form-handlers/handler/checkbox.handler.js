@@ -4,7 +4,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 class CheckboxHandler {
-  isSatisfiedBy(element, elementName) {
+  isSatisfiedBy(element) {
     return element.getTagName().then(function (tagName) {
       if (tagName === 'input') {
         return element.getAttribute('type').then(inputType => inputType === 'checkbox');

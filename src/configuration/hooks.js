@@ -1,14 +1,12 @@
 import config from '../helpers/config.helper';
 import fs from 'fs';
+import path from 'path';
 import userProvider from '../helpers/user-provider.helper';
 import fixturesLoader from '../helpers/fixtures-loader.helper';
 import parameters from './parameters';
 import chalk from 'chalk';
 import { defineSupportCode } from 'cucumber';
-import report from 'multiple-cucumber-html-reporter';
 import variableStore from '../helpers/variable-store.helper';
-
-const outputDir = config.projectPath + config.reports;
 
 const logRequestTime = (timeStart) => {
   const timeDiff = process.hrtime(timeStart);
@@ -47,19 +45,19 @@ const clearCookiesAndLocalStorage = (callback) => {
 
 const clearDownload = (callback) => {
   const files = fs
-    .readdirSync(config.projectPath + config.downloads)
+    .readdirSync(path.join(config.projectPath, config.downloads))
     .filter(function (file) {
       return file !== '.gitkeep';
     });
 
   for (let index = 0; index < files.length; index++) {
-    fs.unlinkSync(config.projectPath + config.downloads + '/' + files[index]);
+    fs.unlinkSync(path.join(config.projectPath, config.downloads, files[index]));
   }
 
   callback();
 };
 
-defineSupportCode(({AfterAll, After, Before}) => {
+defineSupportCode(({ After, Before }) => {
   After(function (scenario, callback) {
     if (scenario.result.status !== 'passed') {
       takeScreenshot(this).then(() => { clearCookiesAndLocalStorage(callback); });
@@ -121,4 +119,4 @@ defineSupportCode(({AfterAll, After, Before}) => {
   });
 
   protractor.browser.ignoreSynchronization = config.type === 'otherWeb';
-})
+});

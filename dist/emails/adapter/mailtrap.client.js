@@ -35,7 +35,7 @@ class MailTrapClient {
 
   clearInbox() {
     const config = this.getMailtrapConfig();
-    const url = config.endpoint + '/inboxes/' + config.inboxId + '/clean?api_token=' + config.apiKey;
+    const url = `${config.endpoint}/inboxes/${config.inboxId}/clean?api_token=${config.apiKey}`;
 
     return this.requestClient(url, {
       method: 'PATCH'
@@ -50,7 +50,7 @@ class MailTrapClient {
 
   getEmails() {
     const config = this.getMailtrapConfig();
-    const url = config.endpoint + '/inboxes/' + config.inboxId + '/messages?api_token=' + config.apiKey;
+    const url = `${config.endpoint}/inboxes/${config.inboxId}/messages?api_token=${config.apiKey}`;
 
     return this.requestClient(url).then(res => {
       if (res.status !== 200) {
@@ -63,7 +63,7 @@ class MailTrapClient {
 
   getAttachments(email) {
     const config = this.getMailtrapConfig();
-    const url = config.endpoint + '/inboxes/' + config.inboxId + '/messages/' + email.id + '/attachments' + '?api_token=' + config.apiKey;
+    const url = `${config.endpoint}/inboxes/${config.inboxId}/messages/${email.id}/attachments?api_token=${config.apiKey}`;
 
     return this.requestClient(url).then(res => {
       if (res.status !== 200) {
@@ -76,7 +76,7 @@ class MailTrapClient {
 
   markAsRead(email) {
     const config = this.getMailtrapConfig();
-    const url = config.endpoint + '/inboxes/' + config.inboxId + '/messages/' + email.id + '?api_token=' + config.apiKey;
+    const url = `${config.endpoint}/inboxes/${config.inboxId}/messages/${email.id}?api_token=${config.apiKey}`;
 
     return this.requestClient(url, {
       method: 'PATCH',

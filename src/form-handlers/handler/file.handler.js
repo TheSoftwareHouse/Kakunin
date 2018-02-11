@@ -2,7 +2,7 @@ import path from 'path';
 import config from '../../helpers/config.helper';
 
 class FileHandler {
-  isSatisfiedBy(element, elementName) {
+  isSatisfiedBy(element) {
     return element.getTagName()
       .then(function (tagName) {
         if (tagName === 'input') {
@@ -18,7 +18,7 @@ class FileHandler {
   }
 
   handleFill(page, elementName, desiredValue) {
-    const fileToUpload = path.resolve(config.projectPath + config.data + '/' + desiredValue);
+    const fileToUpload = path.resolve(path.join(config.projectPath, config.data, desiredValue));
 
     return page[elementName].sendKeys(fileToUpload);
   }

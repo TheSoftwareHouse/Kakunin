@@ -1,5 +1,6 @@
 require('./helpers/prototypes');
 const path = require('path');
+const fs = require('fs');
 const chai = require('chai');
 const modulesLoader = require('./helpers/modules-loader.helper.js').create();
 const chaiAsPromised = require('chai-as-promised');
@@ -66,15 +67,15 @@ exports.config = {
 
   framework: 'custom',
   frameworkPath: require.resolve('protractor-cucumber-framework'),
-  specs: config.features.map(file => config.projectPath + file + '/**/*.feature'),
+  specs: config.features.map(file => path.join(config.projectPath, file, '**/*.feature')),
 
   cucumberOpts: {
     require: [
       './configuration/config.js',
       './configuration/hooks.js',
       './step_definitions/**/*.js',
-      ...config.step_definitions.map(file => config.projectPath + file + '/**/*.js'),
-      ...config.hooks.map(file => config.projectPath + file + '/**/*.js')
+      ...config.step_definitions.map(file => path.join(config.projectPath, file, '**/*.js')),
+      ...config.hooks.map(file => path.join(config.projectPath, file, '**/*.js'))
     ],
     format: [`json:./${config.reports}/features-report.json`],
     profile: false,
@@ -92,6 +93,12 @@ exports.config = {
   }],
 
   onPrepare: function () {
+    const generatedReportsDirectory = path.join(config.projectPath, config.reports, 'report');
+
+    fs.readdirSync(generatedReportsDirectory)
+      .filter(file => fs.statSync(path.join(generatedReportsDirectory, file)).isFile())
+      .forEach(file => fs.unlinkSync(path.join(generatedReportsDirectory, file)));
+
     if (!config.headless) {
       browser.driver.manage().window().setSize(
         parseInt(config.browserWidth),

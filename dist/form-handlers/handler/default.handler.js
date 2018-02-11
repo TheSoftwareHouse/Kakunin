@@ -4,7 +4,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 class DefaultHandler {
-  isSatisfiedBy(element, elementName) {
+  isSatisfiedBy() {
     return Promise.resolve(true);
   }
 
