@@ -16,7 +16,7 @@ var _config2 = _interopRequireDefault(_config);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 class FileHandler {
-  isSatisfiedBy(element, elementName) {
+  isSatisfiedBy(element) {
     return element.getTagName().then(function (tagName) {
       if (tagName === 'input') {
         return element.getAttribute('type').then(inputType => inputType === 'file');
@@ -31,7 +31,7 @@ class FileHandler {
   }
 
   handleFill(page, elementName, desiredValue) {
-    const fileToUpload = _path2.default.resolve(_config2.default.projectPath + _config2.default.data + '/' + desiredValue);
+    const fileToUpload = _path2.default.resolve(_path2.default.join(_config2.default.projectPath, _config2.default.data, desiredValue));
 
     return page[elementName].sendKeys(fileToUpload);
   }
