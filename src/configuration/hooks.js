@@ -1,5 +1,6 @@
 import config from '../helpers/config.helper';
 import fs from 'fs';
+import path from 'path';
 import userProvider from '../helpers/user-provider.helper';
 import fixturesLoader from '../helpers/fixtures-loader.helper';
 import parameters from './parameters';
@@ -47,13 +48,13 @@ const clearCookiesAndLocalStorage = (callback) => {
 
 const clearDownload = (callback) => {
   const files = fs
-    .readdirSync(config.projectPath + config.downloads)
+    .readdirSync(path.join(config.projectPath, config.downloads))
     .filter(function (file) {
       return file !== '.gitkeep';
     });
 
   for (let index = 0; index < files.length; index++) {
-    fs.unlinkSync(config.projectPath + config.downloads + '/' + files[index]);
+    fs.unlinkSync(path.join(config.projectPath, config.downloads, files[index]));
   }
 
   callback();

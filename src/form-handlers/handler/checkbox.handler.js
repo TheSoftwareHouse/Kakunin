@@ -1,5 +1,5 @@
 class CheckboxHandler {
-  isSatisfiedBy(element, elementName) {
+  isSatisfiedBy(element) {
     return element.getTagName()
       .then(function (tagName) {
         if (tagName === 'input') {

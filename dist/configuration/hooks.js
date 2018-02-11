@@ -8,6 +8,10 @@ var _fs = require('fs');
 
 var _fs2 = _interopRequireDefault(_fs);
 
+var _path = require('path');
+
+var _path2 = _interopRequireDefault(_path);
+
 var _userProvider = require('../helpers/user-provider.helper');
 
 var _userProvider2 = _interopRequireDefault(_userProvider);
@@ -74,12 +78,12 @@ const clearCookiesAndLocalStorage = callback => {
 };
 
 const clearDownload = callback => {
-  const files = _fs2.default.readdirSync(_config2.default.projectPath + _config2.default.downloads).filter(function (file) {
+  const files = _fs2.default.readdirSync(_path2.default.join(_config2.default.projectPath, _config2.default.downloads)).filter(function (file) {
     return file !== '.gitkeep';
   });
 
   for (let index = 0; index < files.length; index++) {
-    _fs2.default.unlinkSync(_config2.default.projectPath + _config2.default.downloads + '/' + files[index]);
+    _fs2.default.unlinkSync(_path2.default.join(_config2.default.projectPath, _config2.default.downloads, files[index]));
   }
 
   callback();

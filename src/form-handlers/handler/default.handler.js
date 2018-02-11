@@ -1,5 +1,5 @@
 class DefaultHandler {
-  isSatisfiedBy(element, elementName) {
+  isSatisfiedBy() {
     return Promise.resolve(true);
   }
 
