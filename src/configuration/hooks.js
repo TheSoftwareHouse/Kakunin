@@ -57,7 +57,7 @@ const clearDownload = (callback) => {
   callback();
 };
 
-defineSupportCode(({AfterAll, After, Before}) => {
+defineSupportCode(({ After, Before }) => {
   After(function (scenario, callback) {
     if (scenario.result.status !== 'passed') {
       takeScreenshot(this).then(() => { clearCookiesAndLocalStorage(callback); });
@@ -119,4 +119,4 @@ defineSupportCode(({AfterAll, After, Before}) => {
   });
 
   protractor.browser.ignoreSynchronization = config.type === 'otherWeb';
-})
+});

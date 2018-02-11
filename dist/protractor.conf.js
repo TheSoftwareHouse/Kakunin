@@ -4,6 +4,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 require('./helpers/prototypes');
 const path = require('path');
+const fs = require('fs');
 const chai = require('chai');
 const modulesLoader = require('./helpers/modules-loader.helper.js').create();
 const chaiAsPromised = require('chai-as-promised');
@@ -76,6 +77,10 @@ exports.config = {
   }],
 
   onPrepare: function () {
+    const generatedReportsDirectory = path.join(config.projectPath, config.reports, 'report');
+
+    fs.readdirSync(generatedReportsDirectory).filter(file => fs.statSync(path.join(generatedReportsDirectory, file)).isFile()).forEach(file => fs.unlinkSync(path.join(generatedReportsDirectory, file)));
+
     if (!config.headless) {
       browser.driver.manage().window().setSize(parseInt(config.browserWidth), parseInt(config.browserHeight));
     }

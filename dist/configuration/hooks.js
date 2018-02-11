@@ -83,7 +83,7 @@ const clearDownload = callback => {
   callback();
 };
 
-(0, _cucumber.defineSupportCode)(({ AfterAll, After, Before }) => {
+(0, _cucumber.defineSupportCode)(({ After, Before }) => {
   After(function (scenario, callback) {
     if (scenario.result.status !== 'passed') {
       takeScreenshot(this).then(() => {
