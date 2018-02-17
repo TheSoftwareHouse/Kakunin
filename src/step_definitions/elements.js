@@ -7,13 +7,7 @@ import  chalk from 'chalk';
 
 defineSupportCode(function ({ When, Then }) {
   When(/^I wait for "([^"]*)" of the "([^"]*)" element$/, function (condition, elementName) {
-    const timeout = parseInt(config.elementsVisibilityTimeout) * 1000;
-
-    if (this.currentPage[elementName] instanceof protractor.ElementArrayFinder) {
-      return browser.wait(protractor.ExpectedConditions[condition](this.currentPage[elementName].get(0)), timeout);
-    }
-
-    return browser.wait(protractor.ExpectedConditions[condition](this.currentPage[elementName]), timeout);
+    return (condition === 'visibilityOf') ? this.currentPage.waitForVisibilityOf(elementName) : this.currentPage.waitForInvisibilityOf(elementName);
   });
 
   When(/^I scroll to the "([^"]*)" element$/, function (elementName) {
