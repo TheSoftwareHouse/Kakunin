@@ -42,5 +42,5 @@ Feature: Tabular data
 
     Scenario: Navigate to pages by using click steps
         Given I visit the "main" page
-        When I click the "valueToClick" on the first item of "linkDivs" element
+        When I click the "valueToClick" element
         Then the "tabularData" page is displayed

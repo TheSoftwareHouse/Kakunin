@@ -194,7 +194,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
       return Promise.reject('Missing table under the step.');
     }
 
-    this.currentPage.waitForVisibilityOf(element).then(() => {
+    return this.currentPage.waitForVisibilityOf(element).then(() => {
 
       return checkNumberOfElements.call(this, numberExpression, element).then(function () {
         const promises = [];

@@ -31,7 +31,6 @@ defineSupportCode(function ({ When, Then }) {
       }).catch(error => {
         return Promise.reject(`Error, after scrolling the element "${elementName}" is still not clickable.`);
       });
-
   });
 
   When(/^I store the "([^"]*)" element text as "([^"]*)" variable$/, function (elementName, variable) {
@@ -187,7 +186,7 @@ defineSupportCode(function ({ When, Then }) {
       return Promise.reject('Missing table under the step.');
     }
 
-    this.currentPage.waitForVisibilityOf(element).then(() => {
+    return this.currentPage.waitForVisibilityOf(element).then(() => {
 
       return checkNumberOfElements.call(this, numberExpression, element).then(function () {
         const promises = [];
