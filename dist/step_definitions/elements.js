@@ -38,7 +38,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
   });
 
   When(/^I click the "([^"]*)" element$/, function (elementName) {
-    return this.currentPage.waitForVisibilityOf(elementName).then(() => this.currentPage.scrollIntoElement(elementName)).then(() => this.currentPage.click(elementName)).catch(error => {
+    return this.currentPage.scrollIntoElement(elementName).catch(() => Promise.resolve()).then(() => this.currentPage.waitForVisibilityOf(elementName)).then(() => this.currentPage.scrollIntoElement(elementName)).then(() => this.currentPage.click(elementName)).catch(error => {
       console.warn('Warning! Element was not clickable. We need to scroll it down.');
       return browser.executeScript('window.scrollBy(0,50);').then(() => this.currentPage.click(elementName));
     }).catch(error => {

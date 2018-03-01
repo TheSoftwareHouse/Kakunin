@@ -21,16 +21,18 @@ defineSupportCode(function ({ When, Then }) {
   });
 
   When(/^I click the "([^"]*)" element$/, function (elementName) {
-    return this.currentPage.waitForVisibilityOf(elementName)
-      .then(() => this.currentPage.scrollIntoElement(elementName))
-      .then(() => this.currentPage.click(elementName))
-      .catch(error => {
-        console.warn('Warning! Element was not clickable. We need to scroll it down.');
-        return browser.executeScript('window.scrollBy(0,50);')
-          .then(() => this.currentPage.click(elementName));
-      }).catch(error => {
-        return Promise.reject(`Error, after scrolling the element "${elementName}" is still not clickable.`);
-      });
+    return this.currentPage.scrollIntoElement(elementName)
+    .catch(() => Promise.resolve())
+    .then(() => this.currentPage.waitForVisibilityOf(elementName))
+    .then(() => this.currentPage.scrollIntoElement(elementName))
+    .then(() => this.currentPage.click(elementName))
+    .catch(error => {
+      console.warn('Warning! Element was not clickable. We need to scroll it down.');
+      return browser.executeScript('window.scrollBy(0,50);').then(() => this.currentPage.click(elementName));
+    })
+    .catch(error => {
+      return Promise.reject(`Error, after scrolling the element "${elementName}" is still not clickable.`);
+    });
   });
 
   When(/^I store the "([^"]*)" element text as "([^"]*)" variable$/, function (elementName, variable) {
