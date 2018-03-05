@@ -6,7 +6,7 @@ import config from '../helpers/config.helper';
 
 import { emailService } from  '../emails';
 
-defineSupportCode(function ({ Then }) {
+defineSupportCode(function ({ Then, When }) {
   function stopInterval(interval, callback) {
     clearInterval(interval);
     callback();
@@ -98,6 +98,17 @@ defineSupportCode(function ({ Then }) {
     }
   }
 
+  function saveContentToVariable(filteredEmails, variable, matchingRegex, interval, sync) {
+    const content = filteredEmails[0].text_body;
+    if (content !== undefined) {
+      const matchingContent = content.match(transformers.transform(matchingRegex))[1];
+      variableStore.storeVariable(variable, matchingContent);
+
+      return emailService.markAsRead(emailObject)
+      .then(stopInterval.bind(null, interval, sync));
+    }
+  }
+
   Then(/^the email has been sent and contains:$/, function (data, sync) {
     const self = this;
     const timeout = parseInt(config.intervalEmail) * 1000;
@@ -116,4 +127,24 @@ defineSupportCode(function ({ Then }) {
         .catch((err) => stopInterval(interval, sync.bind(null, err)));
     }, timeout);
   });
+
+  When(/^I store the email content matched by "([^"]*)" as "([^"]*)" variable$/, (matchingRegex, variable, sync) => {
+    const self = this;
+    const timeout = parseInt(config.intervalEmail) * 1000;
+    let maxRepeats = 4;
+
+    const interval = setInterval(() => {
+      console.log('Checking mailbox for email...');
+
+      emailService.getEmails()
+      .then((emails) => filterEmails.call(self, emails, data))
+      .then(filteredEmails => rejectIfMaxRepeatsReached(filteredEmails, maxRepeats))
+      .then(filteredEmails => rejectIfMoreThanOneEmailFound(filteredEmails))
+      .then(filteredEmails => validateEmailDate(filteredEmails))
+      .then(filteredEmails => saveContentToVariable(filteredEmails, variable, matchingRegex, interval, sync))
+      .then(() => maxRepeats--)
+      .catch(err => stopInterval(interval, sync.bind(null, err)));
+    }, timeout);
+  });
+
 });
