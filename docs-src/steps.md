@@ -465,6 +465,27 @@ the email has been sent and contains:
 
 This will look for an email with 2 attachments.
 
+###`I store the email content matched by ":regex" as ":variableName" variable`
+
+Checks if there is an email on the configured mailing service and stores text body matched by regex inside variableStore.
+
+This steps takes first email from inbox, in order to find an email you're looking for clear inbox before sending email.
+
+This step also supports transformers.
+
+You can do this like this:
+
+```gherkin
+I store the email content matched by "Your temporary password: ([a-zA-Z0-9]{8})" as "password" variable
+```
+
+or
+
+```gherkin
+I store the email content matched by "d:EmailContentDictionary:password" as "password" variable
+```
+
+
 ##Files
 ### `the file ":fileName" should be downloaded`
 
