@@ -8,6 +8,8 @@ var _config = require('../helpers/config.helper');
 
 var _config2 = _interopRequireDefault(_config);
 
+var _waitForCondition = require('../helpers/wait-for-condition.helper');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 class Page {
@@ -160,23 +162,11 @@ class Page {
   }
 
   waitForVisibilityOf(elementName) {
-    const timeout = parseInt(_config2.default.elementsVisibilityTimeout) * 1000;
-
-    if (this[elementName] instanceof protractor.ElementArrayFinder) {
-      return browser.wait(protractor.ExpectedConditions['visibilityOf'](this[elementName].get(0)), timeout);
-    }
-
-    return browser.wait(protractor.ExpectedConditions['visibilityOf'](this[elementName]), timeout);
+    return (0, _waitForCondition.waitForVisibilityOf)(this[elementName]);
   }
 
   waitForInvisibilityOf(elementName) {
-    const timeout = parseInt(_config2.default.elementsVisibilityTimeout) * 1000;
-
-    if (this[elementName] instanceof protractor.ElementArrayFinder) {
-      return browser.wait(protractor.ExpectedConditions['invisibilityOf'](this[elementName].get(0)), timeout);
-    }
-
-    return browser.wait(protractor.ExpectedConditions['invisibilityOf'](this[elementName]), timeout);
+    return (0, _waitForCondition.waitForInvisibilityOf)(this[elementName]);
   }
 }
 

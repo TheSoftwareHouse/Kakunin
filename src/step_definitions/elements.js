@@ -3,17 +3,18 @@ import { matchers, regexBuilder } from '../matchers';
 import variableStore from '../helpers/variable-store.helper';
 import { comparators } from '../comparators';
 import config from '../helpers/config.helper';
-import  chalk from 'chalk';
+import chalk from 'chalk';
+import { waitForCondition } from '../helpers/wait-for-condition.helper';
 
 defineSupportCode(function ({ When, Then }) {
   When(/^I wait for "([^"]*)" of the "([^"]*)" element$/, function (condition, elementName) {
     const timeout = parseInt(config.elementsVisibilityTimeout) * 1000;
 
     if (this.currentPage[elementName] instanceof protractor.ElementArrayFinder) {
-      return browser.wait(protractor.ExpectedConditions[condition](this.currentPage[elementName].get(0)), timeout);
+      return waitForCondition(condition, timeout)(this.currentPage[elementName].first());
     }
 
-    return browser.wait(protractor.ExpectedConditions[condition](this.currentPage[elementName]), timeout);
+    return waitForCondition(condition, timeout)(this.currentPage[elementName]);
   });
 
   When(/^I scroll to the "([^"]*)" element$/, function (elementName) {

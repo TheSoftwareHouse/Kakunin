@@ -18,6 +18,8 @@ var _chalk = require('chalk');
 
 var _chalk2 = _interopRequireDefault(_chalk);
 
+var _waitForCondition = require('../helpers/wait-for-condition.helper');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
@@ -27,10 +29,10 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     const timeout = parseInt(_config2.default.elementsVisibilityTimeout) * 1000;
 
     if (this.currentPage[elementName] instanceof protractor.ElementArrayFinder) {
-      return browser.wait(protractor.ExpectedConditions[condition](this.currentPage[elementName].get(0)), timeout);
+      return (0, _waitForCondition.waitForCondition)(condition, timeout)(this.currentPage[elementName].first());
     }
 
-    return browser.wait(protractor.ExpectedConditions[condition](this.currentPage[elementName]), timeout);
+    return (0, _waitForCondition.waitForCondition)(condition, timeout)(this.currentPage[elementName]);
   });
 
   When(/^I scroll to the "([^"]*)" element$/, function (elementName) {
