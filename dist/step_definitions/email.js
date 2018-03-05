@@ -16,6 +16,10 @@ var _config2 = _interopRequireDefault(_config);
 
 var _emails = require('../emails');
 
+var _index = require('../transformers/index');
+
+var _index2 = require('../index');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 (0, _cucumber.defineSupportCode)(function ({ Then, When }) {
@@ -105,13 +109,17 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
     }
   }
 
-  function saveContentToVariable(filteredEmails, variable, matchingRegex, interval, sync) {
-    const content = filteredEmails[0].text_body;
-    if (content !== undefined) {
-      const matchingContent = content.match(transformers.transform(matchingRegex))[1];
-      variableStore.storeVariable(variable, matchingContent);
+  function getFirstEmail(emails) {
+    return emails[0];
+  }
 
-      return _emails.emailService.markAsRead(emailObject).then(stopInterval.bind(null, interval, sync));
+  function saveContentToVariable(email, variable, matchingRegex, interval, sync) {
+    const content = email.text_body;
+    if (content !== undefined) {
+      const matchingContent = content.match(_index.transformers.transform(matchingRegex))[1];
+      _index2.variableStore.storeVariable(variable, matchingContent);
+
+      return _emails.emailService.markAsRead(email).then(stopInterval.bind(null, interval, sync));
     }
   }
 
@@ -135,7 +143,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
     const interval = setInterval(() => {
       console.log('Checking mailbox for email...');
 
-      _emails.emailService.getEmails().then(emails => filterEmails.call(self, emails, data)).then(filteredEmails => rejectIfMaxRepeatsReached(filteredEmails, maxRepeats)).then(filteredEmails => rejectIfMoreThanOneEmailFound(filteredEmails)).then(filteredEmails => validateEmailDate(filteredEmails)).then(filteredEmails => saveContentToVariable(filteredEmails, variable, matchingRegex, interval, sync)).then(() => maxRepeats--).catch(err => stopInterval(interval, sync.bind(null, err)));
+      _emails.emailService.getEmails().then(emails => getFirstEmail(emails)).then(email => rejectIfMaxRepeatsReached(email, maxRepeats)).then(email => rejectIfMoreThanOneEmailFound(email)).then(email => validateEmailDate(email)).then(email => saveContentToVariable(email, variable, matchingRegex, interval, sync)).then(() => maxRepeats--).catch(err => stopInterval(interval, sync.bind(null, err)));
     }, timeout);
   });
 });

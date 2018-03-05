@@ -5,6 +5,8 @@ import { regexBuilder } from '../matchers';
 import config from '../helpers/config.helper';
 
 import { emailService } from  '../emails';
+import { transformers} from '../transformers/index';
+import { variableStore} from '../index';
 
 defineSupportCode(function ({ Then, When }) {
   function stopInterval(interval, callback) {
@@ -98,13 +100,17 @@ defineSupportCode(function ({ Then, When }) {
     }
   }
 
-  function saveContentToVariable(filteredEmails, variable, matchingRegex, interval, sync) {
-    const content = filteredEmails[0].text_body;
+  function getFirstEmail(emails) {
+    return emails[0];
+  }
+
+  function saveContentToVariable(email, variable, matchingRegex, interval, sync) {
+    const content = email.text_body;
     if (content !== undefined) {
       const matchingContent = content.match(transformers.transform(matchingRegex))[1];
       variableStore.storeVariable(variable, matchingContent);
 
-      return emailService.markAsRead(emailObject)
+      return emailService.markAsRead(email)
       .then(stopInterval.bind(null, interval, sync));
     }
   }
@@ -137,11 +143,11 @@ defineSupportCode(function ({ Then, When }) {
       console.log('Checking mailbox for email...');
 
       emailService.getEmails()
-      .then((emails) => filterEmails.call(self, emails, data))
-      .then(filteredEmails => rejectIfMaxRepeatsReached(filteredEmails, maxRepeats))
-      .then(filteredEmails => rejectIfMoreThanOneEmailFound(filteredEmails))
-      .then(filteredEmails => validateEmailDate(filteredEmails))
-      .then(filteredEmails => saveContentToVariable(filteredEmails, variable, matchingRegex, interval, sync))
+      .then(emails => getFirstEmail(emails))
+      .then(email => rejectIfMaxRepeatsReached(email, maxRepeats))
+      .then(email => rejectIfMoreThanOneEmailFound(email))
+      .then(email => validateEmailDate(email))
+      .then(email => saveContentToVariable(email, variable, matchingRegex, interval, sync))
       .then(() => maxRepeats--)
       .catch(err => stopInterval(interval, sync.bind(null, err)));
     }, timeout);
