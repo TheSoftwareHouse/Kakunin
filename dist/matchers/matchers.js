@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.create = undefined;
+exports.separator = exports.create = undefined;
 
 var _matcher = require('./matcher');
 
@@ -21,7 +21,7 @@ class Matchers {
   }
 
   match(element, matcherName) {
-    const splittedValue = matcherName.split(':');
+    const splittedValue = matcherName.split(separator);
     const matcher = this.findMatcher(splittedValue[0], splittedValue.slice(1));
 
     if (matcher === undefined) {
@@ -37,3 +37,4 @@ class Matchers {
 }
 
 const create = exports.create = () => new Matchers();
+const separator = exports.separator = ':';
