@@ -34,4 +34,26 @@ describe('Matchers', () => {
       done();
     });
   });
+
+  it('returns true when found a matcher and element value after a first colon sign is correct', (done) => {
+    const mockedElement = {
+      getText: () => Promise.resolve('my message: contains :colons')
+    };
+
+    matchers.match(mockedElement, 't:contains :colons').then((result) => {
+      expect(result).to.equals(true);
+      done();
+    });
+  });
+
+  it('returns false when found a matcher but a text after colon sign is incorrect', (done) => {
+    const mockedElement = {
+      getText: () => Promise.resolve('my message: contains :colons')
+    };
+
+    matchers.match(mockedElement, 't:my message: contains :incorrect').then((result) => {
+      expect(result).to.equals(false);
+      done();
+    });
+  });
 });
