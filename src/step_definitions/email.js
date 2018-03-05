@@ -5,8 +5,8 @@ import { regexBuilder } from '../matchers';
 import config from '../helpers/config.helper';
 
 import { emailService } from  '../emails';
-import { transformers} from '../transformers/index';
-import { variableStore} from '../index';
+import { transformers } from '../transformers/index';
+import { variableStore } from '../index';
 
 defineSupportCode(function ({ Then, When }) {
   function stopInterval(interval, callback) {
