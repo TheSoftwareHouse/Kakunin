@@ -1,12 +1,12 @@
 import config from './config.helper';
 const timeout = parseInt(config.elementsVisibilityTimeout) * 1000;
 
-export const waitForVisibilityOf = (elementName) => {
-  return waitForCondition('visibilityOf', timeout)(elementName);
+export const waitForVisibilityOf = (element) => {
+  return waitForCondition('visibilityOf', timeout)(element);
 };
 
-export const waitForInvisibilityOf = (elementName) => {
-  return waitForCondition('invisibilityOf', timeout)(elementName);
+export const waitForInvisibilityOf = (element) => {
+  return waitForCondition('invisibilityOf', timeout)(element);
 };
 
 export const waitForCondition = (condition, timeout) => {

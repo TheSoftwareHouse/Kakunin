@@ -13,12 +13,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 const timeout = parseInt(_config2.default.elementsVisibilityTimeout) * 1000;
 
-const waitForVisibilityOf = exports.waitForVisibilityOf = elementName => {
-  return waitForCondition('visibilityOf', timeout)(elementName);
+const waitForVisibilityOf = exports.waitForVisibilityOf = element => {
+  return waitForCondition('visibilityOf', timeout)(element);
 };
 
-const waitForInvisibilityOf = exports.waitForInvisibilityOf = elementName => {
-  return waitForCondition('invisibilityOf', timeout)(elementName);
+const waitForInvisibilityOf = exports.waitForInvisibilityOf = element => {
+  return waitForCondition('invisibilityOf', timeout)(element);
 };
 
 const waitForCondition = exports.waitForCondition = (condition, timeout) => {
