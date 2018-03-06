@@ -16,9 +16,13 @@ var _config2 = _interopRequireDefault(_config);
 
 var _emails = require('../emails');
 
+var _index = require('../transformers/index');
+
+var _index2 = require('../index');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-(0, _cucumber.defineSupportCode)(function ({ Then }) {
+(0, _cucumber.defineSupportCode)(function ({ Then, When }) {
   function stopInterval(interval, callback) {
     clearInterval(interval);
     callback();
@@ -105,6 +109,20 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
     }
   }
 
+  function getFirstEmail(emails) {
+    return emails[0];
+  }
+
+  function saveContentToVariable(email, variable, matchingRegex, interval, sync) {
+    const content = email.text_body;
+    if (content !== undefined) {
+      const matchingContent = content.match(_index.transformers.transform(matchingRegex))[1];
+      _index2.variableStore.storeVariable(variable, matchingContent);
+
+      return _emails.emailService.markAsRead(email).then(stopInterval.bind(null, interval, sync));
+    }
+  }
+
   Then(/^the email has been sent and contains:$/, function (data, sync) {
     const self = this;
     const timeout = parseInt(_config2.default.intervalEmail) * 1000;
@@ -114,6 +132,18 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
       console.log('Checking mailbox for email...');
 
       _emails.emailService.getEmails().then(emails => filterEmails.call(self, emails, data)).then(filteredEmails => rejectIfMaxRepeatsReached(filteredEmails, maxRepeats)).then(filteredEmails => rejectIfMoreThanOneEmailFound(filteredEmails)).then(filteredEmails => validateEmailDate(filteredEmails)).then(filteredEmails => validateEmailContentAndAttachments(filteredEmails, data, interval, sync)).then(() => maxRepeats--).catch(err => stopInterval(interval, sync.bind(null, err)));
+    }, timeout);
+  });
+
+  When(/^I store the email content matched by "([^"]*)" as "([^"]*)" variable$/, (matchingRegex, variable, sync) => {
+    const self = this;
+    const timeout = parseInt(_config2.default.intervalEmail) * 1000;
+    let maxRepeats = 4;
+
+    const interval = setInterval(() => {
+      console.log('Checking mailbox for email...');
+
+      _emails.emailService.getEmails().then(emails => getFirstEmail(emails)).then(email => rejectIfMaxRepeatsReached(email, maxRepeats)).then(email => rejectIfMoreThanOneEmailFound(email)).then(email => validateEmailDate(email)).then(email => saveContentToVariable(email, variable, matchingRegex, interval, sync)).then(() => maxRepeats--).catch(err => stopInterval(interval, sync.bind(null, err)));
     }, timeout);
   });
 });

@@ -5,8 +5,10 @@ import { regexBuilder } from '../matchers';
 import config from '../helpers/config.helper';
 
 import { emailService } from  '../emails';
+import { transformers } from '../transformers/index';
+import { variableStore } from '../index';
 
-defineSupportCode(function ({ Then }) {
+defineSupportCode(function ({ Then, When }) {
   function stopInterval(interval, callback) {
     clearInterval(interval);
     callback();
@@ -98,6 +100,21 @@ defineSupportCode(function ({ Then }) {
     }
   }
 
+  function getFirstEmail(emails) {
+    return emails[0];
+  }
+
+  function saveContentToVariable(email, variable, matchingRegex, interval, sync) {
+    const content = email.text_body;
+    if (content !== undefined) {
+      const matchingContent = content.match(transformers.transform(matchingRegex))[1];
+      variableStore.storeVariable(variable, matchingContent);
+
+      return emailService.markAsRead(email)
+      .then(stopInterval.bind(null, interval, sync));
+    }
+  }
+
   Then(/^the email has been sent and contains:$/, function (data, sync) {
     const self = this;
     const timeout = parseInt(config.intervalEmail) * 1000;
@@ -116,4 +133,24 @@ defineSupportCode(function ({ Then }) {
         .catch((err) => stopInterval(interval, sync.bind(null, err)));
     }, timeout);
   });
+
+  When(/^I store the email content matched by "([^"]*)" as "([^"]*)" variable$/, (matchingRegex, variable, sync) => {
+    const self = this;
+    const timeout = parseInt(config.intervalEmail) * 1000;
+    let maxRepeats = 4;
+
+    const interval = setInterval(() => {
+      console.log('Checking mailbox for email...');
+
+      emailService.getEmails()
+      .then(emails => getFirstEmail(emails))
+      .then(email => rejectIfMaxRepeatsReached(email, maxRepeats))
+      .then(email => rejectIfMoreThanOneEmailFound(email))
+      .then(email => validateEmailDate(email))
+      .then(email => saveContentToVariable(email, variable, matchingRegex, interval, sync))
+      .then(() => maxRepeats--)
+      .catch(err => stopInterval(interval, sync.bind(null, err)));
+    }, timeout);
+  });
+
 });
