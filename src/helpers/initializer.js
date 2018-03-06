@@ -113,7 +113,7 @@ class Initializer {
 
     if (conf.email && conf.email.type === 'mailtrap') {
       conf.email = {
-        type: answer.type,
+        ...conf.email,
         config: {
           url: 'https://mailtrap.io/api/v1',
           apiKey: '',

@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.BaseDictionary = exports.BasePage = exports.emailService = exports.comparators = exports.handlers = exports.variableStore = exports.generators = exports.transformers = exports.dictionaries = exports.defineSupportCode = exports.regexBuilder = exports.matchers = undefined;
+exports.BaseDictionary = exports.BasePage = exports.waitForCondition = exports.waitForInvisibilityOf = exports.waitForVisibilityOf = exports.emailService = exports.comparators = exports.handlers = exports.variableStore = exports.generators = exports.transformers = exports.dictionaries = exports.defineSupportCode = exports.regexBuilder = exports.matchers = undefined;
 
 var _matchers = require('./matchers');
 
@@ -89,6 +89,27 @@ Object.defineProperty(exports, 'emailService', {
   enumerable: true,
   get: function () {
     return _emails.emailService;
+  }
+});
+
+var _waitForCondition = require('./helpers/wait-for-condition.helper');
+
+Object.defineProperty(exports, 'waitForVisibilityOf', {
+  enumerable: true,
+  get: function () {
+    return _waitForCondition.waitForVisibilityOf;
+  }
+});
+Object.defineProperty(exports, 'waitForInvisibilityOf', {
+  enumerable: true,
+  get: function () {
+    return _waitForCondition.waitForInvisibilityOf;
+  }
+});
+Object.defineProperty(exports, 'waitForCondition', {
+  enumerable: true,
+  get: function () {
+    return _waitForCondition.waitForCondition;
   }
 });
 
