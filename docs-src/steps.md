@@ -469,7 +469,7 @@ This will look for an email with 2 attachments.
 
 Checks if there is an email on the configured mailing service and stores text body matched by regex inside variableStore.
 
-This steps takes first email from inbox, in order to find an email you're looking for clear inbox before sending email.
+This step takes the first email from the inbox, in order to find an email you're looking for. It clears inbox before sending the email.
 
 This step also supports transformers.
 
