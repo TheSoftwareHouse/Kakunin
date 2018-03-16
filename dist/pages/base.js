@@ -10,11 +10,15 @@ var _config2 = _interopRequireDefault(_config);
 
 var _waitForCondition = require('../helpers/wait-for-condition.helper');
 
+var _urlParser = require('../helpers/url-parser.helper');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
 class Page {
   visit() {
-    if (_config2.default.type === 'otherWeb' || !this.isRelativePage()) {
+    if (_config2.default.type === 'otherWeb' || !(0, _urlParser.isRelativePage)(this.url)) {
       protractor.browser.ignoreSynchronization = true;
 
       return protractor.browser.get(this.url);
@@ -37,6 +41,22 @@ class Page {
     return protractor.browser.get(url).then(() => protractor.browser.waitForAngular());
   }
 
+  isOn() {
+    var _this = this;
+
+    return _asyncToGenerator(function* () {
+      const currentUrl = yield browser.getCurrentUrl().then(function (url) {
+        return url;
+      });
+
+      if ((0, _urlParser.isRelativePage)(_this.url) && _config2.default.type !== 'otherWeb') {
+        protractor.browser.ignoreSynchronization = false;
+      }
+
+      return browser.wait((0, _urlParser.waitForUrlChangeTo)(_this.url, currentUrl).bind(null, _config2.default.baseUrl), _config2.default.waitForPageTimeout * 1000);
+    })();
+  }
+
   click(element) {
     return this[element].click();
   }
@@ -53,100 +73,6 @@ class Page {
 
   isPresent(element) {
     return this[element].isPresent();
-  }
-
-  isOn() {
-    const self = this;
-
-    if (this.isRelativePage() && _config2.default.type !== 'otherWeb') {
-      protractor.browser.ignoreSynchronization = false;
-    }
-
-    return browser.wait(this.waitForUrlChangeTo(self.url), _config2.default.waitForPageTimeout * 1000).then(function (resultParameters) {
-      return resultParameters;
-    });
-  }
-
-  isRelativePage() {
-    return (this.url.indexOf('http://') > 1 || this.url.indexOf('http://') === -1) && (this.url.indexOf('https://') > 1 || this.url.indexOf('https://') === -1);
-  }
-
-  waitForUrlChangeTo(newUrl) {
-    return () => {
-      const self = this;
-
-      return browser.getCurrentUrl().then(function (url) {
-        if (!self.isRelativePage()) {
-          const pageDomain = self.extractDomain(newUrl);
-          const currentUrlDomain = self.extractDomain(url);
-
-          if (pageDomain !== currentUrlDomain) {
-            return false;
-          }
-        }
-
-        const baseUrl = self.normalizeUrl(newUrl);
-        url = self.normalizeUrl(url);
-
-        const urlSplit = url.split('/');
-        const baseUrlSplit = baseUrl.split('/');
-        const resultParameters = {};
-
-        if (urlSplit.length !== baseUrlSplit.length) {
-          return false;
-        }
-
-        for (let i = 0; i < urlSplit.length; i++) {
-          const template = baseUrlSplit[i];
-          const actual = urlSplit[i];
-
-          if (template.startsWith(':')) {
-            resultParameters[template.substr(1)] = actual;
-          } else if (template !== actual) {
-            return false;
-          }
-        }
-
-        return resultParameters;
-      });
-    };
-  }
-
-  extractDomain(url) {
-    let domain;
-
-    if (url.indexOf('://') > -1) {
-      domain = url.split('/')[2];
-    } else {
-      domain = url.split('/')[0];
-    }
-
-    domain = domain.split(':')[0];
-    domain = domain.split('?')[0];
-
-    return domain;
-  }
-
-  normalizeUrl(url) {
-    if (url[url.length - 1] === '/') {
-      return this.extractUrl(url.substr(0, url.length - 1));
-    }
-
-    return this.extractUrl(url);
-  }
-
-  extractUrl(url) {
-    let newUrl = url;
-
-    if (newUrl.indexOf('://') > 0) {
-      newUrl = newUrl.substr(newUrl.indexOf('://') + 3);
-
-      if (newUrl.indexOf('/') > 0) {
-        newUrl = newUrl.substr(newUrl.indexOf('/'));
-      }
-    }
-
-    return newUrl;
   }
 
   getNumberOfElements(elementName) {

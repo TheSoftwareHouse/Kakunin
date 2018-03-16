@@ -77,7 +77,8 @@ if (isInitCommand()) {
   child_process.spawn(path.join('node_modules', '.bin', protractorExecutable), argv, {
     stdio: 'inherit',
     cwd: process.cwd()
-  }).once('close', () => {
+  }).once('exit', (code) => {
     console.log('Protractor has finished');
+    process.exit(code);
   });
 }
