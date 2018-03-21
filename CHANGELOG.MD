@@ -1,3 +1,21 @@
+#### v2.1.0
+
+- performance testing (browserMob and TTFB timings)
+- improvements for clicking element, every step waits for visibilityOf element
+- added wait method to helpers
+- added `deprecated` warning for `is Present` steps
+- added matcher for currentDate
+- code refactor for kakunin.conf.js
+- removed generators steps with parms and multiparm support in generator step
+- bugfix - init process
+- bugfix for texts with colons
+- bugfix - Table steps failing
+- fix for templates
+- code cleanup (unused imports etc.)
+- documentation update and  test update  (added useful undocumented and untested steps, removal of unused steps)
+
+
+
 ##### v2.0.0
 
 - updated documentation
