@@ -13,23 +13,15 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 class CurrentDateMatcher {
   isSatisfiedBy(prefix, name) {
-    return prefix === 'f' && name === 'currentDate';
+    return prefix === 'm' && name === 'currentDate';
   }
 
   match(element) {
-    let currentDate = _sugarDate2.default.Date.create('now');
-    currentDate = _sugarDate2.default.Date.format(currentDate, '{yyyy}-{MM}-{dd}');
-
+    const currentDate = _sugarDate2.default.Date.format(_sugarDate2.default.Date.create('now'), '{yyyy}-{MM}-{dd}');
     return element.getText().then(text => {
-      let compareDate = _sugarDate2.default.Date.create(text);
-      compareDate = _sugarDate2.default.Date.format(compareDate, '{yyyy}-{MM}-{dd}');
-
-      if (compareDate === currentDate) {
-        return true;
-      } else {
-        return false;
-      }
-    });
+      const compareDate = _sugarDate2.default.Date.format(_sugarDate2.default.Date.create(text), '{yyyy}-{MM}-{dd}');
+      return compareDate === currentDate ? true : false;
+    }).catch(false);
   }
 }
 
