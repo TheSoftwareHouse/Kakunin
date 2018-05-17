@@ -34,7 +34,7 @@ class Page {
       protractor.browser.ignoreSynchronization = false;
     }
 
-    return browser.wait(waitForUrlChangeTo(this.url, currentUrl).bind(null, config.baseUrl), config.waitForPageTimeout * 1000);
+    return waitForUrlChangeTo(this.url, currentUrl).bind(null, config.baseUrl);
   }
 
   click(element) {
