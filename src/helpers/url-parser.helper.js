@@ -57,4 +57,3 @@ const normalizeUrl = (url) => {
 };
 
 const extractUrl = url => Url.parse(url).pathname;
-

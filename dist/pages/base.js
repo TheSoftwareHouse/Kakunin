@@ -53,7 +53,7 @@ class Page {
         protractor.browser.ignoreSynchronization = false;
       }
 
-      return browser.wait((0, _urlParser.waitForUrlChangeTo)(_this.url, currentUrl).bind(null, _config2.default.baseUrl), _config2.default.waitForPageTimeout * 1000);
+      return (0, _urlParser.waitForUrlChangeTo)(_this.url, currentUrl).bind(null, _config2.default.baseUrl);
     })();
   }
 
