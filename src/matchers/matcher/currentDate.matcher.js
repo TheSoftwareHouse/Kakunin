@@ -1,16 +1,15 @@
-import Sugar from 'sugar-date';
+import moment from 'moment';
 
 class CurrentDateMatcher {
   isSatisfiedBy(prefix, name) {
     return prefix === 'f' && name === 'currentDate';
   }
 
-  match(element, dateFormat = '{dd}-{MM}-{yyyy}') {
-    const currentDate = Sugar.Date.format(Sugar.Date.create('now'), dateFormat);
-
+  match(element, name = null, params = 'DD-MM-YYYY') {
+    const currentDate = moment(new Date()).format(params);
     return element.getText().then((text) => {
-      const compareDate = Sugar.Date.format(Sugar.Date.create(text), dateFormat);
-      return (compareDate === currentDate) ? true : false;
+      const compareDate = moment(new Date(text)).format(params);
+      return (compareDate === currentDate);
     }).catch(false);
   }
 }

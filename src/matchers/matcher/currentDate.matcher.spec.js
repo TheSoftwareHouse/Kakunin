@@ -1,5 +1,5 @@
 import { currentDateMatcher } from './currentDate.matcher';
-import Sugar from 'sugar-date';
+import moment from 'moment';
 import { expect } from 'chai';
 
 describe('Current Date matcher', () => {
@@ -18,20 +18,9 @@ describe('Current Date matcher', () => {
       equal(false));
   });
 
-  it('returns true when the text date is matched', (done) => {
-    const elementMocked = {
-      getText: () => Promise.resolve('Today'),
-    };
-
-    currentDateMatcher.match(elementMocked).then((result) => {
-      expect(result).to.equal(true);
-      done();
-    });
-  });
-
   it('returns true when the date is matched', (done) => {
     const elementMocked = {
-      getText: () => Promise.resolve(Sugar.Date.create('now')),
+      getText: () => Promise.resolve(moment(new Date())),
     };
 
     currentDateMatcher.match(elementMocked).then((result) => {
@@ -42,10 +31,10 @@ describe('Current Date matcher', () => {
 
   it('returns true when the date with slashes is matched', (done) => {
     const elementMocked = {
-      getText: () => Promise.resolve(Sugar.Date.format(Sugar.Date.create('now'), '{MM}/{dd}/{yyyy}')),
+      getText: () => Promise.resolve(moment(new Date()).format('MM/DD/YYYY')),
     };
 
-    currentDateMatcher.match(elementMocked, '{MM}/{dd}/{yyyy}').then((result) => {
+    currentDateMatcher.match(elementMocked, null, 'MM/DD/YYYY').then((result) => {
       expect(result).to.equal(true);
       done();
     });

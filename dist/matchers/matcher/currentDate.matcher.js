@@ -5,9 +5,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.currentDateMatcher = undefined;
 
-var _sugarDate = require('sugar-date');
+var _moment = require('moment');
 
-var _sugarDate2 = _interopRequireDefault(_sugarDate);
+var _moment2 = _interopRequireDefault(_moment);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -16,12 +16,11 @@ class CurrentDateMatcher {
     return prefix === 'f' && name === 'currentDate';
   }
 
-  match(element, dateFormat = '{dd}-{MM}-{yyyy}') {
-    const currentDate = _sugarDate2.default.Date.format(_sugarDate2.default.Date.create('now'), dateFormat);
-
+  match(element, name = null, params = 'DD-MM-YYYY') {
+    const currentDate = (0, _moment2.default)(new Date()).format(params);
     return element.getText().then(text => {
-      const compareDate = _sugarDate2.default.Date.format(_sugarDate2.default.Date.create(text), dateFormat);
-      return compareDate === currentDate ? true : false;
+      const compareDate = (0, _moment2.default)(new Date(text)).format(params);
+      return compareDate === currentDate;
     }).catch(false);
   }
 }
