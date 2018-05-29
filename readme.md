@@ -74,3 +74,37 @@ pip install mkdocs mkdocs-material pygments
 In order to preview documentation type `mkdocs serve` inside kakunin directory.
 
 In order to build static version of documentation type `mkdocs build`.
+
+
+## Example Scenario
+
+```Gherkin
+Background:
+  Given I am logged in as "shopOwner"
+  And I visit the "mainPage" page
+
+
+Scenario: View some example shop admin statistics and items list
+  When I click the "shopDashboardButton" element
+  Then the "shopDashboard" page is displayed
+  And there are following elements in table "stats":
+   | active   | scheduled | paused    | completed      | cancelled      |
+   | r:number | r:number  | r:number  | r:percentValue | r:percentValue |
+  And there are "at least 1" following elements for element "shopItemList":
+   | name     | f:isClickable   |
+   | amount   | f:isVisible     |
+   | price    | r:date          |
+   | vat      | r:status        |
+   | discount | r:number        |
+
+Scenario: I want to add new product to shop
+  When I click the "addNewProduct" element
+  Then the "addNewProduct" page is displayed
+  When I fill the form "newProductForm" with:
+    | name     | exampleName     |
+    | amount   | 100             |
+    | price    | 24,99           |
+    | vat      | 23              |
+    | discount | 10              |
+
+```
