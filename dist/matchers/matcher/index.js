@@ -75,3 +75,12 @@ Object.defineProperty(exports, 'attributeMatcher', {
     return _attribute.attributeMatcher;
   }
 });
+
+var _currentDate = require('./currentDate.matcher');
+
+Object.defineProperty(exports, 'currentDateMatcher', {
+  enumerable: true,
+  get: function () {
+    return _currentDate.currentDateMatcher;
+  }
+});

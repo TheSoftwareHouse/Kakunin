@@ -64,6 +64,9 @@ app.post('/wait-for-appear/form/post', function (req, res) {
     form: req.body
   });
 });
+app.get('/matchers', function (req, res) {
+  res.render('matchers/matchers.njs');
+});
 
 app.listen(8080, function () {
   console.log('Example app listening on port 8080!');

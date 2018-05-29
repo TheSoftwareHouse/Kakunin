@@ -11,6 +11,7 @@ class Matchers {
       matcher.textMatcher,
       matcher.visibleMatcher,
       matcher.attributeMatcher,
+      matcher.currentDateMatcher,
     ];
   }
 

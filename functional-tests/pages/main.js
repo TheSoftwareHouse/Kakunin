@@ -17,6 +17,7 @@ class MainPage extends BasePage {
     this.valueToClick = $('.valueForClickStep');
     this.appearTable = $('.appearTable');
     this.appearForm = $('.appearForm');
+    this.matchersLink = $('.matchers');
 
   }
 }
