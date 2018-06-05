@@ -1,6 +1,7 @@
 import inquirer from 'inquirer';
 import mkdirp from 'mkdirp';
 import fs from 'fs';
+import path from 'path';
 
 class Initializer {
   createProjectDirectory(path) {
@@ -54,7 +55,6 @@ class Initializer {
       downloadTimeout: 30,
       emails: ['/emails'],
       reports: '/reports',
-      performance: '/reports/performance',
       downloads: '/downloads',
       data: '/data',
       features: ['/features'],
@@ -188,7 +188,9 @@ class Initializer {
     const config = require(process.cwd() + '/kakunin.conf.js');
 
     this.createProjectDirectory(config.reports);
-    this.createProjectDirectory(config.performance);
+    this.createProjectDirectory(path.join(config.reports, 'report'));
+    this.createProjectDirectory(path.join(config.reports, 'report', 'features'));
+    this.createProjectDirectory(path.join(config.reports, 'performance'));
     this.createProjectDirectory(config.downloads);
     this.createProjectDirectory(config.data);
 
@@ -205,9 +207,10 @@ class Initializer {
     this.createProjectDirectory(config.transformers[0]);
     this.createProjectDirectory(config.emails[0]);
 
-    this.createTemplateFile(config.performance + '/.gitkeep', '');
-    this.createTemplateFile(config.reports + '/.gitkeep', '');
-    this.createTemplateFile(config.downloads + '/.gitkeep', '');
+    this.createTemplateFile(path.join(config.downloads, '/.gitkeep'), '');
+    this.createTemplateFile(path.join(config.reports, 'report', '.gitkeep'), '');
+    this.createTemplateFile(path.join(config.reports, 'report', 'features', '.gitkeep'), '');
+    this.createTemplateFile(path.join(config.reports, 'performance', '.gitkeep'), '');
     this.createTemplateFileWithContentFrom(config.features[0] + '/example.feature', 'example.feature');
     this.createTemplateFileWithContentFrom(config.pages[0] + '/page.js', 'page.js');
     this.createTemplateFileWithContentFrom(config.matchers[0] + '/matcher.js', 'matcher.js');
