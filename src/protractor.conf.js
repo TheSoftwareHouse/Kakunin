@@ -3,6 +3,7 @@ const path = require('path');
 const fs = require('fs');
 const chai = require('chai');
 const modulesLoader = require('./helpers/modules-loader.helper.js').create();
+const { deleteReports } = require('./helpers/delete-files.helper');
 const chaiAsPromised = require('chai-as-promised');
 const { emailService } = require('./emails');
 chai.use(chaiAsPromised);
@@ -55,6 +56,22 @@ if (config.headless) {
   ];
 }
 
+const deleteReportFiles = () => {
+  const reportsDirectory = path.join(config.projectPath, config.reports);
+  const jsonOutputDirectory = path.join(reportsDirectory, 'json-output-folder');
+  const generatedReportsDirectory = path.join(reportsDirectory, 'report');
+  const featureReportsDirectory = path.join(generatedReportsDirectory, 'features');
+  const performanceReportsDirectory = path.join(reportsDirectory, 'performance');
+
+  deleteReports(reportsDirectory);
+  deleteReports(jsonOutputDirectory);
+  deleteReports(generatedReportsDirectory);
+  deleteReports(featureReportsDirectory);
+  deleteReports(performanceReportsDirectory);
+
+  console.log('All reports have been deleted!');
+};
+
 exports.config = {
   multiCapabilities: [
     chromeConfig
@@ -93,11 +110,7 @@ exports.config = {
   }],
 
   onPrepare: function () {
-    const generatedReportsDirectory = path.join(config.projectPath, config.reports, 'report');
-
-    fs.readdirSync(generatedReportsDirectory)
-      .filter(file => fs.statSync(path.join(generatedReportsDirectory, file)).isFile())
-      .forEach(file => fs.unlinkSync(path.join(generatedReportsDirectory, file)));
+    deleteReportFiles();
 
     if (!config.headless) {
       browser.driver.manage().window().setSize(

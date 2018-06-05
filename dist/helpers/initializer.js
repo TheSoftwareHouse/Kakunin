@@ -18,6 +18,10 @@ var _fs = require('fs');
 
 var _fs2 = _interopRequireDefault(_fs);
 
+var _path = require('path');
+
+var _path2 = _interopRequireDefault(_path);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
@@ -77,7 +81,6 @@ class Initializer {
         downloadTimeout: 30,
         emails: ['/emails'],
         reports: '/reports',
-        performance: '/reports/performance',
         downloads: '/downloads',
         data: '/data',
         features: ['/features'],
@@ -204,7 +207,9 @@ class Initializer {
       const config = require(process.cwd() + '/kakunin.conf.js');
 
       _this3.createProjectDirectory(config.reports);
-      _this3.createProjectDirectory(config.performance);
+      _this3.createProjectDirectory(_path2.default.join(config.reports, 'report'));
+      _this3.createProjectDirectory(_path2.default.join(config.reports, 'report', 'features'));
+      _this3.createProjectDirectory(_path2.default.join(config.reports, 'performance'));
       _this3.createProjectDirectory(config.downloads);
       _this3.createProjectDirectory(config.data);
 
@@ -221,9 +226,10 @@ class Initializer {
       _this3.createProjectDirectory(config.transformers[0]);
       _this3.createProjectDirectory(config.emails[0]);
 
-      _this3.createTemplateFile(config.performance + '/.gitkeep', '');
-      _this3.createTemplateFile(config.reports + '/.gitkeep', '');
-      _this3.createTemplateFile(config.downloads + '/.gitkeep', '');
+      _this3.createTemplateFile(_path2.default.join(config.downloads, '/.gitkeep'), '');
+      _this3.createTemplateFile(_path2.default.join(config.reports, 'report', '.gitkeep'), '');
+      _this3.createTemplateFile(_path2.default.join(config.reports, 'report', 'features', '.gitkeep'), '');
+      _this3.createTemplateFile(_path2.default.join(config.reports, 'performance', '.gitkeep'), '');
       _this3.createTemplateFileWithContentFrom(config.features[0] + '/example.feature', 'example.feature');
       _this3.createTemplateFileWithContentFrom(config.pages[0] + '/page.js', 'page.js');
       _this3.createTemplateFileWithContentFrom(config.matchers[0] + '/matcher.js', 'matcher.js');

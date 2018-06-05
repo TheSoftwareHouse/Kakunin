@@ -1,6 +1,8 @@
 ##### v2.1.0
 - multiple code refactors
-- improved url comparing 
+- improved url comparing
+- fixed bug: missing "reports/report/features" catalogs required to execute tests
+- added functionality which deletes all report files before a test run
 - added new matcher - `f:currentDate:YYYY-MM-DD` to generate a current date
 - added a possibility to test performance with browserMob (save .har files) and compare TTFB timing values
 - improvements for clicking element
