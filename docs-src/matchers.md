@@ -53,3 +53,7 @@ You can add your own matchers. In order to do so please read `Extending Kakunin`
 ###Text matcher
 
 `t:text you are looking for` - allows you to check if an element contains a expected text
+
+###Current date matcher
+
+`f:currentDate:{format}` - allows you to generate current date, `{format}` is optional, by default `DD-MM-YYYY`
