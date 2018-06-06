@@ -19,6 +19,7 @@ pages:
   - Built-in steps: steps.md
   - Matchers: matchers.md
   - Transformers: transformers.md
+  - Performance testing: performance-testing.md
   - Extending Kakunin: extending.md
 
 markdown_extensions:

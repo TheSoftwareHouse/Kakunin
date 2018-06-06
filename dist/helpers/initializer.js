@@ -18,6 +18,10 @@ var _fs = require('fs');
 
 var _fs2 = _interopRequireDefault(_fs);
 
+var _path = require('path');
+
+var _path2 = _interopRequireDefault(_path);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
@@ -136,34 +140,39 @@ class Initializer {
 
       if (advancedConfiguration) {
         yield _this.initEnv();
-        conf.browserWidth = yield _this.promptFolders('What is desired browser width?', conf.browserWidth);
-        conf.browserHeight = yield _this.promptFolders('What is desired browser height?', conf.browserHeight);
+        conf.browserWidth = parseInt((yield _this.promptFolders('What is desired browser width?', conf.browserWidth)));
+        conf.browserHeight = parseInt((yield _this.promptFolders('What is desired browser height?', conf.browserHeight)));
 
-        conf.timeout = yield _this.promptFolders('What is desired step timeout in seconds?', conf.timeout);
-        conf.intervalEmail = yield _this.promptFolders('What is desired step email interval in seconds?', conf.intervalEmail);
-        conf.elementsVisibilityTimeout = yield _this.promptFolders('What is desired elements visibility timeout in seconds?', conf.elementsVisibilityTimeout);
-        conf.waitForPageTimeout = yield _this.promptFolders('How long should I wait for page to load in seconds?', conf.waitForPageTimeout);
-        conf.downloadTimeout = yield _this.promptFolders('How long should I wait for files to download in seconds?', conf.downloadTimeout);
+        conf.timeout = parseInt((yield _this.promptFolders('What is desired step timeout in seconds?', conf.timeout)));
+        conf.intervalEmail = parseInt((yield _this.promptFolders('What is desired step email interval in seconds?', conf.intervalEmail)));
+        conf.elementsVisibilityTimeout = parseInt((yield _this.promptFolders('What is desired elements visibility timeout in seconds?', conf.elementsVisibilityTimeout)));
+        conf.waitForPageTimeout = parseInt((yield _this.promptFolders('How long should I wait for page to load in seconds?', conf.waitForPageTimeout)));
+        conf.downloadTimeout = parseInt((yield _this.promptFolders('How long should I wait for files to download in seconds?', conf.downloadTimeout)));
 
         conf.reports = yield _this.promptFolders('Where are your reports stored?', conf.reports);
         conf.downloads = yield _this.promptFolders('Where are your downloads stored?', conf.downloads);
         conf.data = yield _this.promptFolders('Where is your data stored?', conf.data);
 
-        conf.features = [yield _this.promptFolders('Where are your features stored?', conf.features)];
-        conf.pages = [yield _this.promptFolders('Where are your pages stored?', conf.pages)];
-        conf.matchers = [yield _this.promptFolders('Where are your matchers stored?', conf.matchers)];
-        conf.generators = [yield _this.promptFolders('Where are your generators stored?', conf.generators)];
-        conf.form_handlers = [yield _this.promptFolders('Where are your form handlers stored?', conf.form_handlers)];
-        conf.step_definitions = [yield _this.promptFolders('Where are your step definitions stored?', conf.step_definitions)];
-        conf.comparators = [yield _this.promptFolders('Where are your comparators stored?', conf.comparators)];
-        conf.dictionaries = [yield _this.promptFolders('Where are your dictionaries stored?', conf.dictionaries)];
-        conf.regexes = [yield _this.promptFolders('Where are your regexes stored?', conf.regexes)];
-        conf.hooks = [yield _this.promptFolders('Where are your hooks stored?', conf.hooks)];
-        conf.transformers = [yield _this.promptFolders('Where are your transformers stored?', conf.transformers)];
+        conf.features = [yield _this.promptFolders('Where are your features stored?', conf.features[0])];
+        conf.pages = [yield _this.promptFolders('Where are your pages stored?', conf.pages[0])];
+        conf.matchers = [yield _this.promptFolders('Where are your matchers stored?', conf.matchers[0])];
+        conf.generators = [yield _this.promptFolders('Where are your generators stored?', conf.generators[0])];
+        conf.form_handlers = [yield _this.promptFolders('Where are your form handlers stored?', conf.form_handlers[0])];
+        conf.step_definitions = [yield _this.promptFolders('Where are your step definitions stored?', conf.step_definitions[0])];
+        conf.comparators = [yield _this.promptFolders('Where are your comparators stored?', conf.comparators[0])];
+        conf.dictionaries = [yield _this.promptFolders('Where are your dictionaries stored?', conf.dictionaries[0])];
+        conf.regexes = [yield _this.promptFolders('Where are your regexes stored?', conf.regexes[0])];
+        conf.hooks = [yield _this.promptFolders('Where are your hooks stored?', conf.hooks[0])];
+        conf.transformers = [yield _this.promptFolders('Where are your transformers stored?', conf.transformers[0])];
 
         conf.clearEmailInboxBeforeTests = yield _this.promptFolders('Should email inbox be cleared before tests?', conf.clearEmailInboxBeforeTests, 'confirm');
         conf.clearCookiesAfterScenario = yield _this.promptFolders('Should cookies be cleared after scenario?', conf.clearCookiesAfterScenario, 'confirm');
         conf.clearLocalStorageAfterScenario = yield _this.promptFolders('Should local storage be cleared after scenario?', conf.clearLocalStorageAfterScenario, 'confirm');
+        conf.browserMob = {
+          serverPort: parseInt((yield _this.promptFolders('Define port where browsermob-proxy is running!', 8887))),
+          port: parseInt((yield _this.promptFolders('Define port where browsermob-proxy should be listening!', 8888))),
+          host: yield _this.promptFolders('Define host where browsermob-proxy is running!', 'localhost')
+        };
       }
 
       conf.accounts = {
@@ -198,6 +207,9 @@ class Initializer {
       const config = require(process.cwd() + '/kakunin.conf.js');
 
       _this3.createProjectDirectory(config.reports);
+      _this3.createProjectDirectory(_path2.default.join(config.reports, 'report'));
+      _this3.createProjectDirectory(_path2.default.join(config.reports, 'report', 'features'));
+      _this3.createProjectDirectory(_path2.default.join(config.reports, 'performance'));
       _this3.createProjectDirectory(config.downloads);
       _this3.createProjectDirectory(config.data);
 
@@ -214,8 +226,10 @@ class Initializer {
       _this3.createProjectDirectory(config.transformers[0]);
       _this3.createProjectDirectory(config.emails[0]);
 
-      _this3.createTemplateFile(config.reports + '/.gitkeep', '');
-      _this3.createTemplateFile(config.downloads + '/.gitkeep', '');
+      _this3.createTemplateFile(_path2.default.join(config.downloads, '/.gitkeep'), '');
+      _this3.createTemplateFile(_path2.default.join(config.reports, 'report', '.gitkeep'), '');
+      _this3.createTemplateFile(_path2.default.join(config.reports, 'report', 'features', '.gitkeep'), '');
+      _this3.createTemplateFile(_path2.default.join(config.reports, 'performance', '.gitkeep'), '');
       _this3.createTemplateFileWithContentFrom(config.features[0] + '/example.feature', 'example.feature');
       _this3.createTemplateFileWithContentFrom(config.pages[0] + '/page.js', 'page.js');
       _this3.createTemplateFileWithContentFrom(config.matchers[0] + '/matcher.js', 'matcher.js');

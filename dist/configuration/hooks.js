@@ -8,6 +8,10 @@ var _fs = require('fs');
 
 var _fs2 = _interopRequireDefault(_fs);
 
+var _path = require('path');
+
+var _path2 = _interopRequireDefault(_path);
+
 var _userProvider = require('../helpers/user-provider.helper');
 
 var _userProvider2 = _interopRequireDefault(_userProvider);
@@ -26,17 +30,11 @@ var _chalk2 = _interopRequireDefault(_chalk);
 
 var _cucumber = require('cucumber');
 
-var _multipleCucumberHtmlReporter = require('multiple-cucumber-html-reporter');
-
-var _multipleCucumberHtmlReporter2 = _interopRequireDefault(_multipleCucumberHtmlReporter);
-
 var _variableStore = require('../helpers/variable-store.helper');
 
 var _variableStore2 = _interopRequireDefault(_variableStore);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-const outputDir = _config2.default.projectPath + _config2.default.reports;
 
 const logRequestTime = timeStart => {
   const timeDiff = process.hrtime(timeStart);
@@ -74,18 +72,18 @@ const clearCookiesAndLocalStorage = callback => {
 };
 
 const clearDownload = callback => {
-  const files = _fs2.default.readdirSync(_config2.default.projectPath + _config2.default.downloads).filter(function (file) {
+  const files = _fs2.default.readdirSync(_path2.default.join(_config2.default.projectPath, _config2.default.downloads)).filter(function (file) {
     return file !== '.gitkeep';
   });
 
   for (let index = 0; index < files.length; index++) {
-    _fs2.default.unlinkSync(_config2.default.projectPath + _config2.default.downloads + '/' + files[index]);
+    _fs2.default.unlinkSync(_path2.default.join(_config2.default.projectPath, _config2.default.downloads, files[index]));
   }
 
   callback();
 };
 
-(0, _cucumber.defineSupportCode)(({ AfterAll, After, Before }) => {
+(0, _cucumber.defineSupportCode)(({ After, Before }) => {
   After(function (scenario, callback) {
     if (scenario.result.status !== 'passed') {
       takeScreenshot(this).then(() => {

@@ -3,6 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+const commandArgs = require('minimist')(process.argv.slice(2));
 let config;
 
 if (process.env.NODE_ENV === 'test') {
@@ -21,6 +22,7 @@ if (process.env.NODE_ENV === 'test') {
 
   config = require(configFilePath); // eslint-disable-line global-require
   config.projectPath = projectPath;
+  config.performance = commandArgs.performance || false;
 }
 
 exports.default = config;

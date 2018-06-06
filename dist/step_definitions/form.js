@@ -8,38 +8,20 @@ var _dictionaries = require('../dictionaries');
   When(/^I fill the "([^"]*)" form with:$/, function (formName, data) {
     const self = this;
 
-    return expect(this.currentPage.isVisible(formName)).to.eventually.be.fulfilled.then(function () {
-      return self.currentPage.fillForm(data.raw());
+    return this.currentPage.waitForVisibilityOf(formName).then(function () {
+      return expect(self.currentPage.isVisible(formName)).to.eventually.be.fulfilled.then(function () {
+        return self.currentPage.fillForm(data.raw());
+      });
     });
   });
 
   Then(/^the "([^"]*)" form is filled with:$/, function (formName, data) {
     const self = this;
 
-    return expect(this.currentPage.isVisible(formName)).to.eventually.be.fulfilled.then(function () {
-      return self.currentPage.checkForm(data.raw());
-    });
-  });
-
-  When(/^I fill the "([^"]*)" form field "([^"]*)" with value from the element "([^"]*)"$/, function (form, field, valueElementSelector) {
-    const self = this;
-
-    return expect(this.currentPage.isVisible(form)).to.eventually.be.fulfilled.then(function () {
-      return self.currentPage[valueElementSelector].getText();
-    }).then(function (text) {
-      return self.currentPage.fillField(field, text);
-    });
-  });
-
-  When(/^I fill the "([^"]*)" form field "([^"]*)" with value from the element "([^"]*)" translated by dictionary "([^"]*)"$/, function (form, field, valueElementSelector, dictionaryName) {
-    const self = this;
-
-    return expect(this.currentPage.isVisible(form)).to.eventually.be.fulfilled.then(function () {
-      return self.currentPage[valueElementSelector].getText();
-    }).then(function (text) {
-      return _dictionaries.dictionaries.getMappedValue(dictionaryName, text);
-    }).then(function (mappedValue) {
-      return self.currentPage.fillField(field, mappedValue);
+    return this.currentPage.waitForVisibilityOf(formName).then(function () {
+      return expect(self.currentPage.isVisible(formName)).to.eventually.be.fulfilled.then(function () {
+        return self.currentPage.checkForm(data.raw());
+      });
     });
   });
 

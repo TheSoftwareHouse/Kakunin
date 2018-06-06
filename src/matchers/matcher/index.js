@@ -6,3 +6,4 @@ export { textMatcher }  from './text.matcher';
 export { visibleMatcher } from './visible.matcher';
 export { regexMatcher } from './regex-matcher';
 export { attributeMatcher } from './attribute.matcher';
+export { currentDateMatcher } from './currentDate.matcher';

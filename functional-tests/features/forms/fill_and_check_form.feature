@@ -6,6 +6,11 @@ Feature: Forms
         Given I visit the "main" page
         When I click the "formLink" element
         Then the "simpleForm" page is displayed
+        When I generate random "stringWithLength:10" as "storedStringWithLength"
+        And I fill the "form" form with:
+            | nameInput | v:storedStringWithLength |
+        Then the "form" form is filled with:
+            | nameInput | v:storedStringWithLength |
         When I fill the "form" form with:
             | nameInput           | d:test-dictionary:test-name |
             | descriptionTextarea | some description            |

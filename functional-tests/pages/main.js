@@ -15,6 +15,10 @@ class MainPage extends BasePage {
     this.tabularDataLink = $('a[href="/tabular-data"]');
     this.buttonLink = $('a[href="/form/disappear"]');
     this.valueToClick = $('.valueForClickStep');
+    this.appearTable = $('.appearTable');
+    this.appearForm = $('.appearForm');
+    this.matchersLink = $('.matchers');
+
   }
 }
 

@@ -28,7 +28,18 @@ const getConfigPath = () => {
 const getScenariosTags = () => {
   const tags = [];
 
-  if (commandArgs.tags !== undefined) {
+  if (commandArgs.performance) {
+    if (commandArgs.tags !== undefined && commandArgs.tags.indexOf('@performance') < 0) {
+      tags.push('--cucumberOpts.tags');
+      tags.push(`${commandArgs.tags} and @performance`);
+    } else if (commandArgs.tags === undefined) {
+      tags.push('--cucumberOpts.tags');
+      tags.push('@performance');
+    } else {
+      tags.push('--cucumberOpts.tags');
+      tags.push(commandArgs.tags);
+    }
+  } else if (commandArgs.tags !== undefined) {
     tags.push('--cucumberOpts.tags');
     tags.push(commandArgs.tags);
   }
@@ -50,7 +61,11 @@ if (isInitCommand()) {
 
   for (const prop in commandArgs) {
     if (prop !== '_' && !optionsToFilter.includes(prop)) {
-      commandLineArgs.push(`--${prop}=${commandArgs[prop]}`);
+      if (commandArgs[prop] === true || commandArgs[prop] === false) {
+        commandLineArgs.push(`--${prop}`);
+      } else {
+        commandLineArgs.push(`--${prop}=${commandArgs[prop]}`);
+      }
     }
   }
 

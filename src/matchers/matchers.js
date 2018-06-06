@@ -11,6 +11,7 @@ class Matchers {
       matcher.textMatcher,
       matcher.visibleMatcher,
       matcher.attributeMatcher,
+      matcher.currentDateMatcher,
     ];
   }
 
@@ -19,7 +20,7 @@ class Matchers {
   }
 
   match(element, matcherName) {
-    const splittedValue = matcherName.split(':');
+    const splittedValue = matcherName.split(separator);
     const matcher = this.findMatcher(splittedValue[0], splittedValue.slice(1));
 
     if (matcher === undefined) {
@@ -35,3 +36,4 @@ class Matchers {
 }
 
 export const create = () => new Matchers();
+export const separator = ':';

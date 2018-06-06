@@ -134,6 +134,12 @@ the error messages should be displayed:
 ```
 
 ##Elements
+###`I infinitely scroll to the ":elementName" element`
+
+Allows to scroll through infinite scroll mechanism. 
+
+The `:elementName` is a name of a selector for loading trigger.
+
 ###`I wait for ":expectedConditionName" of the ":elementName" element`
 
 Waits till element `:elementName` from `this.currentPage` meets criteria specified by `:expectedConditionName`.
@@ -167,14 +173,6 @@ Performs a key press operation on `:keyName` key.
 
 Performs a click action on element `:elementName` from `this.currentPage'
 
-###`I click the ":elementName" element if it is visible`
-
-Conditionally clicks on element `:elementName` of `this.currentPage` only if it is visible.
-
-###`I click the ":elementName" on the first item of ":containerElementName" element`
-
-Allows to click on the first child element of `:containerElementName` specified in `this.currentPage`.
-
 The child element must be specified by `:elementName` and must be available in `this.currentPage`.
 
 ###`I store the ":elementName" element text as ":variableName" variable`
@@ -188,14 +186,6 @@ Updates the variable `:variableName` value by value from element `:elementName` 
 ###`I store the ":elementName" element text matched by ":matchingRegex" as ":variableName" variable`
 
 Stores the part of the element `:elementName` text, that matches the `:matchingRegex` under the `:variableName` for later use.
-
-### `the ":elementName"" element is present`
-
-Checks if element `:elementName` is available in HTML DOM
-
-### `the ":elementName"" element is not present`
-
-Checks if element `:elementName` is not available in HTML DOM
 
 ### `the ":elementName"" element is visible`
 
@@ -425,34 +415,6 @@ The child elements must be an elements, for example `this.id = $('td');`.
 
 You can use all kind of matchers here.
 
-###`every ":elementName" element should have the same value for element ":columnElementName" attribute ":attributeName"`
-
-The same as `every ":elementName" element should have the same value for element ":columnElementName"`, but check if all cells have the same value for an
-attribute specified by `:atrributeName`.
-
-###`":columnElementName" value on the ":elementName" list is sorted in "ascending|descending" order`
-
-Checks if the values for column `:columnElementName` of each row specified by `:elementName` is sorted in either ascending or descending order.
-
-`:columnElementName` must be an element used to get a column on each row of an array `:elementName`. For example:
-
-```html 
-<table>
-  <tr>
-    <td>1</td>
-  </tr>
-  <tr>
-    <td>2</td>
-  </tr>   
-</table>
-```
-
-The `:elementName` should be specified as `this.myElement = $$('table tr')`
-
-The `:columnElementName` should be an element `this.myColumn = $('td');`.
-
-Now we can use this step to check the order of elements.
-
 ###`I drag ":elementDrag" element and drop over ":elementDrop" element`
 
 Clicks on `:elementDrag` and moves it onto `:elementDrop` while left mouse button is pressed, and then release it.
@@ -522,9 +484,9 @@ This step allows you to compare an xls/xlsx file `:fileName` with an existing da
 The data under `:variableName` must be an array of objects representing each row of file. 
 
 ##Generators
-### `I generate random ":generatorName" as ":variableName"`
+### `I generate random ":generator:param:param" as ":variableName"`
 
-Allows to generate a random value using the generator specified by `:generatorName`.
+Allows to generate a random value using the generator specified by `:generator:param:param`.
 
 The generator must be defined inside the any of the `generators` directories specified in `kakunin.conf.js` file `default: generators`.
 
@@ -536,10 +498,6 @@ If the generator exists, then the value will be saved under the `:variableName` 
 
 * by using variable store transformer on supported steps `v:variableName`
 
-### `I generate random ":generatorName" ":generatorParamter" as ":variableName"`
-
-The same as `I generate random ":generatorName" as ":variableName"` but allows to pass additional parameter to generator.
-
 ##Debug
 
 ###`I pause`
@@ -549,3 +507,37 @@ Pauses tests execution and allows to continue manually by pressing combination o
 ###`I wait for ":seconds" seconds`
 
 Waits with execution of next step for an amount provided by parameter `:seconds`.
+
+###`I start performance monitor mode`
+
+It starts performance monitor mode. 
+
+Keep in mind that REST API must be started on the port which must configured in `kakunin.conf.js` - `serverPort: 8887`.
+
+More details can be found in documentation file `performance-testing.md`.
+
+###`I save performance report file as "fileName"`
+
+It saves `.har` file with a name `fileName` in `reports/performance` catalog. 
+
+For example: `exampleReport-1511470954552.har`
+
+Data is generated during the test - network tab in Chrome Chrome console.
+
+Keep in mind:
+
+* `I start performance monitor mode` must be used before this step
+
+* `browserMob.port` must be configured in `kakunin.conf.js`
+
+* `browserMob.host` must be configured in `kakunin.conf.js`
+
+More details can be found in documentation file `performance-testing.md`.
+
+###`the requests should take a maximum of "maxTiming" milliseconds`
+
+It compares every `TTFB` timing value from previously saved `.har` report with a `maxTiming` value.
+
+Slow requests are listed in your terminal in red colour.
+
+Keep in mind that `I start performance monitor mode` and `I save performance report file as "fileName"` steps must be executed before this one!

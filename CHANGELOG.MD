@@ -1,3 +1,20 @@
+##### v2.1.0
+- multiple code refactors
+- improved url comparing
+- fixed bug: missing "reports/report/features" catalogs required to execute tests
+- added functionality which deletes all report files before a test run
+- added new matcher - `f:currentDate:YYYY-MM-DD` to generate a current date
+- added a possibility to test performance with browserMob (save .har files) and compare TTFB timing values
+- improvements for clicking element
+- every element step waits for visibilityOf element (waiting before step is no longer required in common cases)
+- added wait method to helpers, also is exported outside of kakunin
+- added deprecated warning for is Present steps
+- added matcher for currentDate
+- code refactor for kakunin.conf.js
+- replaced generator step with real generator supporting multiple params
+- code cleanup (unused imports etc.),
+- documentation update and test update (added useful undocumented and untested steps, removal of unused steps)
+
 ##### v2.0.0
 
 - updated documentation

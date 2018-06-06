@@ -4,8 +4,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 require('./helpers/prototypes');
 const path = require('path');
+const fs = require('fs');
 const chai = require('chai');
 const modulesLoader = require('./helpers/modules-loader.helper.js').create();
+const { deleteReports } = require('./helpers/delete-files.helper');
 const chaiAsPromised = require('chai-as-promised');
 const { emailService } = require('./emails');
 chai.use(chaiAsPromised);
@@ -30,6 +32,14 @@ const chromeConfig = {
   }
 };
 
+if (config.performance) {
+  chromeConfig.proxy = {
+    proxyType: 'manual',
+    httpProxy: `${config.browserMob.host}:${config.browserMob.port}`,
+    sslProxy: `${config.browserMob.host}:${config.browserMob.port}`
+  };
+}
+
 if (config.noGpu) {
   chromeConfig.chromeOptions.args = [...chromeConfig.chromeOptions.args, '--disable-gpu', '--disable-impl-side-painting', '--disable-gpu-sandbox', '--disable-accelerated-2d-canvas', '--disable-accelerated-jpeg-decoding', '--no-sandbox'];
 }
@@ -37,6 +47,22 @@ if (config.noGpu) {
 if (config.headless) {
   chromeConfig.chromeOptions.args = [...chromeConfig.chromeOptions.args, '--headless', `--window-size=${config.browserWidth}x${config.browserHeight}`];
 }
+
+const deleteReportFiles = () => {
+  const reportsDirectory = path.join(config.projectPath, config.reports);
+  const jsonOutputDirectory = path.join(reportsDirectory, 'json-output-folder');
+  const generatedReportsDirectory = path.join(reportsDirectory, 'report');
+  const featureReportsDirectory = path.join(generatedReportsDirectory, 'features');
+  const performanceReportsDirectory = path.join(reportsDirectory, 'performance');
+
+  deleteReports(reportsDirectory);
+  deleteReports(jsonOutputDirectory);
+  deleteReports(generatedReportsDirectory);
+  deleteReports(featureReportsDirectory);
+  deleteReports(performanceReportsDirectory);
+
+  console.log('All reports have been deleted!');
+};
 
 exports.config = {
   multiCapabilities: [chromeConfig],
@@ -48,10 +74,10 @@ exports.config = {
 
   framework: 'custom',
   frameworkPath: require.resolve('protractor-cucumber-framework'),
-  specs: config.features.map(file => config.projectPath + file + '/**/*.feature'),
+  specs: config.features.map(file => path.join(config.projectPath, file, '**/*.feature')),
 
   cucumberOpts: {
-    require: ['./configuration/config.js', './configuration/hooks.js', './step_definitions/**/*.js', ...config.step_definitions.map(file => config.projectPath + file + '/**/*.js'), ...config.hooks.map(file => config.projectPath + file + '/**/*.js')],
+    require: ['./configuration/config.js', './configuration/hooks.js', './step_definitions/**/*.js', ...config.step_definitions.map(file => path.join(config.projectPath, file, '**/*.js')), ...config.hooks.map(file => path.join(config.projectPath, file, '**/*.js'))],
     format: [`json:./${config.reports}/features-report.json`],
     profile: false,
     'no-source': true
@@ -68,6 +94,8 @@ exports.config = {
   }],
 
   onPrepare: function () {
+    deleteReportFiles();
+
     if (!config.headless) {
       browser.driver.manage().window().setSize(parseInt(config.browserWidth), parseInt(config.browserHeight));
     }
