@@ -23,6 +23,10 @@ var _cucumber = require('cucumber');
     const self = this;
 
     return browser.page[pageName].isOn().then(checkResult => {
+      if (typeof checkResult !== 'object') {
+        return Promise.reject('Check result must be an object!!!');
+      }
+
       self.currentPage = browser.page[pageName];
       self.urlParameters = checkResult.parameters;
     });

@@ -45,15 +45,17 @@ class Page {
     var _this = this;
 
     return _asyncToGenerator(function* () {
-      const currentUrl = yield browser.getCurrentUrl().then(function (url) {
-        return url;
-      });
-
       if ((0, _urlParser.isRelativePage)(_this.url) && _config2.default.type !== 'otherWeb') {
         protractor.browser.ignoreSynchronization = false;
       }
 
-      return (0, _urlParser.waitForUrlChangeTo)(_this.url, currentUrl).bind(null, _config2.default.baseUrl);
+      return browser.wait(_asyncToGenerator(function* () {
+        const currentUrl = yield browser.getCurrentUrl().then(function (url) {
+          return url;
+        });
+
+        return (0, _urlParser.waitForUrlChangeTo)(_this.url, currentUrl)(_config2.default.baseUrl);
+      }), _config2.default.waitForPageTimeout * 1000);
     })();
   }
 

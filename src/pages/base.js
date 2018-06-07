@@ -28,13 +28,15 @@ class Page {
   }
 
   async isOn() {
-    const currentUrl = await browser.getCurrentUrl().then(url => url);
-
     if (isRelativePage(this.url) && config.type !== 'otherWeb') {
       protractor.browser.ignoreSynchronization = false;
     }
 
-    return waitForUrlChangeTo(this.url, currentUrl).bind(null, config.baseUrl);
+    return browser.wait(async () => {
+      const currentUrl = await browser.getCurrentUrl().then(url => url);
+
+      return waitForUrlChangeTo(this.url, currentUrl)(config.baseUrl);
+    }, config.waitForPageTimeout * 1000);
   }
 
   click(element) {
