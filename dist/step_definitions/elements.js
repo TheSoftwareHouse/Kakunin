@@ -24,10 +24,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
+const timeout = parseInt(_config2.default.elementsVisibilityTimeout) * 1000;
+
 (0, _cucumber.defineSupportCode)(function ({ When, Then }) {
   When(/^I wait for "([^"]*)" of the "([^"]*)" element$/, function (condition, elementName) {
-    const timeout = parseInt(_config2.default.elementsVisibilityTimeout) * 1000;
-
     if (this.currentPage[elementName] instanceof protractor.ElementArrayFinder) {
       return (0, _waitForCondition.waitForCondition)(condition, timeout)(this.currentPage[elementName].first());
     }
@@ -41,8 +41,10 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
   When(/^I click the "([^"]*)" element$/, function (elementName) {
     return this.currentPage.scrollIntoElement(elementName).catch(() => Promise.resolve()).then(() => this.currentPage.waitForVisibilityOf(elementName)).then(() => this.currentPage.scrollIntoElement(elementName)).then(() => this.currentPage.click(elementName)).catch(error => {
+      return (0, _waitForCondition.waitForCondition)('elementToBeClickable', timeout)(this.currentPage[elementName]).then(() => this.currentPage.click(elementName));
+    }).catch(error => {
       console.warn('Warning! Element was not clickable. We need to scroll it down.');
-      return browser.executeScript('window.scrollBy(0,50);').then(() => this.currentPage.click(elementName));
+      return browser.executeScript('window.scrollBy(0,50);').then(() => this.currentPage.waitForVisibilityOf(elementName)).then(() => this.currentPage.click(elementName));
     }).catch(error => {
       return Promise.reject(`Error, after scrolling the element "${elementName}" is still not clickable.`);
     });

@@ -6,10 +6,10 @@ import config from '../helpers/config.helper';
 import chalk from 'chalk';
 import { waitForCondition } from '../helpers/wait-for-condition.helper';
 
+const timeout = parseInt(config.elementsVisibilityTimeout) * 1000;
+
 defineSupportCode(function ({ When, Then }) {
   When(/^I wait for "([^"]*)" of the "([^"]*)" element$/, function (condition, elementName) {
-    const timeout = parseInt(config.elementsVisibilityTimeout) * 1000;
-
     if (this.currentPage[elementName] instanceof protractor.ElementArrayFinder) {
       return waitForCondition(condition, timeout)(this.currentPage[elementName].first());
     }
@@ -28,8 +28,14 @@ defineSupportCode(function ({ When, Then }) {
     .then(() => this.currentPage.scrollIntoElement(elementName))
     .then(() => this.currentPage.click(elementName))
     .catch(error => {
+      return waitForCondition('elementToBeClickable', timeout)(this.currentPage[elementName])
+        .then(() => this.currentPage.click(elementName));
+    })
+    .catch(error => {
       console.warn('Warning! Element was not clickable. We need to scroll it down.');
-      return browser.executeScript('window.scrollBy(0,50);').then(() => this.currentPage.click(elementName));
+      return browser.executeScript('window.scrollBy(0,50);')
+        .then(() => this.currentPage.waitForVisibilityOf(elementName))
+        .then(() => this.currentPage.click(elementName));
     })
     .catch(error => {
       return Promise.reject(`Error, after scrolling the element "${elementName}" is still not clickable.`);
