@@ -1,0 +1,6 @@
+# Kakunin - automated testing framework
+#### Migration to 2.2 version
+
+What needs to be done:
+1. Remove node_modules
+2. Update protractor to newest version - `npm install protractor@latest --save`
