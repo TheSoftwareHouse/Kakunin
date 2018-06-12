@@ -24,23 +24,25 @@ const takeScreenshot = (scenario) => {
 };
 
 const clearCookiesAndLocalStorage = (callback) => {
-  let cookiesFunc = () => Promise.resolve();
+  let cookiesFunc = () => Promise.resolve(true);
 
   if (config.clearCookiesAfterScenario) {
     cookiesFunc = () => protractor.browser.manage().deleteAllCookies();
   }
 
-  let localStorageFunc = () => Promise.resolve();
+  let localStorageFunc = () => Promise.resolve(true);
   if (config.clearLocalStorageAfterScenario) {
     localStorageFunc = () => protractor.browser.executeScript('window.localStorage.clear();');
   }
 
-  cookiesFunc().then(() => {
-    localStorageFunc().then(() => {
+  browser.wait(cookiesFunc()
+    .then(localStorageFunc)
+    .catch(err => false)
+  , config.waitForPageTimeout * 1000)
+    .then(() => {
       protractor.browser.ignoreSynchronization = config.type === 'otherWeb';
       callback();
     });
-  });
 };
 
 const clearDownload = (callback) => {
