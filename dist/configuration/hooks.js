@@ -52,22 +52,20 @@ const takeScreenshot = scenario => {
 };
 
 const clearCookiesAndLocalStorage = callback => {
-  let cookiesFunc = () => Promise.resolve();
+  let cookiesFunc = () => Promise.resolve(true);
 
   if (_config2.default.clearCookiesAfterScenario) {
     cookiesFunc = () => protractor.browser.manage().deleteAllCookies();
   }
 
-  let localStorageFunc = () => Promise.resolve();
+  let localStorageFunc = () => Promise.resolve(true);
   if (_config2.default.clearLocalStorageAfterScenario) {
     localStorageFunc = () => protractor.browser.executeScript('window.localStorage.clear();');
   }
 
-  cookiesFunc().then(() => {
-    localStorageFunc().then(() => {
-      protractor.browser.ignoreSynchronization = _config2.default.type === 'otherWeb';
-      callback();
-    });
+  browser.wait(cookiesFunc().then(localStorageFunc).catch(err => false), _config2.default.waitForPageTimeout * 1000).then(() => {
+    protractor.browser.ignoreSynchronization = _config2.default.type === 'otherWeb';
+    callback();
   });
 };
 
