@@ -2,17 +2,26 @@
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
 require('./helpers/prototypes');
 const path = require('path');
 const fs = require('fs');
 const chai = require('chai');
 const modulesLoader = require('./helpers/modules-loader.helper.js').create();
 const { deleteReports } = require('./helpers/delete-files.helper');
+const { prepareCatalogs } = require('./helpers/prepare-catalogs.helper');
 const chaiAsPromised = require('chai-as-promised');
 const { emailService } = require('./emails');
 chai.use(chaiAsPromised);
 
 const config = require('./helpers/config.helper.js').default;
+
+const reportsDirectory = path.join(config.projectPath, config.reports);
+const jsonOutputDirectory = path.join(reportsDirectory, 'json-output-folder');
+const generatedReportsDirectory = path.join(reportsDirectory, 'report');
+const featureReportsDirectory = path.join(generatedReportsDirectory, 'features');
+const performanceReportsDirectory = path.join(reportsDirectory, 'performance');
 
 const chromeConfig = {
   browserName: 'chrome',
@@ -48,13 +57,14 @@ if (config.headless) {
   chromeConfig.chromeOptions.args = [...chromeConfig.chromeOptions.args, '--headless', `--window-size=${config.browserWidth}x${config.browserHeight}`];
 }
 
-const deleteReportFiles = () => {
-  const reportsDirectory = path.join(config.projectPath, config.reports);
-  const jsonOutputDirectory = path.join(reportsDirectory, 'json-output-folder');
-  const generatedReportsDirectory = path.join(reportsDirectory, 'report');
-  const featureReportsDirectory = path.join(generatedReportsDirectory, 'features');
-  const performanceReportsDirectory = path.join(reportsDirectory, 'performance');
+const prepareReportCatalogs = () => {
+  prepareCatalogs(reportsDirectory);
+  prepareCatalogs(generatedReportsDirectory);
+  prepareCatalogs(featureReportsDirectory);
+  prepareCatalogs(performanceReportsDirectory);
+};
 
+const deleteReportFiles = () => {
   deleteReports(reportsDirectory);
   deleteReports(jsonOutputDirectory);
   deleteReports(generatedReportsDirectory);
@@ -93,31 +103,42 @@ exports.config = {
     }
   }],
 
-  onPrepare: function () {
-    deleteReportFiles();
+  onPrepare: (() => {
+    var _ref = _asyncToGenerator(function* () {
+      yield prepareReportCatalogs();
+      yield deleteReportFiles();
 
-    if (!config.headless) {
-      browser.driver.manage().window().setSize(parseInt(config.browserWidth), parseInt(config.browserHeight));
-    }
+      if (!config.headless) {
+        browser.driver.manage().window().setSize(parseInt(config.browserWidth), parseInt(config.browserHeight));
+      }
 
-    modulesLoader.getModules('matchers');
-    modulesLoader.getModules('dictionaries');
-    modulesLoader.getModules('generators');
-    modulesLoader.getModules('comparators');
-    modulesLoader.getModules('form_handlers');
-    modulesLoader.getModules('transformers');
-    modulesLoader.getModules('emails');
+      modulesLoader.getModules('matchers');
+      modulesLoader.getModules('dictionaries');
+      modulesLoader.getModules('generators');
+      modulesLoader.getModules('comparators');
+      modulesLoader.getModules('form_handlers');
+      modulesLoader.getModules('transformers');
+      modulesLoader.getModules('emails');
 
-    const modules = modulesLoader.getModulesAsObject(config.pages.map(page => path.join(config.projectPath, page)));
+      const modules = modulesLoader.getModulesAsObject(config.pages.map(function (page) {
+        return path.join(config.projectPath, page);
+      }));
 
-    browser.page = Object.keys(modules).reduce((pages, moduleName) => _extends({}, pages, { [moduleName]: new modules[moduleName]() }), {});
+      browser.page = Object.keys(modules).reduce(function (pages, moduleName) {
+        return _extends({}, pages, { [moduleName]: new modules[moduleName]() });
+      }, {});
 
-    global.expect = chai.expect;
+      global.expect = chai.expect;
 
-    if (config.clearEmailInboxBeforeTests) {
-      return emailService.clearInbox();
-    }
-  },
+      if (config.clearEmailInboxBeforeTests) {
+        return emailService.clearInbox();
+      }
+    });
+
+    return function onPrepare() {
+      return _ref.apply(this, arguments);
+    };
+  })(),
 
   baseUrl: config.baseUrl
 };

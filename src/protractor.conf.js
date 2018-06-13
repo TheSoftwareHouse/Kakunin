@@ -4,11 +4,18 @@ const fs = require('fs');
 const chai = require('chai');
 const modulesLoader = require('./helpers/modules-loader.helper.js').create();
 const { deleteReports } = require('./helpers/delete-files.helper');
+const { prepareCatalogs } = require('./helpers/prepare-catalogs.helper');
 const chaiAsPromised = require('chai-as-promised');
 const { emailService } = require('./emails');
 chai.use(chaiAsPromised);
 
 const config = require('./helpers/config.helper.js').default;
+
+const reportsDirectory = path.join(config.projectPath, config.reports);
+const jsonOutputDirectory = path.join(reportsDirectory, 'json-output-folder');
+const generatedReportsDirectory = path.join(reportsDirectory, 'report');
+const featureReportsDirectory = path.join(generatedReportsDirectory, 'features');
+const performanceReportsDirectory = path.join(reportsDirectory, 'performance');
 
 const chromeConfig = {
   browserName: 'chrome',
@@ -56,13 +63,14 @@ if (config.headless) {
   ];
 }
 
-const deleteReportFiles = () => {
-  const reportsDirectory = path.join(config.projectPath, config.reports);
-  const jsonOutputDirectory = path.join(reportsDirectory, 'json-output-folder');
-  const generatedReportsDirectory = path.join(reportsDirectory, 'report');
-  const featureReportsDirectory = path.join(generatedReportsDirectory, 'features');
-  const performanceReportsDirectory = path.join(reportsDirectory, 'performance');
+const prepareReportCatalogs = () => {
+  prepareCatalogs(reportsDirectory);
+  prepareCatalogs(generatedReportsDirectory);
+  prepareCatalogs(featureReportsDirectory);
+  prepareCatalogs(performanceReportsDirectory);
+};
 
+const deleteReportFiles = () => {
   deleteReports(reportsDirectory);
   deleteReports(jsonOutputDirectory);
   deleteReports(generatedReportsDirectory);
@@ -109,8 +117,9 @@ exports.config = {
     }
   }],
 
-  onPrepare: function () {
-    deleteReportFiles();
+  onPrepare: async function () {
+    await prepareReportCatalogs();
+    await deleteReportFiles();
 
     if (!config.headless) {
       browser.driver.manage().window().setSize(
