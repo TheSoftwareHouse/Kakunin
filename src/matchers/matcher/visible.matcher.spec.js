@@ -18,7 +18,8 @@ describe('Visible matcher', () => {
 
   it('returns true when the element is visible', (done) => {
     const mockedElement = {
-      isDisplayed: () => Promise.resolve()
+      isDisplayed: () => Promise.resolve(),
+      locator: () => 'some-locator'
     };
 
     visibleMatcher.match(mockedElement).then((result) => {
@@ -29,11 +30,11 @@ describe('Visible matcher', () => {
 
   it('returns false when the element is not visible', (done) => {
     const mockedElement = {
-      isDisplayed: () => Promise.reject()
+      isDisplayed: () => Promise.reject(),
+      locator: () => 'some-locator'
     };
 
-    visibleMatcher.match(mockedElement).then((result) => {
-      expect(result).to.equal(false);
+    visibleMatcher.match(mockedElement).catch((err) => {
       done();
     });
   });

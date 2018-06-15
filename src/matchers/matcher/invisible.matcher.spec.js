@@ -17,18 +17,19 @@ describe('Invisible matcher', () => {
 
   it('returns false when the element is visible', (done) => {
     const mockedElement = {
-      isDisplayed: () => Promise.resolve(true)
+      isDisplayed: () => Promise.resolve(true),
+      locator: () => 'some-locator'
     };
 
-    invisibleMatcher.match(mockedElement).then((result) => {
-      expect(result).to.equal(false);
+    invisibleMatcher.match(mockedElement).catch(() => {
       done();
     });
   });
 
   it('returns true when the element is not visible', (done) => {
     const mockedElement = {
-      isDisplayed: () => Promise.reject()
+      isDisplayed: () => Promise.reject(),
+      locator: () => 'some-locator'
     };
 
     invisibleMatcher.match(mockedElement).then((result) => {

@@ -17,7 +17,8 @@ describe('Clickable matcher', () => {
 
   it('returns true when the element is clickable', (done) => {
     const mockedElement = {
-      getAttribute: (attribute) => Promise.resolve(null)
+      getAttribute: (attribute) => Promise.resolve(null),
+      locator: () => 'some-locator'
     };
 
     clickableMatcher.match(mockedElement).then((result) => {
@@ -28,33 +29,33 @@ describe('Clickable matcher', () => {
 
   it('returns false when the element is not clickable - disabled with disabled parameter', (done) => {
     const mockedElement = {
-      getAttribute: (attribute) => Promise.resolve('disabled')
+      getAttribute: (attribute) => Promise.resolve('disabled'),
+      locator: () => 'some-locator'
     };
 
-    clickableMatcher.match(mockedElement).then((result) => {
-      expect(result).to.equal(false);
+    clickableMatcher.match(mockedElement).catch((err) => {
       done();
     });
   });
 
   it('returns false when the element is not clickable - disabled with true parameter', (done) => {
     const mockedElement = {
-      getAttribute: (attribute) => Promise.resolve(true)
+      getAttribute: (attribute) => Promise.resolve(true),
+      locator: () => 'some-locator'
     };
 
-    clickableMatcher.match(mockedElement).then((result) => {
-      expect(result).to.equal(false);
+    clickableMatcher.match(mockedElement).catch((err) => {
       done();
     });
   });
 
   it('returns false when the element is not clickable - disabled with true string parameter', (done) => {
     const mockedElement = {
-      getAttribute: (attribute) => Promise.resolve('true')
+      getAttribute: (attribute) => Promise.resolve('true'),
+      locator: () => 'some-locator'
     };
 
-    clickableMatcher.match(mockedElement).then((result) => {
-      expect(result).to.equal(false);
+    clickableMatcher.match(mockedElement).catch((err) => {
       done();
     });
   });

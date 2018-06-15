@@ -21,6 +21,7 @@ describe('Current Date matcher', () => {
   it('returns true when the date is matched', (done) => {
     const elementMocked = {
       getText: () => Promise.resolve(moment(new Date())),
+      locator: () => 'some-locator'
     };
 
     currentDateMatcher.match(elementMocked).then((result) => {
@@ -32,6 +33,7 @@ describe('Current Date matcher', () => {
   it('returns true when the date with slashes is matched', (done) => {
     const elementMocked = {
       getText: () => Promise.resolve(moment(new Date()).format('MM/DD/YYYY')),
+      locator: () => 'some-locator'
     };
 
     currentDateMatcher.match(elementMocked, null, 'MM/DD/YYYY').then((result) => {
@@ -43,20 +45,20 @@ describe('Current Date matcher', () => {
   it('returns false when the text date is not matched', (done) => {
     const elementMocked = {
       getText: () => Promise.resolve('Yesterday'),
+      locator: () => 'some-locator'
     };
 
-    currentDateMatcher.match(elementMocked).then((result) => {
-      expect(result).to.equal(false);
+    currentDateMatcher.match(elementMocked).catch((err) => {
       done();
     });
   });
   it('returns false when the date is not matched', (done) => {
     const elementMocked = {
       getText: () => Promise.resolve('1900-01-01'),
+      locator: () => 'some-locator'
     };
 
-    currentDateMatcher.match(elementMocked).then((result) => {
-      expect(result).to.equal(false);
+    currentDateMatcher.match(elementMocked).catch((err) => {
       done();
     });
   });
@@ -64,10 +66,10 @@ describe('Current Date matcher', () => {
   it('returns false when the date is incorrect', (done) => {
     const elementMocked = {
       getText: () => Promise.resolve('1900-01-1900'),
+      locator: () => 'some-locator'
     };
 
-    currentDateMatcher.match(elementMocked).then((result) => {
-      expect(result).to.equal(false);
+    currentDateMatcher.match(elementMocked).catch((err) => {
       done();
     });
   });
