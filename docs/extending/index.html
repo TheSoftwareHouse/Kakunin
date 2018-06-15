@@ -676,7 +676,7 @@ properties)</p>
 <h2 id="adding-custom-code">Adding custom code</h2>
 <h3 id="custom-step">Custom step</h3>
 <p>In order to add a custom step, you have to create inside of a directory specified as <code>step_definitions</code> in kakunin configuration file <code>default: /step_definitions</code>.</p>
-<p>We're using <code>cucumber-js 2.X</code> so in order to add custom step you have to use <code>defineSupportCode</code> method like this:</p>
+<p>We're using <code>cucumber-js 4.X</code> so in order to add custom step you have to use <code>defineSupportCode</code> method like this:</p>
 <div class="codehilite"><pre><span></span>  <span class="kr">const</span> <span class="p">{</span> <span class="nx">defineSupportCode</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;kakunin&#39;</span><span class="p">);</span>
 
   <span class="nx">defineSupportCode</span><span class="p">(({</span> <span class="nx">When</span> <span class="p">})</span> <span class="p">=&gt;</span> <span class="p">{</span>
@@ -713,7 +713,13 @@ properties)</p>
   <span class="p">}</span>
 
   <span class="nx">match</span><span class="p">(</span><span class="nx">protractorElement</span><span class="p">,</span> <span class="nx">matcherName</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="nx">protractorElement</span><span class="p">.</span><span class="nx">getText</span><span class="p">().</span><span class="nx">then</span><span class="p">((</span><span class="nx">value</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">value</span> <span class="o">===</span> <span class="s1">&#39;pending&#39;</span><span class="p">);</span> 
+    <span class="k">return</span> <span class="nx">protractorElement</span><span class="p">.</span><span class="nx">getText</span><span class="p">().</span><span class="nx">then</span><span class="p">((</span><span class="nx">value</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">value</span> <span class="o">===</span> <span class="s1">&#39;pending&#39;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+      <span class="p">}</span>
+
+      <span class="k">return</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">reject</span><span class="p">(</span><span class="sb">`Matcher &quot;MyMatcher&quot; could not match value on element &quot;</span><span class="si">${</span><span class="nx">protractorElement</span><span class="p">.</span><span class="nx">locator</span><span class="p">()</span><span class="si">}</span><span class="sb">&quot;. Expected: &quot;pending&quot;, given: &quot;</span><span class="si">${</span><span class="nx">value</span><span class="si">}</span><span class="sb">&quot;`</span><span class="p">);</span>
+    <span class="p">});</span> 
   <span class="p">}</span>
 <span class="p">}</span>
 

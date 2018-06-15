@@ -179,7 +179,7 @@ const timeout = parseInt(_config2.default.elementsVisibilityTimeout) * 1000;
             if (hash.hasOwnProperty(prop)) {
               const propValue = hash[prop];
 
-              promises.push(expect(_matchers.matchers.match(element.element(self.currentPage[prop].locator()), _variableStore2.default.replaceTextVariables(propValue))).to.eventually.be.true);
+              promises.push(_matchers.matchers.match(element.element(self.currentPage[prop].locator()), _variableStore2.default.replaceTextVariables(propValue)));
             }
           }
         }).then(function () {
@@ -205,13 +205,7 @@ const timeout = parseInt(_config2.default.elementsVisibilityTimeout) * 1000;
 
         return allElements.each(function (element) {
           hashedData.forEach(function (hash) {
-            promises.push(_matchers.matchers.match(element.element(self.currentPage[hash[0]].locator()), _variableStore2.default.replaceTextVariables(hash[1])).then(result => {
-              if (result) {
-                return Promise.resolve();
-              }
-
-              return Promise.reject(`Expected element "${hash[0]}" to match matcher "${hash[1]}"`);
-            }));
+            promises.push(_matchers.matchers.match(element.element(self.currentPage[hash[0]].locator()), _variableStore2.default.replaceTextVariables(hash[1])));
           });
         }).then(function () {
           return Promise.all(promises);
@@ -235,8 +229,8 @@ const timeout = parseInt(_config2.default.elementsVisibilityTimeout) * 1000;
     const pageElement = this.currentPage[element];
 
     return _matchers.matchers.match(pageElement, _variableStore2.default.replaceTextVariables(value)).then(function (matcherResult) {
-      return expect(matcherResult).to.be.false;
-    });
+      return expect(matcherResult).to.not.be.true;
+    }).catch(() => Promise.resolve());
   });
 
   function checkNumberOfElements(numberExpression, element) {
@@ -280,7 +274,7 @@ const timeout = parseInt(_config2.default.elementsVisibilityTimeout) * 1000;
 
       return allElements.each(function (element) {
         hashedData.forEach(function (hash) {
-          promises.push(_matchers.matchers.match(element.element(self.currentPage[hash[0]].locator()), _variableStore2.default.replaceTextVariables(hash[1])));
+          promises.push(_matchers.matchers.match(element.element(self.currentPage[hash[0]].locator()), _variableStore2.default.replaceTextVariables(hash[1])).catch(() => false));
         });
       });
     }).then(function () {
@@ -318,7 +312,7 @@ const timeout = parseInt(_config2.default.elementsVisibilityTimeout) * 1000;
 
     return allElements.each(function (element) {
       hashedData.forEach(function (hash) {
-        promises.push(_matchers.matchers.match(element.element(self.currentPage[hash[0]].locator()), _variableStore2.default.replaceTextVariables(hash[1])));
+        promises.push(_matchers.matchers.match(element.element(self.currentPage[hash[0]].locator()), _variableStore2.default.replaceTextVariables(hash[1])).catch(() => false));
       });
     }).then(function () {
       return Promise.all(promises).then(function (resolvedPromises) {

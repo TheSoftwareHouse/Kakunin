@@ -17,7 +17,8 @@ describe('Regex matcher', () => {
   it('returns matches text of element', (done) => {
     const elementMocked = {
       getText: () => Promise.resolve('12345'),
-      getAttribute: (name) => (name === 'value') ? Promise.resolve('') : Promise.resolve(null)
+      getAttribute: (name) => (name === 'value') ? Promise.resolve('') : Promise.resolve(null),
+      locator: () => 'some-locator'
     };
 
     regexMatcher.match(elementMocked, 'number').then((result) => {
@@ -29,7 +30,8 @@ describe('Regex matcher', () => {
   it('matches value attribute if text is empty', (done) => {
     const elementMocked = {
       getText: () => Promise.resolve(''),
-      getAttribute: (name) => (name === 'value') ? Promise.resolve('12345') : Promise.resolve(null)
+      getAttribute: (name) => (name === 'value') ? Promise.resolve('12345') : Promise.resolve(null),
+      locator: () => 'some-locator'
     };
 
     regexMatcher.match(elementMocked, 'number').then((result) => {
@@ -38,38 +40,38 @@ describe('Regex matcher', () => {
     });
   });
 
-  it('returns false when the text is not matching', (done) => {
+  it('returns rejected promise when the text is not matching', (done) => {
     const elementMocked = {
       getText: () => Promise.resolve('not-a-number'),
-      getAttribute: (name) => (name === 'value') ? Promise.resolve('') : Promise.resolve(null)
+      getAttribute: (name) => (name === 'value') ? Promise.resolve('') : Promise.resolve(null),
+      locator: () => 'some-locator'
     };
 
-    regexMatcher.match(elementMocked, 'number').then((result) => {
-      expect(result).to.equal(false);
+    regexMatcher.match(elementMocked, 'number').catch((err) => {
       done();
     });
   });
 
-  it('returns false when the value attribute is not matched', (done) => {
+  it('returns rejected promise when the value attribute is not matched', (done) => {
     const elementMocked = {
       getText: () => Promise.resolve(''),
-      getAttribute: (name) => (name === 'value') ? Promise.resolve('not-a-number') : Promise.resolve(null)
+      getAttribute: (name) => (name === 'value') ? Promise.resolve('not-a-number') : Promise.resolve(null),
+      locator: () => 'some-locator'
     };
 
-    regexMatcher.match(elementMocked, 'number').then((result) => {
-      expect(result).to.equal(false);
+    regexMatcher.match(elementMocked, 'number').catch((err) => {
       done();
     });
   });
 
-  it('returns false when the text and attribute are empty', (done) => {
+  it('returns rejected promise when the text and attribute are empty', (done) => {
     const elementMocked = {
       getText: () => Promise.resolve(''),
-      getAttribute: () => Promise.resolve(null)
+      getAttribute: () => Promise.resolve(null),
+      locator: () => 'some-locator'
     };
 
-    regexMatcher.match(elementMocked, 'notEmpty').then((result) => {
-      expect(result).to.equal(false);
+    regexMatcher.match(elementMocked, 'notEmpty').catch((err) => {
       done();
     });
   });

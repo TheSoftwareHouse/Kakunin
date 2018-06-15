@@ -18,8 +18,9 @@ describe('Present matcher', () => {
 
   it('returns true when the element is present', (done) => {
     const mockedElement = {
-      isPresent: () => Promise.resolve()
-    }
+      isPresent: () => Promise.resolve(),
+      locator: () => 'some-locator'
+    };
 
     presentMatcher.match(mockedElement).then((result) => {
       expect(result).to.equal(true);
@@ -27,13 +28,13 @@ describe('Present matcher', () => {
     });
   });
 
-  it('returns false when the element is not present', (done) => {
+  it('returns rejected promise when the element is not present', (done) => {
     const mockedElement = {
-      isPresent: () => Promise.reject()
+      isPresent: () => Promise.reject(),
+      locator: () => 'some-locator'
     };
 
-    presentMatcher.match(mockedElement).then((result) => {
-      expect(result).to.equal(false);
+    presentMatcher.match(mockedElement).catch((err) => {
       done();
     });
   });

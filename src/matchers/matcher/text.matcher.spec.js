@@ -12,7 +12,8 @@ describe('Text matcher', () => {
 
   it('returns true when the text is matched', (done) => {
     const elementMocked = {
-      getText: () => Promise.resolve('this string contains message')
+      getText: () => Promise.resolve('this string contains message'),
+      locator: () => 'some-locator'
     };
 
     textMatcher.match(elementMocked, 'message').then((result) => {
@@ -21,13 +22,13 @@ describe('Text matcher', () => {
     });
   });
 
-  it('returns false when the text is not matched', (done) => {
+  it('returns rejected promise when the text is not matched', (done) => {
     const elementMocked = {
-      getText: () => Promise.resolve('missing expected value in string')
+      getText: () => Promise.resolve('missing expected value in string'),
+      locator: () => 'some-locator'
     };
 
-    textMatcher.match(elementMocked, 'message').then((result) => {
-      expect(result).to.equal(false);
+    textMatcher.match(elementMocked, 'message').catch((err) => {
       done();
     });
   });

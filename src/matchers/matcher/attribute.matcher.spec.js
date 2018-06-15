@@ -1,5 +1,6 @@
 import { attributeMatcher } from './attribute.matcher';
 import { expect } from 'chai';
+import { regexBuilder } from './regex-matcher/regex-builder';
 
 describe('Attribute matcher', () => {
   it('is satisfied when the prefix and name are correct', () => {
@@ -28,14 +29,14 @@ describe('Attribute matcher', () => {
     });
   });
 
-  it('returns false when the attribute is not matcher', (done) => {
+  it('returns rejected promise when the attribute is not matched', (done) => {
     const elementMocked = {
-      getAttribute: () => Promise.resolve('some-random-link')
+      getAttribute: () => Promise.resolve('some-random-link'),
+      locator: () => 'some-locator'
     };
 
-    attributeMatcher.match(elementMocked, 'href' ,'someRandomLinkRegex').then(result => {
-      expect(result).to.equal(false);
+    attributeMatcher.match(elementMocked, 'href' ,'someRandomLinkRegex').catch(err => {
       done();
-    });
+    })
   });
 });
