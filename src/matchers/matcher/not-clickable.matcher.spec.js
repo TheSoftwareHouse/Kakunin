@@ -15,7 +15,7 @@ describe('Not clickable matcher', () => {
       .isSatisfiedBy(parameter.prefix, parameter.name)).to.equal(false));
   });
 
-  it('returns error when the element is clickable', (done) => {
+  it('returns rejected promise when the element is clickable', (done) => {
     const mockedElement = {
       getAttribute: (attribute) => Promise.resolve(null),
       locator: () => 'some-locator'

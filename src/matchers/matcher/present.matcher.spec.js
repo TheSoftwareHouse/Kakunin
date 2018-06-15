@@ -28,7 +28,7 @@ describe('Present matcher', () => {
     });
   });
 
-  it('returns false when the element is not present', (done) => {
+  it('returns rejected promise when the element is not present', (done) => {
     const mockedElement = {
       isPresent: () => Promise.reject(),
       locator: () => 'some-locator'

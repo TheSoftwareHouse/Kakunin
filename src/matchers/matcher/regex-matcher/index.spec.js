@@ -40,7 +40,7 @@ describe('Regex matcher', () => {
     });
   });
 
-  it('returns false when the text is not matching', (done) => {
+  it('returns rejected promise when the text is not matching', (done) => {
     const elementMocked = {
       getText: () => Promise.resolve('not-a-number'),
       getAttribute: (name) => (name === 'value') ? Promise.resolve('') : Promise.resolve(null),
@@ -52,7 +52,7 @@ describe('Regex matcher', () => {
     });
   });
 
-  it('returns false when the value attribute is not matched', (done) => {
+  it('returns rejected promise when the value attribute is not matched', (done) => {
     const elementMocked = {
       getText: () => Promise.resolve(''),
       getAttribute: (name) => (name === 'value') ? Promise.resolve('not-a-number') : Promise.resolve(null),
@@ -64,7 +64,7 @@ describe('Regex matcher', () => {
     });
   });
 
-  it('returns false when the text and attribute are empty', (done) => {
+  it('returns rejected promise when the text and attribute are empty', (done) => {
     const elementMocked = {
       getText: () => Promise.resolve(''),
       getAttribute: () => Promise.resolve(null),

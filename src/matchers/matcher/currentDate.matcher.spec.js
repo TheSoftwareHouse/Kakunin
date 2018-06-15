@@ -42,7 +42,7 @@ describe('Current Date matcher', () => {
     });
   });
 
-  it('returns false when the text date is not matched', (done) => {
+  it('returns rejected promise when the text date is not matched', (done) => {
     const elementMocked = {
       getText: () => Promise.resolve('Yesterday'),
       locator: () => 'some-locator'
@@ -52,7 +52,7 @@ describe('Current Date matcher', () => {
       done();
     });
   });
-  it('returns false when the date is not matched', (done) => {
+  it('returns rejected promise when the date is not matched', (done) => {
     const elementMocked = {
       getText: () => Promise.resolve('1900-01-01'),
       locator: () => 'some-locator'
@@ -63,7 +63,7 @@ describe('Current Date matcher', () => {
     });
   });
 
-  it('returns false when the date is incorrect', (done) => {
+  it('returns rejected promise when the date is incorrect', (done) => {
     const elementMocked = {
       getText: () => Promise.resolve('1900-01-1900'),
       locator: () => 'some-locator'

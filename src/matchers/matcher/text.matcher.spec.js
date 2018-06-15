@@ -22,7 +22,7 @@ describe('Text matcher', () => {
     });
   });
 
-  it('returns false when the text is not matched', (done) => {
+  it('returns rejected promise when the text is not matched', (done) => {
     const elementMocked = {
       getText: () => Promise.resolve('missing expected value in string'),
       locator: () => 'some-locator'

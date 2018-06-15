@@ -24,7 +24,7 @@ describe('Matchers', () => {
     });
   });
 
-  it('returns false when found a matcher and element value is not correct', (done) => {
+  it('returns rejected promise when found a matcher and element value is not correct', (done) => {
     const mockedElement = {
       getText: () => Promise.resolve('my message'),
       locator: () => 'some-locator'
@@ -47,7 +47,7 @@ describe('Matchers', () => {
     });
   });
 
-  it('returns false when found a matcher but a text after colon sign is incorrect', (done) => {
+  it('returns rejected promise when found a matcher but a text after colon sign is incorrect', (done) => {
     const mockedElement = {
       getText: () => Promise.resolve('my message: contains :colons'),
       locator: () => 'some-locator'

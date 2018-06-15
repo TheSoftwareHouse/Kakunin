@@ -29,7 +29,7 @@ describe('Attribute matcher', () => {
     });
   });
 
-  it('returns error when the attribute is not matched', (done) => {
+  it('returns rejected promise when the attribute is not matched', (done) => {
     const elementMocked = {
       getAttribute: () => Promise.resolve('some-random-link'),
       locator: () => 'some-locator'

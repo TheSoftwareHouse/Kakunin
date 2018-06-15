@@ -27,7 +27,7 @@ describe('Clickable matcher', () => {
     });
   });
 
-  it('returns false when the element is not clickable - disabled with disabled parameter', (done) => {
+  it('returns rejected promise when the element is not clickable - disabled with disabled parameter', (done) => {
     const mockedElement = {
       getAttribute: (attribute) => Promise.resolve('disabled'),
       locator: () => 'some-locator'
@@ -38,7 +38,7 @@ describe('Clickable matcher', () => {
     });
   });
 
-  it('returns false when the element is not clickable - disabled with true parameter', (done) => {
+  it('returns rejected promise when the element is not clickable - disabled with true parameter', (done) => {
     const mockedElement = {
       getAttribute: (attribute) => Promise.resolve(true),
       locator: () => 'some-locator'
@@ -49,7 +49,7 @@ describe('Clickable matcher', () => {
     });
   });
 
-  it('returns false when the element is not clickable - disabled with true string parameter', (done) => {
+  it('returns rejected promise when the element is not clickable - disabled with true string parameter', (done) => {
     const mockedElement = {
       getAttribute: (attribute) => Promise.resolve('true'),
       locator: () => 'some-locator'

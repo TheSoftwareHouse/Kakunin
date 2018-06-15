@@ -28,7 +28,7 @@ describe('Visible matcher', () => {
     });
   });
 
-  it('returns false when the element is not visible', (done) => {
+  it('returns rejected promise when the element is not visible', (done) => {
     const mockedElement = {
       isDisplayed: () => Promise.reject(),
       locator: () => 'some-locator'
