@@ -231,8 +231,9 @@ defineSupportCode(function ({ When, Then }) {
     const pageElement = this.currentPage[element];
 
     return matchers.match(pageElement, variableStore.replaceTextVariables(value)).then(function (matcherResult) {
-      return expect(matcherResult).to.be.false;
-    });
+      return expect(matcherResult).to.not.be.true;
+    })
+      .catch(() => Promise.resolve());
   });
 
   function checkNumberOfElements(numberExpression, element) {
@@ -287,8 +288,10 @@ defineSupportCode(function ({ When, Then }) {
       return allElements.each(function (element) {
         hashedData.forEach(function (hash) {
           promises.push(matchers.match(
-            element.element(self.currentPage[hash[0]].locator()),
-            variableStore.replaceTextVariables(hash[1]))
+              element.element(self.currentPage[hash[0]].locator()),
+              variableStore.replaceTextVariables(hash[1])
+            )
+              .catch(() => false)
           );
         });
       });
@@ -328,8 +331,10 @@ defineSupportCode(function ({ When, Then }) {
     return allElements.each(function (element) {
       hashedData.forEach(function (hash) {
         promises.push(matchers.match(
-          element.element(self.currentPage[hash[0]].locator()),
-          variableStore.replaceTextVariables(hash[1]))
+            element.element(self.currentPage[hash[0]].locator()),
+            variableStore.replaceTextVariables(hash[1])
+          )
+            .catch(() => false)
         );
       });
     }).then(function () {
