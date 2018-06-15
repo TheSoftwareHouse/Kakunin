@@ -26,6 +26,25 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 const timeout = parseInt(_config2.default.elementsVisibilityTimeout) * 1000;
 
+const handlePromises = (hashedData, onSuccess, onReject) => resolvedPromises => {
+  for (let i = 0; i < resolvedPromises.length; i += hashedData.length) {
+    let allFieldsMatching = true;
+
+    for (let j = i; j < i + hashedData.length; j++) {
+      if (resolvedPromises[j] === false) {
+        allFieldsMatching = false;
+        break;
+      }
+    }
+
+    if (allFieldsMatching) {
+      return onSuccess();
+    }
+  }
+
+  return onReject();
+};
+
 (0, _cucumber.defineSupportCode)(function ({ When, Then }) {
   When(/^I wait for "([^"]*)" of the "([^"]*)" element$/, function (condition, elementName) {
     if (this.currentPage[elementName] instanceof protractor.ElementArrayFinder) {
@@ -284,24 +303,7 @@ const timeout = parseInt(_config2.default.elementsVisibilityTimeout) * 1000;
         });
       });
     }).then(function () {
-      return Promise.all(promises).then(function (resolvedPromises) {
-        for (let i = 0; i < resolvedPromises.length; i += hashedData.length) {
-          let allFieldsMatching = true;
-
-          for (let j = i; j < i + hashedData.length; j++) {
-            if (resolvedPromises[j] === false) {
-              allFieldsMatching = false;
-              break;
-            }
-          }
-
-          if (allFieldsMatching) {
-            return Promise.resolve();
-          }
-        }
-
-        return Promise.reject('No matching element has been found.');
-      });
+      return Promise.all(promises).then(handlePromises(hashedData, () => Promise.resolve(), () => Promise.reject('No matching element has been found.')));
     });
   });
 
@@ -321,24 +323,7 @@ const timeout = parseInt(_config2.default.elementsVisibilityTimeout) * 1000;
         promises.push(_matchers.matchers.match(element.element(self.currentPage[hash[0]].locator()), _variableStore2.default.replaceTextVariables(hash[1])));
       });
     }).then(function () {
-      return Promise.all(promises).then(function (resolvedPromises) {
-        for (let i = 0; i < resolvedPromises.length; i += hashedData.length) {
-          let allFieldsMatching = true;
-
-          for (let j = i; j < i + hashedData.length; j++) {
-            if (resolvedPromises[j] === false) {
-              allFieldsMatching = false;
-              break;
-            }
-          }
-
-          if (allFieldsMatching) {
-            return Promise.reject('Matching element has been found');
-          }
-        }
-
-        return Promise.resolve();
-      });
+      return Promise.all(promises).then(handlePromises(hashedData, () => Promise.reject('Matching element has been found'), () => Promise.resolve()));
     });
   });
 
