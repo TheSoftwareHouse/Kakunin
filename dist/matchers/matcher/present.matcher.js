@@ -9,7 +9,9 @@ class PresentMatcher {
   }
 
   match(element) {
-    return element.isPresent().then(() => true).catch(() => false);
+    return element.isPresent().then(() => true).catch(() => Promise.reject(`
+      Matcher "PresentMatcher" could not find element "${element.locator()}".
+    `));
   }
 }
 

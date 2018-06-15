@@ -176,7 +176,7 @@ defineSupportCode(function ({ When, Then }) {
               if (hash.hasOwnProperty(prop)) {
                 const propValue = hash[prop];
 
-                promises.push(expect(matchers.match(element.element(self.currentPage[prop].locator()), variableStore.replaceTextVariables(propValue))).to.eventually.be.true);
+                promises.push(matchers.match(element.element(self.currentPage[prop].locator()), variableStore.replaceTextVariables(propValue)));
               }
             }
           }).then(function() {
@@ -207,13 +207,6 @@ defineSupportCode(function ({ When, Then }) {
                 element.element(self.currentPage[hash[0]].locator()),
                 variableStore.replaceTextVariables(hash[1])
               )
-                .then((result) => {
-                  if (result) {
-                    return Promise.resolve();
-                  }
-
-                  return Promise.reject(`Expected element "${hash[0]}" to match matcher "${hash[1]}"`);
-                })
             );
           });
         }).then(function () {

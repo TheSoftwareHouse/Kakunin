@@ -4,7 +4,9 @@ class InvisibleMatcher {
   }
 
   match(element) {
-    return element.isDisplayed().then(() => false).catch(() => true);
+    return element.isDisplayed().then(() => false).catch(() => Promise.reject(`
+      Matcher "InvisibleMatcher" could find element "${element.locator()}". Expected element to be invisible.
+    `));
   }
 }
 
