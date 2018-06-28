@@ -1,10 +1,9 @@
 import { currentDateMatcher } from './currentDate.matcher';
 import moment from 'moment';
-import { expect } from 'chai';
 
 describe('Current Date matcher', () => {
   it('is satisfied when the prefix and the name are correct', () => {
-    expect(currentDateMatcher.isSatisfiedBy('f', 'currentDate')).to.equal(true);
+    expect(currentDateMatcher.isSatisfiedBy('f', 'currentDate')).toEqual(true);
   });
 
   it('is not satisfied when unsupported parameters are given', () => {
@@ -14,8 +13,7 @@ describe('Current Date matcher', () => {
     ];
     incorrectParameters.forEach((parameter) => expect(
       currentDateMatcher.isSatisfiedBy(parameter.prefix, parameter.name)).
-      to.
-      equal(false));
+      toEqual(false));
   });
 
   it('returns true when the date is matched', (done) => {
@@ -25,7 +23,7 @@ describe('Current Date matcher', () => {
     };
 
     currentDateMatcher.match(elementMocked).then((result) => {
-      expect(result).to.equal(true);
+      expect(result).toEqual(true);
       done();
     });
   });
@@ -37,7 +35,7 @@ describe('Current Date matcher', () => {
     };
 
     currentDateMatcher.match(elementMocked, null, 'MM/DD/YYYY').then((result) => {
-      expect(result).to.equal(true);
+      expect(result).toEqual(true);
       done();
     });
   });

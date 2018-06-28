@@ -85,7 +85,6 @@
     "protractor-cucumber-framework": "^5.0.0",
     "protractor-multiple-cucumber-html-reporter-plugin": "^1.2.3",
     "sugar-date": "^2.0.4",
-    "webdriver-manager": "^12.0.6",
-    "jest": "^23.2.0"
+    "webdriver-manager": "^12.0.6"
   }
 }

@@ -1,9 +1,8 @@
 import { notClickableMatcher } from './not-clickable.matcher';
-import { expect } from 'chai';
 
 describe('Not clickable matcher', () => {
   it('is satisfied when the prefix and the name are correct', () => {
-    expect(notClickableMatcher.isSatisfiedBy('f', 'isNotClickable')).to.equal(true);
+    expect(notClickableMatcher.isSatisfiedBy('f', 'isNotClickable')).toEqual(true);
   });
 
   it('is not satisfied when unsupported parameters are given', () => {
@@ -12,7 +11,7 @@ describe('Not clickable matcher', () => {
       { prefix: 'f', name: 'isClickable' }
     ];
     incorrectParameters.forEach((parameter) => expect(notClickableMatcher
-      .isSatisfiedBy(parameter.prefix, parameter.name)).to.equal(false));
+      .isSatisfiedBy(parameter.prefix, parameter.name)).toEqual(false));
   });
 
   it('returns rejected promise when the element is clickable', (done) => {
@@ -33,7 +32,7 @@ describe('Not clickable matcher', () => {
     };
 
     notClickableMatcher.match(mockedElement).then((result) => {
-      expect(result).to.equal(true);
+      expect(result).toEqual(true);
       done();
     });
   });
@@ -45,7 +44,7 @@ describe('Not clickable matcher', () => {
     };
 
     notClickableMatcher.match(mockedElement).then((result) => {
-      expect(result).to.equal(true);
+      expect(result).toEqual(true);
       done();
     });
   });
@@ -57,7 +56,7 @@ describe('Not clickable matcher', () => {
     };
 
     notClickableMatcher.match(mockedElement).then((result) => {
-      expect(result).to.equal(true);
+      expect(result).toEqual(true);
       done();
     });
   });

@@ -1,5 +1,4 @@
 import { DateComparator, supportedFormats } from './date.comparator';
-import { expect } from 'chai';
 
 describe('Date comparator', () => {
   it('is satisfied by dates', () => {
@@ -10,7 +9,7 @@ describe('Date comparator', () => {
       '20/12/17'
     ];
 
-    expect(DateComparator.isSatisfiedBy(dates)).to.equal(true);
+    expect(DateComparator.isSatisfiedBy(dates)).toEqual(true);
   });
 
   it('supports only specified date formats', () => {
@@ -21,13 +20,13 @@ describe('Date comparator', () => {
       31337
     ];
 
-    dates.forEach((date) => expect(DateComparator.isSatisfiedBy([date])).to.equal(false));
+    dates.forEach((date) => expect(DateComparator.isSatisfiedBy([date])).toEqual(false));
   });
 
   it('is pluggable', () => {
     supportedFormats.push('MM-DD-YYYY');
 
-    expect(DateComparator.isSatisfiedBy(['12-20-2017'])).to.equal(true);
+    expect(DateComparator.isSatisfiedBy(['12-20-2017'])).toEqual(true);
   });
 
   it('it returns resolved promise if dates are in ascending order', (done) => {

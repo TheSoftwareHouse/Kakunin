@@ -1,21 +1,20 @@
 import { textFieldFilter } from './text-fields.filter';
 import variableStore from '../../helpers/variable-store.helper';
-import { expect } from 'chai';
 
 describe('Text fields filter', () => {
   it('returns true when supported typ passed', () => {
     const supportedTypes = ['subject', 'from_email', 'from_name', 'to_email', 'to_name', 'html_body', 'text_body'];
 
-    supportedTypes.forEach((type) => expect(textFieldFilter.isSatisfiedBy(type)).to.equals(true));
+    supportedTypes.forEach((type) => expect(textFieldFilter.isSatisfiedBy(type)).toEqual(true));
   });
 
   it('returns false when not supported type passed', () => {
-    expect(textFieldFilter.isSatisfiedBy('unsupportedName')).to.equals(false);
+    expect(textFieldFilter.isSatisfiedBy('unsupportedName')).toEqual(false);
   });
 
   it('throws an error when value is not a regex or text matcher', () => {
     expect(() => textFieldFilter.filter(['some email content'], 'subject', 'some-value'))
-      .to.throw('Comparison type not specified. Please use r: for regex and t: for text');
+      .toThrow('Comparison type not specified. Please use r: for regex and t: for text');
   });
 
   it('returns only emails matching given value using t:v:variableName', () => {
@@ -44,10 +43,10 @@ describe('Text fields filter', () => {
 
     const filteredEmails = textFieldFilter.filter(fakeEmails, 'subject', 't:v:someVariable');
 
-    expect(filteredEmails.length).to.equals(1);
+    expect(filteredEmails.length).toEqual(1);
 
     filteredEmails.forEach(
-      (email) => expect(email.subject === 'some-subject').to.equals(true)
+      (email) => expect(email.subject === 'some-subject').toEqual(true)
     );
   });
 
@@ -75,10 +74,10 @@ describe('Text fields filter', () => {
 
     const filteredEmails = textFieldFilter.filter(fakeEmails, 'text_body', 'r:number');
 
-    expect(filteredEmails.length).to.equals(1);
+    expect(filteredEmails.length).toEqual(1);
 
     filteredEmails.forEach(
-      (email) => expect(email.text_body === 'Body 123').to.equals(true)
+      (email) => expect(email.text_body === 'Body 123').toEqual(true)
     );
   });
 });

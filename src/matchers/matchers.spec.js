@@ -1,7 +1,5 @@
 import { create } from './matchers';
 
-const chai = require('chai');
-const expect = chai.expect;
 
 const matchers = create();
 
@@ -10,7 +8,7 @@ describe('Matchers', () => {
     const mockedElement = {};
 
     expect(() => matchers.match(mockedElement, 'incorrect:unknown-matcher'))
-      .to.throw('Could not find matcher for incorrect:unknown-matcher.');
+      .toThrow('Could not find matcher for incorrect:unknown-matcher.');
   });
 
   it('returns true when found a matcher and element value is correct', (done) => {
@@ -19,7 +17,7 @@ describe('Matchers', () => {
     };
 
     matchers.match(mockedElement, 't:message').then((result) => {
-      expect(result).to.equals(true);
+      expect(result).toEqual(true);
       done();
     });
   });
@@ -42,7 +40,7 @@ describe('Matchers', () => {
     };
 
     matchers.match(mockedElement, 't:contains :colons').then((result) => {
-      expect(result).to.equals(true);
+      expect(result).toEqual(true);
       done();
     });
   });

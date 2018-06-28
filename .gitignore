@@ -19,3 +19,4 @@ docker-compose.override.yml
 !example/reports/.gitkeep
 !reports/.gitkeep
 .DS_Store
+package-lock.json
