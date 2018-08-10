@@ -101,7 +101,9 @@ defineSupportCode(function ({ Then }) {
   Then(/^the email has been sent and contains:$/, function (data, sync) {
     const self = this;
     const timeout = parseInt(config.intervalEmail) * 1000;
-    let maxRepeats = 4;
+    let maxRepeats = parseInt(config.maxEmailRepeats);
+
+    config.maxEmailRepeats === undefined ? maxRepeats = 5 : maxRepeats;
 
     const interval = setInterval(() => {
       console.log('Checking mailbox for email...');
