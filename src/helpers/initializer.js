@@ -50,6 +50,7 @@ class Initializer {
       browserHeight: 900,
       timeout: 60,
       intervalEmail: 5,
+      maxEmailRepeats: 5,
       elementsVisibilityTimeout: 5,
       waitForPageTimeout: 5,
       downloadTimeout: 30,
@@ -132,6 +133,7 @@ class Initializer {
 
       conf.timeout = parseInt(await this.promptFolders('What is desired step timeout in seconds?', conf.timeout));
       conf.intervalEmail = parseInt(await this.promptFolders('What is desired step email interval in seconds?', conf.intervalEmail));
+      conf.maxEmailRepeats = parseInt(await this.promptFolders('How many times emails should be checked - maximum repeats?', conf.maxEmailRepeats));
       conf.elementsVisibilityTimeout = parseInt(await this.promptFolders('What is desired elements visibility timeout in seconds?', conf.elementsVisibilityTimeout));
       conf.waitForPageTimeout = parseInt(await this.promptFolders('How long should I wait for page to load in seconds?', conf.waitForPageTimeout));
       conf.downloadTimeout = parseInt(await this.promptFolders('How long should I wait for files to download in seconds?', conf.downloadTimeout));

@@ -108,7 +108,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
   Then(/^the email has been sent and contains:$/, function (data, sync) {
     const self = this;
     const timeout = parseInt(_config2.default.intervalEmail) * 1000;
-    let maxRepeats = 4;
+    let maxRepeats = parseInt(_config2.default.maxEmailRepeats);
+
+    _config2.default.maxEmailRepeats === undefined ? maxRepeats = 5 : maxRepeats;
 
     const interval = setInterval(() => {
       console.log('Checking mailbox for email...');
