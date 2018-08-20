@@ -209,7 +209,7 @@ class Initializer {
     this.createProjectDirectory(config.transformers[0]);
     this.createProjectDirectory(config.emails[0]);
 
-    this.createTemplateFile(path.join(config.downloads, '/.gitkeep'), '');
+    this.createTemplateFile(path.join(config.downloads, '.gitkeep'), '');
     this.createTemplateFile(path.join(config.reports, 'report', '.gitkeep'), '');
     this.createTemplateFile(path.join(config.reports, 'report', 'features', '.gitkeep'), '');
     this.createTemplateFile(path.join(config.reports, 'performance', '.gitkeep'), '');
