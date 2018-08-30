@@ -71,7 +71,7 @@ defineSupportCode(function ({ When, Then }) {
 
   When(/^I update the "([^"]*)" element text as "([^"]*)" variable$/, function (elementName, variable) {
     return this.currentPage.waitForVisibilityOf(elementName).then(() => {
-      this.currentPage[element].getText()
+      this.currentPage[elementName].getText()
         .then((text) => { variableStore.updateVariable(variable, text); });
     });
   });
@@ -80,7 +80,7 @@ defineSupportCode(function ({ When, Then }) {
     const regex = regexBuilder.buildRegex(matcher);
 
     return this.currentPage.waitForVisibilityOf(elementName).then(() => {
-      return this.currentPage[element].getText().then((text) => {
+      return this.currentPage[elementName].getText().then((text) => {
         const matchedText = text.match(regex);
 
         if (matchedText === null) {
@@ -205,18 +205,18 @@ defineSupportCode(function ({ When, Then }) {
     });
   });
 
-  Then(/^there are "([^"]*)" following elements for element "([^"]*)":$/, function (numberExpression, element, data) {
+  Then(/^there are "([^"]*)" following elements for element "([^"]*)":$/, function (numberExpression, elementName, data) {
     const self = this;
-    const allElements = this.currentPage[element];
+    const allElements = this.currentPage[elementName];
     const hashedData = data.raw();
 
     if (hashedData.length === 0) {
       return Promise.reject('Missing table under the step.');
     }
 
-    return this.currentPage.waitForVisibilityOf(element).then(() => {
+    return this.currentPage.waitForVisibilityOf(elementName).then(() => {
 
-      return checkNumberOfElements.call(this, numberExpression, element).then(function () {
+      return checkNumberOfElements.call(this, numberExpression, elementName).then(function () {
         const promises = [];
 
         return allElements.each(function (element) {
@@ -246,8 +246,8 @@ defineSupportCode(function ({ When, Then }) {
     });
   });
 
-  Then(/^there is no element "([^"]*)" with value "([^"]*)"$/, function (element, value) {
-    const pageElement = this.currentPage[element];
+  Then(/^there is no element "([^"]*)" with value "([^"]*)"$/, function (elementName, value) {
+    const pageElement = this.currentPage[elementName];
 
     return matchers.match(pageElement, variableStore.replaceTextVariables(value)).then(function (matcherResult) {
       return expect(matcherResult).to.not.be.true;
@@ -292,9 +292,9 @@ defineSupportCode(function ({ When, Then }) {
     });
   });
 
-  Then(/^the element "([^"]*)" should have an item with values:$/, function (element, data) {
+  Then(/^the element "([^"]*)" should have an item with values:$/, function (elementName, data) {
     const self = this;
-    const allElements = this.currentPage[element];
+    const allElements = this.currentPage[elementName];
     const hashedData = data.raw();
 
     if (hashedData.length === 0) {
@@ -302,7 +302,7 @@ defineSupportCode(function ({ When, Then }) {
     }
 
     const promises = [];
-    return this.currentPage.waitForVisibilityOf(element).then(() => {
+    return this.currentPage.waitForVisibilityOf(elementName).then(() => {
 
       return allElements.each(function (element) {
         hashedData.forEach(function (hash) {
@@ -321,9 +321,9 @@ defineSupportCode(function ({ When, Then }) {
     });
   });
 
-  Then(/^the element "([^"]*)" should not have an item with values:$/, function (element, data) {
+  Then(/^the element "([^"]*)" should not have an item with values:$/, function (elementName, data) {
     const self = this;
-    const allElements = this.currentPage[element];
+    const allElements = this.currentPage[elementName];
     const hashedData = data.raw();
 
     if (hashedData.length === 0) {
