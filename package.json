@@ -38,7 +38,7 @@
   "main": "./dist/index",
   "scripts": {
     "postinstall": "webdriver-manager update",
-    "units": "cross-env NODE_ENV=test mocha --require ./src/tests/init.js --require babel-register \"./src/**/*.spec.js\"",
+    "units": "cross-env jest --setupFiles ./src/tests/init.js",
     "functional": "cd functional-tests && npm i && npm run test",
     "test": "npm run units && npm run functional",
     "build": "babel src --out-dir dist --ignore 'tests','*.spec.js' && babel templates --out-dir dist/templates --copy-files"
@@ -59,7 +59,7 @@
     "eslint-plugin-jsx-a11y": "^6.0.2",
     "eslint-plugin-react": "^7.9.1",
     "fetch-mock": "^6.4.4",
-    "mocha": "^5.2.0"
+    "jest": "^23.2.0"
   },
   "dependencies": {
     "browsermob-proxy": "^1.0.9",

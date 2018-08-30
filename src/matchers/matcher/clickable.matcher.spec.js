@@ -1,9 +1,8 @@
 import { clickableMatcher } from './clickable.matcher';
-import { expect } from 'chai';
 
 describe('Clickable matcher', () => {
   it('is satisfied when the prefix and the name are correct', () => {
-    expect(clickableMatcher.isSatisfiedBy('f', 'isClickable')).to.equal(true);
+    expect(clickableMatcher.isSatisfiedBy('f', 'isClickable')).toEqual(true);
   });
 
   it('is not satisfied when unsupported parameters are given', () => {
@@ -12,7 +11,7 @@ describe('Clickable matcher', () => {
       { prefix: 'f', name: 'isNotClickable' }
     ];
     incorrectParameters.forEach((parameter) => expect(clickableMatcher
-      .isSatisfiedBy(parameter.prefix, parameter.name)).to.equal(false));
+      .isSatisfiedBy(parameter.prefix, parameter.name)).toEqual(false));
   });
 
   it('returns true when the element is clickable', (done) => {
@@ -22,7 +21,7 @@ describe('Clickable matcher', () => {
     };
 
     clickableMatcher.match(mockedElement).then((result) => {
-      expect(result).to.equal(true);
+      expect(result).toEqual(true);
       done();
     });
   });

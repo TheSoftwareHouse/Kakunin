@@ -1,19 +1,17 @@
 import { create } from './generators';
 
-const chai = require('chai');
-const expect = chai.expect;
 
 const generators = create();
 
 describe('Generators', () => {
   it('throws an error when no generator was found', () => {
     expect(() => generators.generate('unknown-generator'))
-      .to.throw('Could not find generator for unknown-generator.');
+      .toThrow('Could not find generator for unknown-generator.');
   });
 
   it('return generated value', (done) => {
     generators.generate('stringWithLength', 100).then((result) => {
-      expect(result.length).to.equal(100);
+      expect(result.length).toEqual(100);
       done();
     });
   });
@@ -28,7 +26,7 @@ describe('Generators', () => {
 
     generators.addGenerator(customGenerator);
     generators.generate('customGenerator', 'params').then((result) => {
-      expect(result).to.equal('params');
+      expect(result).toEqual('params');
       done();
     });
   })

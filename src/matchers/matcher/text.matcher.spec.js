@@ -1,13 +1,12 @@
 import { textMatcher } from './text.matcher';
-import { expect } from 'chai';
 
 describe('Text matcher', () => {
   it('is satisfied when the prefix is correct', () => {
-    expect(textMatcher.isSatisfiedBy('t')).to.equal(true);
+    expect(textMatcher.isSatisfiedBy('t')).toEqual(true);
   });
 
   it('is not satisfied when the prefix is incorrect', () => {
-    expect(textMatcher.isSatisfiedBy('r')).to.equal(false);
+    expect(textMatcher.isSatisfiedBy('r')).toEqual(false);
   });
 
   it('returns true when the text is matched', (done) => {
@@ -17,7 +16,7 @@ describe('Text matcher', () => {
     };
 
     textMatcher.match(elementMocked, 'message').then((result) => {
-      expect(result).to.equal(true);
+      expect(result).toEqual(true);
       done();
     });
   });

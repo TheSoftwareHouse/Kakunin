@@ -1,17 +1,16 @@
 import { regexMatcher } from './index';
-import { expect } from 'chai';
 
 describe('Regex matcher', () => {
   it('is satisfied when the prefix is correct and regex exists', () => {
-    expect(regexMatcher.isSatisfiedBy('r', 'number')).to.equal(true);
+    expect(regexMatcher.isSatisfiedBy('r', 'number')).toEqual(true);
   });
 
   it('is not satisfied when the prefix is incorrect', () => {
-    expect(regexMatcher.isSatisfiedBy('f', 'number')).to.equal(false);
+    expect(regexMatcher.isSatisfiedBy('f', 'number')).toEqual(false);
   });
 
   it('is not satisfied when the name is not incorrect', () => {
-    expect(regexMatcher.isSatisfiedBy('r', 'unknown')).to.equal(false);
+    expect(regexMatcher.isSatisfiedBy('r', 'unknown')).toEqual(false);
   });
 
   it('returns matches text of element', (done) => {
@@ -22,7 +21,7 @@ describe('Regex matcher', () => {
     };
 
     regexMatcher.match(elementMocked, 'number').then((result) => {
-      expect(result).to.equal(true);
+      expect(result).toEqual(true);
       done();
     });
   });
@@ -35,7 +34,7 @@ describe('Regex matcher', () => {
     };
 
     regexMatcher.match(elementMocked, 'number').then((result) => {
-      expect(result).to.equal(true);
+      expect(result).toEqual(true);
       done();
     });
   });

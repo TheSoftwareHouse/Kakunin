@@ -1,6 +1,5 @@
 import { create } from './mailtrap.client';
 import fetchMock from 'fetch-mock';
-import { expect } from 'chai';
 
 describe('Mailtrap client', () => {
   it('it returns mailtrap config', () => {
@@ -13,7 +12,7 @@ describe('Mailtrap client', () => {
     });
 
     expect(mailtrapClient.getMailtrapConfig())
-      .to.eql({
+      .toEqual({
         apiKey: 'fake-api-key',
         inboxId: 'fake-inbox-id',
         endpoint: 'http://fake-url.com'
@@ -41,7 +40,7 @@ describe('Mailtrap client', () => {
     });
 
     mailtrapClient.clearInbox().then((res) => {
-      expect(res).to.eql({ data: 'cleared' });
+      expect(res).toEqual({ data: 'cleared' });
       done();
     });
   });
@@ -72,8 +71,8 @@ describe('Mailtrap client', () => {
     });
 
     mailtrapClient.getEmails().then((res) => {
-      expect(res.length).to.equals(2);
-      res.forEach((email) => expect(email.is_read).to.equals(false));
+      expect(res.length).toEqual(2);
+      res.forEach((email) => expect(email.is_read).toEqual(false));
       done();
     });
   });
@@ -103,7 +102,7 @@ describe('Mailtrap client', () => {
     });
 
     mailtrapClient.getAttachments({ id: emailId }).then((res) => {
-      expect(res).to.eql(
+      expect(res).toEqual(
         [
           { id: 1, name: 'some-file', content: 'some-content' }
         ]
@@ -139,7 +138,7 @@ describe('Mailtrap client', () => {
     });
 
     mailtrapClient.markAsRead({ id: emailId }).then((res) => {
-      expect(res).to.eql({ data: 'marked-as-read' });
+      expect(res).toEqual({ data: 'marked-as-read' });
       done();
     });
   });

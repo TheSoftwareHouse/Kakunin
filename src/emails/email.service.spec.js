@@ -1,5 +1,4 @@
 import { create } from './email.service';
-import { expect } from 'chai';
 
 describe('Email service', () => {
   it('it returns adapter if found', () => {
@@ -16,7 +15,7 @@ describe('Email service', () => {
     const emailService = create([fakeAdapter], fakeConfig);
 
     expect(emailService.getAdapter())
-      .to.equal(fakeAdapter);
+      .toBe(fakeAdapter);
   });
 
   it('it throws error if adapter not found', () => {
@@ -29,7 +28,7 @@ describe('Email service', () => {
     const emailService = create([], fakeConfig);
 
     expect(() => emailService.getAdapter())
-      .to.throw('Could not find email adapter for given configuration.');
+      .toThrow('Could not find email adapter for given configuration.');
   });
 
   it('it adds adapter', () => {
@@ -46,12 +45,12 @@ describe('Email service', () => {
     const emailService = create([], fakeConfig);
 
     expect(() => emailService.getAdapter())
-      .to.throw('Could not find email adapter for given configuration.');
+      .toThrow('Could not find email adapter for given configuration.');
 
     emailService.addAdapter(fakeAdapter);
 
     expect(emailService.getAdapter())
-      .to.equal(fakeAdapter);
+      .toEqual(fakeAdapter);
   });
 
   it('it calls adapter clearInbox method', (done) => {
@@ -103,7 +102,7 @@ describe('Email service', () => {
     const emailService = create([fakeAdapter], fakeConfig);
 
     emailService.markAsRead('some@email.com').then((email) => {
-      expect(email).to.be.equal('some@email.com');
+      expect(email).toEqual('some@email.com');
       done()
     });
   });
@@ -123,7 +122,7 @@ describe('Email service', () => {
     const emailService = create([fakeAdapter], fakeConfig);
 
     emailService.getAttachments('some@email.com').then((attachment) => {
-      expect(attachment).to.be.equal('some-attachment');
+      expect(attachment).toEqual('some-attachment');
       done()
     });
   });
