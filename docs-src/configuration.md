@@ -5,6 +5,8 @@ module.exports = {
     "browserWidth": 1600,
     "browserHeight": 900,
     "timeout": 60,
+    "maxEmailRepeats": 5,
+    "intervalEmail": 5,
     "elementsVisibilityTimeout": 5,
     "waitForPageTimeout": 5,
     "downloadTimeout": 30,
@@ -73,6 +75,8 @@ module.exports = {
 `browserheight` - height of browser window `default: 900`
 
 `timeout` - global timeout for a single step execution in seconds `default: 60`
+
+`maxEmailRepeats` - maximum email repeats to catch email used in the email step
 
 `intervalEmail` - interval for email checking step `default: 5` in seconds
 
