@@ -109,4 +109,3 @@ Scenario: I want to add new product to shop
     | vat      | 23              |
     | discount | 10              |
 ```
-
