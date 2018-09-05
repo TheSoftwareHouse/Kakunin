@@ -9,40 +9,53 @@ defineSupportCode(function ({ Then }) {
 
   Then(/^the file "([^"]*)" contains table data stored under "([^"]*)" variable$/, function (filename, variableName) {
     const file = fileManager.parseXLS(variableStore.replaceTextVariables(filename));
-    let availableData = variableStore.getVariableValue(variableName);
+    const availableData = variableStore.getVariableValue(variableName);
+    const rows = file.filter((row, index) => row.length > 0 && index > 0);
 
-    const rows = file.filter(function (row, index) {
-      return row.length > 0 && index > 0;
-    });
-
-    const missingRows = rows.reduce((previous, current) => {
-      const expectedRowIndex = availableData.findIndex((item) => {
-        let hasAllProperties = true;
-
-        for (let i = 0; i < current.length; i++) {
-          if (current[i] !== item[i]) {
-            hasAllProperties = false;
-            break;
-          }
-        }
-
-        return hasAllProperties;
-      });
-
-      if (expectedRowIndex === -1) {
-        previous.push(current);
-        return previous;
-      }
-
-      availableData = availableData.filter((item, index) => index !== expectedRowIndex);
-
-      return previous;
-    }, []);
-
-    if (missingRows.length === 0) {
-      return Promise.resolve();
+    if (rows.length !== availableData.length) {
+      return Promise.reject('Number of rows is not equal!');
     }
 
-    return Promise.reject('Some rows not found: ' + missingRows.map((row) => row[0]).join(', '));
+    const findIndexes = () => {
+      const results = [];
+
+      for (const index in rows) {
+        const listOfIndexes = [];
+
+        availableData.filter((item, i) => {
+          if (i < item.length) {
+            if (availableData[index][i].match(/^\d+$/)) {
+              return listOfIndexes.push(rows[index].indexOf(parseInt(availableData[index][i])));
+            }
+
+            return listOfIndexes.push(rows[index].indexOf(availableData[index][i]));
+          }
+        });
+
+        if (listOfIndexes.includes(-1)) {
+          break;
+        }
+
+        results.push(listOfIndexes);
+      }
+
+      return Promise.resolve(results);
+    };
+
+    return findIndexes().then(results => {
+      if (results.length !== rows.length) {
+        return Promise.reject('Values not found!');
+      }
+
+      return results.reduce((accelerator, current) => {
+        current.forEach((item, index) => {
+          if (!accelerator[index] === item) {
+            return Promise.reject('Arrays are different!');
+          }
+        });
+
+        return current;
+      }, results[0]);
+    });
   });
 });
