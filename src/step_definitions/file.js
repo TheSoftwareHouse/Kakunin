@@ -12,50 +12,48 @@ defineSupportCode(function ({ Then }) {
     const availableData = variableStore.getVariableValue(variableName);
     const rows = file.filter((row, index) => row.length > 0 && index > 0);
 
-    if (rows.length !== availableData.length) {
-      return Promise.reject('Number of rows is not equal!');
-    }
-
     const findIndexes = () => {
-      const results = [];
+      const allFoundIndexesInTable = [];
 
       for (const index in rows) {
-        const listOfIndexes = [];
+        const foundValueIndexesInRow = [];
 
-        availableData.filter((item, i) => {
+        availableData.forEach((item, i) => {
           if (i < item.length) {
             if (availableData[index][i].match(/^\d+$/)) {
-              return listOfIndexes.push(rows[index].indexOf(parseInt(availableData[index][i])));
+              return foundValueIndexesInRow.push(rows[index].indexOf(parseInt(availableData[index][i])));
             }
 
-            return listOfIndexes.push(rows[index].indexOf(availableData[index][i]));
+            return foundValueIndexesInRow.push(rows[index].indexOf(availableData[index][i]));
           }
         });
 
-        if (listOfIndexes.includes(-1)) {
+        if (foundValueIndexesInRow.includes(-1)) {
           break;
         }
 
-        results.push(listOfIndexes);
+        allFoundIndexesInTable.push(foundValueIndexesInRow);
       }
 
-      return Promise.resolve(results);
+      return Promise.resolve(allFoundIndexesInTable);
     };
 
-    return findIndexes().then(results => {
-      if (results.length !== rows.length) {
+    return findIndexes().then(allFoundIndexesInTable => {
+      if (allFoundIndexesInTable[0].length !== availableData[0].length) {
         return Promise.reject('Values not found!');
       }
 
-      return results.reduce((accelerator, current) => {
-        current.forEach((item, index) => {
-          if (!accelerator[index] === item) {
-            return Promise.reject('Arrays are different!');
-          }
-        });
+      if (allFoundIndexesInTable.length === 1) {
+        return Promise.resolve();
+      }
 
-        return current;
-      }, results[0]);
+      for (let index = 1; index < allFoundIndexesInTable.length; index++) {
+        if (JSON.stringify(allFoundIndexesInTable[index]) !== JSON.stringify(allFoundIndexesInTable[index - 1])) {
+          return Promise.reject('Arrays are different!');
+        }
+      }
+
+      return Promise.resolve();
     });
   });
 });

@@ -19,3 +19,7 @@ Feature: Store table and compare jsons
                 ["4", "1", "View"]
             ]
             """
+
+    Scenario: Compare stored values with the content from a xlsx file
+        Given I store the content from "http://localhost:8080/xlsx-data" endpoint as "storedTable" variable
+        Then the file "example.xlsx" contains table data stored under "storedTable" variable

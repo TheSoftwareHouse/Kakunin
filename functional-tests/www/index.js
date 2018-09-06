@@ -59,13 +59,21 @@ app.get('/wait-for-appear/table', function (req, res) {
 app.get('/wait-for-appear/form', function (req, res) {
   res.render('wait-for-appear/form.njs');
 });
+
 app.post('/wait-for-appear/form/post', function (req, res) {
   res.render('wait-for-appear/form.njs', {
     form: req.body
   });
 });
+
 app.get('/matchers', function (req, res) {
   res.render('matchers/matchers.njs');
+});
+
+app.get('/xlsx-data', (req, res) => {
+  res.json({
+    content: '[["Schamberger PLC","33333003158","25","Food & Consumable supply, IT, Medical Supplies and Equipment, Motors & Vehicles, Office Furniture, Office Supplies"],["JANEK","9912396963","2","Security Guards, Printing & Advertising, Food & Consumable supply, IT, Medical Supplies and Equipment, Motors & Vehicles, Office Furniture, Office Supplies"],["شركة تكامل القابضة","9912396963","2","Contracting & Maintenance, Food & Consumable supply, IT, Medical Supplies and Equipment, Motors & Vehicles, Office Furniture, Office Supplies"],["شركة تكامل القابضة","9912396963","2","Contracting & Maintenance, Food & Consumable supply, IT, Medical Supplies and Equipment, Motors & Vehicles, Office Furniture, Office Supplies"],["Bosco, Marks and Walker","9910412435","7","Contracting & Maintenance, Food & Consumable supply, IT, Medical Supplies and Equipment, Motors & Vehicles, Office Furniture, Office Supplies"],["Rippin-Torp","9912038835","7","Contracting & Maintenance, Food & Consumable supply, IT, Medical Supplies and Equipment, Motors & Vehicles, Office Furniture, Office Supplies"],["Kling-Bogan","9910412335","25","Contracting & Maintenance, Security Guards, Printing & Advertising, Food & Consumable supply, IT, Medical Supplies and Equipment, Motors & Vehicles, Office Furniture, Office Supplies"],["Hane, Bartoletti and Mitchell","9911038835","7","Contracting & Maintenance, Food & Consumable supply, IT, Medical Supplies and Equipment, Motors & Vehicles, Office Furniture, Office Supplies"],["Zemlak, Stiedemann and Green","9912496963","7","Contracting & Maintenance, Food & Consumable supply, IT, Medical Supplies and Equipment, Motors & Vehicles, Office Furniture, Office Supplies"]]'
+  })
 });
 
 app.listen(8080, function () {

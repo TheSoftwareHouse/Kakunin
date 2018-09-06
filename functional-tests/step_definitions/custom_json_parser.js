@@ -1,4 +1,5 @@
 const variableStore = require('kakunin').variableStore;
+const fetch = require('node-fetch');
 
 const { defineSupportCode } = require('kakunin');
 
@@ -15,4 +16,10 @@ defineSupportCode(function ({ When }) {
 
     return Promise.reject('JSON strings are not the same!');
   });
+
+  When(/^I store the content from "([^"]*)" endpoint as "([^"]*)" variable/, function (url, variableName) {
+    return fetch(url)
+      .then(res => res.json())
+      .then(data => variableStore.storeVariable(variableName, JSON.parse(data.content)));
+  })
 });
