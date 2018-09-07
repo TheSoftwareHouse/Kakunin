@@ -116,7 +116,7 @@ class Initializer {
       conf.email = {
         ...conf.email,
         config: {
-          url: 'https://mailtrap.io/api/v1',
+          url: 'https://mailtrap.io',
           apiKey: '',
           inboxId: ''
         }
