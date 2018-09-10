@@ -10,6 +10,8 @@ tmp-*
 npm-debug.log
 .idea
 downloads/*
+!functional-tests/downloads/.gitkeep
+!functional-tests/downloads/example.xlsx
 docker-compose.override.yml
 !downloads/.gitkeep
 !functional-tests/reports/.gitkeep

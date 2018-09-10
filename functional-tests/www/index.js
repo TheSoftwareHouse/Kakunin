@@ -3,6 +3,8 @@ const nunjucks = require('nunjucks');
 const bodyParser = require('body-parser');
 const path = require('path');
 const app = express();
+const { xlsxDataRouting } = require('./jsonData/xlsxData.router');
+
 app.set('views', path.join(__dirname, 'views'));
 
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
@@ -59,14 +61,18 @@ app.get('/wait-for-appear/table', function (req, res) {
 app.get('/wait-for-appear/form', function (req, res) {
   res.render('wait-for-appear/form.njs');
 });
+
 app.post('/wait-for-appear/form/post', function (req, res) {
   res.render('wait-for-appear/form.njs', {
     form: req.body
   });
 });
+
 app.get('/matchers', function (req, res) {
   res.render('matchers/matchers.njs');
 });
+
+app.use('/xlsx', xlsxDataRouting());
 
 app.listen(8080, function () {
   console.log('Example app listening on port 8080!');

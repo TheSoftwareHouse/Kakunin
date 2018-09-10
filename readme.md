@@ -2,7 +2,7 @@
 
 ## Documentation
 
-You can find documentation on the official page:   
+You can find documentation on the official page:
 [https://thesoftwarehouse.github.io/Kakunin/](https://thesoftwarehouse.github.io/Kakunin/)
 
 Or watch a short presentation about the features [on Slideshare](https://www.slideshare.net/thesoftwarehouse/kakunin-e2e-framework-showcase).
@@ -21,17 +21,17 @@ In order to install Kakunin you have to make sure that you have installed:
     node.js - v7.8.0 min
     JDK
     Chrome
-    
+
 Create directory for your project
 ```bash
 mkdir my_project
 ```
-    
-Go to project directory 
+
+Go to project directory
 ```bash
 cd my_project
 ```
-    
+
 Initialize JavaScript project
 ```bash
 npm init
@@ -41,11 +41,11 @@ Install dependencies
 ```bash
 npm install cross-env protractor webdriver-manager kakunin  --save
 ```
-    
+
 Inside `package.json` file; add new script in `scripts` section:
 ```json
 "kakunin": "cross-env NODE_ENV=prod kakunin"
-``` 
+```
 
 
 ## Contributing
@@ -75,13 +75,17 @@ In order to preview documentation type `mkdocs serve` inside kakunin directory.
 
 In order to build static version of documentation type `mkdocs build`.
 
+### Troubleshooting
+
+If you face any problems with running tests after updating to the newer version, please take a look at the `MIGRATION` markdown files.
+
 ## Example Scenario
 
 ```Gherkin
 Background:
   Given I am logged in as "shopOwner"
   And I visit the "mainPage" page
-  
+
 Scenario: View some example shop admin statistics and items list
   When I click the "shopDashboardButton" element
   Then the "shopDashboard" page is displayed
@@ -94,7 +98,7 @@ Scenario: View some example shop admin statistics and items list
    | price    | r:date          |
    | vat      | r:status        |
    | discount | r:number        |
-   
+
 Scenario: I want to add new product to shop
   When I click the "addNewProduct" element
   Then the "addNewProduct" page is displayed

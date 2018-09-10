@@ -9,40 +9,66 @@ defineSupportCode(function ({ Then }) {
 
   Then(/^the file "([^"]*)" contains table data stored under "([^"]*)" variable$/, function (filename, variableName) {
     const file = fileManager.parseXLS(variableStore.replaceTextVariables(filename));
-    let availableData = variableStore.getVariableValue(variableName);
+    const storedData = variableStore.getVariableValue(variableName);
+    const rows = file.filter((row, index) => row.length > 0 && index > 0);
 
-    const rows = file.filter(function (row, index) {
-      return row.length > 0 && index > 0;
-    });
+    const findIndexes = () => {
+      const allFoundIndexesInRows = [];
 
-    const missingRows = rows.reduce((previous, current) => {
-      const expectedRowIndex = availableData.findIndex((item) => {
-        let hasAllProperties = true;
+      storedData.forEach(storedItems => {
+        const foundIndexesInRow = [];
+        let previousFoundIndex = null;
 
-        for (let i = 0; i < current.length; i++) {
-          if (current[i] !== item[i]) {
-            hasAllProperties = false;
-            break;
+        storedItems.forEach(storedValue => {
+          for (const index in rows) {
+            if (storedValue.match(/^\d+$/)) {
+              if (previousFoundIndex !== null) {
+                foundIndexesInRow.push(rows[previousFoundIndex].indexOf(parseInt(storedValue)));
+                break;
+              }
+
+              if (rows[index].includes(parseInt(storedValue))) {
+                previousFoundIndex = index;
+                foundIndexesInRow.push(rows[index].indexOf(parseInt(storedValue)));
+                break;
+              }
+            }
+
+            if (previousFoundIndex !== null) {
+              foundIndexesInRow.push(rows[previousFoundIndex].indexOf(storedValue));
+              break;
+            }
+
+            if (rows[index].includes(storedValue)) {
+              previousFoundIndex = index;
+              foundIndexesInRow.push(rows[index].indexOf(storedValue));
+              break;
+            }
           }
-        }
+        });
 
-        return hasAllProperties;
+        allFoundIndexesInRows.push(foundIndexesInRow);
       });
 
-      if (expectedRowIndex === -1) {
-        previous.push(current);
-        return previous;
+      return Promise.resolve(allFoundIndexesInRows);
+    };
+
+    return findIndexes().then(allFoundIndexes => {
+      if (allFoundIndexes[0].length !== storedData[0].length) {
+        return Promise.reject('Values not found!');
       }
 
-      availableData = availableData.filter((item, index) => index !== expectedRowIndex);
+      if (allFoundIndexes.length === 1) {
+        return Promise.resolve();
+      }
 
-      return previous;
-    }, []);
+      for (let index = 1; index < allFoundIndexes.length; index++) {
+        if (JSON.stringify(allFoundIndexes[index]) !== JSON.stringify(allFoundIndexes[index - 1])) {
+          return Promise.reject('Arrays are different!');
+        }
+      }
 
-    if (missingRows.length === 0) {
       return Promise.resolve();
-    }
-
-    return Promise.reject('Some rows not found: ' + missingRows.map((row) => row[0]).join(', '));
+    });
   });
 });
