@@ -34,6 +34,6 @@ More details available under the link: https://mailtrap.io/blog/2018-06-06-mailt
 Please note that, that the steps in scenarios do not require any changes!
 You can still use `html_body` to check the email content.
 
-This is a breaking change for users who using MailTrap in tests but we did not want to change version to "3.0.0".
-Just "prerelease" version has been increased by one.
+This is a breaking change for users using MailTrap in tests but we did not want to change version to "3.0.0".
+Just "minor" version has been increased by one.
 
