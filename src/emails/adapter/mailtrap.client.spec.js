@@ -27,7 +27,7 @@ describe('Mailtrap client', () => {
     const url = 'http://fake-url.com';
 
     const requestMock = fetchMock.sandbox().mock(
-      `${url}/inboxes/${inbox}/clean?api_token=${apiKey}`,
+      `${url}/api/v1/inboxes/${inbox}/clean?api_token=${apiKey}`,
       { data: 'cleared' },
       { method: 'PATCH' }
     );
@@ -52,16 +52,28 @@ describe('Mailtrap client', () => {
     const url = 'http://fake-url.com';
 
     const emails = [
-      { subject: 's2', is_read: false },
-      { subject: 's3', is_read: true },
-      { subject: 's1', is_read: false }
+      { subject: 's2', is_read: false, raw_path: `/api/v1/inboxes/${inbox}/messages/000000001/body.raw` },
+      { subject: 's3', is_read: true, raw_path: `/api/v1/inboxes/${inbox}/messages/000000002/body.raw` },
+      { subject: 's1', is_read: false, raw_path: `/api/v1/inboxes/${inbox}/messages/000000003/body.raw` }
     ];
 
     const requestMock = fetchMock.sandbox().mock(
-      `${url}/inboxes/${inbox}/messages?api_token=${apiKey}`,
+      `${url}/api/v1/inboxes/${inbox}/messages?api_token=${apiKey}`,
       emails,
       { method: 'GET' }
-    );
+    )
+      .mock(
+        `${url}${emails[0].raw_path}?api_token=${apiKey}`,
+        { method: 'GET' }
+      )
+      .mock(
+        `${url}${emails[1].raw_path}?api_token=${apiKey}`,
+        { method: 'GET' }
+      )
+      .mock(
+        `${url}${emails[2].raw_path}?api_token=${apiKey}`,
+        { method: 'GET' }
+      );
 
     const mailtrapClient = create(requestMock, {
       config: {
@@ -85,7 +97,7 @@ describe('Mailtrap client', () => {
     const emailId = 'some-id';
 
     const requestMock = fetchMock.sandbox().mock(
-      `${url}/inboxes/${inbox}/messages/${emailId}/attachments?api_token=${apiKey}`,
+      `${url}/api/v1/inboxes/${inbox}/messages/${emailId}/attachments?api_token=${apiKey}`,
       [
         { id: 1, name: 'some-file', content: 'some-content' }
       ],
@@ -120,7 +132,7 @@ describe('Mailtrap client', () => {
 
     const requestMock = fetchMock.sandbox().mock(
       (reqUrl, opts) => {
-        return reqUrl === `${url}/inboxes/${inbox}/messages/${emailId}?api_token=${apiKey}`
+        return reqUrl === `${url}/api/v1/inboxes/${inbox}/messages/${emailId}?api_token=${apiKey}`
           && opts.body === JSON.stringify({ message: { is_read: true } });
       },
       { data: 'marked-as-read' },
