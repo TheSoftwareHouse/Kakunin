@@ -19,46 +19,61 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
   Then(/^the file "([^"]*)" contains table data stored under "([^"]*)" variable$/, function (filename, variableName) {
     const file = _fileManager2.default.parseXLS(_variableStore2.default.replaceTextVariables(filename));
-    const availableData = _variableStore2.default.getVariableValue(variableName);
+    const storedData = _variableStore2.default.getVariableValue(variableName);
     const rows = file.filter((row, index) => row.length > 0 && index > 0);
 
     const findIndexes = () => {
-      const allFoundIndexesInTable = [];
+      const allFoundIndexesInRows = [];
 
-      for (const index in rows) {
-        const foundValueIndexesInRow = [];
+      storedData.forEach(storedItems => {
+        const foundIndexesInRow = [];
+        let previousFoundIndex = null;
 
-        availableData.forEach((item, i) => {
-          if (i < item.length) {
-            if (availableData[index][i].match(/^\d+$/)) {
-              return foundValueIndexesInRow.push(rows[index].indexOf(parseInt(availableData[index][i])));
+        storedItems.forEach(storedValue => {
+          for (const index in rows) {
+            if (storedValue.match(/^\d+$/)) {
+              if (previousFoundIndex !== null) {
+                foundIndexesInRow.push(rows[previousFoundIndex].indexOf(parseInt(storedValue)));
+                break;
+              }
+
+              if (rows[index].includes(parseInt(storedValue))) {
+                previousFoundIndex = index;
+                foundIndexesInRow.push(rows[index].indexOf(parseInt(storedValue)));
+                break;
+              }
             }
 
-            return foundValueIndexesInRow.push(rows[index].indexOf(availableData[index][i]));
+            if (previousFoundIndex !== null) {
+              foundIndexesInRow.push(rows[previousFoundIndex].indexOf(storedValue));
+              break;
+            }
+
+            if (rows[index].includes(storedValue)) {
+              previousFoundIndex = index;
+              foundIndexesInRow.push(rows[index].indexOf(storedValue));
+              break;
+            }
           }
         });
 
-        if (foundValueIndexesInRow.includes(-1)) {
-          break;
-        }
+        allFoundIndexesInRows.push(foundIndexesInRow);
+      });
 
-        allFoundIndexesInTable.push(foundValueIndexesInRow);
-      }
-
-      return Promise.resolve(allFoundIndexesInTable);
+      return Promise.resolve(allFoundIndexesInRows);
     };
 
-    return findIndexes().then(allFoundIndexesInTable => {
-      if (allFoundIndexesInTable[0].length !== availableData[0].length) {
+    return findIndexes().then(allFoundIndexes => {
+      if (allFoundIndexes[0].length !== storedData[0].length) {
         return Promise.reject('Values not found!');
       }
 
-      if (allFoundIndexesInTable.length === 1) {
+      if (allFoundIndexes.length === 1) {
         return Promise.resolve();
       }
 
-      for (let index = 1; index < allFoundIndexesInTable.length; index++) {
-        if (JSON.stringify(allFoundIndexesInTable[index]) !== JSON.stringify(allFoundIndexesInTable[index - 1])) {
+      for (let index = 1; index < allFoundIndexes.length; index++) {
+        if (JSON.stringify(allFoundIndexes[index]) !== JSON.stringify(allFoundIndexes[index - 1])) {
           return Promise.reject('Arrays are different!');
         }
       }

@@ -20,6 +20,26 @@ Feature: Store table and compare jsons
             ]
             """
 
-    Scenario: Compare stored values with the content from a xlsx file
-        Given I store the content from "http://localhost:8080/xlsx-data" endpoint as "storedTable" variable
+    Scenario: Compare stored values with the content from a xlsx file - equal rows and four stored values
+        Given I store the content from "http://localhost:8080/xlsx/data-9rows" endpoint as "storedTable" variable
+        Then the file "example.xlsx" contains table data stored under "storedTable" variable
+
+    Scenario: Compare stored values with the content from a xlsx file - equal rows and one stored value
+        Given I store the content from "http://localhost:8080/xlsx/data-9rows-part" endpoint as "storedTable" variable
+        Then the file "example.xlsx" contains table data stored under "storedTable" variable
+
+    Scenario: Compare stored values with the content from a xlsx file - three rows and four stored values
+        Given I store the content from "http://localhost:8080/xlsx/data-3rows" endpoint as "storedTable" variable
+        Then the file "example.xlsx" contains table data stored under "storedTable" variable
+
+    Scenario: Compare stored values with the content from a xlsx file - three rows and two stored values
+        Given I store the content from "http://localhost:8080/xlsx/data-3rows-part" endpoint as "storedTable" variable
+        Then the file "example.xlsx" contains table data stored under "storedTable" variable
+
+    Scenario: Compare stored values with the content from a xlsx file - one row and four stored values
+        Given I store the content from "http://localhost:8080/xlsx/data-1row" endpoint as "storedTable" variable
+        Then the file "example.xlsx" contains table data stored under "storedTable" variable
+
+    Scenario: Compare stored values with the content from a xlsx file - one row and two stored values
+        Given I store the content from "http://localhost:8080/xlsx/data-1row-part" endpoint as "storedTable" variable
         Then the file "example.xlsx" contains table data stored under "storedTable" variable
