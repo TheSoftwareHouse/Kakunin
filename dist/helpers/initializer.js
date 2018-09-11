@@ -129,7 +129,7 @@ class Initializer {
       if (conf.email && conf.email.type === 'mailtrap') {
         conf.email = _extends({}, conf.email, {
           config: {
-            url: 'https://mailtrap.io/api/v1',
+            url: 'https://mailtrap.io',
             apiKey: '',
             inboxId: ''
           }
@@ -228,7 +228,7 @@ class Initializer {
       _this3.createProjectDirectory(config.transformers[0]);
       _this3.createProjectDirectory(config.emails[0]);
 
-      _this3.createTemplateFile(_path2.default.join(config.downloads, '/.gitkeep'), '');
+      _this3.createTemplateFile(_path2.default.join(config.downloads, '.gitkeep'), '');
       _this3.createTemplateFile(_path2.default.join(config.reports, 'report', '.gitkeep'), '');
       _this3.createTemplateFile(_path2.default.join(config.reports, 'report', 'features', '.gitkeep'), '');
       _this3.createTemplateFile(_path2.default.join(config.reports, 'performance', '.gitkeep'), '');

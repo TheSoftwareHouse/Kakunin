@@ -1,5 +1,5 @@
 # Kakunin - automated testing framework
-#### Migration to 2.0 version
+#### Migration to 2.0.0 version
 
 What needs to be done:
 1. Remove all locators from Page Objects
@@ -35,9 +35,9 @@ class ExamplePage extends BasePage {
   constructor() {
     super();
     this.isExternal = true;
-    
+
     this.url = '/';
-    
+
     this.selector = $('.some-class');
   }
 ```
@@ -48,9 +48,9 @@ needs to be changed to:
 class ExamplePage extends BasePage {
   constructor() {
     super();
-    
+
     this.url = '/';
-    
+
     this.selector = $('.some-class');
   }
 ```

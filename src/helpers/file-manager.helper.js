@@ -11,7 +11,7 @@ const FileManager = {
   },
 
   parseXLS: function (expectedFileName) {
-    return xlsx.parse(path.join(config.projectPath, config.downloads, expectedFileName)[0].data);
+    return xlsx.parse(path.join(config.projectPath, config.downloads, expectedFileName))[0].data;
   }
 };
 
