@@ -30,7 +30,7 @@ const FileManager = {
   },
 
   parseXLS: function (expectedFileName) {
-    return _nodeXlsx2.default.parse(_path2.default.join(_config2.default.projectPath, _config2.default.downloads, expectedFileName)[0].data);
+    return _nodeXlsx2.default.parse(_path2.default.join(_config2.default.projectPath, _config2.default.downloads, expectedFileName))[0].data;
   }
 };
 
