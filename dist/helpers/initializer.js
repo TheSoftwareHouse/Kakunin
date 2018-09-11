@@ -128,7 +128,7 @@ class Initializer {
       if (conf.email && conf.email.type === 'mailtrap') {
         conf.email = _extends({}, conf.email, {
           config: {
-            url: 'https://mailtrap.io/api/v1',
+            url: 'https://mailtrap.io',
             apiKey: '',
             inboxId: ''
           }
