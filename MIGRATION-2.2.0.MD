@@ -1,5 +1,5 @@
 # Kakunin - automated testing framework
-#### Migration to 2.2 version
+#### Migration to 2.2.0 version
 
 What needs to be done:
 1. If you are using MailTrap client to tests emails.
