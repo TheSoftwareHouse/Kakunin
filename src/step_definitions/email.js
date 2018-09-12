@@ -74,6 +74,14 @@ defineSupportCode(function ({ Then }) {
     return filteredEmails;
   }
 
+  function rejectIfEmailFound(filteredEmails) {
+    if (filteredEmails.length > 0) {
+      return Promise.reject('Email has been found!');
+    }
+
+    return filteredEmails;
+  }
+
   function validateEmailDate(filteredEmails) {
     if (filteredEmails.length === 1) {
       if (sugar.Date.minutesFromNow(sugar.Date.create(filteredEmails[0].created_at)) < -10) {
@@ -106,7 +114,7 @@ defineSupportCode(function ({ Then }) {
     config.maxEmailRepeats === undefined ? maxRepeats = 5 : maxRepeats;
 
     const interval = setInterval(() => {
-      console.log('Checking mailbox for email...');
+      console.log(`Checking mailbox for email... ${maxRepeats} left`);
 
       emailService.getEmails()
         .then((emails) => filterEmails.call(self, emails, data))
@@ -116,6 +124,23 @@ defineSupportCode(function ({ Then }) {
         .then((filteredEmails) => validateEmailContentAndAttachments(filteredEmails, data, interval, sync))
         .then(() => maxRepeats--)
         .catch((err) => stopInterval(interval, sync.bind(null, err)));
+    }, timeout);
+  });
+
+  Then(/^the email with the following data has not been sent:$/, function (data, sync) {
+    const self = this;
+    const timeout = parseInt(config.intervalEmail) * 1000;
+    let maxRepeats = 5;
+
+    const interval = setInterval(() => {
+      console.log(`Checking mailbox for email... ${maxRepeats} left`);
+
+      emailService.getEmails()
+        .then(emails => filterEmails.call(self, emails, data))
+        .then(filteredEmails => rejectIfEmailFound(filteredEmails))
+        .then(filteredEmails => rejectIfMaxRepeatsReached(filteredEmails, maxRepeats, interval, sync))
+        .then(() => maxRepeats--)
+        .catch(err => err === 'No emails found and maximum repeats reached' ? stopInterval(interval, sync) : stopInterval(interval, sync.bind(null, err)));
     }, timeout);
   });
 });
