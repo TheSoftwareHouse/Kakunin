@@ -121,7 +121,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
     _config2.default.maxEmailRepeats === undefined ? maxRepeats = 5 : maxRepeats;
 
     const interval = setInterval(() => {
-      console.log(`Checking mailbox for email... ${maxRepeats} left`);
+      console.log('Checking mailbox for email...');
 
       _emails.emailService.getEmails().then(emails => filterEmails.call(self, emails, data)).then(filteredEmails => rejectIfMaxRepeatsReached(filteredEmails, maxRepeats)).then(filteredEmails => rejectIfMoreThanOneEmailFound(filteredEmails)).then(filteredEmails => validateEmailDate(filteredEmails)).then(filteredEmails => validateEmailContentAndAttachments(filteredEmails, data, interval, sync)).then(() => maxRepeats--).catch(err => stopInterval(interval, sync.bind(null, err)));
     }, timeout);
@@ -133,9 +133,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
     let maxRepeats = 5;
 
     const interval = setInterval(() => {
-      console.log(`Checking mailbox for email... ${maxRepeats} left`);
+      console.log('Checking mailbox for email...');
 
-      _emails.emailService.getEmails().then(emails => filterEmails.call(self, emails, data)).then(filteredEmails => rejectIfEmailFound(filteredEmails)).then(filteredEmails => rejectIfMaxRepeatsReached(filteredEmails, maxRepeats, interval, sync)).then(() => maxRepeats--).catch(err => err === 'No emails found and maximum repeats reached' ? stopInterval(interval, sync) : stopInterval(interval, sync.bind(null, err)));
+      _emails.emailService.getEmails().then(emails => filterEmails.call(self, emails, data)).then(filteredEmails => rejectIfEmailFound(filteredEmails)).then(filteredEmails => rejectIfMaxRepeatsReached(filteredEmails, maxRepeats)).then(() => maxRepeats--).catch(err => err === 'No emails found and maximum repeats reached' ? stopInterval(interval, sync) : stopInterval(interval, sync.bind(null, err)));
     }, timeout);
   });
 });

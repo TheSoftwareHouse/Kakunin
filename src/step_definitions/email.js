@@ -114,7 +114,7 @@ defineSupportCode(function ({ Then }) {
     config.maxEmailRepeats === undefined ? maxRepeats = 5 : maxRepeats;
 
     const interval = setInterval(() => {
-      console.log(`Checking mailbox for email... ${maxRepeats} left`);
+      console.log('Checking mailbox for email...');
 
       emailService.getEmails()
         .then((emails) => filterEmails.call(self, emails, data))
@@ -133,12 +133,12 @@ defineSupportCode(function ({ Then }) {
     let maxRepeats = 5;
 
     const interval = setInterval(() => {
-      console.log(`Checking mailbox for email... ${maxRepeats} left`);
+      console.log('Checking mailbox for email...');
 
       emailService.getEmails()
         .then(emails => filterEmails.call(self, emails, data))
         .then(filteredEmails => rejectIfEmailFound(filteredEmails))
-        .then(filteredEmails => rejectIfMaxRepeatsReached(filteredEmails, maxRepeats, interval, sync))
+        .then(filteredEmails => rejectIfMaxRepeatsReached(filteredEmails, maxRepeats))
         .then(() => maxRepeats--)
         .catch(err => err === 'No emails found and maximum repeats reached' ? stopInterval(interval, sync) : stopInterval(interval, sync.bind(null, err)));
     }, timeout);
