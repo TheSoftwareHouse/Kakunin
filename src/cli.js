@@ -12,7 +12,7 @@ envfile(process.cwd() + '/.env', { raise: false, overwrite: false });
 
 if (isInitCommand(process.argv)) {
   (async () => {
-    await initializer.initConfig(commandArgs.advanced);
+    await initializer.initConfig(commandArgs);
     await initializer.generateProjectStructure();
   })();
 } else {

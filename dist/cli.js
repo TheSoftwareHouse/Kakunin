@@ -21,7 +21,7 @@ envfile(process.cwd() + '/.env', { raise: false, overwrite: false });
 
 if ((0, _cli.isInitCommand)(process.argv)) {
   _asyncToGenerator(function* () {
-    yield _initializer2.default.initConfig(commandArgs.advanced);
+    yield _initializer2.default.initConfig(commandArgs);
     yield _initializer2.default.generateProjectStructure();
   })();
 } else {

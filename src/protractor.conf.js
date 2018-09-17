@@ -1,6 +1,5 @@
 require('./helpers/prototypes');
 const path = require('path');
-const fs = require('fs');
 const chai = require('chai');
 const modulesLoader = require('./helpers/modules-loader.helper.js').create();
 const { deleteReports } = require('./helpers/delete-files.helper');
