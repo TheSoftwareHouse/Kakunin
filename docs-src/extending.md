@@ -65,7 +65,7 @@ It is a good practice to save a current user in `this.currentUser` variable for 
 
 In order to add a custom step, you have to create inside of a directory specified as `step_definitions` in kakunin configuration file `default: /step_definitions`.
 
-We're using `cucumber-js 2.X` so in order to add custom step you have to use `defineSupportCode` method like this:
+We're using `cucumber-js 4.X` so in order to add custom step you have to use `defineSupportCode` method like this:
 
 ```javascript
   const { defineSupportCode } = require('kakunin');
@@ -110,7 +110,13 @@ class MyMatcher {
   }
  
   match(protractorElement, matcherName) {
-    return protractorElement.getText().then((value) => value === 'pending'); 
+    return protractorElement.getText().then((value) => {
+      if (value === 'pending') {
+        return true;
+      }
+      
+      return Promise.reject(`Matcher "MyMatcher" could not match value on element "${protractorElement.locator()}". Expected: "pending", given: "${value}"`);
+    }); 
   }
 }
 

@@ -67,7 +67,7 @@ class Initializer {
     })();
   }
 
-  initConfig(advancedConfiguration = false) {
+  initConfig(commandArgs) {
     var _this = this;
 
     return _asyncToGenerator(function* () {
@@ -76,6 +76,7 @@ class Initializer {
         browserHeight: 900,
         timeout: 60,
         intervalEmail: 5,
+        maxEmailRepeats: 5,
         elementsVisibilityTimeout: 5,
         waitForPageTimeout: 5,
         downloadTimeout: 30,
@@ -102,28 +103,43 @@ class Initializer {
         noGpu: false
       };
 
-      yield _inquirer2.default.prompt([{
-        type: 'rawlist',
-        name: 'type',
-        message: 'What kind of application would you like to test?',
-        choices: [{ name: 'Angular 1', value: 'ng1' }, { name: 'Angular 2', value: 'ng2' }, { name: 'Other web app (e.g. React, jQuery based etc.)', value: 'otherWeb' }]
-      }]).then(function (answer) {
-        conf.type = answer.type;
-      });
+      if (typeof commandArgs.type === 'undefined') {
+        yield _inquirer2.default.prompt([{
+          type: 'rawlist',
+          name: 'type',
+          message: 'What kind of application would you like to test?',
+          choices: [{ name: 'Angular 1', value: 'ng1' }, { name: 'Angular 2', value: 'ng2' }, { name: 'Other web app (e.g. React, jQuery based etc.)', value: 'otherWeb' }]
+        }]).then(function (answer) {
+          conf.type = answer.type;
+        });
+      } else {
+        conf.type = commandArgs.type;
+      }
 
-      conf.baseUrl = yield _this.promptFolders('What is base url?', 'http://localhost:3000');
-      yield _inquirer2.default.prompt([{
-        type: 'rawlist',
-        name: 'type',
-        message: 'What kind of email service would you like to use?',
-        choices: [{ name: 'None', value: 'none' }, { name: 'Custom (you will have to fill configuration on your own)', value: 'custom' }, { name: 'MailTrap', value: 'mailtrap' }]
-      }]).then(function (answer) {
-        if (answer.type !== 'none') {
-          conf.email = {
-            type: answer.type
-          };
-        }
-      });
+      if (typeof commandArgs.baseUrl === 'undefined') {
+        conf.baseUrl = yield _this.promptFolders('What is base url?', 'http://localhost:3000');
+      } else {
+        conf.baseUrl = commandArgs.baseUrl;
+      }
+
+      if (typeof commandArgs.emailType === 'undefined') {
+        yield _inquirer2.default.prompt([{
+          type: 'rawlist',
+          name: 'type',
+          message: 'What kind of email service would you like to use?',
+          choices: [{ name: 'None', value: 'none' }, { name: 'Custom (you will have to fill configuration on your own)', value: 'custom' }, { name: 'MailTrap', value: 'mailtrap' }]
+        }]).then(function (answer) {
+          if (answer.type !== 'none') {
+            conf.email = {
+              type: answer.type
+            };
+          }
+        });
+      } else {
+        conf.email = {
+          type: commandArgs.emailType
+        };
+      }
 
       if (conf.email && conf.email.type === 'mailtrap') {
         conf.email = _extends({}, conf.email, {
@@ -134,17 +150,27 @@ class Initializer {
           }
         });
 
-        conf.email.config.apiKey = yield _this.promptFolders('Type in your mailtrap apikey:', conf.email.config.apiKey);
-        conf.email.config.inboxId = yield _this.promptFolders('Type in your mailtrap inboxId:', conf.email.config.inboxId);
+        if (typeof commandArgs.emailApiKey === 'undefined') {
+          conf.email.config.apiKey = yield _this.promptFolders('Type in your mailtrap apikey:', conf.email.config.apiKey);
+        } else {
+          conf.email.config.apiKey = commandArgs.emailApiKey;
+        }
+
+        if (typeof commandArgs.emailInboxId === 'undefined') {
+          conf.email.config.inboxId = yield _this.promptFolders('Type in your mailtrap inboxId:', conf.email.config.inboxId);
+        } else {
+          conf.email.config.inboxId = commandArgs.emailInboxId;
+        }
       }
 
-      if (advancedConfiguration) {
+      if (commandArgs.advanced) {
         yield _this.initEnv();
         conf.browserWidth = parseInt((yield _this.promptFolders('What is desired browser width?', conf.browserWidth)));
         conf.browserHeight = parseInt((yield _this.promptFolders('What is desired browser height?', conf.browserHeight)));
 
         conf.timeout = parseInt((yield _this.promptFolders('What is desired step timeout in seconds?', conf.timeout)));
         conf.intervalEmail = parseInt((yield _this.promptFolders('What is desired step email interval in seconds?', conf.intervalEmail)));
+        conf.maxEmailRepeats = parseInt((yield _this.promptFolders('How many times emails should be checked - maximum repeats?', conf.maxEmailRepeats)));
         conf.elementsVisibilityTimeout = parseInt((yield _this.promptFolders('What is desired elements visibility timeout in seconds?', conf.elementsVisibilityTimeout)));
         conf.waitForPageTimeout = parseInt((yield _this.promptFolders('How long should I wait for page to load in seconds?', conf.waitForPageTimeout)));
         conf.downloadTimeout = parseInt((yield _this.promptFolders('How long should I wait for files to download in seconds?', conf.downloadTimeout)));

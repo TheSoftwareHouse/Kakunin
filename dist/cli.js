@@ -5,6 +5,8 @@ var _initializer = require('./helpers/initializer');
 
 var _initializer2 = _interopRequireDefault(_initializer);
 
+var _cli = require('./helpers/cli.helper');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
@@ -15,61 +17,17 @@ const child_process = require('child_process');
 const envfile = require('node-env-file');
 const os = require('os');
 
-const isInitCommand = () => {
-  return process.argv.length > 2 && process.argv[2] === 'init';
-};
-
-const getConfigPath = () => {
-  const configFile = 'kakunin.conf.js';
-
-  return commandArgs.config ? process.cwd() + '/' + commandArgs.config : process.cwd() + '/' + configFile;
-};
-
-const getScenariosTags = () => {
-  const tags = [];
-
-  if (commandArgs.performance) {
-    if (commandArgs.tags !== undefined && commandArgs.tags.indexOf('@performance') < 0) {
-      tags.push('--cucumberOpts.tags');
-      tags.push(`${commandArgs.tags} and @performance`);
-    } else if (commandArgs.tags === undefined) {
-      tags.push('--cucumberOpts.tags');
-      tags.push('@performance');
-    } else {
-      tags.push('--cucumberOpts.tags');
-      tags.push(commandArgs.tags);
-    }
-  } else if (commandArgs.tags !== undefined) {
-    tags.push('--cucumberOpts.tags');
-    tags.push(commandArgs.tags);
-  }
-
-  return tags;
-};
-
 envfile(process.cwd() + '/.env', { raise: false, overwrite: false });
 
-if (isInitCommand()) {
+if ((0, _cli.isInitCommand)(process.argv)) {
   _asyncToGenerator(function* () {
-    yield _initializer2.default.initConfig(commandArgs.advanced);
+    yield _initializer2.default.initConfig(commandArgs);
     yield _initializer2.default.generateProjectStructure();
   })();
 } else {
   const optionsToFilter = ['config', 'projectPath', 'disableChecks', 'tags'];
 
-  const commandLineArgs = [];
-
-  for (const prop in commandArgs) {
-    if (prop !== '_' && !optionsToFilter.includes(prop)) {
-      if (commandArgs[prop] === true || commandArgs[prop] === false) {
-        commandLineArgs.push(`--${prop}`);
-      } else {
-        commandLineArgs.push(`--${prop}=${commandArgs[prop]}`);
-      }
-    }
-  }
-
-  const argv = ['./node_modules/kakunin/dist/protractor.conf.js', `--config=${getConfigPath()}`, `--projectPath=${process.cwd()}`, '--disableChecks', ...getScenariosTags(), ...commandLineArgs];
+  const argv = ['./node_modules/kakunin/dist/protractor.conf.js', `--config=${(0, _cli.getConfigPath)('kakunin.conf.js', commandArgs.config, process.cwd())}`, `--projectPath=${process.cwd()}`, '--disableChecks', ...(0, _cli.createTagsCLIArgument)(commandArgs), ...(0, _cli.filterCLIArguments)(optionsToFilter)(commandArgs)];
 
   const protractorExecutable = os.platform() === 'win32' ? 'protractor.cmd' : 'protractor';
 

@@ -1,10 +1,9 @@
 import { currentDateMatcher } from './currentDate.matcher';
 import moment from 'moment';
-import { expect } from 'chai';
 
 describe('Current Date matcher', () => {
   it('is satisfied when the prefix and the name are correct', () => {
-    expect(currentDateMatcher.isSatisfiedBy('f', 'currentDate')).to.equal(true);
+    expect(currentDateMatcher.isSatisfiedBy('f', 'currentDate')).toEqual(true);
   });
 
   it('is not satisfied when unsupported parameters are given', () => {
@@ -14,17 +13,17 @@ describe('Current Date matcher', () => {
     ];
     incorrectParameters.forEach((parameter) => expect(
       currentDateMatcher.isSatisfiedBy(parameter.prefix, parameter.name)).
-      to.
-      equal(false));
+      toEqual(false));
   });
 
   it('returns true when the date is matched', (done) => {
     const elementMocked = {
       getText: () => Promise.resolve(moment(new Date())),
+      locator: () => 'some-locator'
     };
 
     currentDateMatcher.match(elementMocked).then((result) => {
-      expect(result).to.equal(true);
+      expect(result).toEqual(true);
       done();
     });
   });
@@ -32,42 +31,43 @@ describe('Current Date matcher', () => {
   it('returns true when the date with slashes is matched', (done) => {
     const elementMocked = {
       getText: () => Promise.resolve(moment(new Date()).format('MM/DD/YYYY')),
+      locator: () => 'some-locator'
     };
 
     currentDateMatcher.match(elementMocked, null, 'MM/DD/YYYY').then((result) => {
-      expect(result).to.equal(true);
+      expect(result).toEqual(true);
       done();
     });
   });
 
-  it('returns false when the text date is not matched', (done) => {
+  it('returns rejected promise when the text date is not matched', (done) => {
     const elementMocked = {
       getText: () => Promise.resolve('Yesterday'),
+      locator: () => 'some-locator'
     };
 
-    currentDateMatcher.match(elementMocked).then((result) => {
-      expect(result).to.equal(false);
+    currentDateMatcher.match(elementMocked).catch((err) => {
       done();
     });
   });
-  it('returns false when the date is not matched', (done) => {
+  it('returns rejected promise when the date is not matched', (done) => {
     const elementMocked = {
       getText: () => Promise.resolve('1900-01-01'),
+      locator: () => 'some-locator'
     };
 
-    currentDateMatcher.match(elementMocked).then((result) => {
-      expect(result).to.equal(false);
+    currentDateMatcher.match(elementMocked).catch((err) => {
       done();
     });
   });
 
-  it('returns false when the date is incorrect', (done) => {
+  it('returns rejected promise when the date is incorrect', (done) => {
     const elementMocked = {
       getText: () => Promise.resolve('1900-01-1900'),
+      locator: () => 'some-locator'
     };
 
-    currentDateMatcher.match(elementMocked).then((result) => {
-      expect(result).to.equal(false);
+    currentDateMatcher.match(elementMocked).catch((err) => {
       done();
     });
   });

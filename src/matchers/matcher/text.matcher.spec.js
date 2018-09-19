@@ -1,33 +1,33 @@
 import { textMatcher } from './text.matcher';
-import { expect } from 'chai';
 
 describe('Text matcher', () => {
   it('is satisfied when the prefix is correct', () => {
-    expect(textMatcher.isSatisfiedBy('t')).to.equal(true);
+    expect(textMatcher.isSatisfiedBy('t')).toEqual(true);
   });
 
   it('is not satisfied when the prefix is incorrect', () => {
-    expect(textMatcher.isSatisfiedBy('r')).to.equal(false);
+    expect(textMatcher.isSatisfiedBy('r')).toEqual(false);
   });
 
   it('returns true when the text is matched', (done) => {
     const elementMocked = {
-      getText: () => Promise.resolve('this string contains message')
+      getText: () => Promise.resolve('this string contains message'),
+      locator: () => 'some-locator'
     };
 
     textMatcher.match(elementMocked, 'message').then((result) => {
-      expect(result).to.equal(true);
+      expect(result).toEqual(true);
       done();
     });
   });
 
-  it('returns false when the text is not matched', (done) => {
+  it('returns rejected promise when the text is not matched', (done) => {
     const elementMocked = {
-      getText: () => Promise.resolve('missing expected value in string')
+      getText: () => Promise.resolve('missing expected value in string'),
+      locator: () => 'some-locator'
     };
 
-    textMatcher.match(elementMocked, 'message').then((result) => {
-      expect(result).to.equal(false);
+    textMatcher.match(elementMocked, 'message').catch((err) => {
       done();
     });
   });

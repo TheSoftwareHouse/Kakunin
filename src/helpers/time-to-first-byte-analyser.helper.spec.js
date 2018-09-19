@@ -1,5 +1,4 @@
 import { create as createAnalyser } from './time-to-first-byte-analyser.helper';
-import { expect } from 'chai';
 
 const myFakeParser = {
   parse: () => {
@@ -16,7 +15,7 @@ describe('Time to first byte analyser', () => {
   it('returns found slow request', () => {
     const maxTiming = 1; // value to be compared with TTFB
 
-    expect(analyser.checkTiming(myFakeParser, maxTiming)).to.eql([
+    expect(analyser.checkTiming(myFakeParser, maxTiming)).toEqual([
       {ttfb: 2, url: 'http://localhost:8080/assets/kittens.jpg'},
       {ttfb: 2, url: 'http://localhost:8080/tabular-data'}]);
   });
@@ -24,6 +23,6 @@ describe('Time to first byte analyser', () => {
   it('returns empty array - no slow requests', () => {
     const maxTiming = 1000; // bigger than the highest request's TTFB value
 
-    expect(analyser.checkTiming(myFakeParser, maxTiming)).to.eql([]);
+    expect(analyser.checkTiming(myFakeParser, maxTiming)).toEqual([]);
   });
 });

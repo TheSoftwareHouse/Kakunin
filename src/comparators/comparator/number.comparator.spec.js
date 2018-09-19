@@ -1,5 +1,4 @@
 import { NumberComparator } from './number.comparator';
-import { expect } from 'chai';
 
 describe('Number comparator', () => {
   it('is satisfied by numbers', () => {
@@ -9,7 +8,7 @@ describe('Number comparator', () => {
       '0.3'
     ];
 
-    expect(NumberComparator.isSatisfiedBy(numbers)).to.equal(true);
+    expect(NumberComparator.isSatisfiedBy(numbers)).toEqual(true);
   });
 
   it('supports only specified number records', () => {
@@ -18,7 +17,7 @@ describe('Number comparator', () => {
       '12-12-2017'
     ];
 
-    numbers.forEach((number) => expect(NumberComparator.isSatisfiedBy([number])).to.equal(false));
+    numbers.forEach((number) => expect(NumberComparator.isSatisfiedBy([number])).toEqual(false));
   });
 
   it('it returns resolved promise if numbers are in ascending order', (done) => {

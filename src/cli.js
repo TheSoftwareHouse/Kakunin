@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import initializer from './helpers/initializer';
+import { isInitCommand, getConfigPath, createTagsCLIArgument, filterCLIArguments } from './helpers/cli.helper';
 
 const commandArgs = require('minimist')(process.argv.slice(2));
 const path = require('path');
@@ -7,69 +8,23 @@ const child_process = require('child_process');
 const envfile = require('node-env-file');
 const os = require('os');
 
-const isInitCommand = () => {
-  return process.argv.length > 2 && process.argv[2] === 'init';
-};
-
-const getConfigPath = () => {
-  const configFile = 'kakunin.conf.js';
-
-  return (commandArgs.config)
-    ? process.cwd() + '/' + commandArgs.config
-    : process.cwd() + '/' + configFile;
-};
-
-const getScenariosTags = () => {
-  const tags = [];
-
-  if (commandArgs.performance) {
-    if (commandArgs.tags !== undefined && commandArgs.tags.indexOf('@performance') < 0) {
-      tags.push('--cucumberOpts.tags');
-      tags.push(`${commandArgs.tags} and @performance`);
-    } else if (commandArgs.tags === undefined) {
-      tags.push('--cucumberOpts.tags');
-      tags.push('@performance');
-    } else {
-      tags.push('--cucumberOpts.tags');
-      tags.push(commandArgs.tags);
-    }
-  } else if (commandArgs.tags !== undefined) {
-    tags.push('--cucumberOpts.tags');
-    tags.push(commandArgs.tags);
-  }
-
-  return tags;
-};
-
 envfile(process.cwd() + '/.env', { raise: false, overwrite: false });
 
-if (isInitCommand()) {
+if (isInitCommand(process.argv)) {
   (async () => {
-    await initializer.initConfig(commandArgs.advanced);
+    await initializer.initConfig(commandArgs);
     await initializer.generateProjectStructure();
   })();
 } else {
   const optionsToFilter = ['config', 'projectPath', 'disableChecks', 'tags'];
 
-  const commandLineArgs = [];
-
-  for (const prop in commandArgs) {
-    if (prop !== '_' && !optionsToFilter.includes(prop)) {
-      if (commandArgs[prop] === true || commandArgs[prop] === false) {
-        commandLineArgs.push(`--${prop}`);
-      } else  {
-        commandLineArgs.push(`--${prop}=${commandArgs[prop]}`);
-      }
-    }
-  }
-
   const argv = [
     './node_modules/kakunin/dist/protractor.conf.js',
-    `--config=${getConfigPath()}`,
+    `--config=${getConfigPath('kakunin.conf.js', commandArgs.config, process.cwd())}`,
     `--projectPath=${process.cwd()}`,
     '--disableChecks',
-    ...getScenariosTags(),
-    ...commandLineArgs
+    ...createTagsCLIArgument(commandArgs),
+    ...filterCLIArguments(optionsToFilter)(commandArgs)
   ];
 
   const protractorExecutable = os.platform() === 'win32' ? 'protractor.cmd' : 'protractor';

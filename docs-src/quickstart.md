@@ -64,8 +64,6 @@ And you're set! Now let's write some test!
 1. Create a page object that will contain instructions on how to locate elements in the projects.
 Create a file `pages/main.js`:
 ```javascript
-'use strict';
-
 const { BasePage } = require('kakunin');
 
 class MainPage extends BasePage {

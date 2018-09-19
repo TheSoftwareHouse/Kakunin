@@ -6,10 +6,29 @@ import config from '../helpers/config.helper';
 import chalk from 'chalk';
 import { waitForCondition } from '../helpers/wait-for-condition.helper';
 
+const timeout = parseInt(config.elementsVisibilityTimeout) * 1000;
+
+const handlePromises = (hashedData, onSuccess, onReject) => resolvedPromises => {
+  for (let i = 0; i < resolvedPromises.length; i += hashedData.length) {
+    let allFieldsMatching = true;
+
+    for (let j = i; j < i + hashedData.length; j++) {
+      if (resolvedPromises[j] === false) {
+        allFieldsMatching = false;
+        break;
+      }
+    }
+
+    if (allFieldsMatching) {
+      return onSuccess();
+    }
+  }
+
+  return onReject();
+};
+
 defineSupportCode(function ({ When, Then }) {
   When(/^I wait for "([^"]*)" of the "([^"]*)" element$/, function (condition, elementName) {
-    const timeout = parseInt(config.elementsVisibilityTimeout) * 1000;
-
     if (this.currentPage[elementName] instanceof protractor.ElementArrayFinder) {
       return waitForCondition(condition, timeout)(this.currentPage[elementName].first());
     }
@@ -28,8 +47,14 @@ defineSupportCode(function ({ When, Then }) {
     .then(() => this.currentPage.scrollIntoElement(elementName))
     .then(() => this.currentPage.click(elementName))
     .catch(error => {
+      return waitForCondition('elementToBeClickable', timeout)(this.currentPage[elementName])
+        .then(() => this.currentPage.click(elementName));
+    })
+    .catch(error => {
       console.warn('Warning! Element was not clickable. We need to scroll it down.');
-      return browser.executeScript('window.scrollBy(0,50);').then(() => this.currentPage.click(elementName));
+      return browser.executeScript('window.scrollBy(0,50);')
+        .then(() => this.currentPage.waitForVisibilityOf(elementName))
+        .then(() => this.currentPage.click(elementName));
     })
     .catch(error => {
       return Promise.reject(`Error, after scrolling the element "${elementName}" is still not clickable.`);
@@ -170,7 +195,7 @@ defineSupportCode(function ({ When, Then }) {
               if (hash.hasOwnProperty(prop)) {
                 const propValue = hash[prop];
 
-                promises.push(expect(matchers.match(element.element(self.currentPage[prop].locator()), variableStore.replaceTextVariables(propValue))).to.eventually.be.true);
+                promises.push(matchers.match(element.element(self.currentPage[prop].locator()), variableStore.replaceTextVariables(propValue)));
               }
             }
           }).then(function() {
@@ -201,13 +226,6 @@ defineSupportCode(function ({ When, Then }) {
                 element.element(self.currentPage[hash[0]].locator()),
                 variableStore.replaceTextVariables(hash[1])
               )
-                .then((result) => {
-                  if (result) {
-                    return Promise.resolve();
-                  }
-
-                  return Promise.reject(`Expected element "${hash[0]}" to match matcher "${hash[1]}"`);
-                })
             );
           });
         }).then(function () {
@@ -232,8 +250,9 @@ defineSupportCode(function ({ When, Then }) {
     const pageElement = this.currentPage[elementName];
 
     return matchers.match(pageElement, variableStore.replaceTextVariables(value)).then(function (matcherResult) {
-      return expect(matcherResult).to.be.false;
-    });
+      return expect(matcherResult).to.not.be.true;
+    })
+      .catch(() => Promise.resolve());
   });
 
   function checkNumberOfElements(numberExpression, element) {
@@ -288,30 +307,17 @@ defineSupportCode(function ({ When, Then }) {
       return allElements.each(function (element) {
         hashedData.forEach(function (hash) {
           promises.push(matchers.match(
-            element.element(self.currentPage[hash[0]].locator()),
-            variableStore.replaceTextVariables(hash[1]))
+              element.element(self.currentPage[hash[0]].locator()),
+              variableStore.replaceTextVariables(hash[1])
+            )
+              .catch(() => false)
           );
         });
       });
     }).then(function () {
-      return Promise.all(promises).then(function (resolvedPromises) {
-        for (let i = 0; i < resolvedPromises.length; i += hashedData.length) {
-          let allFieldsMatching = true;
-
-          for (let j = i; j < i + hashedData.length; j++) {
-            if (resolvedPromises[j] === false) {
-              allFieldsMatching = false;
-              break;
-            }
-          }
-
-          if (allFieldsMatching) {
-            return Promise.resolve();
-          }
-        }
-
-        return Promise.reject('No matching element has been found.');
-      });
+      return Promise.all(promises).then(
+        handlePromises(hashedData, () => Promise.resolve(), () => Promise.reject('No matching element has been found.'))
+      )
     });
   });
 
@@ -329,29 +335,16 @@ defineSupportCode(function ({ When, Then }) {
     return allElements.each(function (element) {
       hashedData.forEach(function (hash) {
         promises.push(matchers.match(
-          element.element(self.currentPage[hash[0]].locator()),
-          variableStore.replaceTextVariables(hash[1]))
+            element.element(self.currentPage[hash[0]].locator()),
+            variableStore.replaceTextVariables(hash[1])
+          )
+            .catch(() => false)
         );
       });
     }).then(function () {
-      return Promise.all(promises).then(function (resolvedPromises) {
-        for (let i = 0; i < resolvedPromises.length; i += hashedData.length) {
-          let allFieldsMatching = true;
-
-          for (let j = i; j < i + hashedData.length; j++) {
-            if (resolvedPromises[j] === false) {
-              allFieldsMatching = false;
-              break;
-            }
-          }
-
-          if (allFieldsMatching) {
-            return Promise.reject('Matching element has been found');
-          }
-        }
-
-        return Promise.resolve();
-      });
+      return Promise.all(promises).then(
+        handlePromises(hashedData, () => Promise.reject('Matching element has been found'), () => Promise.resolve())
+      )
     });
   });
 

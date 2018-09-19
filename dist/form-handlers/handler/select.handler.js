@@ -8,7 +8,7 @@ class SelectHandler {
     this.optionsSelector = by.css('option');
   }
 
-  isSatisfiedBy(element, elementName) {
+  isSatisfiedBy(element) {
     return element.getTagName().then(function (tagName) {
       return tagName === 'select';
     });

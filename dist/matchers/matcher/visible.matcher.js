@@ -9,7 +9,9 @@ class VisibleMatcher {
   }
 
   match(element) {
-    return element.isDisplayed().then(() => true).catch(() => false);
+    return element.isDisplayed().then(() => true).catch(() => Promise.reject(`
+      Matcher "VisibleMatcher" could not find element "${element.locator()}".
+    `));
   }
 }
 

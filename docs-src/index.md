@@ -38,7 +38,7 @@ Inside `package.json` file; add new script in `scripts` section:
 
 ## Configuration
 
-* Create kakunin project 
+* Create kakunin project
 ```bash
 npm run kakunin init
 ```
@@ -46,6 +46,49 @@ The above command will run Kakunin's init script.
 * Answer what kind of app you're going to test (`default: AngularJS`)
 * Enter URL where your tested app will be running (`default: http://localhost:3000`)
 * Choose if you plan to use some emails checking service (`default: none`)
+
+Also, there is a possibility to answer these question by a command line.
+```bash
+npm run kakunin init -- --baseUrl https://google.com --type otherWeb --emailType none
+```
+Available parameters: `baseUrl`, `type`, `emailType`, `emailApiKey`, `emailInboxId`.
+You will not be asked about question that you already answered by a command.
+
+After the init process, a project files should be automatically created in your directory.
+
+This is an example of a console output after the init process is completed:
+```bash
+Created file at path /Users/example-user/projects/test/kakunin.conf.js
+Created directory at path /Users/<user>/TSHProjects/test/reports
+Created directory at path /Users/<user>/TSHProjects/test/reports/report
+Created directory at path /Users/<user>/TSHProjects/test/reports/report/features
+Created directory at path /Users/<user>/TSHProjects/test/reports/performance
+Created directory at path /Users/<user>/TSHProjects/test/downloads
+Created directory at path /Users/example-user/projects/test/data
+Created directory at path /Users/example-user/projects/test/features
+Created directory at path /Users/example-user/projects/test/pages
+Created directory at path /Users/example-user/projects/test/matchers
+Created directory at path /Users/example-user/projects/test/generators
+Created directory at path /Users/example-user/projects/test/form_handlers
+Created directory at path /Users/example-user/projects/test/step_definitions
+Created directory at path /Users/example-user/projects/test/comparators
+Created directory at path /Users/example-user/projects/test/dictionaries
+Created directory at path /Users/example-user/projects/test/regexes
+Created directory at path /Users/example-user/projects/test/hooks
+Created directory at path /Users/example-user/projects/test/transformers
+Created directory at path /Users/example-user/projects/test/emails
+Created file at path /Users/example-user/projects/test/downloads/.gitkeep
+Created file at path /Users/example-user/projects/test/reports/report/.gitkeep
+Created file at path /Users/example-user/projects/test/reports/report/features/.gitkeep
+Created file at path /Users/example-user/projects/test/reports/performance/.gitkeep
+Created file at path /Users/example-user/projects/test/features/example.feature
+Created file at path /Users/example-user/projects/test/pages/page.js
+Created file at path /Users/example-user/projects/test/matchers/matcher.js
+Created file at path /Users/example-user/projects/test/generators/generator.js
+Created file at path /Users/example-user/projects/test/step_definitions/steps.js
+Created file at path /Users/example-user/projects/test/regexes/regex.js
+Created file at path /Users/example-user/projects/test/hooks/hook.js
+```
 
 And you're set! Now you can run the tests using Kakunin:
 

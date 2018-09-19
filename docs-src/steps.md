@@ -30,15 +30,15 @@ this will result in visiting the `/orders/1/product/2` page.
 
 ### `the ":pageFileName" page is displayed`
 
-Checks if current browser url matches url of `pageFileName` page object. 
+Checks if current browser url matches url of `pageFileName` page object.
 
-If the url matches expected pattern then 
+If the url matches expected pattern then
 `this.currentPage` variable is set to `pageFileName` page object.
 
 ##Forms
 ###`I fill the ":formName" form with:`
 
-Allows to fill the form with the name `:formName` and values provided as an array of inputs and values. The element with name `:formName` must be defined inside the 
+Allows to fill the form with the name `:formName` and values provided as an array of inputs and values. The element with name `:formName` must be defined inside the
 `currentPage` page object.
 
 Input and values should be provided as an array for example:
@@ -83,7 +83,7 @@ Checkbox should have a html like:
 <label>
   My checkbox
   <input type="checkbox" name="some-name"/>
-</label>  
+</label>
 ```
 
 `this.element = $$('checkbox[name="name-of-radio"]')` - element should be an array of all checkboxes of given name and value should be a text from label of checkbox you want to fill
@@ -106,7 +106,7 @@ You can use a special handler that requires to set a element with a postfix `Upl
 
 For example you can write a step like this:
 
-```gherkin 
+```gherkin
 the "myform" form is filled with:
   | myFileUploaded | file.txt |
 ```
@@ -115,13 +115,13 @@ Keep in mind that the element name must end with `Uploaded` for example:
 
 `this.myFileUploaded = $('p.some-file')`
 
-###`the error messages should be displayed:` 
+###`the error messages should be displayed:`
 
 Allows you to specify the error messages that should be displayed for a specific elements.
 
 This step requires an array of format:
 
-```gherkin 
+```gherkin
 the error messages should be displayed:
   | myElement | my error message |
 ```
@@ -136,7 +136,7 @@ the error messages should be displayed:
 ##Elements
 ###`I infinitely scroll to the ":elementName" element`
 
-Allows to scroll through infinite scroll mechanism. 
+Allows to scroll through infinite scroll mechanism.
 
 The `:elementName` is a name of a selector for loading trigger.
 
@@ -217,7 +217,7 @@ element `this.firstName = $('.firstName');` and so on.
 
 The result of this step is an array of:
 
-```json 
+```json
 [
   [
     'firsRowFirstNameValue',
@@ -236,7 +236,7 @@ This steps allows you to specify an array of child elements that will be checked
 
 For example:
 
-```gherkin 
+```gherkin
 there are following elements in table "myTable":
   | id  | firstName | lastName |
   | t:1 | t:Adam    | t:Doe    |
@@ -253,14 +253,14 @@ We can specify only a set of columns (for example if a table has 5 columns, we c
 
 Allows to check if a child elements of `:elementName` have a specified content. Element should be an array, for example:
 
-```html 
+```html
 <table>
   <tr>
     <td>1</td>
   </tr>
   <tr>
     <td>2</td>
-  </tr>   
+  </tr>
 </table>
 ```
 
@@ -284,7 +284,7 @@ and so on. You can check expressions on `chai.js` API dock for BDD.
 
 This step requires an array of elements to be checked. For example:
 
-```gherkin 
+```gherkin
 there are "equal 5" following elements for element "myList":
   | viewButton | f:isClickable |
   | id         | r:idRegex     |
@@ -322,14 +322,14 @@ and so on. You can check expressions on `chai.js` API dock for BDD.
 
 `:elementName` should be specified as an array, for example:
 
-```html 
+```html
 <table>
   <tr>
     <td>1</td>
   </tr>
   <tr>
     <td>2</td>
-  </tr>   
+  </tr>
 </table>
 ```
 
@@ -343,14 +343,14 @@ Allows to check if every row defined by `:elementName` has the same value for a 
 
 `:columnElementName` must be an element, for example:
 
-```html 
+```html
 <table>
   <tr>
     <td>1</td>
   </tr>
   <tr>
     <td>1</td>
-  </tr>   
+  </tr>
 </table>
 ```
 
@@ -363,14 +363,14 @@ for this case the `:elementName` should be specified as `$$('table tr')` and we 
 
 Allows to check if any of the child elements of `:elementName` have a specified content (one matching element is enough). Element should be an array, for example:
 
-```html 
+```html
 <table>
   <tr>
     <td>1</td>
   </tr>
   <tr>
     <td>2</td>
-  </tr>   
+  </tr>
 </table>
 ```
 
@@ -378,7 +378,7 @@ for this case the `:elementName` should be specified as `$$('table tr')`.
 
 This step requires an array of elements to be checked. For example:
 
-```gherkin 
+```gherkin
 the element "myList" should have an item with values:
   | id | t:1 |
 ```
@@ -391,14 +391,14 @@ You can use all kind of matchers here.
 
 Allows to check if the child elements of `:elementName` have a different content than that given in the table. Element should be an array, for example:
 
-```html 
+```html
 <table>
   <tr>
     <td>1</td>
   </tr>
   <tr>
     <td>2</td>
-  </tr>   
+  </tr>
 </table>
 ```
 
@@ -406,7 +406,7 @@ for this case the `:elementName` should be specified as `$$('table tr')`.
 
 This step requires an array of elements to be checked. For example:
 
-```gherkin 
+```gherkin
 the element "myList" should have an item with values:
   | id | t:does-not-exist |
 ```
@@ -430,7 +430,7 @@ This steps requires an array of filters to be applied to mailbox in order to fin
 
 You can do this like this:
 
-```gherkin 
+```gherkin
 the email has been sent and contains:
 | html_body | t:some value | | |
 ```
@@ -441,14 +441,14 @@ We do support filtering by any property returned in MailTrap Api response format
 
 There are 2 custom filters:
 
-```gherkin 
+```gherkin
 the email has been sent and contains:
 | currentUser | | | |
 ```
 
 This one checks if the user saved in `this.currentUser` variable is a recipient of an email. This is done by comparing `email` property of `this.currentUser` object to the one returned by email.
 
-```gherkin 
+```gherkin
 the email has been sent and contains:
 | file | t:fileName | r:fileExtension | sizeInBytes |
 ```
@@ -457,13 +457,46 @@ This one is looking for an attachment with a name matching `t:fileName`, extensi
 
 You can use the same filter multiple times:
 
-```gherkin 
+```gherkin
 the email has been sent and contains:
 | file | t:fileName      | r:fileExtension | sizeInBytes |
 | file | t:otherfileName | r:fileExtension | sizeInBytes |
 ```
 
 This will look for an email with 2 attachments.
+
+    Note: Read `MIGRATION-2.2.0.MD` if you're using MailTrap
+
+###`the email with the following data has not been sent:`
+
+Checks if there is an email on the configured mailing service.
+
+This steps requires an array of filters to be applied to mailbox in order to find an email.
+
+Only `currentUser`, `to_email`, `subject`, `html_body` filters can be used in this step (attachments will be ignored).
+
+`currentUser` is a custom filter which checks if the user saved in `this.currentUser` variable is a recipient of an email. This is done by comparing `email` property of `this.currentUser` object to the one returned by email.
+
+
+You can do this like this:
+
+```gherkin
+the email with the following data has not been sent:
+ | to_email  | t:example@yopmail.com |
+ | html_body | t:some value          |
+```
+
+The number of columns is always 4, but depending form a filter you have to use all of them or only some.
+
+You can use the same filter multiple times:
+
+```gherkin
+the email has been sent and contains:
+ | html_body | t:some value          |
+ | html_body | t:some other value    |
+```
+
+    Note: Read `MIGRATION-2.2.0.MD` if you're using MailTrap
 
 ##Files
 ### `the file ":fileName" should be downloaded`
@@ -475,13 +508,13 @@ variable store here.
 
 Let's assume there is a variable `myFile` with a value `super-file` in variable store.
 
-You can write `the file "v:myFile.zip" should be downloaded` to check if a file `super-file.zip` was downloaded. 
+You can write `the file "v:myFile.zip" should be downloaded` to check if a file `super-file.zip` was downloaded.
 
 ###`the file ":fileName" contains table data stored under ":variableName" variable`
 
 This step allows you to compare an xls/xlsx file `:fileName` with an existing data stored under `:variableName` variable.
 
-The data under `:variableName` must be an array of objects representing each row of file. 
+The data under `:variableName` must be an array of objects representing each row of file.
 
 ##Generators
 ### `I generate random ":generator:param:param" as ":variableName"`
@@ -510,7 +543,7 @@ Waits with execution of next step for an amount provided by parameter `:seconds`
 
 ###`I start performance monitor mode`
 
-It starts performance monitor mode. 
+It starts performance monitor mode.
 
 Keep in mind that REST API must be started on the port which must configured in `kakunin.conf.js` - `serverPort: 8887`.
 
@@ -518,7 +551,7 @@ More details can be found in documentation file `performance-testing.md`.
 
 ###`I save performance report file as "fileName"`
 
-It saves `.har` file with a name `fileName` in `reports/performance` catalog. 
+It saves `.har` file with a name `fileName` in `reports/performance` catalog.
 
 For example: `exampleReport-1511470954552.har`
 

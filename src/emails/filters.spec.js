@@ -1,5 +1,4 @@
 import { filters } from './filters';
-import { expect } from 'chai';
 
 const world = {
   currentUser: {
@@ -12,7 +11,7 @@ const world = {
 describe('Email filters', () => {
   it('throws an error when no filter was found', () => {
     expect(() => filters.filter(['some email content'], 'unknown-filter-type', 'some-value', world))
-      .to.throw('Could not find filter for unknown-filter-type.');
+      .toThrow('Could not find filter for unknown-filter-type.');
   });
 
   it('return emails matching given filter', () => {
@@ -27,8 +26,8 @@ describe('Email filters', () => {
 
     const filteredEmails = filters.filter(emails, 'currentUser', undefined, world);
 
-    expect(filteredEmails.length).to.equal(3);
+    expect(filteredEmails.length).toEqual(3);
 
-    filteredEmails.forEach((email) => expect(email.to_email).to.equal('some@email.com'));
+    filteredEmails.forEach((email) => expect(email.to_email).toEqual('some@email.com'));
   });
 });

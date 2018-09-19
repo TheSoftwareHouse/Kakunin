@@ -1,17 +1,16 @@
 import { createGeneratorTransformer } from './generator.transformer';
-import { expect } from 'chai';
 
 describe('Generator transformer', () => {
   it('returns true when the prefix is correct', () => {
     const transformer = createGeneratorTransformer();
 
-    expect(transformer.isSatisfiedBy('g:')).to.equal(true);
+    expect(transformer.isSatisfiedBy('g:')).toEqual(true);
   });
 
   it('returns false when the prefix is incorrect', () => {
     const transformer = createGeneratorTransformer();
 
-    expect(transformer.isSatisfiedBy('d:')).to.equal(false);
+    expect(transformer.isSatisfiedBy('d:')).toEqual(false);
   });
 
   it('returns generated value ', () => {
@@ -20,6 +19,6 @@ describe('Generator transformer', () => {
     };
     const transformer = createGeneratorTransformer(mockedGenerators);
 
-    expect(transformer.transform('generator:generate')).to.equal('my-generated-value');
+    expect(transformer.transform('generator:generate')).toEqual('my-generated-value');
   });
 });

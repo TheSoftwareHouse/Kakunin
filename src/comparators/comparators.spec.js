@@ -1,12 +1,11 @@
 import { create } from './comparators';
-import { expect } from 'chai';
 
 const comparators = create();
 
 describe('Comparators', () => {
   it('throws an error when no comparator was found', () => {
     const values = ['unspecified-value', 'other-value'];
-    expect(() => comparators.compare(values, 'ascending')).to.throw(`Could not find comparator for ${values}.`);
+    expect(() => comparators.compare(values, 'ascending')).toThrow(`Could not find comparator for ${values}.`);
   });
 
   it('compares values using comparator that can handle given set of values', (done) => {
@@ -44,7 +43,7 @@ describe('Comparators', () => {
     const myValues = ['foo', 'bar', 'foo', 'bar', 'foo', 'bar'];
 
     comparators.compare(myValues, 'any').then((value) => {
-      expect(value).to.equal('Foo bar!');
+      expect(value).toEqual('Foo bar!');
       done();
     })
   });

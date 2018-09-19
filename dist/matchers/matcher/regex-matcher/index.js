@@ -18,18 +18,37 @@ class RegexMatcher {
     return prefix === 'r' && typeof _regex2.default[name] !== 'undefined';
   }
 
-  match(element, matcherName) {
+  match(element, regexName) {
     return element.getText().then(text => {
       return element.getAttribute('value').then(value => {
+        const regex = _regexBuilder.regexBuilder.buildRegex(`r:${regexName}`);
+
         if (text === '') {
           if (value === null) {
-            return false;
+            return Promise.reject(`
+                  Matcher "RegexMatcher" could not match value for element "${element.locator()}".
+                  Both text and attribute value are empty.
+                `);
           }
 
-          return _regexBuilder.regexBuilder.buildRegex(`r:${matcherName}`).test(value);
+          if (regex.test(value)) {
+            return true;
+          }
+
+          return Promise.reject(`
+                Matcher "RegexMatcher" could not match regex on element "${element.locator()}" on value "${value}". 
+                Expected to match: "${regex.toString()}", Given: "${value}"
+              `);
         }
 
-        return _regexBuilder.regexBuilder.buildRegex(`r:${matcherName}`).test(text);
+        if (regex.test(text)) {
+          return true;
+        }
+
+        return Promise.reject(`
+              Matcher "RegexMatcher" could not match regex on element "${element.locator()}" on text "${text}". 
+              Expected to match: "${regex.toString()}", Given: "${text}"
+            `);
       });
     });
   }

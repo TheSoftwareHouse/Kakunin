@@ -5,10 +5,19 @@ class TextMatcher {
     return prefix === 't';
   }
 
-  match(element, ...matcherName) {
-    matcherName = matcherName.join(separator);
+  match(element, ...params) {
+    const expectedValue = params.join(separator);
 
-    return element.getText().then((text) => new RegExp(RegExp.escape(matcherName)).test(text));
+    return element.getText().then((text) => {
+      if (new RegExp(RegExp.escape(expectedValue)).test(text)) {
+        return true;
+      }
+
+      return Promise.reject(`
+        Matcher "TextMatcher" could not match value on element "${element.locator()}".
+        Expected: "${expectedValue}", Given: "${text}"
+      `);
+    });
   }
 }
 

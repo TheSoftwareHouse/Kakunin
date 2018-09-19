@@ -13,7 +13,16 @@ class AttributeMatcher {
   }
 
   match(element, attributeName, regexName) {
-    return element.getAttribute(attributeName).then(value => _regexBuilder.regexBuilder.buildRegex(`r:${regexName}`).test(value));
+    return element.getAttribute(attributeName).then(value => {
+      if (_regexBuilder.regexBuilder.buildRegex(`r:${regexName}`).test(value)) {
+        return true;
+      }
+
+      return Promise.reject(`
+        Matcher "AttributeMatcher" could not match regex on element "${element.locator()}" on attribute "${attributeName}". 
+        Expected to match: "${_regexBuilder.regexBuilder.buildRegex(`r:${regexName}`).toString()}", Given: "${value}"
+      `);
+    });
   }
 }
 

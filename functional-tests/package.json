@@ -14,20 +14,20 @@
   "dependencies": {
     "cross-env": "^5.0.5",
     "body-parser": "^1.17.2",
-    "eslint": "^3.19.0",
-    "eslint-config-airbnb": "^14.1.0",
+    "eslint": "^5.6.0",
+    "eslint-config-airbnb": "^17.1.0",
     "eslint-plugin-import": "^2.2.0",
-    "eslint-plugin-jsx-a11y": "^5.0.1",
-    "eslint-plugin-react": "^7.0.0",
+    "eslint-plugin-jsx-a11y": "^6.0.2",
+    "eslint-plugin-react": "^7.9.1",
     "express": "^4.15.4",
     "kakunin": "file:../",
     "nunjucks": "^3.0.1",
-    "protractor": "^5.1.2",
-    "webdriver-manager": "12.0.6",
+    "protractor": "^5.3.2",
+    "webdriver-manager": "12.1.0",
     "node-fetch": "^2.1.2"
   },
   "license": "ISC",
   "devDependencies": {
-    "pm2": "^2.6.1"
+    "pm2": "^3.1.2"
   }
 }
