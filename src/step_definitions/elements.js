@@ -46,17 +46,25 @@ defineSupportCode(function ({ When, Then }) {
     .then(() => this.currentPage.waitForVisibilityOf(elementName))
     .then(() => this.currentPage.scrollIntoElement(elementName))
     .then(() => this.currentPage.click(elementName))
-    .catch(error => {
+    .catch(() => {
       return waitForCondition('elementToBeClickable', timeout)(this.currentPage[elementName])
         .then(() => this.currentPage.click(elementName));
     })
-    .catch(error => {
+    .catch(() => {
       console.warn('Warning! Element was not clickable. We need to scroll it down.');
       return browser.executeScript('window.scrollBy(0,50);')
         .then(() => this.currentPage.waitForVisibilityOf(elementName))
         .then(() => this.currentPage.click(elementName));
     })
-    .catch(error => {
+    .catch(() => {
+      console.warn('Warning! Element was not clickable. We need use the WebDriver method to perform the click action.');
+      return browser.actions()
+        .mouseMove(this.currentPage[elementName])
+        .mouseMove({ x: 5, y: 0 })
+        .click()
+        .perform();
+    })
+    .catch(() => {
       return Promise.reject(`Error, after scrolling the element "${elementName}" is still not clickable.`);
     });
   });
@@ -95,7 +103,7 @@ defineSupportCode(function ({ When, Then }) {
       });
     });
   });
-  
+
   When(/^I wait for the "([^"]*)" element to disappear$/, function (element, sync) {
     const self = this;
     let maxRepeats = 10;
