@@ -13,7 +13,7 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 class Generators {
   constructor() {
-    this.availableGenerators = [generator.stringWithLengthGenerator];
+    this.availableGenerators = [generator.personalDataGenerator, generator.stringWithLengthGenerator];
   }
 
   generate(generatorName, ...params) {

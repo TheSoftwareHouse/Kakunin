@@ -12,6 +12,9 @@ Feature: Forms
         Then the "form" form is filled with:
             | nameInput | v:storedStringWithLength |
         When I fill the "form" form with:
+            | descriptionTextarea | g:personalData:email |
+        Then there is element "descriptionTextarea" with value "r:email"
+        When I fill the "form" form with:
             | nameInput           | d:test-dictionary:test-name |
             | descriptionTextarea | some description            |
             | optionCheckboxes    | Checkbox Option 2           |
@@ -27,3 +30,4 @@ Feature: Forms
             | optionCheckboxes    | Checkbox Option 3           |
             | optionRadios        | third-radio-option          |
             | statusSelect        | unknown                     |
+
