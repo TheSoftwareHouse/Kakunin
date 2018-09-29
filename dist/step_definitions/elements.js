@@ -59,12 +59,15 @@ const handlePromises = (hashedData, onSuccess, onReject) => resolvedPromises => 
   });
 
   When(/^I click the "([^"]*)" element$/, function (elementName) {
-    return this.currentPage.scrollIntoElement(elementName).catch(() => Promise.resolve()).then(() => this.currentPage.waitForVisibilityOf(elementName)).then(() => this.currentPage.scrollIntoElement(elementName)).then(() => this.currentPage.click(elementName)).catch(error => {
+    return this.currentPage.scrollIntoElement(elementName).catch(() => Promise.resolve()).then(() => this.currentPage.waitForVisibilityOf(elementName)).then(() => this.currentPage.scrollIntoElement(elementName)).then(() => this.currentPage.click(elementName)).catch(() => {
       return (0, _waitForCondition.waitForCondition)('elementToBeClickable', timeout)(this.currentPage[elementName]).then(() => this.currentPage.click(elementName));
-    }).catch(error => {
+    }).catch(() => {
       console.warn('Warning! Element was not clickable. We need to scroll it down.');
       return browser.executeScript('window.scrollBy(0,50);').then(() => this.currentPage.waitForVisibilityOf(elementName)).then(() => this.currentPage.click(elementName));
-    }).catch(error => {
+    }).catch(() => {
+      console.warn('Warning! Element was not clickable. We need use the WebDriver method to perform the click action.');
+      return browser.actions().mouseMove(this.currentPage[elementName]).mouseMove({ x: 5, y: 0 }).click().perform();
+    }).catch(() => {
       return Promise.reject(`Error, after scrolling the element "${elementName}" is still not clickable.`);
     });
   });
