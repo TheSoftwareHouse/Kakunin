@@ -3,6 +3,7 @@ import * as generator from './generator';
 class Generators {
   constructor() {
     this.availableGenerators = [
+      generator.personalDataGenerator,
       generator.stringWithLengthGenerator
     ];
   }
