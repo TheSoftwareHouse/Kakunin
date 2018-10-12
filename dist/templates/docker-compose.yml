@@ -1,0 +1,6 @@
+e2e:
+      build: .
+      working_dir: /app
+      command: sh -c "make tests"
+      volumes:
+          - .:/app

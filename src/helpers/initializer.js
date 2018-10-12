@@ -246,6 +246,7 @@ class Initializer {
     this.createTemplateFileWithContentFrom(config.step_definitions[0] + '/steps.js', 'steps.js');
     this.createTemplateFileWithContentFrom(config.regexes[0] + '/regex.js', 'regex.js');
     this.createTemplateFileWithContentFrom(config.hooks[0] + '/hook.js', 'hook.js');
+
   }
 }
 
