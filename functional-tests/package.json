@@ -20,11 +20,11 @@
     "eslint-plugin-jsx-a11y": "^6.0.2",
     "eslint-plugin-react": "^7.9.1",
     "express": "^4.15.4",
-    "kakunin": "file:../",
     "nunjucks": "^3.0.1",
+    "node-fetch": "^2.1.2",
+    "kakunin": "file:../",
     "protractor": "^5.3.2",
-    "webdriver-manager": "12.1.0",
-    "node-fetch": "^2.1.2"
+    "webdriver-manager": "12.1.0"
   },
   "license": "ISC",
   "devDependencies": {
