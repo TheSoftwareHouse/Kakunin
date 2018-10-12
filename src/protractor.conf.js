@@ -1,8 +1,10 @@
 require('./helpers/prototypes');
 const path = require('path');
 const chai = require('chai');
+const commandArgs = require('minimist')(process.argv.slice(2));
 const modulesLoader = require('./helpers/modules-loader.helper.js').create();
 const { deleteReports } = require('./helpers/delete-files.helper');
+const { createFirefoxProfile } = require('./helpers/create-firefox-profile.helper');
 const { prepareCatalogs } = require('./helpers/prepare-catalogs.helper');
 const chaiAsPromised = require('chai-as-promised');
 const { emailService } = require('./emails');
@@ -34,6 +36,23 @@ const chromeConfig = {
   }
 };
 
+const firefoxConfig = {
+  browserName: 'firefox',
+  marionette: true,
+  'moz:firefoxOptions': {
+    args: []
+  }
+};
+
+const configureBrowsers = async () => {
+  if (commandArgs.firefox) {
+    firefoxConfig.firefox_profile = await createFirefoxProfile();
+    return Promise.resolve([firefoxConfig]);
+  }
+
+  return Promise.resolve([chromeConfig]);
+};
+
 if (config.performance) {
   chromeConfig.proxy = {
     proxyType: 'manual',
@@ -60,6 +79,12 @@ if (config.headless) {
     '--headless',
     `--window-size=${config.browserWidth}x${config.browserHeight}`
   ];
+
+  firefoxConfig['moz:firefoxOptions'].args = [
+    ...firefoxConfig['moz:firefoxOptions'].args,
+    '-headless',
+    `--window-size=${config.browserWidth}x${config.browserHeight}`
+  ]
 }
 
 const prepareReportCatalogs = () => {
@@ -80,9 +105,7 @@ const deleteReportFiles = () => {
 };
 
 exports.config = {
-  multiCapabilities: [
-    chromeConfig
-  ],
+  getMultiCapabilities: configureBrowsers,
 
   useAllAngular2AppRoots: config.type === 'ng2',
 

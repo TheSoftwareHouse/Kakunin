@@ -7,8 +7,10 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 require('./helpers/prototypes');
 const path = require('path');
 const chai = require('chai');
+const commandArgs = require('minimist')(process.argv.slice(2));
 const modulesLoader = require('./helpers/modules-loader.helper.js').create();
 const { deleteReports } = require('./helpers/delete-files.helper');
+const { createFirefoxProfile } = require('./helpers/create-firefox-profile.helper');
 const { prepareCatalogs } = require('./helpers/prepare-catalogs.helper');
 const chaiAsPromised = require('chai-as-promised');
 const { emailService } = require('./emails');
@@ -40,6 +42,29 @@ const chromeConfig = {
   }
 };
 
+const firefoxConfig = {
+  browserName: 'firefox',
+  marionette: true,
+  'moz:firefoxOptions': {
+    args: []
+  }
+};
+
+const configureBrowsers = (() => {
+  var _ref = _asyncToGenerator(function* () {
+    if (commandArgs.firefox) {
+      firefoxConfig.firefox_profile = yield createFirefoxProfile();
+      return Promise.resolve([firefoxConfig]);
+    }
+
+    return Promise.resolve([chromeConfig]);
+  });
+
+  return function configureBrowsers() {
+    return _ref.apply(this, arguments);
+  };
+})();
+
 if (config.performance) {
   chromeConfig.proxy = {
     proxyType: 'manual',
@@ -54,6 +79,8 @@ if (config.noGpu) {
 
 if (config.headless) {
   chromeConfig.chromeOptions.args = [...chromeConfig.chromeOptions.args, '--headless', `--window-size=${config.browserWidth}x${config.browserHeight}`];
+
+  firefoxConfig['moz:firefoxOptions'].args = [...firefoxConfig['moz:firefoxOptions'].args, '-headless', `--window-size=${config.browserWidth}x${config.browserHeight}`];
 }
 
 const prepareReportCatalogs = () => {
@@ -74,7 +101,7 @@ const deleteReportFiles = () => {
 };
 
 exports.config = {
-  multiCapabilities: [chromeConfig],
+  getMultiCapabilities: configureBrowsers,
 
   useAllAngular2AppRoots: config.type === 'ng2',
 
@@ -103,7 +130,7 @@ exports.config = {
   }],
 
   onPrepare: (() => {
-    var _ref = _asyncToGenerator(function* () {
+    var _ref2 = _asyncToGenerator(function* () {
       yield prepareReportCatalogs();
       yield deleteReportFiles();
 
@@ -135,7 +162,7 @@ exports.config = {
     });
 
     return function onPrepare() {
-      return _ref.apply(this, arguments);
+      return _ref2.apply(this, arguments);
     };
   })(),
 
