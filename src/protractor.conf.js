@@ -1,91 +1,21 @@
 require('./helpers/prototypes');
 const path = require('path');
 const chai = require('chai');
-const commandArgs = require('minimist')(process.argv.slice(2));
+const config = require('./helpers/config.helper').default;
 const modulesLoader = require('./helpers/modules-loader.helper.js').create();
 const { deleteReports } = require('./helpers/delete-files.helper');
-const { createFirefoxProfile } = require('./helpers/create-firefox-profile.helper');
 const { prepareCatalogs } = require('./helpers/prepare-catalogs.helper');
+const browsersConfiguration = require('./helpers/browsers-config.helper');
 const chaiAsPromised = require('chai-as-promised');
 const { emailService } = require('./emails');
+const commandArgs = require('minimist')(process.argv.slice(2));
 chai.use(chaiAsPromised);
-
-const config = require('./helpers/config.helper.js').default;
 
 const reportsDirectory = path.join(config.projectPath, config.reports);
 const jsonOutputDirectory = path.join(reportsDirectory, 'json-output-folder');
 const generatedReportsDirectory = path.join(reportsDirectory, 'report');
 const featureReportsDirectory = path.join(generatedReportsDirectory, 'features');
 const performanceReportsDirectory = path.join(reportsDirectory, 'performance');
-
-const chromeConfig = {
-  browserName: 'chrome',
-  chromeOptions: {
-    args: [],
-    prefs: {
-      credentials_enable_service: false,
-      profile: {
-        password_manager_enabled: false
-      },
-      download: {
-        prompt_for_download: false,
-        default_directory: config.projectPath + config.downloads,
-        directory_upgrade: true
-      }
-    }
-  }
-};
-
-const firefoxConfig = {
-  browserName: 'firefox',
-  marionette: true,
-  'moz:firefoxOptions': {
-    args: []
-  }
-};
-
-const configureBrowsers = async () => {
-  if (commandArgs.firefox) {
-    firefoxConfig.firefox_profile = await createFirefoxProfile();
-    return Promise.resolve([firefoxConfig]);
-  }
-
-  return Promise.resolve([chromeConfig]);
-};
-
-if (config.performance) {
-  chromeConfig.proxy = {
-    proxyType: 'manual',
-    httpProxy: `${config.browserMob.host}:${config.browserMob.port}`,
-    sslProxy: `${config.browserMob.host}:${config.browserMob.port}`
-  };
-}
-
-if (config.noGpu) {
-  chromeConfig.chromeOptions.args = [
-    ...chromeConfig.chromeOptions.args,
-    '--disable-gpu',
-    '--disable-impl-side-painting',
-    '--disable-gpu-sandbox',
-    '--disable-accelerated-2d-canvas',
-    '--disable-accelerated-jpeg-decoding',
-    '--no-sandbox'
-  ];
-}
-
-if (config.headless) {
-  chromeConfig.chromeOptions.args = [
-    ...chromeConfig.chromeOptions.args,
-    '--headless',
-    `--window-size=${config.browserWidth}x${config.browserHeight}`
-  ];
-
-  firefoxConfig['moz:firefoxOptions'].args = [
-    ...firefoxConfig['moz:firefoxOptions'].args,
-    '-headless',
-    `--window-size=${config.browserWidth}x${config.browserHeight}`
-  ]
-}
 
 const prepareReportCatalogs = () => {
   prepareCatalogs(reportsDirectory);
@@ -105,7 +35,7 @@ const deleteReportFiles = () => {
 };
 
 exports.config = {
-  getMultiCapabilities: configureBrowsers,
+  getMultiCapabilities: browsersConfiguration(config, commandArgs),
 
   useAllAngular2AppRoots: config.type === 'ng2',
 
