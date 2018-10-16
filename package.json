@@ -58,8 +58,7 @@
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^6.0.2",
     "eslint-plugin-react": "^7.9.1",
-    "faker": "^4.1.0",
-    "fetch-mock": "7.0.0-alpha.6",
+    "fetch-mock": "^7.0.7",
     "jest": "^23.2.0"
   },
   "dependencies": {
@@ -82,10 +81,11 @@
     "node-fetch": "^2.1.2",
     "node-xlsx": "^0.12.0",
     "path": "^0.12.7",
-    "protractor": "^5.3.2",
+    "faker": "^4.1.0",
     "protractor-cucumber-framework": "^6.1.1",
     "protractor-multiple-cucumber-html-reporter-plugin": "^1.2.3",
     "sugar-date": "^2.0.4",
-    "webdriver-manager": "^12.0.6"
+    "protractor": "^5.3.2",
+    "webdriver-manager": "^12.1.0"
   }
 }
