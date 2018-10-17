@@ -1,4 +1,4 @@
-## Multibrowsering
+## Cross-browser
 
 # To run tests with specified browser
 There is a possibility to run Kakunin in various browsers:

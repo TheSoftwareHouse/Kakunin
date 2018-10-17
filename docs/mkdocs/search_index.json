@@ -76,37 +76,37 @@
             "title": "Environment variables"
         }, 
         {
-            "location": "/multibrowsering/", 
-            "text": "Multibrowsering\n\n\nTo run tests with specified browser\n\n\nThere is a possibility to run Kakunin in various browsers:\n\n\n\n\nGoogle Chrome (by default) \nnpm run kakunin\n or \nnpm run kakunin -- --chrome\n\n\nFirefox \nnpm run kakunin -- --firefox\n\n\nSafari \nnpm run kakunin -- --safari\n\n\n\n\nTo run tests in different browsers at once\n\n\nThere is a possibility to run more than one instance of WebDriver by giving an extra parameter to a command line:\n\n\n\n\nnpm run kakunin --chrome --firefox\n\n\n\n\nSafari\n\n\nRun tests\n\n\n\n\nOpen Safari's preferences\n\n\nEnable \"Show Develop menu in menu bar\"\n\n\nOpen \"Develop\" tab\n\n\nEnable \"Allow Remote Automation\"\n\n\n\n\nTroubleshooting\n\n\nSafari version 12.0:\n- drag \n drop actions in Kakunin impossible (more details https://github.com/angular/protractor/issues/1526)", 
-            "title": "Multibrowsering"
+            "location": "/cross-browser/", 
+            "text": "Cross-browser\n\n\nTo run tests with specified browser\n\n\nThere is a possibility to run Kakunin in various browsers:\n\n\n\n\nGoogle Chrome (by default) \nnpm run kakunin\n or \nnpm run kakunin -- --chrome\n\n\nFirefox \nnpm run kakunin -- --firefox\n\n\nSafari \nnpm run kakunin -- --safari\n\n\n\n\nTo run tests in different browsers at once\n\n\nThere is a possibility to run more than one instance of WebDriver by giving an extra parameter to a command line:\n\n\n\n\nnpm run kakunin --chrome --firefox\n\n\n\n\nSafari\n\n\nRun tests\n\n\n\n\nOpen Safari's preferences\n\n\nEnable \"Show Develop menu in menu bar\"\n\n\nOpen \"Develop\" tab\n\n\nEnable \"Allow Remote Automation\"\n\n\n\n\nTroubleshooting\n\n\nSafari version 12.0:\n- drag \n drop actions in Kakunin impossible (more details https://github.com/angular/protractor/issues/1526)", 
+            "title": "Cross-browser"
         }, 
         {
-            "location": "/multibrowsering/#multibrowsering", 
+            "location": "/cross-browser/#cross-browser", 
             "text": "", 
-            "title": "Multibrowsering"
+            "title": "Cross-browser"
         }, 
         {
-            "location": "/multibrowsering/#to-run-tests-with-specified-browser", 
+            "location": "/cross-browser/#to-run-tests-with-specified-browser", 
             "text": "There is a possibility to run Kakunin in various browsers:   Google Chrome (by default)  npm run kakunin  or  npm run kakunin -- --chrome  Firefox  npm run kakunin -- --firefox  Safari  npm run kakunin -- --safari", 
             "title": "To run tests with specified browser"
         }, 
         {
-            "location": "/multibrowsering/#to-run-tests-in-different-browsers-at-once", 
+            "location": "/cross-browser/#to-run-tests-in-different-browsers-at-once", 
             "text": "There is a possibility to run more than one instance of WebDriver by giving an extra parameter to a command line:   npm run kakunin --chrome --firefox", 
             "title": "To run tests in different browsers at once"
         }, 
         {
-            "location": "/multibrowsering/#safari", 
+            "location": "/cross-browser/#safari", 
             "text": "", 
             "title": "Safari"
         }, 
         {
-            "location": "/multibrowsering/#run-tests", 
+            "location": "/cross-browser/#run-tests", 
             "text": "Open Safari's preferences  Enable \"Show Develop menu in menu bar\"  Open \"Develop\" tab  Enable \"Allow Remote Automation\"", 
             "title": "Run tests"
         }, 
         {
-            "location": "/multibrowsering/#troubleshooting", 
+            "location": "/cross-browser/#troubleshooting", 
             "text": "Safari version 12.0:\n- drag   drop actions in Kakunin impossible (more details https://github.com/angular/protractor/issues/1526)", 
             "title": "Troubleshooting"
         }, 
