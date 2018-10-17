@@ -11,7 +11,7 @@
         <meta name="description" content="Kakunin - E2E testing framework on steroids">
       
       
-        <link rel="canonical" href="https://thesoftwarehouse.github.io/Kakunin/configuration/">
+        <link rel="canonical" href="https://thesoftwarehouse.github.io/Kakunin/multibrowsering/">
       
       
       
@@ -28,7 +28,7 @@
 
     
       
-        <title>Configuration - Kakunin</title>
+        <title>Multibrowsering - Kakunin</title>
       
     
     
@@ -88,7 +88,7 @@
             
               
             
-            Configuration
+            Multibrowsering
           
         </span>
       </div>
@@ -219,57 +219,11 @@
       
       
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
-    
-    
-      <label class="md-nav__link md-nav__link--active" for="toc">
-        Configuration
-      </label>
-    
-    <a href="./" title="Configuration" class="md-nav__link md-nav__link--active">
+  <li class="md-nav__item">
+    <a href="../configuration/" title="Configuration" class="md-nav__link">
       Configuration
     </a>
-    
-      
-<nav class="md-nav md-nav--secondary">
-  
-  
-  
-    <label class="md-nav__title" for="toc">Table of contents</label>
-    <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#kakunin-config" title="Kakunin config" class="md-nav__link">
-    Kakunin config
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#configuration-options" title="Configuration options" class="md-nav__link">
-    Configuration options
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#environment-variables" title="Environment variables" class="md-nav__link">
-    Environment variables
-  </a>
-  
-</li>
-      
-      
-      
-    </ul>
-  
-</nav>
-    
   </li>
 
     
@@ -277,11 +231,20 @@
       
       
 
+  
 
-  <li class="md-nav__item">
-    <a href="../multibrowsering/" title="Multibrowsering" class="md-nav__link">
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
+    
+      
+    
+    
+    <a href="./" title="Multibrowsering" class="md-nav__link md-nav__link--active">
       Multibrowsering
     </a>
+    
   </li>
 
     
@@ -371,34 +334,8 @@
 <nav class="md-nav md-nav--secondary">
   
   
+    
   
-    <label class="md-nav__title" for="toc">Table of contents</label>
-    <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#kakunin-config" title="Kakunin config" class="md-nav__link">
-    Kakunin config
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#configuration-options" title="Configuration options" class="md-nav__link">
-    Configuration options
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#environment-variables" title="Environment variables" class="md-nav__link">
-    Environment variables
-  </a>
-  
-</li>
-      
-      
-      
-    </ul>
   
 </nav>
                   </div>
@@ -410,141 +347,33 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/TheSoftwareHouse/Kakunin/edit/master/docs-src/configuration.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                  <a href="https://github.com/TheSoftwareHouse/Kakunin/edit/master/docs-src/multibrowsering.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
-                  <h1>Configuration</h1>
-                
-                <h2 id="kakunin-config">Kakunin config</h2>
-<div class="codehilite"><pre><span></span><span class="k">module</span>.<span class="n">exports</span> = {
-    <span class="s">&quot;browserWidth&quot;</span>: <span class="mi">1600</span>,
-    <span class="s">&quot;browserHeight&quot;</span>: <span class="mi">900</span>,
-    <span class="s">&quot;timeout&quot;</span>: <span class="mi">60</span>,
-    <span class="s">&quot;maxEmailRepeats&quot;</span>: <span class="mi">5</span>,
-    <span class="s">&quot;intervalEmail&quot;</span>: <span class="mi">5</span>,
-    <span class="s">&quot;elementsVisibilityTimeout&quot;</span>: <span class="mi">5</span>,
-    <span class="s">&quot;waitForPageTimeout&quot;</span>: <span class="mi">5</span>,
-    <span class="s">&quot;downloadTimeout&quot;</span>: <span class="mi">30</span>,
-    <span class="s">&quot;reports&quot;</span>: <span class="s">&quot;/reports&quot;</span>,
-    <span class="s">&quot;downloads&quot;</span>: <span class="s">&quot;/downloads&quot;</span>,
-    <span class="s">&quot;data&quot;</span>: <span class="s">&quot;/data&quot;</span>,
-    <span class="s">&quot;features&quot;</span>: [
-        <span class="s">&quot;/features&quot;</span>
-    ],
-    <span class="s">&quot;pages&quot;</span>: [
-        <span class="s">&quot;/pages&quot;</span>
-    ],
-    <span class="s">&quot;matchers&quot;</span>: [
-        <span class="s">&quot;/matchers&quot;</span>
-    ],
-    <span class="s">&quot;generators&quot;</span>: [
-        <span class="s">&quot;/generators&quot;</span>
-    ],
-    <span class="s">&quot;form_handlers&quot;</span>: [
-        <span class="s">&quot;/form_handlers&quot;</span>
-    ],
-    <span class="s">&quot;step_definitions&quot;</span>: [
-        <span class="s">&quot;/step_definitions&quot;</span>
-    ],
-    <span class="s">&quot;comparators&quot;</span>: [
-        <span class="s">&quot;/comparators&quot;</span>
-    ],
-    <span class="s">&quot;dictionaries&quot;</span>: [
-        <span class="s">&quot;/dictionaries&quot;</span>
-    ],
-    <span class="s">&quot;transformers&quot;</span>: [
-        <span class="s">&quot;/transformers&quot;</span>
-    ],
-    <span class="s">&quot;regexes&quot;</span>: [
-        <span class="s">&quot;/regexes&quot;</span>
-    ],
-    <span class="s">&quot;hooks&quot;</span>: [
-        <span class="s">&quot;/hooks&quot;</span>
-    ],
-    <span class="s">&quot;clearEmailInboxBeforeTests&quot;</span>: <span class="n">false</span>,
-    <span class="s">&quot;clearCookiesAfterScenario&quot;</span>: <span class="nb">true</span>,
-    <span class="s">&quot;clearLocalStorageAfterScenario&quot;</span>: <span class="nb">true</span>,
-    <span class="s">&quot;email&quot;</span>: <span class="n">null</span>,
-    <span class="s">&quot;headless&quot;</span>: <span class="n">false</span>,
-    <span class="s">&quot;noGpu&quot;</span>: <span class="n">false</span>,
-    <span class="s">&quot;type&quot;</span>: <span class="s">&quot;otherWeb&quot;</span>,
-    <span class="s">&quot;baseUrl&quot;</span>: <span class="s">&quot;http://localhost:8080&quot;</span>,
-    <span class="s">&quot;accounts&quot;</span>: {
-        <span class="s">&quot;someAccount&quot;</span>: {
-            <span class="s">&quot;accounts&quot;</span>: [
-                {
-                    <span class="s">&quot;email&quot;</span>: <span class="s">&quot;&quot;</span>,
-                    <span class="s">&quot;password&quot;</span>: <span class="s">&quot;&quot;</span>
-                }
-            ]
-        }
-    }
-}
-</pre></div>
-
-
-<h2 id="configuration-options">Configuration options</h2>
-<p><code>browserWidth</code> - width of browser window <code>default: 1600</code></p>
-<p><code>browserheight</code> - height of browser window <code>default: 900</code></p>
-<p><code>timeout</code> - global timeout for a single step execution in seconds <code>default: 60</code></p>
-<p><code>maxEmailRepeats</code> - maximum email repeats to catch email used in the email step</p>
-<p><code>intervalEmail</code> - interval for email checking step <code>default: 5</code> in seconds</p>
-<p><code>elementsVisibilityTimeout</code> - maximum wait timeout for element visibility <code>default: 5</code> seconds</p>
-<p><code>waitForPageTimeout</code> - maximum wait timeout for page visibility <code>default: 5</code> seconds</p>
-<p><code>downloadTimeout</code> - maximum wait timeout for file to be downloaded <code>default: 30</code> seconds</p>
-<p><code>emails</code> - array of paths to store emails related custom code</p>
-<p><code>reports</code> - path to store reports</p>
-<p><code>downloads</code> - path to store downloaded files</p>
-<p><code>data</code> - path to store test related files (for example files to be downloaded)</p>
-<p><code>feature</code> - array of paths to store features</p>
-<p><code>pages</code> - array of paths to store page objects</p>
-<p><code>matchers</code> - array of paths to store custom matchers</p>
-<p><code>generators</code> - array of paths to store custom generators</p>
-<p><code>form_handlers</code> - array of paths to store custom form handlers</p>
-<p><code>step_definitions</code> - array of paths to store custom steps</p>
-<p><code>comparators</code> - array of paths to store custom comparators</p>
-<p><code>dictionaries</code> - array of paths to store custom dictionaries</p>
-<p><code>transformers</code> - array of paths to store custom transformers</p>
-<p><code>regexes</code> - array of paths to store custom regexes</p>
-<p><code>hooks</code> - array of paths to store custom hooks</p>
-<p><code>clearEmailInboxBeforeTests</code> - flag to active clearing email inbox before tests are executed <code>default: false | true for apps with email checking functionality activated</code></p>
-<p><code>clearCookiesAfterScenario</code> - flag to activate clearing cookies after every scenario <code>default: true</code></p>
-<p><code>clearLocalStorageAfterScenario</code> - flag to activate clearing local storage after every scenario <code>default: true</code></p>
-<p><code>email</code> - email configuration <code>default: null</code></p>
-<p>for mailtrap email checking system:</p>
-<div class="codehilite"><pre><span></span><span class="s2">&quot;type&quot;</span><span class="err">:</span> <span class="s2">&quot;mailtrap&quot;</span><span class="err">,</span>
-<span class="s2">&quot;config&quot;</span><span class="err">:</span> <span class="p">{</span>
-    <span class="nt">&quot;apiKey&quot;</span><span class="p">:</span> <span class="s2">&quot;your-mailtrap-api-key&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;inboxId&quot;</span><span class="p">:</span> <span class="s2">&quot;your-mailtrap-inbox&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;https://mailtrap.io/api/v1&quot;</span>
-<span class="p">}</span>
-</pre></div>
-
-
-<p>for custom email checking system only type is required:</p>
-<div class="codehilite"><pre><span></span>&quot;type&quot;: &quot;custom-type&quot;
-</pre></div>
-
-
-<p><code>headless</code> - flag to activate chrome headless browser <code>default: false</code></p>
-<p><code>noGpu</code> - flag to activate cpu only mode <code>default: false</code></p>
-<p><code>type</code> - type of application either <code>ng1 | ng2 | otherWeb</code></p>
-<p><code>baseUrl</code> - url of tested application</p>
-<p><code>accounts</code> - object to store accounts information. This is bound to <code>userProvider</code> and allows to use advanced email checking options like recipient checking.</p>
-<div class="codehilite"><pre><span></span><span class="s2">&quot;someAccount&quot;</span><span class="err">:</span> <span class="p">{</span>
-    <span class="nt">&quot;accounts&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="p">{</span>
-            <span class="nt">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;password&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span>
-        <span class="p">}</span>
-    <span class="p">]</span>
-<span class="p">}</span>
-</pre></div>
-
-
-<h2 id="environment-variables">Environment variables</h2>
-<p>Kakunin uses a single <code>.env</code> file to load ENV variables. By default there is only one:</p>
-<p><code>FIXTURES_RELOAD_HOST</code> - allows you to specify host for fixtures reloading. This allows you to use <code>@reloadFixtures</code> tag on scenarios that should restore database to starting state, before the test is running</p>
+                <h2 id="multibrowsering">Multibrowsering</h2>
+<h1 id="to-run-tests-with-specified-browser">To run tests with specified browser</h1>
+<p>There is a possibility to run Kakunin in various browsers:</p>
+<ul>
+<li>Google Chrome (by default) <code>npm run kakunin</code> or <code>npm run kakunin -- --chrome</code></li>
+<li>Firefox <code>npm run kakunin -- --firefox</code></li>
+<li>Safari <code>npm run kakunin -- --safari</code></li>
+</ul>
+<h1 id="to-run-tests-in-different-browsers-at-once">To run tests in different browsers at once</h1>
+<p>There is a possibility to run more than one instance of WebDriver by giving an extra parameter to a command line:</p>
+<ul>
+<li><code>npm run kakunin --chrome --firefox</code></li>
+</ul>
+<h2 id="safari">Safari</h2>
+<h3 id="run-tests">Run tests</h3>
+<ol>
+<li>Open Safari's preferences</li>
+<li>Enable "Show Develop menu in menu bar"</li>
+<li>Open "Develop" tab</li>
+<li>Enable "Allow Remote Automation"</li>
+</ol>
+<h3 id="troubleshooting">Troubleshooting</h3>
+<p>Safari version 12.0:
+- drag &amp; drop actions in Kakunin impossible (more details https://github.com/angular/protractor/issues/1526)</p>
                 
                   
                 
@@ -563,7 +392,7 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href=".." title="Getting started" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../configuration/" title="Configuration" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -572,19 +401,19 @@
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Getting started
+                Configuration
               </span>
             </div>
           </a>
         
         
-          <a href="../multibrowsering/" title="Multibrowsering" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../how-it-works/" title="How it works" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Multibrowsering
+                How it works
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">

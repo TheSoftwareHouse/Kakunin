@@ -15,6 +15,7 @@ pages:
   - Quick start: quickstart.md
   - Getting started: index.md
   - Configuration: configuration.md
+  - Multibrowsering: multibrowsering.md
   - How it works: how-it-works.md
   - Built-in steps: steps.md
   - Matchers: matchers.md
