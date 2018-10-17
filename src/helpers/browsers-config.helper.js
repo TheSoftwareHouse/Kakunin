@@ -1,4 +1,5 @@
 const { createFirefoxProfile } = require('./create-firefox-profile.helper');
+const { safariBrowserConfigurator } = require('./safari-browser-configurator.helper')
 
 const getDefaultBrowsersConfigs = (config) => {
   const chromeConfig = {
@@ -27,9 +28,14 @@ const getDefaultBrowsersConfigs = (config) => {
     }
   };
 
+  const safariConfig = {
+    browserName: 'safari'
+  };
+
   return {
     chromeConfig,
-    firefoxConfig
+    firefoxConfig,
+    safariConfig
   };
 };
 
@@ -79,8 +85,13 @@ const browsersConfiguration = (config, commandArgs) => {
     const configs = getExtendedBrowsersConfigs(config);
 
     if (commandArgs.firefox) {
-      configs.firefoxConfig.firefox_profile = await createFirefoxProfile();
+      configs.firefoxConfig.firefox_profile = await createFirefoxProfile(config);
       browsersSettings.push(configs.firefoxConfig);
+    }
+
+    if (commandArgs.safari) {
+      safariBrowserConfigurator(config);
+      browsersSettings.push(configs.safariConfig);
     }
 
     if (commandArgs.chrome || browsersSettings.length === 0) {

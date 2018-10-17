@@ -11,7 +11,7 @@
         <meta name="description" content="Kakunin - E2E testing framework on steroids">
       
       
-        <link rel="canonical" href="https://thesoftwarehouse.github.io/Kakunin/performance-testing/">
+        <link rel="canonical" href="https://thesoftwarehouse.github.io/Kakunin/cross-browser/">
       
       
       
@@ -28,7 +28,7 @@
 
     
       
-        <title>Performance testing - Kakunin</title>
+        <title>Cross-browser - Kakunin</title>
       
     
     
@@ -88,7 +88,7 @@
             
               
             
-            Performance testing
+            Cross-browser
           
         </span>
       </div>
@@ -231,11 +231,20 @@
       
       
 
+  
 
-  <li class="md-nav__item">
-    <a href="../cross-browser/" title="Cross-browser" class="md-nav__link">
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
+    
+      
+    
+    
+    <a href="./" title="Cross-browser" class="md-nav__link md-nav__link--active">
       Cross-browser
     </a>
+    
   </li>
 
     
@@ -291,20 +300,11 @@
       
       
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
-    
-      
-    
-    
-    <a href="./" title="Performance testing" class="md-nav__link md-nav__link--active">
+  <li class="md-nav__item">
+    <a href="../performance-testing/" title="Performance testing" class="md-nav__link">
       Performance testing
     </a>
-    
   </li>
 
     
@@ -347,72 +347,33 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/TheSoftwareHouse/Kakunin/edit/master/docs-src/performance-testing.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                  <a href="https://github.com/TheSoftwareHouse/Kakunin/edit/master/docs-src/cross-browser.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
-                <p>Performance testing is possible thanks to <code>browsermob-proxy</code>.</p>
-<p>It saves all data from network tab (Google Chrome console) which is generated during the test.</p>
-<p>There is a possibility to compare <code>TTFB</code> value with a maximum given one. </p>
-<p><code>TTFB</code> (Time to first byte) measures the duration from the client making an HTTP request to the first byte of a response being received by the client's browser.</p>
-<p>More details can be found in documentation - <code>Built-in steps</code> section.</p>
-<h3 id="what-needs-to-be-done">What needs to be done?</h3>
-<h1 id="get-started">Get started</h1>
-<ol>
-<li>
-<p>Download <code>browsermob-proxy</code> from <code>https://github.com/lightbody/browsermob-proxy</code></p>
-</li>
-<li>
-<p>Navigate in terminal to the catalog</p>
-</li>
-<li>
-<p>Use following command to start the REST API</p>
-</li>
-</ol>
-<div class="codehilite"><pre><span></span>./browsermob-proxy -port 8887
-</pre></div>
-
-
-<h1 id="configuration">Configuration</h1>
-<ol>
-<li>Add <code>browsermob-proxy</code> configuration to <code>kakunin.conf.js</code></li>
-</ol>
-<p>You can use one of the following methods to configure browsermob-proxy:</p>
+                <h2 id="cross-browser">Cross-browser</h2>
+<h1 id="to-run-tests-with-specified-browser">To run tests with specified browser</h1>
+<p>There is a possibility to run Kakunin in various browsers:</p>
 <ul>
-<li>
-<p><code>npm run kakunin init -- --advanced</code> and go through the process</p>
-</li>
-<li>
-<p>or add it manually to the config file:</p>
-</li>
+<li>Google Chrome (by default) <code>npm run kakunin</code> or <code>npm run kakunin -- --chrome</code></li>
+<li>Firefox <code>npm run kakunin -- --firefox</code></li>
+<li>Safari <code>npm run kakunin -- --safari</code></li>
 </ul>
-<div class="codehilite"><pre><span></span>    <span class="s2">&quot;browserMob&quot;</span><span class="o">:</span> <span class="p">{</span>
-      <span class="s2">&quot;serverPort&quot;</span><span class="o">:</span> <span class="mi">8887</span><span class="p">,</span>
-      <span class="s2">&quot;port&quot;</span><span class="o">:</span> <span class="mi">8888</span><span class="p">,</span>
-      <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;localhost&quot;</span>
-    <span class="p">}</span>
-</pre></div>
-
-
-<h1 id="run-tests">Run tests</h1>
+<h1 id="to-run-tests-in-different-browsers-at-once">To run tests in different browsers at once</h1>
+<p>There is a possibility to run more than one instance of WebDriver by giving an extra parameter to a command line:</p>
+<ul>
+<li><code>npm run kakunin --chrome --firefox</code></li>
+</ul>
+<h2 id="safari">Safari</h2>
+<h3 id="run-tests">Run tests</h3>
 <ol>
-<li>
-<p><code>performance steps</code> must be used in the scenario where you are testing performance</p>
-</li>
-<li>
-<p>Scenario must have a tag <code>@performance</code></p>
-</li>
-<li>
-<p>Run tests with special parameter:</p>
-</li>
+<li>Open Safari's preferences</li>
+<li>Enable "Show Develop menu in menu bar"</li>
+<li>Open "Develop" tab</li>
+<li>Enable "Allow Remote Automation"</li>
 </ol>
-<div class="codehilite"><pre><span></span>npm run kakunin -- --performance
-</pre></div>
-
-
-<h1 id="results">Results</h1>
-<ol>
-<li><code>.har</code> files are saved in catalog <code>reports/performance/*.har</code></li>
-</ol>
+<h3 id="troubleshooting">Troubleshooting</h3>
+<p>Safari version 12.0:
+- drag &amp; drop actions in Kakunin impossible (more details https://github.com/angular/protractor/issues/1526)</p>
                 
                   
                 
@@ -431,7 +392,7 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../transformers/" title="Transformers" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../configuration/" title="Configuration" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -440,19 +401,19 @@
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Transformers
+                Configuration
               </span>
             </div>
           </a>
         
         
-          <a href="../extending/" title="Extending Kakunin" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../how-it-works/" title="How it works" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Extending Kakunin
+                How it works
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">

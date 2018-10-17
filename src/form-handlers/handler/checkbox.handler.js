@@ -1,7 +1,7 @@
 class CheckboxHandler {
   isSatisfiedBy(element) {
     return element.getTagName()
-      .then(function (tagName) {
+      .then((tagName) => {
         if (tagName === 'input') {
           return element.getAttribute('type').then((inputType) => inputType === 'checkbox');
         }
@@ -15,20 +15,18 @@ class CheckboxHandler {
   }
 
   handleFill(page, elementName, desiredValue) {
-    return page[elementName].filter(function (elem) {
-      return elem.element(by.xpath('..')).getText().then(function (text) {
-        return text === desiredValue;
+    return page[elementName].filter(elem => {
+      return elem.element(by.xpath('..')).getText().then((text) => {
+        return text.trim() === desiredValue;
       });
     }).first().click();
   }
 
   handleCheck(page, elementName, desiredValue) {
-    const filteredElements = page[elementName].filter(function (element) {
-      return element.isSelected();
-    });
+    const filteredElements = page[elementName].filter(element => element.isSelected());
 
     return filteredElements.count()
-      .then(function (count) {
+      .then((count) => {
         if (desiredValue === '') {
           if (count === 0) {
             return Promise.resolve();
@@ -37,11 +35,11 @@ class CheckboxHandler {
           return Promise.reject(`Expected count to be 0 got ${count}`);
         }
 
-        return page[elementName].filter(function (element) {
-          return element.element(by.xpath('..')).getText().then(function (text) {
-            return text === desiredValue;
+        return page[elementName].filter((element) => {
+          return element.element(by.xpath('..')).getText().then((text) => {
+            return text.trim() === desiredValue;
           });
-        }).first().isSelected().then(function (selected) {
+        }).first().isSelected().then((selected) => {
           if (selected) {
             return Promise.resolve();
           }

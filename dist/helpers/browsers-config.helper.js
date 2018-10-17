@@ -3,6 +3,7 @@
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
 const { createFirefoxProfile } = require('./create-firefox-profile.helper');
+const { safariBrowserConfigurator } = require('./safari-browser-configurator.helper');
 
 const getDefaultBrowsersConfigs = config => {
   const chromeConfig = {
@@ -31,9 +32,14 @@ const getDefaultBrowsersConfigs = config => {
     }
   };
 
+  const safariConfig = {
+    browserName: 'safari'
+  };
+
   return {
     chromeConfig,
-    firefoxConfig
+    firefoxConfig,
+    safariConfig
   };
 };
 
@@ -67,8 +73,13 @@ const browsersConfiguration = (config, commandArgs) => {
     const configs = getExtendedBrowsersConfigs(config);
 
     if (commandArgs.firefox) {
-      configs.firefoxConfig.firefox_profile = yield createFirefoxProfile();
+      configs.firefoxConfig.firefox_profile = yield createFirefoxProfile(config);
       browsersSettings.push(configs.firefoxConfig);
+    }
+
+    if (commandArgs.safari) {
+      safariBrowserConfigurator(config);
+      browsersSettings.push(configs.safariConfig);
     }
 
     if (commandArgs.chrome || browsersSettings.length === 0) {

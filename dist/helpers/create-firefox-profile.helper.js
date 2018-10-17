@@ -5,10 +5,6 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.createFirefoxProfile = undefined;
 
-var _config = require('./config.helper');
-
-var _config2 = _interopRequireDefault(_config);
-
 var _path = require('path');
 
 var _path2 = _interopRequireDefault(_path);
@@ -16,10 +12,10 @@ var _path2 = _interopRequireDefault(_path);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const firefox = require('selenium-webdriver/firefox');
-const createFirefoxProfile = exports.createFirefoxProfile = () => {
+const createFirefoxProfile = exports.createFirefoxProfile = config => {
   const profile = new firefox.Profile();
 
-  profile.setPreference('browser.download.dir', _path2.default.join(_config2.default.projectPath, _config2.default.downloads));
+  profile.setPreference('browser.download.dir', _path2.default.join(config.projectPath, config.downloads));
   profile.setPreference('browser.download.folderList', 2);
   profile.setPreference('browser.download.panel.shown', true);
   profile.setPreference('browser.safebrowsing.downloads.enabled', false);
