@@ -9,11 +9,17 @@ Feature: Forms
         When I generate random "stringWithLength:10" as "storedStringWithLength"
         And I fill the "form" form with:
             | nameInput | v:storedStringWithLength |
+        And I store the "nameInput" element text as "storedInputValue" variable
         Then the "form" form is filled with:
-            | nameInput | v:storedStringWithLength |
+            | nameInput | v:storedInputValue       |
+        And there is element "nameInput" with value "t:v:storedInputValue"
         When I fill the "form" form with:
             | descriptionTextarea | g:personalData:email |
-        Then there is element "descriptionTextarea" with value "r:email"
+        And I store the "descriptionTextarea" element text as "storedTextareaValue" variable
+        Then the "form" form is filled with:
+            | descriptionTextarea | v:storedTextareaValue |
+        And there is element "descriptionTextarea" with value "t:v:storedTextareaValue"
+        And there is element "descriptionTextarea" with value "r:email"
         When I fill the "form" form with:
             | nameInput           | d:test-dictionary:test-name |
             | descriptionTextarea | some description            |
