@@ -71,7 +71,14 @@ defineSupportCode(function ({ When, Then }) {
 
   When(/^I store the "([^"]*)" element text as "([^"]*)" variable$/, function (elementName, variable) {
     return this.currentPage.waitForVisibilityOf(elementName)
-      .then(() => {
+      .then(async () => {
+        const elementTag = await this.currentPage[elementName].getTagName(tag => tag);
+
+        if (elementTag === 'input' || elementTag === 'textarea') {
+          return this.currentPage[elementName].getAttribute('value')
+            .then((value) => { variableStore.storeVariable(variable, value); });
+        }
+
         return this.currentPage[elementName].getText()
           .then((text) => { variableStore.storeVariable(variable, text); });
       });
