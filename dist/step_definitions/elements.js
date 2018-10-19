@@ -73,11 +73,23 @@ const handlePromises = (hashedData, onSuccess, onReject) => resolvedPromises => 
   });
 
   When(/^I store the "([^"]*)" element text as "([^"]*)" variable$/, function (elementName, variable) {
-    return this.currentPage.waitForVisibilityOf(elementName).then(() => {
-      return this.currentPage[elementName].getText().then(text => {
+    var _this = this;
+
+    return this.currentPage.waitForVisibilityOf(elementName).then(_asyncToGenerator(function* () {
+      const elementTag = yield _this.currentPage[elementName].getTagName(function (tag) {
+        return tag;
+      });
+
+      if (elementTag === 'input' || elementTag === 'textarea') {
+        return _this.currentPage[elementName].getAttribute('value').then(function (value) {
+          _variableStore2.default.storeVariable(variable, value);
+        });
+      }
+
+      return _this.currentPage[elementName].getText().then(function (text) {
         _variableStore2.default.storeVariable(variable, text);
       });
-    });
+    }));
   });
 
   When(/^I update the "([^"]*)" element text as "([^"]*)" variable$/, function (elementName, variable) {
@@ -366,7 +378,7 @@ const handlePromises = (hashedData, onSuccess, onReject) => resolvedPromises => 
   });
 
   When(/^I drag "([^"]*)" element and drop over "([^"]*)" element$/, (() => {
-    var _ref = _asyncToGenerator(function* (elementDrag, elementDrop) {
+    var _ref2 = _asyncToGenerator(function* (elementDrag, elementDrop) {
       const wait = function (timeToWait) {
         return browser.sleep(timeToWait);
       };
@@ -382,7 +394,7 @@ const handlePromises = (hashedData, onSuccess, onReject) => resolvedPromises => 
     });
 
     return function (_x, _x2) {
-      return _ref.apply(this, arguments);
+      return _ref2.apply(this, arguments);
     };
   })());
 });
