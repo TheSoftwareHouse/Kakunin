@@ -1,5 +1,7 @@
+import _ from 'lodash';
+
 export const prepareBrowserInstance = (browserConfig, specs) => {
-  const instance = JSON.parse(JSON.stringify(browserConfig));
+  const instance = _.cloneDeep(browserConfig);
   instance.specs = specs;
 
   return instance;

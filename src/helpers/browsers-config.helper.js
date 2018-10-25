@@ -1,5 +1,5 @@
 import glob from 'glob';
-import chunk from 'chunk';
+import _ from 'lodash';
 import path from 'path';
 const { createFirefoxProfile } = require('./create-firefox-profile.helper');
 const { safariBrowserConfigurator } = require('./safari-browser-configurator.helper');
@@ -88,13 +88,13 @@ const browsersConfiguration = (config, commandArgs) => {
     const browsersSettings = [];
     const browserConfigs = getExtendedBrowsersConfigs(config, commandArgs);
     const allSpecs = glob.sync(config.features.map(file => path.join(config.projectPath, file, '**/*.feature'))[0]);
-    const numberOfInstances = (commandArgs.parallel !== undefined && commandArgs.parallel >= allSpecs.length)
-      ? allSpecs.length
-      : (commandArgs.parallel !== undefined && Number.isInteger(commandArgs.parallel) === true && commandArgs.parallel >=! 0)
-        ? commandArgs.parallel
-        : 1;
-    const expectedArrayLength = (numberOfInstances !== 1) ? Math.ceil(allSpecs.length / commandArgs.parallel) : allSpecs.length;
-    const chunkedSpecs = chunk(allSpecs, expectedArrayLength);
+    const numberOfInstances = (commandArgs.parallel !== undefined && Number.isInteger(commandArgs.parallel) && commandArgs.parallel !== 0)
+      ? commandArgs.parallel >= allSpecs.length
+        ? allSpecs.length
+        : commandArgs.parallel
+      : 1;
+    const expectedArrayLength = Math.ceil(allSpecs.length / numberOfInstances);
+    const chunkedSpecs = _.chunk(allSpecs, expectedArrayLength);
 
     if (allSpecs.length === 0) {
       throw new Error('Could not find any files matching regex in the directory!');
@@ -116,7 +116,7 @@ const browsersConfiguration = (config, commandArgs) => {
       pushPreparedBrowserInstance('safariConfig')
     }
 
-    if (commandArgs.chrome || browsersSettings.length === 0) {
+    if (commandArgs.chrome || (commandArgs.firefox === undefined && commandArgs.safari === undefined)) {
       pushPreparedBrowserInstance('chromeConfig')
     }
 

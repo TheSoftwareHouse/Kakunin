@@ -4,9 +4,9 @@ var _glob = require('glob');
 
 var _glob2 = _interopRequireDefault(_glob);
 
-var _chunk = require('chunk');
+var _lodash = require('lodash');
 
-var _chunk2 = _interopRequireDefault(_chunk);
+var _lodash2 = _interopRequireDefault(_lodash);
 
 var _path = require('path');
 
@@ -89,9 +89,9 @@ const browsersConfiguration = (config, commandArgs) => {
     const allSpecs = _glob2.default.sync(config.features.map(function (file) {
       return _path2.default.join(config.projectPath, file, '**/*.feature');
     })[0]);
-    const numberOfInstances = commandArgs.parallel !== undefined && commandArgs.parallel >= allSpecs.length ? allSpecs.length : commandArgs.parallel !== undefined && Number.isInteger(commandArgs.parallel) === true && commandArgs.parallel >= !0 ? commandArgs.parallel : 1;
-    const expectedArrayLength = numberOfInstances !== 1 ? Math.ceil(allSpecs.length / commandArgs.parallel) : allSpecs.length;
-    const chunkedSpecs = (0, _chunk2.default)(allSpecs, expectedArrayLength);
+    const numberOfInstances = commandArgs.parallel !== undefined && Number.isInteger(commandArgs.parallel) && commandArgs.parallel !== 0 ? commandArgs.parallel >= allSpecs.length ? allSpecs.length : commandArgs.parallel : 1;
+    const expectedArrayLength = Math.ceil(allSpecs.length / numberOfInstances);
+    const chunkedSpecs = _lodash2.default.chunk(allSpecs, expectedArrayLength);
 
     if (allSpecs.length === 0) {
       throw new Error('Could not find any files matching regex in the directory!');
@@ -113,7 +113,7 @@ const browsersConfiguration = (config, commandArgs) => {
       pushPreparedBrowserInstance('safariConfig');
     }
 
-    if (commandArgs.chrome || browsersSettings.length === 0) {
+    if (commandArgs.chrome || commandArgs.firefox === undefined && commandArgs.safari === undefined) {
       pushPreparedBrowserInstance('chromeConfig');
     }
 
