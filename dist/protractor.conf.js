@@ -50,7 +50,7 @@ exports.config = {
 
   framework: 'custom',
   frameworkPath: require.resolve('protractor-cucumber-framework'),
-  specs: config.features.map(file => path.join(config.projectPath, file, '**/*.feature')),
+  specs: [],
 
   cucumberOpts: {
     require: ['./configuration/config.js', './configuration/hooks.js', './step_definitions/**/*.js', ...config.step_definitions.map(file => path.join(config.projectPath, file, '**/*.js')), ...config.hooks.map(file => path.join(config.projectPath, file, '**/*.js'))],
@@ -69,42 +69,40 @@ exports.config = {
     }
   }],
 
-  onPrepare: (() => {
+  beforeLaunch: (() => {
     var _ref = _asyncToGenerator(function* () {
       yield prepareReportCatalogs();
       yield deleteReportFiles();
-
-      if (!config.headless) {
-        browser.driver.manage().window().setSize(parseInt(config.browserWidth), parseInt(config.browserHeight));
-      }
-
-      modulesLoader.getModules('matchers');
-      modulesLoader.getModules('dictionaries');
-      modulesLoader.getModules('generators');
-      modulesLoader.getModules('comparators');
-      modulesLoader.getModules('form_handlers');
-      modulesLoader.getModules('transformers');
-      modulesLoader.getModules('emails');
-
-      const modules = modulesLoader.getModulesAsObject(config.pages.map(function (page) {
-        return path.join(config.projectPath, page);
-      }));
-
-      browser.page = Object.keys(modules).reduce(function (pages, moduleName) {
-        return _extends({}, pages, { [moduleName]: new modules[moduleName]() });
-      }, {});
-
-      global.expect = chai.expect;
-
-      if (config.clearEmailInboxBeforeTests) {
-        return emailService.clearInbox();
-      }
     });
 
-    return function onPrepare() {
+    return function beforeLaunch() {
       return _ref.apply(this, arguments);
     };
   })(),
+
+  onPrepare: function () {
+    if (!config.headless) {
+      browser.driver.manage().window().setSize(parseInt(config.browserWidth), parseInt(config.browserHeight));
+    }
+
+    modulesLoader.getModules('matchers');
+    modulesLoader.getModules('dictionaries');
+    modulesLoader.getModules('generators');
+    modulesLoader.getModules('comparators');
+    modulesLoader.getModules('form_handlers');
+    modulesLoader.getModules('transformers');
+    modulesLoader.getModules('emails');
+
+    const modules = modulesLoader.getModulesAsObject(config.pages.map(page => path.join(config.projectPath, page)));
+
+    browser.page = Object.keys(modules).reduce((pages, moduleName) => _extends({}, pages, { [moduleName]: new modules[moduleName]() }), {});
+
+    global.expect = chai.expect;
+
+    if (config.clearEmailInboxBeforeTests) {
+      return emailService.clearInbox();
+    }
+  },
 
   baseUrl: config.baseUrl
 };

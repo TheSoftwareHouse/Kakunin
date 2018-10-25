@@ -44,7 +44,7 @@ exports.config = {
 
   framework: 'custom',
   frameworkPath: require.resolve('protractor-cucumber-framework'),
-  specs: config.features.map(file => path.join(config.projectPath, file, '**/*.feature')),
+  specs: [],
 
   cucumberOpts: {
     require: [
@@ -69,10 +69,12 @@ exports.config = {
     }
   }],
 
-  onPrepare: async function () {
+  beforeLaunch: async function () {
     await prepareReportCatalogs();
     await deleteReportFiles();
+  },
 
+  onPrepare: function () {
     if (!config.headless) {
       browser.driver.manage().window().setSize(
         parseInt(config.browserWidth),

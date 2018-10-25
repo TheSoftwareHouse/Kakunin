@@ -1,5 +1,9 @@
+import glob from 'glob';
+import chunk from 'chunk';
+import path from 'path';
 const { createFirefoxProfile } = require('./create-firefox-profile.helper');
-const { safariBrowserConfigurator } = require('./safari-browser-configurator.helper')
+const { safariBrowserConfigurator } = require('./safari-browser-configurator.helper');
+const { prepareBrowserInstance } = require('./prepare-browser-instance-specs.helper');
 
 const getDefaultBrowsersConfigs = (config) => {
   const chromeConfig = {
@@ -82,20 +86,34 @@ const getExtendedBrowsersConfigs = (config) => {
 const browsersConfiguration = (config, commandArgs) => {
   return async () => {
     const browsersSettings = [];
-    const configs = getExtendedBrowsersConfigs(config);
+    const browserConfigs = getExtendedBrowsersConfigs(config, commandArgs);
+    const allSpecs = glob.sync(config.features.map(file => path.join(config.projectPath, file, '**/*.feature'))[0]);
+    const numberOfInstances = (commandArgs.parallel !== undefined && commandArgs.parallel > 1) ? commandArgs.parallel : 1;
+    const expectedArrayLength = (numberOfInstances !== 1) ? Math.ceil(allSpecs.length / commandArgs.parallel) : allSpecs.length;
+    const chunkedSpecs = chunk(allSpecs, expectedArrayLength);
+
+    if (allSpecs.length === 0) {
+      throw new Error('Could not find any files matching regex in the directory!');
+    }
+
+    const pushPreparedBrowserInstance = (browserType) => {
+      for (let i = 0; i < numberOfInstances; i++) {
+        browsersSettings.push(prepareBrowserInstance(browserConfigs[browserType], chunkedSpecs[i]));
+      }
+    };
 
     if (commandArgs.firefox) {
-      configs.firefoxConfig.firefox_profile = await createFirefoxProfile(config);
-      browsersSettings.push(configs.firefoxConfig);
+      browserConfigs.firefoxConfig.firefox_profile = await createFirefoxProfile(config);
+      pushPreparedBrowserInstance('firefoxConfig')
     }
 
     if (commandArgs.safari) {
       safariBrowserConfigurator(config);
-      browsersSettings.push(configs.safariConfig);
+      pushPreparedBrowserInstance('safariConfig')
     }
 
     if (commandArgs.chrome || browsersSettings.length === 0) {
-      browsersSettings.push(configs.chromeConfig);
+      pushPreparedBrowserInstance('chromeConfig')
     }
 
     return Promise.resolve(browsersSettings);

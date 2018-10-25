@@ -1,9 +1,24 @@
 'use strict';
 
+var _glob = require('glob');
+
+var _glob2 = _interopRequireDefault(_glob);
+
+var _chunk = require('chunk');
+
+var _chunk2 = _interopRequireDefault(_chunk);
+
+var _path = require('path');
+
+var _path2 = _interopRequireDefault(_path);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
 const { createFirefoxProfile } = require('./create-firefox-profile.helper');
 const { safariBrowserConfigurator } = require('./safari-browser-configurator.helper');
+const { prepareBrowserInstance } = require('./prepare-browser-instance-specs.helper');
 
 const getDefaultBrowsersConfigs = config => {
   const chromeConfig = {
@@ -70,20 +85,36 @@ const getExtendedBrowsersConfigs = config => {
 const browsersConfiguration = (config, commandArgs) => {
   return _asyncToGenerator(function* () {
     const browsersSettings = [];
-    const configs = getExtendedBrowsersConfigs(config);
+    const browserConfigs = getExtendedBrowsersConfigs(config, commandArgs);
+    const allSpecs = _glob2.default.sync(config.features.map(function (file) {
+      return _path2.default.join(config.projectPath, file, '**/*.feature');
+    })[0]);
+    const numberOfInstances = commandArgs.parallel !== undefined && commandArgs.parallel > 1 ? commandArgs.parallel : 1;
+    const expectedArrayLength = numberOfInstances !== 1 ? Math.ceil(allSpecs.length / commandArgs.parallel) : allSpecs.length;
+    const chunkedSpecs = (0, _chunk2.default)(allSpecs, expectedArrayLength);
+
+    if (allSpecs.length === 0) {
+      throw new Error('Could not find any files matching regex in the directory!');
+    }
+
+    const pushPreparedBrowserInstance = function (browserType) {
+      for (let i = 0; i < numberOfInstances; i++) {
+        browsersSettings.push(prepareBrowserInstance(browserConfigs[browserType], chunkedSpecs[i]));
+      }
+    };
 
     if (commandArgs.firefox) {
-      configs.firefoxConfig.firefox_profile = yield createFirefoxProfile(config);
-      browsersSettings.push(configs.firefoxConfig);
+      browserConfigs.firefoxConfig.firefox_profile = yield createFirefoxProfile(config);
+      pushPreparedBrowserInstance('firefoxConfig');
     }
 
     if (commandArgs.safari) {
       safariBrowserConfigurator(config);
-      browsersSettings.push(configs.safariConfig);
+      pushPreparedBrowserInstance('safariConfig');
     }
 
     if (commandArgs.chrome || browsersSettings.length === 0) {
-      browsersSettings.push(configs.chromeConfig);
+      pushPreparedBrowserInstance('chromeConfig');
     }
 
     return Promise.resolve(browsersSettings);
