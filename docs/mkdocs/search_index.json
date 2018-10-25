@@ -472,7 +472,7 @@
         }, 
         {
             "location": "/parallel-testing/", 
-            "text": "Parallel testing\n\n\nThere is a possibility to run tests in parallel.\n\n\nHow to execute\n\n\nUse a command \nnpm run kakunin -- --parallel \nnumber of instances\n where \nnumber of instances\n is a number.\n\n\nExample:\n- \nnpm run kakunin -- --chrome --parallel 2\n\n\nTroubleshooting\n\n\n\n\nRunning more than one instance in \nFirefox\n is not possible now (fix in-progress).", 
+            "text": "Parallel testing\n\n\nThere is a possibility to run tests in parallel.\n\n\nHow to execute\n\n\nUse a command \nnpm run kakunin -- --parallel \nnumber of instances\n where \nnumber of instances\n is a number.\n\n\nExample:\n- \nnpm run kakunin -- --chrome --parallel 2\n\n\nKeep in mind that the merged report is available in the \nreports/report/index.html\n file. text\n\n\nTroubleshooting\n\n\n\n\nRunning more than one instance in \nFirefox\n is not possible now (fix in-progress).", 
             "title": "Parallel testing"
         }, 
         {
@@ -482,7 +482,7 @@
         }, 
         {
             "location": "/parallel-testing/#how-to-execute", 
-            "text": "Use a command  npm run kakunin -- --parallel  number of instances  where  number of instances  is a number.  Example:\n-  npm run kakunin -- --chrome --parallel 2", 
+            "text": "Use a command  npm run kakunin -- --parallel  number of instances  where  number of instances  is a number.  Example:\n-  npm run kakunin -- --chrome --parallel 2  Keep in mind that the merged report is available in the  reports/report/index.html  file. text", 
             "title": "How to execute"
         }, 
         {
