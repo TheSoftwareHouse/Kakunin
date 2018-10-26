@@ -11,7 +11,7 @@
         <meta name="description" content="Kakunin - E2E testing framework on steroids">
       
       
-        <link rel="canonical" href="https://thesoftwarehouse.github.io/Kakunin/quickstart/">
+        <link rel="canonical" href="https://thesoftwarehouse.github.io/Kakunin/parallel-testing/">
       
       
       
@@ -28,7 +28,7 @@
 
     
       
-        <title>Quick start - Kakunin</title>
+        <title>Parallel testing - Kakunin</title>
       
     
     
@@ -88,7 +88,7 @@
             
               
             
-            Quick start
+            Parallel testing
           
         </span>
       </div>
@@ -195,61 +195,11 @@
       
       
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
-    
-      
-    
-    
-      <label class="md-nav__link md-nav__link--active" for="toc">
-        Quick start
-      </label>
-    
-    <a href="./" title="Quick start" class="md-nav__link md-nav__link--active">
+  <li class="md-nav__item">
+    <a href="../quickstart/" title="Quick start" class="md-nav__link">
       Quick start
     </a>
-    
-      
-<nav class="md-nav md-nav--secondary">
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="toc">Table of contents</label>
-    <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#install-packages" title="Install packages" class="md-nav__link">
-    Install packages
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#configure-kakunin" title="Configure Kakunin" class="md-nav__link">
-    Configure Kakunin
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#test-the-app" title="Test the app" class="md-nav__link">
-    Test the app
-  </a>
-  
-</li>
-      
-      
-      
-    </ul>
-  
-</nav>
-    
   </li>
 
     
@@ -353,11 +303,54 @@
       
       
 
+  
 
-  <li class="md-nav__item">
-    <a href="../parallel-testing/" title="Parallel testing" class="md-nav__link">
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        Parallel testing
+      </label>
+    
+    <a href="./" title="Parallel testing" class="md-nav__link md-nav__link--active">
       Parallel testing
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-execute" title="How to execute" class="md-nav__link">
+    How to execute
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" title="Troubleshooting" class="md-nav__link">
+    Troubleshooting
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
+    
   </li>
 
     
@@ -394,22 +387,15 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#install-packages" title="Install packages" class="md-nav__link">
-    Install packages
+  <a href="#how-to-execute" title="How to execute" class="md-nav__link">
+    How to execute
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#configure-kakunin" title="Configure Kakunin" class="md-nav__link">
-    Configure Kakunin
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#test-the-app" title="Test the app" class="md-nav__link">
-    Test the app
+  <a href="#troubleshooting" title="Troubleshooting" class="md-nav__link">
+    Troubleshooting
   </a>
   
 </li>
@@ -428,142 +414,20 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/TheSoftwareHouse/Kakunin/edit/master/docs-src/quickstart.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                  <a href="https://github.com/TheSoftwareHouse/Kakunin/edit/master/docs-src/parallel-testing.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
-                <h1 id="quickstart">Quickstart</h1>
-<p>As a quick demonstration of the framework let's test the 
-<a href="http://todomvc.com/examples/react/#/">React variant of TodoMVC</a> project. 
-Of course other testing other frameworks is possible, you can try it 
-by yourself!</p>
-<h2 id="install-packages">Install packages</h2>
-<p>In order to install Kakunin you have to make sure that you have installed:</p>
-<div class="codehilite"><pre><span></span>node.js - v7.8.0 min
-JDK
-Chrome
-</pre></div>
-
-
-<ul>
-<li>
-<p>Create directory for your project and enter it</p>
-<p><code>bash
-$mkdir my_project
-cd my_project</code></p>
-</li>
-<li>
-<p>Initialize JavaScript project</p>
-<p><code>bash
-npm init</code></p>
-</li>
-<li>
-<p>Install dependencies</p>
-<p><code>bash
-npm install cross-env protractor webdriver-manager kakunin  --save</code></p>
-</li>
-<li>
-<p>Inside <code>package.json</code> file add new script in <code>scripts</code> section:</p>
-<p><code>json
-"kakunin": "cross-env NODE_ENV=prod kakunin"</code> </p>
-</li>
-</ul>
-<h2 id="configure-kakunin">Configure Kakunin</h2>
-<ul>
-<li>
-<p>Run initialization command </p>
-<p><code>bash
-npm run kakunin init</code></p>
-</li>
-<li>
-<p>answer literally few questions:</p>
-<p><code>What kind of application would you like to test?</code> : <code>otherWeb</code></p>
-<p><code>What is base url? [http://localhost:3000]</code>: <code>http://todomvc.com</code></p>
-<p><code>What kind of email service would you like to use?</code>: <code>none</code> </p>
-</li>
-</ul>
-<p>And you're set! Now let's write some test!</p>
-<h2 id="test-the-app">Test the app</h2>
+                <h1 id="parallel-testing">Parallel testing</h1>
+<p>There is a possibility to run tests in parallel.</p>
+<h3 id="how-to-execute">How to execute</h3>
+<p>Use a command <code>npm run kakunin -- --parallel &lt;number of instances&gt;</code> where <code>number of instances</code> is a number.</p>
+<p>Example:
+- <code>npm run kakunin -- --chrome --parallel 2</code></p>
+<p><span style="color:red">Keep in mind that the merged report is available in the <code>reports/report/index.html</code> file. text</span></p>
+<h3 id="troubleshooting">Troubleshooting</h3>
 <ol>
-<li>Create a page object that will contain instructions on how to locate elements in the projects.
-Create a file <code>pages/main.js</code>:</li>
+<li>Running more than one instance in <code>Firefox</code> is not possible now (fix in-progress).</li>
 </ol>
-<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="p">{</span> <span class="nx">BasePage</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;kakunin&#39;</span><span class="p">);</span>
-
-<span class="kr">class</span> <span class="nx">MainPage</span> <span class="kr">extends</span> <span class="nx">BasePage</span> <span class="p">{</span>
-    <span class="nx">constructor</span><span class="p">()</span> <span class="p">{</span>
-        <span class="kr">super</span><span class="p">();</span>
-
-        <span class="c1">// define the main url for the page</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">url</span> <span class="o">=</span> <span class="s1">&#39;/examples/react/#/&#39;</span><span class="p">;</span>
-
-        <span class="c1">// whole form tag</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">addTodoForm</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.todoapp&#39;</span><span class="p">);</span>
-
-        <span class="c1">// input field</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">todoInput</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;input.new-todo&#39;</span><span class="p">);</span>
-
-        <span class="c1">// list of currently added todos</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">todos</span> <span class="o">=</span> <span class="nx">$$</span><span class="p">(</span><span class="s1">&#39;.todo-list .view&#39;</span><span class="p">);</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">todoLabel</span> <span class="o">=</span> <span class="nx">by</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span><span class="s1">&#39;label&#39;</span><span class="p">);</span>
-
-        <span class="c1">// first todo item in a list</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">firstTodoItem</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">todos</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">MainPage</span><span class="p">;</span>
-</pre></div>
-
-
-<p>Now that we have prepared the locators, we can start writing our test. Let's test adding new todo item. </p>
-<p>Create a file named: <code>features/adding_todo.feature</code> with the following contents:</p>
-<div class="codehilite"><pre><span></span><span class="k">Feature:</span><span class="nf"></span>
-
-<span class="nf">    </span><span class="k">Scenario:</span><span class="nf"> Adding todo</span>
-<span class="k">        Given </span><span class="nf">I visit the &quot;</span><span class="s">main</span><span class="nf">&quot; page</span>
-<span class="nf">        </span><span class="k">And </span><span class="nf">I wait for &quot;</span><span class="s">visibilityOf</span><span class="nf">&quot; of the &quot;</span><span class="s">addTodoForm</span><span class="nf">&quot; element</span>
-<span class="nf">        </span><span class="k">And </span><span class="nf">the &quot;</span><span class="s">addTodoForm</span><span class="nf">&quot; element is visible</span>
-<span class="nf">        </span><span class="k">When </span><span class="nf">I fill the &quot;</span><span class="s">addTodoForm</span><span class="nf">&quot; form with:</span>
-<span class="k">            |</span><span class="s"> todoInput</span><span class="k"> |</span><span class="s"> My new todo</span><span class="k"> |</span><span class="nf"></span>
-<span class="nf">        </span><span class="k">And </span><span class="nf">I press the &quot;</span><span class="s">enter</span><span class="nf">&quot; key</span>
-<span class="nf">        </span><span class="k">Then </span><span class="nf">there are &quot;</span><span class="s">equal 1</span><span class="nf">&quot; &quot;</span><span class="s">todos</span><span class="nf">&quot; elements</span>
-</pre></div>
-
-
-<p>And that's it! All you have to do now is to run the test and watch the magic happens ;)</p>
-<div class="codehilite"><pre><span></span>npm run kakunin
-</pre></div>
-
-
-<p>The tests may run quite fast so you might not been able to see that it 
-really works as expected. To check if the todo items has been really 
-added to the list, let's use a simple hack - let's pause the running 
-test right after the todo has been added. </p>
-<p>To do that, let's upgrade our Scenario. Update the file:</p>
-<div class="codehilite"><pre><span></span><span class="k">Feature:</span><span class="nf"></span>
-
-<span class="nf">    </span><span class="k">Scenario:</span><span class="nf"> Adding todo</span>
-<span class="k">        Given </span><span class="nf">I visit the &quot;</span><span class="s">main</span><span class="nf">&quot; page</span>
-<span class="nf">        </span><span class="k">And </span><span class="nf">I wait for &quot;</span><span class="s">visibilityOf</span><span class="nf">&quot; of the &quot;</span><span class="s">addTodoForm</span><span class="nf">&quot; element</span>
-<span class="nf">        </span><span class="k">And </span><span class="nf">the &quot;</span><span class="s">addTodoForm</span><span class="nf">&quot; element is visible</span>
-<span class="nf">        </span><span class="k">When </span><span class="nf">I fill the &quot;</span><span class="s">addTodoForm</span><span class="nf">&quot; form with:</span>
-<span class="k">            |</span><span class="s"> todoInput</span><span class="k"> |</span><span class="s"> My new todo</span><span class="k"> |</span><span class="nf"></span>
-<span class="nf">        </span><span class="k">And </span><span class="nf">I wait for &quot;</span><span class="s">1</span><span class="nf">&quot; seconds</span>
-<span class="nf">        </span><span class="k">And </span><span class="nf">I press the &quot;</span><span class="s">enter</span><span class="nf">&quot; key</span>
-<span class="nf">        </span><span class="k">When </span><span class="nf">I fill the &quot;</span><span class="s">addTodoForm</span><span class="nf">&quot; form with:</span>
-<span class="k">            |</span><span class="s"> todoInput</span><span class="k"> |</span><span class="s"> Another todo item!</span><span class="k"> |</span><span class="nf"></span>
-<span class="nf">        </span><span class="k">And </span><span class="nf">I wait for &quot;</span><span class="s">1</span><span class="nf">&quot; seconds</span>
-<span class="nf">        </span><span class="k">And </span><span class="nf">I press the &quot;</span><span class="s">enter</span><span class="nf">&quot; key</span>
-<span class="nf">        </span><span class="k">Then </span><span class="nf">there are &quot;</span><span class="s">equal 2</span><span class="nf">&quot; &quot;</span><span class="s">todos</span><span class="nf">&quot; elements</span>
-<span class="nf">        </span><span class="k">Then </span><span class="nf">I wait for &quot;</span><span class="s">5</span><span class="nf">&quot; seconds</span>
-</pre></div>
-
-
-<p>As you can see, we've added 1 new step that waits for a second before 
-"pressing" the <code>enter</code> key. We've also added a second todo item with 
-a short pause at the end of the test so you can see the changes.</p>
-<p>If you want to see what can we do more with the TodoMVC project, take a look 
-at the <code>example</code> dir, where you'll find a complete set of test for the project.</p>
                 
                   
                 
@@ -582,14 +446,28 @@ at the <code>example</code> dir, where you'll find a complete set of test for th
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
+          <a href="../performance-testing/" title="Performance testing" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Performance testing
+              </span>
+            </div>
+          </a>
         
-          <a href=".." title="Getting started" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+        
+          <a href="../extending/" title="Extending Kakunin" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Getting started
+                Extending Kakunin
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">
