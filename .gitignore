@@ -21,3 +21,6 @@ docker-compose.override.yml
 !example/reports/.gitkeep
 !reports/.gitkeep
 .DS_Store
+
+#Temporary added until "npm link" is implemented for Kakunin. The following line is required to make travis tests on CI working.
+functional-tests/package-lock.json
