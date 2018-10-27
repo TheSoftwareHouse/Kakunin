@@ -59,7 +59,10 @@
     "eslint-plugin-jsx-a11y": "^6.0.2",
     "eslint-plugin-react": "^7.9.1",
     "fetch-mock": "^7.0.7",
-    "jest": "^23.2.0"
+    "husky": "^1.1.2",
+    "jest": "^23.2.0",
+    "lint-staged": "^7.3.0",
+    "prettier": "^1.14.3"
   },
   "dependencies": {
     "browsermob-proxy": "^1.0.9",
@@ -90,5 +93,16 @@
     "shelljs": "^0.8.2",
     "sugar-date": "^2.0.4",
     "webdriver-manager": "^12.1.0"
+  },
+  "lint-staged": {
+    "src/**/*.js": [
+      "prettier --print-width 120 --single-quote --trailing-comma all --write",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   }
 }
