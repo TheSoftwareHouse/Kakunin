@@ -5,3 +5,4 @@ addons:
   chrome: stable
 script:
 - npm run test
+- npm run lint
