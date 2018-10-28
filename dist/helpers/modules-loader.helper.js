@@ -34,7 +34,9 @@ class ModulesLoader {
 
     Object.keys(this.paths).forEach(group => {
       if (typeof _config2.default[group] !== 'undefined') {
-        configuration[group].forEach(groupPath => this.paths[group].push(_path2.default.join(configuration.projectPath + groupPath)));
+        configuration[group].forEach(groupPath => {
+          this.paths[group].push(_path2.default.join(configuration.projectPath + groupPath));
+        });
       }
     });
   }

@@ -72,7 +72,9 @@ const handlePromises = (hashedData, onSuccess, onReject) => resolvedPromises => 
 
   When(/^I click the "([^"]*)" element$/, function (elementName) {
     return this.currentPage.scrollIntoElement(elementName).catch(() => Promise.resolve()).then(() => this.currentPage.waitForVisibilityOf(elementName)).then(() => this.currentPage.scrollIntoElement(elementName)).then(() => this.currentPage.click(elementName)).catch(() => {
-      return (0, _waitForCondition.waitForCondition)('elementToBeClickable', timeout)(this.currentPage[elementName]).then(() => this.currentPage.click(elementName));
+      return (0, _waitForCondition.waitForCondition)('elementToBeClickable', timeout)(this.currentPage[elementName]).then(() => {
+        return this.currentPage.click(elementName);
+      });
     }).catch(() => {
       console.warn('Warning! Element was not clickable. We need to scroll it down.');
       return browser.executeScript('window.scrollBy(0,50);').then(() => this.currentPage.waitForVisibilityOf(elementName)).then(() => this.currentPage.click(elementName));
@@ -348,19 +350,21 @@ const handlePromises = (hashedData, onSuccess, onReject) => resolvedPromises => 
   When(/^I infinitely scroll to the "([^"]*)" element$/, function (elementName) {
     const self = this;
 
-    const scrollToLoader = () => self.currentPage.isPresent(elementName).then(isPresent => {
-      if (isPresent) {
-        return self.currentPage.scrollIntoElement(elementName);
-      }
+    const scrollToLoader = () => {
+      return self.currentPage.isPresent(elementName).then(isPresent => {
+        if (isPresent) {
+          return self.currentPage.scrollIntoElement(elementName);
+        }
 
-      return Promise.resolve();
-    }).then(() => self.currentPage.isPresent(elementName)).then(isPresent => {
-      if (isPresent) {
-        return browser.sleep(1000).then(() => scrollToLoader());
-      }
+        return Promise.resolve();
+      }).then(() => self.currentPage.isPresent(elementName)).then(isPresent => {
+        if (isPresent) {
+          return browser.sleep(1000).then(() => scrollToLoader());
+        }
 
-      return Promise.resolve();
-    });
+        return Promise.resolve();
+      });
+    };
 
     return scrollToLoader();
   });

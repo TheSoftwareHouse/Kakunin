@@ -61,4 +61,6 @@ class EmailService {
 
 const mailtrapAdapter = (0, _mailtrapClient.create)();
 
-const create = exports.create = (defaultAdapters = [mailtrapAdapter], config = _config2.default) => new EmailService(config, defaultAdapters);
+const create = exports.create = (defaultAdapters = [mailtrapAdapter], config = _config2.default) => {
+  return new EmailService(config, defaultAdapters);
+};

@@ -136,7 +136,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
     const interval = setInterval(() => {
       console.log('Checking mailbox for email...');
 
-      _emails.emailService.getEmails().then(emails => filterEmails.call(self, emails, data)).then(filteredEmails => rejectIfEmailFound(filteredEmails)).then(filteredEmails => rejectIfMaxRepeatsReached(filteredEmails, maxRepeats)).then(() => maxRepeats--).catch(err => err === 'No emails found and maximum repeats reached' ? stopInterval(interval, sync) : stopInterval(interval, sync.bind(null, err)));
+      _emails.emailService.getEmails().then(emails => filterEmails.call(self, emails, data)).then(filteredEmails => rejectIfEmailFound(filteredEmails)).then(filteredEmails => rejectIfMaxRepeatsReached(filteredEmails, maxRepeats)).then(() => maxRepeats--).catch(err => {
+        err === 'No emails found and maximum repeats reached' ? stopInterval(interval, sync) : stopInterval(interval, sync.bind(null, err));
+      });
     }, timeout);
   });
 });
