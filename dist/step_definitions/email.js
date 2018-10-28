@@ -50,16 +50,17 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
   }
 
   function filterEmails(emails, data) {
+    let originalEmails = emails;
     const checks = data.raw().filter(elem => elem[0] !== 'file');
 
     for (let i = 0; i < checks.length; i++) {
       const checkType = checks[i][0];
       const checkValue = checks[i][1];
 
-      emails = _filters.filters.filter(emails, checkType, checkValue, this);
+      originalEmails = _filters.filters.filter(originalEmails, checkType, checkValue, this);
     }
 
-    return emails;
+    return originalEmails;
   }
 
   function getFilesExtensions(data) {

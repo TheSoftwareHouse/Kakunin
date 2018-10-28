@@ -8,17 +8,19 @@ class MailTrapClient {
   }
 
   isSatisfiedBy(emailConfiguration) {
-    return emailConfiguration.type === 'mailtrap'
-      && emailConfiguration.config.hasOwnProperty('apiKey')
-      && emailConfiguration.config.hasOwnProperty('inboxId')
-      && emailConfiguration.config.hasOwnProperty('url');
+    return (
+      emailConfiguration.type === 'mailtrap' &&
+      emailConfiguration.config.hasOwnProperty('apiKey') &&
+      emailConfiguration.config.hasOwnProperty('inboxId') &&
+      emailConfiguration.config.hasOwnProperty('url')
+    );
   }
 
   getMailtrapConfig() {
     return {
       apiKey: this.config.config.apiKey,
       inboxId: this.config.config.inboxId,
-      endpoint: this.config.config.url
+      endpoint: this.config.config.url,
     };
   }
 
@@ -27,57 +29,57 @@ class MailTrapClient {
     const url = `${config.endpoint}/api/v1/inboxes/${config.inboxId}/clean?api_token=${config.apiKey}`;
 
     return this.requestClient(url, {
-      method: 'PATCH'
-    })
-      .then((res) => {
-        if (res.status !== 200) {
-          throw new Error(res);
-        }
+      method: 'PATCH',
+    }).then(res => {
+      if (res.status !== 200) {
+        throw new Error(res);
+      }
 
-        return res.json();
-      });
+      return res.json();
+    });
   }
 
   async getEmails() {
     const config = this.getMailtrapConfig();
     const url = `${config.endpoint}/api/v1/inboxes/${config.inboxId}/messages?api_token=${config.apiKey}`;
 
-    const messages = await this.requestClient(url)
-      .then((res) => {
-        if (res.status !== 200) {
-          throw new Error(res);
-        }
+    const messages = await this.requestClient(url).then(res => {
+      if (res.status !== 200) {
+        throw new Error(res);
+      }
 
-        return res.json();
-      });
+      return res.json();
+    });
 
     const messagesWithBody = [];
 
     for (const message of messages) {
-      const rawBody = await this.requestClient(`${config.endpoint}${message.raw_path}?api_token=${config.apiKey}`)
-        .then(res => res.text());
+      const rawBody = await this.requestClient(`${config.endpoint}${message.raw_path}?api_token=${config.apiKey}`).then(
+        res => res.text()
+      );
 
       messagesWithBody.push({
         ...message,
-        html_body: rawBody
+        html_body: rawBody,
       });
     }
 
-    return messagesWithBody.filter(message => !message.is_read)
+    return messagesWithBody.filter(message => !message.is_read);
   }
 
   getAttachments(email) {
     const config = this.getMailtrapConfig();
-    const url = `${config.endpoint}/api/v1/inboxes/${config.inboxId}/messages/${email.id}/attachments?api_token=${config.apiKey}`;
+    const url = `${config.endpoint}/api/v1/inboxes/${config.inboxId}/messages/${email.id}/attachments?api_token=${
+      config.apiKey
+    }`;
 
-    return this.requestClient(url)
-      .then((res) => {
-        if (res.status !== 200) {
-          throw new Error(res);
-        }
+    return this.requestClient(url).then(res => {
+      if (res.status !== 200) {
+        throw new Error(res);
+      }
 
-        return res.json();
-      });
+      return res.json();
+    });
   }
 
   markAsRead(email) {
@@ -87,22 +89,23 @@ class MailTrapClient {
     return this.requestClient(url, {
       method: 'PATCH',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         message: {
-          is_read: true
-        }
-      })
-    })
-      .then((res) => {
-        if (res.status !== 200) {
-          throw new Error(res);
-        }
+          is_read: true,
+        },
+      }),
+    }).then(res => {
+      if (res.status !== 200) {
+        throw new Error(res);
+      }
 
-        return res.json();
-      });
+      return res.json();
+    });
   }
 }
 
-export const create = (requestClient = fetch, config = configuration.email) => new MailTrapClient(requestClient, config);
+export const create = (requestClient = fetch, config = configuration.email) => {
+  return new MailTrapClient(requestClient, config);
+};

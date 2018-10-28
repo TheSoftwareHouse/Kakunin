@@ -5,7 +5,7 @@ const { createFirefoxProfile } = require('./create-firefox-profile.helper');
 const { safariBrowserConfigurator } = require('./safari-browser-configurator.helper');
 const { prepareBrowserInstance } = require('./prepare-browser-instance-specs.helper');
 
-const getDefaultBrowsersConfigs = (config) => {
+const getDefaultBrowsersConfigs = config => {
   const chromeConfig = {
     browserName: 'chrome',
     chromeOptions: {
@@ -13,44 +13,44 @@ const getDefaultBrowsersConfigs = (config) => {
       prefs: {
         credentials_enable_service: false,
         profile: {
-          password_manager_enabled: false
+          password_manager_enabled: false,
         },
         download: {
           prompt_for_download: false,
           default_directory: config.projectPath + config.downloads,
-          directory_upgrade: true
-        }
-      }
-    }
+          directory_upgrade: true,
+        },
+      },
+    },
   };
 
   const firefoxConfig = {
     browserName: 'firefox',
     marionette: true,
     'moz:firefoxOptions': {
-      args: []
-    }
+      args: [],
+    },
   };
 
   const safariConfig = {
-    browserName: 'safari'
+    browserName: 'safari',
   };
 
   return {
     chromeConfig,
     firefoxConfig,
-    safariConfig
+    safariConfig,
   };
 };
 
-const getExtendedBrowsersConfigs = (config) => {
+const getExtendedBrowsersConfigs = config => {
   const configs = getDefaultBrowsersConfigs(config);
 
   if (config.performance) {
     configs.chromeConfig.proxy = {
       proxyType: 'manual',
       httpProxy: `${config.browserMob.host}:${config.browserMob.port}`,
-      sslProxy: `${config.browserMob.host}:${config.browserMob.port}`
+      sslProxy: `${config.browserMob.host}:${config.browserMob.port}`,
     };
   }
 
@@ -62,7 +62,7 @@ const getExtendedBrowsersConfigs = (config) => {
       '--disable-gpu-sandbox',
       '--disable-accelerated-2d-canvas',
       '--disable-accelerated-jpeg-decoding',
-      '--no-sandbox'
+      '--no-sandbox',
     ];
   }
 
@@ -70,13 +70,13 @@ const getExtendedBrowsersConfigs = (config) => {
     configs.chromeConfig.chromeOptions.args = [
       ...configs.chromeConfig.chromeOptions.args,
       '--headless',
-      `--window-size=${config.browserWidth}x${config.browserHeight}`
+      `--window-size=${config.browserWidth}x${config.browserHeight}`,
     ];
 
     configs.firefoxConfig['moz:firefoxOptions'].args = [
       ...configs.firefoxConfig['moz:firefoxOptions'].args,
       '-headless',
-      `--window-size=${config.browserWidth}x${config.browserHeight}`
+      `--window-size=${config.browserWidth}x${config.browserHeight}`,
     ];
   }
 
@@ -88,7 +88,10 @@ const browsersConfiguration = (config, commandArgs) => {
     const browsersSettings = [];
     const browserConfigs = getExtendedBrowsersConfigs(config, commandArgs);
     const allSpecs = glob.sync(config.features.map(file => path.join(config.projectPath, file, '**/*.feature'))[0]);
-    const numberOfInstances = (commandArgs.parallel !== undefined && Number.isInteger(commandArgs.parallel) && commandArgs.parallel !== 0)
+    const isPararell =
+      commandArgs.parallel !== undefined && Number.isInteger(commandArgs.parallel) && commandArgs.parallel !== 0;
+
+    const numberOfInstances = isPararell
       ? commandArgs.parallel >= allSpecs.length
         ? allSpecs.length
         : commandArgs.parallel
@@ -100,7 +103,7 @@ const browsersConfiguration = (config, commandArgs) => {
       throw new Error('Could not find any files matching regex in the directory!');
     }
 
-    const pushPreparedBrowserInstance = (browserType) => {
+    const pushPreparedBrowserInstance = browserType => {
       for (let i = 0; i < numberOfInstances; i++) {
         browsersSettings.push(prepareBrowserInstance(browserConfigs[browserType], chunkedSpecs[i]));
       }
@@ -108,16 +111,16 @@ const browsersConfiguration = (config, commandArgs) => {
 
     if (commandArgs.firefox) {
       browserConfigs.firefoxConfig.firefox_profile = await createFirefoxProfile(config);
-      pushPreparedBrowserInstance('firefoxConfig')
+      pushPreparedBrowserInstance('firefoxConfig');
     }
 
     if (commandArgs.safari) {
       safariBrowserConfigurator(config);
-      pushPreparedBrowserInstance('safariConfig')
+      pushPreparedBrowserInstance('safariConfig');
     }
 
     if (commandArgs.chrome || (commandArgs.firefox === undefined && commandArgs.safari === undefined)) {
-      pushPreparedBrowserInstance('chromeConfig')
+      pushPreparedBrowserInstance('chromeConfig');
     }
 
     return Promise.resolve(browsersSettings);

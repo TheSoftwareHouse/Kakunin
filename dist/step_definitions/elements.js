@@ -46,6 +46,18 @@ const handlePromises = (hashedData, onSuccess, onReject) => resolvedPromises => 
 };
 
 (0, _cucumber.defineSupportCode)(function ({ When, Then }) {
+  function checkNumberOfElements(numberExpression, element) {
+    const self = this;
+    const numberPattern = /\d+/g;
+    const numbers = numberExpression.match(numberPattern).map(item => parseInt(item));
+
+    const expectFunction = function (words, num) {
+      return expect(self.currentPage.getNumberOfElements(element)).to.eventually.be[words.pop()](...num);
+    };
+
+    return expectFunction(numberExpression.substr(0, numberExpression.indexOf(numbers[0]) - 1).split(' '), numbers);
+  }
+
   When(/^I wait for "([^"]*)" of the "([^"]*)" element$/, function (condition, elementName) {
     if (this.currentPage[elementName] instanceof protractor.ElementArrayFinder) {
       return (0, _waitForCondition.waitForCondition)(condition, timeout)(this.currentPage[elementName].first());
@@ -128,7 +140,6 @@ const handlePromises = (hashedData, onSuccess, onReject) => resolvedPromises => 
       console.log('Waiting for element to disappear...');
 
       return self.currentPage.isPresent(element).then(isPresent => {
-
         if (!isPresent) {
           clearInterval(interval);
           sync();
@@ -140,7 +151,6 @@ const handlePromises = (hashedData, onSuccess, onReject) => resolvedPromises => 
         if (maxRepeats === 0) {
           clearInterval(interval);
           sync('Element is still visible');
-          return;
         }
       });
     }, 1500);
@@ -179,7 +189,6 @@ const handlePromises = (hashedData, onSuccess, onReject) => resolvedPromises => 
     const columns = data.raw().map(element => element[0]);
     const promises = [];
     return this.currentPage.waitForVisibilityOf(table).then(() => {
-
       return this.currentPage[table].each(function (element) {
         const rowPromises = [];
 
@@ -233,7 +242,6 @@ const handlePromises = (hashedData, onSuccess, onReject) => resolvedPromises => 
     }
 
     return this.currentPage.waitForVisibilityOf(elementName).then(() => {
-
       return checkNumberOfElements.call(this, numberExpression, elementName).then(function () {
         const promises = [];
 
@@ -252,7 +260,6 @@ const handlePromises = (hashedData, onSuccess, onReject) => resolvedPromises => 
     const pageElement = this.currentPage[elementName];
 
     return this.currentPage.waitForVisibilityOf(elementName).then(() => {
-
       return _matchers.matchers.match(pageElement, _variableStore2.default.replaceTextVariables(value)).then(function (matcherResult) {
         return expect(matcherResult).to.be.true;
       });
@@ -266,18 +273,6 @@ const handlePromises = (hashedData, onSuccess, onReject) => resolvedPromises => 
       return expect(matcherResult).to.not.be.true;
     }).catch(() => Promise.resolve());
   });
-
-  function checkNumberOfElements(numberExpression, element) {
-    const self = this;
-    const numberPattern = /\d+/g;
-    const numbers = numberExpression.match(numberPattern).map(item => parseInt(item));
-
-    const expectFunction = function (words, numbers) {
-      return expect(self.currentPage.getNumberOfElements(element)).to.eventually.be[words.pop()](...numbers);
-    };
-
-    return expectFunction(numberExpression.substr(0, numberExpression.indexOf(numbers[0]) - 1).split(' '), numbers);
-  }
 
   Then(/^there are "([^"]*)" "([^"]*)" elements$/, checkNumberOfElements);
 
@@ -305,7 +300,6 @@ const handlePromises = (hashedData, onSuccess, onReject) => resolvedPromises => 
 
     const promises = [];
     return this.currentPage.waitForVisibilityOf(elementName).then(() => {
-
       return allElements.each(function (element) {
         hashedData.forEach(function (hash) {
           promises.push(_matchers.matchers.match(element.element(self.currentPage[hash[0]].locator()), _variableStore2.default.replaceTextVariables(hash[1])).catch(() => false));

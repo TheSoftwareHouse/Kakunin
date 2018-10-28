@@ -6,8 +6,9 @@ class TextFieldFilter {
     return ['subject', 'from_email', 'from_name', 'to_email', 'to_name', 'html_body', 'text_body'].indexOf(type) !== -1;
   }
 
+  // eslint-disable-next-line no-unused-vars
   filter(emails, type, value, world) {
-    return emails.filter((email) => {
+    return emails.filter(email => {
       if (value.startsWith('r:')) {
         return regexBuilder.buildRegex(value).test(email[type]);
       }
@@ -21,4 +22,4 @@ class TextFieldFilter {
   }
 }
 
-export const textFieldFilter =  new TextFieldFilter();
+export const textFieldFilter = new TextFieldFilter();

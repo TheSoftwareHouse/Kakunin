@@ -1,6 +1,6 @@
 import * as path from 'path';
 
-export const isInitCommand = (args) => {
+export const isInitCommand = args => {
   if (Array.isArray(args)) {
     return args.length > 2 && args[2] === 'init';
   }
@@ -9,12 +9,10 @@ export const isInitCommand = (args) => {
 };
 
 export const getConfigPath = (configFile, argsConfig, basePath) => {
-  return argsConfig
-    ? path.join(basePath, argsConfig)
-    : path.join(basePath, configFile);
+  return argsConfig ? path.join(basePath, argsConfig) : path.join(basePath, configFile);
 };
 
-export const createTagsCLIArgument = (commandArgs) => {
+export const createTagsCLIArgument = commandArgs => {
   const tags = [];
 
   if (commandArgs.performance) {
@@ -43,7 +41,7 @@ export const filterCLIArguments = blackList => commandArgs => {
     if (prop !== '_' && !blackList.includes(prop)) {
       if (commandArgs[prop] === true || commandArgs[prop] === false) {
         commandLineArgs.push(`--${prop}`);
-      } else  {
+      } else {
         commandLineArgs.push(`--${prop}=${commandArgs[prop]}`);
       }
     }

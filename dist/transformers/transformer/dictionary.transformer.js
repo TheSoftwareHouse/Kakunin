@@ -13,7 +13,7 @@ class DictionaryTransformer {
   }
 
   isSatisfiedBy(prefix) {
-    return 'd:' === prefix;
+    return prefix === 'd:';
   }
 
   transform(value) {
@@ -21,4 +21,4 @@ class DictionaryTransformer {
     return this.dictionaries.getMappedValue(splittedValue[0], splittedValue[1]);
   }
 }
-const createDictionaryTransformer = exports.createDictionaryTransformer = (dicts = _dictionaries.dictionaries) => new DictionaryTransformer(dicts);
+const createDictionaryTransformer = exports.createDictionaryTransformer = (dictionaries = _dictionaries.dictionaries) => new DictionaryTransformer(dictionaries);

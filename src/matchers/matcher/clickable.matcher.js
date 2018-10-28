@@ -4,9 +4,11 @@ class ClickableMatcher {
   }
 
   match(element) {
-    return element.getAttribute('disabled').then(function (disabled) {
-      return ['disabled', true, 'true'].indexOf(disabled) === -1;
-    })
+    return element
+      .getAttribute('disabled')
+      .then(function(disabled) {
+        return ['disabled', true, 'true'].indexOf(disabled) === -1;
+      })
       .then(result => {
         if (result) {
           return true;
@@ -14,8 +16,8 @@ class ClickableMatcher {
 
         return Promise.reject(`
           Matcher "ClickableMatcher" could find attribute disabled on element "${element.locator()}".
-        `)
-      })
+        `);
+      });
   }
 }
 

@@ -6,7 +6,7 @@ class GeneratorTransformer {
   }
 
   isSatisfiedBy(prefix) {
-    return 'g:' === prefix;
+    return prefix === 'g:';
   }
 
   transform(value) {

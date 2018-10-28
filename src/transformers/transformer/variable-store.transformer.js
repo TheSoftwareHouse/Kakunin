@@ -6,7 +6,7 @@ class VariableStoreTransformer {
   }
 
   isSatisfiedBy(prefix) {
-    return 'v:' === prefix;
+    return prefix === 'v:';
   }
 
   transform(value) {

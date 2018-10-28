@@ -1,11 +1,8 @@
-import * as generator from './generator';
+import * as generators from './generator';
 
 class Generators {
   constructor() {
-    this.availableGenerators = [
-      generator.personalDataGenerator,
-      generator.stringWithLengthGenerator
-    ];
+    this.availableGenerators = [generators.personalDataGenerator, generators.stringWithLengthGenerator];
   }
 
   generate(generatorName, ...params) {
@@ -23,7 +20,7 @@ class Generators {
   }
 
   findGenerator(name) {
-    return this.availableGenerators.find((gen) => gen.isSatisfiedBy(name));
+    return this.availableGenerators.find(gen => gen.isSatisfiedBy(name));
   }
 }
 

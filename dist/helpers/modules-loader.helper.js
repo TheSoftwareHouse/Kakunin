@@ -20,7 +20,7 @@ var _config2 = _interopRequireDefault(_config);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 class ModulesLoader {
-  constructor(config) {
+  constructor(configuration) {
     this.paths = {
       comparators: [],
       dictionaries: [],
@@ -33,8 +33,8 @@ class ModulesLoader {
     };
 
     Object.keys(this.paths).forEach(group => {
-      if (typeof config[group] !== 'undefined') {
-        config[group].forEach(groupPath => this.paths[group].push(_path2.default.join(config.projectPath + groupPath)));
+      if (typeof _config2.default[group] !== 'undefined') {
+        configuration[group].forEach(groupPath => this.paths[group].push(_path2.default.join(configuration.projectPath + groupPath)));
       }
     });
   }
@@ -55,6 +55,7 @@ class ModulesLoader {
     return modules;
   }
 
+  // eslint-disable-next-line class-methods-use-this
   getFilePaths(folders) {
     let files = [];
 

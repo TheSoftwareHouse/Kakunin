@@ -89,7 +89,9 @@ const browsersConfiguration = (config, commandArgs) => {
     const allSpecs = _glob2.default.sync(config.features.map(function (file) {
       return _path2.default.join(config.projectPath, file, '**/*.feature');
     })[0]);
-    const numberOfInstances = commandArgs.parallel !== undefined && Number.isInteger(commandArgs.parallel) && commandArgs.parallel !== 0 ? commandArgs.parallel >= allSpecs.length ? allSpecs.length : commandArgs.parallel : 1;
+    const isPararell = commandArgs.parallel !== undefined && Number.isInteger(commandArgs.parallel) && commandArgs.parallel !== 0;
+
+    const numberOfInstances = isPararell ? commandArgs.parallel >= allSpecs.length ? allSpecs.length : commandArgs.parallel : 1;
     const expectedArrayLength = Math.ceil(allSpecs.length / numberOfInstances);
     const chunkedSpecs = _lodash2.default.chunk(allSpecs, expectedArrayLength);
 

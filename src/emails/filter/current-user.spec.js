@@ -3,9 +3,9 @@ import { currentUserFilter } from './current-user.filter';
 const fakeWorld = {
   currentUser: {
     account: {
-      email: 'some@email.com'
-    }
-  }
+      email: 'some@email.com',
+    },
+  },
 };
 
 describe('Current user filter', () => {
@@ -22,15 +22,13 @@ describe('Current user filter', () => {
       { to_email: 'unknown@user.com' },
       { to_email: 'some@email.com' },
       { to_email: 'unknown@user.com' },
-      { to_email: 'some@email.com' }
+      { to_email: 'some@email.com' },
     ];
 
     const filteredEmails = currentUserFilter.filter(fakeEmails, 'currentUser', undefined, fakeWorld);
 
     expect(filteredEmails.length).toEqual(2);
 
-    filteredEmails.forEach(
-      (email) => expect(email.to_email).toEqual(fakeWorld.currentUser.account.email)
-    );
+    filteredEmails.forEach(email => expect(email.to_email).toEqual(fakeWorld.currentUser.account.email));
   });
 });

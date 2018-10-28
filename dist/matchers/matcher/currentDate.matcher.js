@@ -16,6 +16,7 @@ class CurrentDateMatcher {
     return prefix === 'f' && name === 'currentDate';
   }
 
+  // eslint-disable-next-line no-unused-vars
   match(element, name = null, params = 'DD-MM-YYYY') {
     const currentDate = (0, _moment2.default)(new Date()).format(params);
     return element.getText().then(text => {
@@ -25,9 +26,11 @@ class CurrentDateMatcher {
         return true;
       }
 
+      /* eslint-disable max-len */
       return Promise.reject(`
         Matcher "CurrentDate" could not match date for element "${element.locator()}". Expected: "${compareDate}", given: "${currentDate}".
       `);
+      /* eslint-enable max-len */
     });
   }
 }

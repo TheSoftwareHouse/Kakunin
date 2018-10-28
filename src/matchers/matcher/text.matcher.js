@@ -32,7 +32,7 @@ class TextMatcher {
           Expected: "${expectedValue}", Given: "${text}"
         `);
       });
-    })
+    });
   }
 }
 

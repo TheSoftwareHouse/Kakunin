@@ -1,18 +1,18 @@
-import * as filter from './filter';
+import * as defaultFilters from './filter';
 
 class Filters {
   constructor() {
     this.availableFilters = [
-      filter.currentUserFilter,
-      filter.minimalEmailSizeFilter,
-      filter.textFieldFilter
+      defaultFilters.currentUserFilter,
+      defaultFilters.minimalEmailSizeFilter,
+      defaultFilters.textFieldFilter,
     ];
   }
 
   filter(emails, type, value, world) {
     const filter = this.findFilter(type);
 
-    if (typeof (filter) === 'undefined') {
+    if (typeof filter === 'undefined') {
       throw new Error(`Could not find filter for ${type}.`);
     }
 
@@ -20,8 +20,8 @@ class Filters {
   }
 
   findFilter(type) {
-    return this.availableFilters.find((filter) => filter.isSatisfiedBy(type));
+    return this.availableFilters.find(filter => filter.isSatisfiedBy(type));
   }
 }
 
-export const filters =  new Filters();
+export const filters = new Filters();

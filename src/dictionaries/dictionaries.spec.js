@@ -1,15 +1,15 @@
 import { create } from './dictionaries';
 import fakeDictionary from '../tests/dictionaries/fake-dictionary';
 
-
 const dictionaries = create();
 
 dictionaries.addDictionary(fakeDictionary);
 
 describe('Dictionaries', () => {
   it('throws an error when no dictionary was found', () => {
-    expect(() => dictionaries.getMappedValue('unknown-dictionary', 'unknown-key'))
-      .toThrow('Could not find dictionary for unknown-dictionary.');
+    expect(() => dictionaries.getMappedValue('unknown-dictionary', 'unknown-key')).toThrow(
+      'Could not find dictionary for unknown-dictionary.'
+    );
   });
 
   it('returns mapped value for given key', () => {
@@ -22,8 +22,8 @@ describe('Dictionaries', () => {
 
   it('adds a dictionary', () => {
     const customDictionary = {
-      isSatisfiedBy: (name) => name === 'my-dictionary',
-      getMappedValue: (key) => `mapped-${key}`
+      isSatisfiedBy: name => name === 'my-dictionary',
+      getMappedValue: key => `mapped-${key}`,
     };
 
     dictionaries.addDictionary(customDictionary);

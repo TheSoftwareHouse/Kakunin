@@ -41,6 +41,8 @@
     "units": "cross-env jest --setupFiles ./src/tests/init.js",
     "functional": "cd functional-tests && npm i && npm run test",
     "test": "npm run units && npm run functional",
+    "lint": "eslint \"src/**/*.js\" --ignore-pattern=\"*.spec.js\"",
+    "prettier": "npm run prettier --write",
     "build": "babel src --out-dir dist --ignore 'tests','*.spec.js' && babel templates --out-dir dist/templates --copy-files"
   },
   "engines": {
@@ -96,7 +98,8 @@
   },
   "lint-staged": {
     "src/**/*.js": [
-      "prettier --print-width 120 --single-quote --trailing-comma all --write",
+      "prettier --write",
+      "npm run lint",
       "git add"
     ]
   },

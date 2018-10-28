@@ -8,15 +8,15 @@ describe('Comparators', () => {
     expect(() => comparators.compare(values, 'ascending')).toThrow(`Could not find comparator for ${values}.`);
   });
 
-  it('compares values using comparator that can handle given set of values', (done) => {
+  it('compares values using comparator that can handle given set of values', done => {
     const numbers = [2, 3, 4];
     comparators.compare(numbers, 'ascending').then(() => done());
   });
 
-  it('add new comparator', (done) => {
+  it('add new comparator', done => {
     const myComparator = {
-      isSatisfiedBy: (values) => {
-        for(let i=0; i<values.length; i++) {
+      isSatisfiedBy: values => {
+        for (let i = 0; i < values.length; i++) {
           if (values[i] !== 'foo' && values[i] !== 'bar') {
             return false;
           }
@@ -35,16 +35,16 @@ describe('Comparators', () => {
         }
 
         return Promise.resolve('Foo bar!');
-      }
+      },
     };
 
     comparators.addComparator(myComparator);
 
     const myValues = ['foo', 'bar', 'foo', 'bar', 'foo', 'bar'];
 
-    comparators.compare(myValues, 'any').then((value) => {
+    comparators.compare(myValues, 'any').then(value => {
       expect(value).toEqual('Foo bar!');
       done();
-    })
+    });
   });
 });

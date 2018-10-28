@@ -7,13 +7,13 @@ exports.filters = undefined;
 
 var _filter = require('./filter');
 
-var filter = _interopRequireWildcard(_filter);
+var defaultFilters = _interopRequireWildcard(_filter);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 class Filters {
   constructor() {
-    this.availableFilters = [filter.currentUserFilter, filter.minimalEmailSizeFilter, filter.textFieldFilter];
+    this.availableFilters = [defaultFilters.currentUserFilter, defaultFilters.minimalEmailSizeFilter, defaultFilters.textFieldFilter];
   }
 
   filter(emails, type, value, world) {

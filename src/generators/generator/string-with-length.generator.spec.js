@@ -9,10 +9,10 @@ describe('String with length', () => {
     expect(stringWithLengthGenerator.isSatisfiedBy('not-supported-name')).toEqual(false);
   });
 
-  it('generates string with given length', (done) => {
+  it('generates string with given length', done => {
     stringWithLengthGenerator.generate(100).then(result => {
       expect(result.length).toEqual(100);
       done();
-    })
-  })
+    });
+  });
 });

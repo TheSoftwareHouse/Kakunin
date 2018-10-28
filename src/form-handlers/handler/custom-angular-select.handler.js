@@ -9,35 +9,39 @@ class CustomAngularSelectHandler {
   }
 
   handleFill(page, elementName, desiredValue) {
-    return browser.executeScript('arguments[0].scrollIntoView(false);', page[elementName].getWebElement())
-      .then(() => {
-        return page[elementName].click()
-          .then(() => {
-            const filtered = page[elementName].all(this.optionsSelector).filter(function (elem) {
-              return elem.getText().then(function (text) {
-                return text === desiredValue;
-              });
-            });
-
-            return filtered.count().then((count) => {
-              if (count === 0) {
-                return page[elementName].all(this.optionsSelector).first().click();
-              }
-
-              return filtered.first().click();
-            });
+    return browser.executeScript('arguments[0].scrollIntoView(false);', page[elementName].getWebElement()).then(() => {
+      return page[elementName].click().then(() => {
+        const filtered = page[elementName].all(this.optionsSelector).filter(function(elem) {
+          return elem.getText().then(function(text) {
+            return text === desiredValue;
           });
+        });
+
+        return filtered.count().then(count => {
+          if (count === 0) {
+            return page[elementName]
+              .all(this.optionsSelector)
+              .first()
+              .click();
+          }
+
+          return filtered.first().click();
+        });
       });
+    });
   }
 
   handleCheck(page, elementName, desiredValue) {
-    return page[elementName].element(this.selectedOptionSelector).getText().then(function (text) {
-      if (text === desiredValue) {
-        return Promise.resolve();
-      }
+    return page[elementName]
+      .element(this.selectedOptionSelector)
+      .getText()
+      .then(function(text) {
+        if (text === desiredValue) {
+          return Promise.resolve();
+        }
 
-      return Promise.reject(`Expected ${desiredValue} got ${text} for select element ${elementName}`);
-    });
+        return Promise.reject(`Expected ${desiredValue} got ${text} for select element ${elementName}`);
+      });
   }
 
   getPriority() {

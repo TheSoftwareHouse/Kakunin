@@ -13,7 +13,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 const commandArgs = require('minimist')(process.argv.slice(2));
 const path = require('path');
-const child_process = require('child_process');
+const childProcess = require('child_process');
 const envfile = require('node-env-file');
 const os = require('os');
 
@@ -31,7 +31,7 @@ if ((0, _cli.isInitCommand)(process.argv)) {
 
   const protractorExecutable = os.platform() === 'win32' ? 'protractor.cmd' : 'protractor';
 
-  child_process.spawn(path.join('node_modules', '.bin', protractorExecutable), argv, {
+  childProcess.spawn(path.join('node_modules', '.bin', protractorExecutable), argv, {
     stdio: 'inherit',
     cwd: process.cwd()
   }).once('exit', code => {

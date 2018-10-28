@@ -4,9 +4,12 @@ class VisibleMatcher {
   }
 
   match(element) {
-    return element.isDisplayed().then(() => true).catch(() => Promise.reject(`
-      Matcher "VisibleMatcher" could not find element "${element.locator()}".
-    `));
+    return element
+      .isDisplayed()
+      .then(() => true)
+      .catch(() => {
+        return Promise.reject(`Matcher "VisibleMatcher" could not find element "${element.locator()}".`);
+      });
   }
 }
 

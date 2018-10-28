@@ -1,9 +1,9 @@
-import { createVariableStoreTransformer } from './variable-store.transformer'
+import { createVariableStoreTransformer } from './variable-store.transformer';
 
 describe('Variable store transformer', () => {
   it('returns replaced text', () => {
     const fakeValue = {
-      getVariableValue: () => 'expected value'
+      getVariableValue: () => 'expected value',
     };
     const transformer = createVariableStoreTransformer(fakeValue);
 

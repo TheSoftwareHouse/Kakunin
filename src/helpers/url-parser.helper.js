@@ -1,28 +1,17 @@
 import Url from 'url';
 
-export const isRelativePage = (url) => {
-  return url === '' || url[0] === '/';
-};
+const extractDomain = url => Url.parse(url).host;
+const extractUrl = url => Url.parse(url).pathname;
+const normalizeUrl = url => {
+  if (url.length === 0) {
+    return extractUrl('/');
+  }
 
-export const waitForUrlChangeTo = (newUrl, currentUrl) => {
-  return (baseUrl) => {
-    const pageUrl = Url.resolve(baseUrl, newUrl);
-    const pageDomain = extractDomain(pageUrl);
-    const currentUrlDomain = extractDomain(currentUrl);
+  if (url[url.length - 1] === '/' && url.length > 1) {
+    return extractUrl(url.substr(0, url.length - 1));
+  }
 
-    if (pageDomain !== currentUrlDomain) {
-      return false;
-    }
-
-    const urlSplit = normalizeUrl(currentUrl).split('/');
-    const pageUrlSplit = normalizeUrl(pageUrl).split('/');
-
-    if (urlSplit.length !== pageUrlSplit.length) {
-      return false;
-    }
-
-    return compareUrls(urlSplit, pageUrlSplit);
-  };
+  return extractUrl(url);
 };
 
 const compareUrls = (urlSplit, baseUrlSplit) => {
@@ -42,18 +31,27 @@ const compareUrls = (urlSplit, baseUrlSplit) => {
   return resultParameters;
 };
 
-const extractDomain = (url) => Url.parse(url).host;
-
-const normalizeUrl = (url) => {
-  if (url.length === 0) {
-    return extractUrl('/');
-  }
-
-  if (url[url.length - 1] === '/' && url.length > 1) {
-    return extractUrl(url.substr(0, url.length - 1));
-  }
-
-  return extractUrl(url);
+export const isRelativePage = url => {
+  return url === '' || url[0] === '/';
 };
 
-const extractUrl = url => Url.parse(url).pathname;
+export const waitForUrlChangeTo = (newUrl, currentUrl) => {
+  return baseUrl => {
+    const pageUrl = Url.resolve(baseUrl, newUrl);
+    const pageDomain = extractDomain(pageUrl);
+    const currentUrlDomain = extractDomain(currentUrl);
+
+    if (pageDomain !== currentUrlDomain) {
+      return false;
+    }
+
+    const urlSplit = normalizeUrl(currentUrl).split('/');
+    const pageUrlSplit = normalizeUrl(pageUrl).split('/');
+
+    if (urlSplit.length !== pageUrlSplit.length) {
+      return false;
+    }
+
+    return compareUrls(urlSplit, pageUrlSplit);
+  };
+};

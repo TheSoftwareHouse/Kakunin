@@ -24,7 +24,6 @@ const isValidDate = date => {
 };
 
 const DateComparator = exports.DateComparator = {
-
   isSatisfiedBy: values => {
     for (let i = 0; i < values.length; i++) {
       const date = values[i];

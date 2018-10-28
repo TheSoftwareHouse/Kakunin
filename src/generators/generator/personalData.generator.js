@@ -18,5 +18,5 @@ export const personalDataGenerator = {
       default:
         return Promise.reject('Option not available in "personalData" generator!');
     }
-  }
+  },
 };

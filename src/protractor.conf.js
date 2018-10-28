@@ -52,34 +52,36 @@ exports.config = {
       './configuration/hooks.js',
       './step_definitions/**/*.js',
       ...config.step_definitions.map(file => path.join(config.projectPath, file, '**/*.js')),
-      ...config.hooks.map(file => path.join(config.projectPath, file, '**/*.js'))
+      ...config.hooks.map(file => path.join(config.projectPath, file, '**/*.js')),
     ],
     format: [`json:./${config.reports}/features-report.json`],
     profile: false,
-    'no-source': true
+    'no-source': true,
   },
 
-  plugins: [{
-    package: 'protractor-multiple-cucumber-html-reporter-plugin',
-    options: {
-      removeExistingJsonReportFile: true,
-      removeOriginalJsonReportFile: true,
-      automaticallyGenerateReport: true,
-      saveCollectedJSON: true
-    }
-  }],
+  plugins: [
+    {
+      package: 'protractor-multiple-cucumber-html-reporter-plugin',
+      options: {
+        removeExistingJsonReportFile: true,
+        removeOriginalJsonReportFile: true,
+        automaticallyGenerateReport: true,
+        saveCollectedJSON: true,
+      },
+    },
+  ],
 
-  beforeLaunch: async function () {
+  beforeLaunch: async function() {
     await prepareReportCatalogs();
     await deleteReportFiles();
   },
 
-  onPrepare: function () {
+  onPrepare: function() {
     if (!config.headless) {
-      browser.driver.manage().window().setSize(
-        parseInt(config.browserWidth),
-        parseInt(config.browserHeight)
-      );
+      browser.driver
+        .manage()
+        .window()
+        .setSize(parseInt(config.browserWidth), parseInt(config.browserHeight));
     }
 
     modulesLoader.getModules('matchers');
@@ -90,13 +92,12 @@ exports.config = {
     modulesLoader.getModules('transformers');
     modulesLoader.getModules('emails');
 
-    const modules = modulesLoader
-      .getModulesAsObject(
-        config.pages.map((page) => path.join(config.projectPath, page))
-      );
+    const modules = modulesLoader.getModulesAsObject(config.pages.map(page => path.join(config.projectPath, page)));
 
-    browser.page = Object.keys(modules)
-      .reduce((pages, moduleName) => ({ ...pages, [moduleName]: new modules[moduleName]() }), {});
+    browser.page = Object.keys(modules).reduce(
+      (pages, moduleName) => ({ ...pages, [moduleName]: new modules[moduleName]() }),
+      {}
+    );
 
     global.expect = chai.expect;
 
@@ -105,5 +106,5 @@ exports.config = {
     }
   },
 
-  baseUrl: config.baseUrl
+  baseUrl: config.baseUrl,
 };
