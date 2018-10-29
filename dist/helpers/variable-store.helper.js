@@ -55,7 +55,10 @@ class VariableStore {
     for (let variableNameIndex in variableNames) {
       const variableName = variableNames[variableNameIndex];
 
-      newText = text.replace(`v:${variableName}`, this.getVariableValue(variableName));
+      if (newText.indexOf(variableName) > -1) {
+        newText = text.replace(`v:${variableName}`, this.getVariableValue(variableName));
+        break;
+      }
     }
 
     return newText;
