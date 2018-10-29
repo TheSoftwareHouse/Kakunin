@@ -8,7 +8,7 @@ const availableHandlers = [
   formHandler.fileHandler,
   formHandler.radioHandler,
   formHandler.selectHandler,
-  formHandler.uploadedFileHandler
+  formHandler.uploadedFileHandler,
 ];
 
 const FormHandler = {
@@ -16,7 +16,7 @@ const FormHandler = {
     availableHandlers.push(handler);
   },
 
-  handleFill: async function (page, elementName, desiredValue) {
+  handleFill: async function(page, elementName, desiredValue) {
     const handlers = this.getHandlers();
 
     for (let handler of handlers) {
@@ -30,7 +30,7 @@ const FormHandler = {
     return Promise.reject('Could not find matching handler.');
   },
 
-  handleCheck: async function (page, elementName, desiredValue) {
+  handleCheck: async function(page, elementName, desiredValue) {
     const handlers = this.getHandlers();
 
     for (let handler of handlers) {
@@ -46,7 +46,7 @@ const FormHandler = {
 
   getHandlers: function() {
     return availableHandlers.sort((handler, otherHandler) => handler.getPriority() - otherHandler.getPriority());
-  }
+  },
 };
 
 export default FormHandler;

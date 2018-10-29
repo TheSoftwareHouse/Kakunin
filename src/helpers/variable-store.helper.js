@@ -4,9 +4,9 @@ class VariableStore {
   }
 
   storeVariable(name, value) {
-    const foundVariable = this.variables.find((variable) => variable.name === name);
+    const foundVariable = this.variables.find(variable => variable.name === name);
 
-    if (typeof (foundVariable) !== 'undefined') {
+    if (typeof foundVariable !== 'undefined') {
       throw new Error(`Variable ${name} is stored already`);
     }
 
@@ -14,19 +14,19 @@ class VariableStore {
   }
 
   updateVariable(name, value) {
-    const foundVariable = this.variables.find((variable) => variable.name === name);
+    const foundVariable = this.variables.find(variable => variable.name === name);
 
-    if (typeof (foundVariable) === 'undefined') {
-      throw new Error(`Variable ${name} does not exist.`)
+    if (typeof foundVariable === 'undefined') {
+      throw new Error(`Variable ${name} does not exist.`);
     }
 
-    this.variables.push(({ name: name, value: value}));
+    this.variables.push({ name: name, value: value });
   }
 
   getVariableValue(name) {
-    const foundVariable = this.variables.find((variable) => variable.name === name);
+    const foundVariable = this.variables.find(variable => variable.name === name);
 
-    if (typeof (foundVariable) === 'undefined') {
+    if (typeof foundVariable === 'undefined') {
       throw new Error(`Variable ${name} was not stored`);
     }
 
@@ -34,9 +34,9 @@ class VariableStore {
   }
 
   isStored(name) {
-    const foundVariable = this.variables.find((variable) => variable.name === name);
+    const foundVariable = this.variables.find(variable => variable.name === name);
 
-    return typeof (foundVariable) !== 'undefined';
+    return typeof foundVariable !== 'undefined';
   }
 
   clearVariables() {
@@ -44,15 +44,19 @@ class VariableStore {
   }
 
   replaceTextVariables(text) {
-    const variableNames = this.variables.map((variable) => variable.name);
+    let newText = text;
+    const variableNames = this.variables.map(variable => variable.name);
 
     for (let variableNameIndex in variableNames) {
       const variableName = variableNames[variableNameIndex];
 
-      text = text.replace(`v:${variableName}`, this.getVariableValue(variableName));
+      if (newText.indexOf(variableName) > -1) {
+        newText = text.replace(`v:${variableName}`, this.getVariableValue(variableName));
+        break;
+      }
     }
 
-    return text;
+    return newText;
   }
 }
 

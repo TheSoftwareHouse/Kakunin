@@ -1,7 +1,7 @@
 class FakeDictionary {
   constructor() {
     this.values = {
-      'some-key': 'some-value'
+      'some-key': 'some-value',
     };
 
     this.name = 'fake-dictionary';

@@ -63,7 +63,7 @@ const clearCookiesAndLocalStorage = callback => {
     localStorageFunc = () => protractor.browser.executeScript('window.localStorage.clear();');
   }
 
-  browser.wait(cookiesFunc().then(localStorageFunc).catch(err => false), _config2.default.waitForPageTimeout * 1000).then(() => {
+  browser.wait(cookiesFunc().then(localStorageFunc).catch(() => false), _config2.default.waitForPageTimeout * 1000).then(() => {
     protractor.browser.ignoreSynchronization = _config2.default.type === 'otherWeb';
     callback();
   });

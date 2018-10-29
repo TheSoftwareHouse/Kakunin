@@ -13,6 +13,6 @@ var _default = require('./regexes/default');
 const modulesLoader = (0, _modulesLoader.create)();
 const availableRegexes = modulesLoader.getModules('regexes');
 
-const regexes = availableRegexes.reduce((regexes, newRegexes) => _extends({}, regexes, newRegexes), _extends({}, _default.regex));
+const regularExpressions = availableRegexes.reduce((regexes, newRegexes) => _extends({}, regexes, newRegexes), _extends({}, _default.regex));
 
-exports.default = regexes;
+exports.default = regularExpressions;

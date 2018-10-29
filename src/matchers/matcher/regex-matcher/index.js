@@ -7,40 +7,38 @@ class RegexMatcher {
   }
 
   match(element, regexName) {
-    return element.getText()
-      .then(text => {
-        return element.getAttribute('value')
-          .then(value => {
-            const regex = regexBuilder.buildRegex(`r:${regexName}`);
+    return element.getText().then(text => {
+      return element.getAttribute('value').then(value => {
+        const regularExpression = regexBuilder.buildRegex(`r:${regexName}`);
 
-            if (text === '') {
-              if (value === null) {
-                return Promise.reject(`
+        if (text === '') {
+          if (value === null) {
+            return Promise.reject(`
                   Matcher "RegexMatcher" could not match value for element "${element.locator()}".
                   Both text and attribute value are empty.
-                `)
-              }
+                `);
+          }
 
-              if (regex.test(value)) {
-                return true;
-              }
+          if (regularExpression.test(value)) {
+            return true;
+          }
 
-              return Promise.reject(`
+          return Promise.reject(`
                 Matcher "RegexMatcher" could not match regex on element "${element.locator()}" on value "${value}". 
-                Expected to match: "${regex.toString()}", Given: "${value}"
+                Expected to match: "${regularExpression.toString()}", Given: "${value}"
               `);
-            }
+        }
 
-            if (regex.test(text)) {
-              return true;
-            }
+        if (regularExpression.test(text)) {
+          return true;
+        }
 
-            return Promise.reject(`
+        return Promise.reject(`
               Matcher "RegexMatcher" could not match regex on element "${element.locator()}" on text "${text}". 
-              Expected to match: "${regex.toString()}", Given: "${text}"
+              Expected to match: "${regularExpression.toString()}", Given: "${text}"
             `);
-          })
       });
+    });
   }
 }
 

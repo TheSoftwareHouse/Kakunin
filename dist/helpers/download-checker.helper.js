@@ -18,10 +18,12 @@ var _config2 = _interopRequireDefault(_config);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = DownloadChecker = {
+const DownloadChecker = {
   wasDownloaded: function (expectedFileName) {
     return browser.driver.wait(function () {
       return _fs2.default.existsSync(_path2.default.join(_config2.default.projectPath, _config2.default.downloads, expectedFileName));
     }, _config2.default.downloadTimeout * 1000);
   }
 };
+
+exports.default = DownloadChecker;

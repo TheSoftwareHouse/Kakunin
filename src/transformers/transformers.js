@@ -4,7 +4,7 @@ import { createGeneratorTransformer } from './transformer/generator.transformer'
 
 class Transformers {
   constructor(transformers) {
-    this.availableTransformers = transformers
+    this.availableTransformers = transformers;
   }
 
   transform(value) {
@@ -18,7 +18,7 @@ class Transformers {
   }
 
   findTransformer(prefix) {
-    return this.availableTransformers.find((transformer) => transformer.isSatisfiedBy(prefix));
+    return this.availableTransformers.find(transformer => transformer.isSatisfiedBy(prefix));
   }
 
   addTransformer(transformer) {
@@ -26,10 +26,6 @@ class Transformers {
   }
 }
 
-const transformers = [
-  createVariableStoreTransformer(),
-  createDictionaryTransformer(),
-  createGeneratorTransformer(),
-];
+const transformers = [createVariableStoreTransformer(), createDictionaryTransformer(), createGeneratorTransformer()];
 
 export const create = (transf = transformers) => new Transformers(transf);

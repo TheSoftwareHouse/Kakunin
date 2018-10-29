@@ -44,7 +44,7 @@ class Page {
   }
 
   isDisabled(element) {
-    return this[element].getAttribute('disabled').then(function (disabled) {
+    return this[element].getAttribute('disabled').then(function(disabled) {
       return ['disabled', true, 'true'].indexOf(disabled) !== -1;
     });
   }
@@ -63,7 +63,10 @@ class Page {
 
   scrollIntoElement(elementName, elementIndex = undefined) {
     if (elementIndex !== undefined) {
-      return browser.executeScript('arguments[0].scrollIntoView(false);', this[elementName].get(elementIndex).getWebElement());
+      return browser.executeScript(
+        'arguments[0].scrollIntoView(false);',
+        this[elementName].get(elementIndex).getWebElement()
+      );
     }
 
     return browser.executeScript('arguments[0].scrollIntoView(false);', this[elementName].getWebElement());

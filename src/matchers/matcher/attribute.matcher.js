@@ -6,15 +6,17 @@ class AttributeMatcher {
   }
 
   match(element, attributeName, regexName) {
-    return element.getAttribute(attributeName).then((value) => {
+    return element.getAttribute(attributeName).then(value => {
       if (regexBuilder.buildRegex(`r:${regexName}`).test(value)) {
         return true;
       }
 
+      /* eslint-disable max-len */
       return Promise.reject(`
         Matcher "AttributeMatcher" could not match regex on element "${element.locator()}" on attribute "${attributeName}". 
         Expected to match: "${regexBuilder.buildRegex(`r:${regexName}`).toString()}", Given: "${value}"
       `);
+      /* eslint-enable max-len */
     });
   }
 }

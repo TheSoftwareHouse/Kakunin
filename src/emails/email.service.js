@@ -37,16 +37,18 @@ class EmailService {
   }
 
   getAdapter() {
-    const adapter = this.availableAdapters.find((adapter) => adapter.isSatisfiedBy(this.config.email));
+    const emailAdapter = this.availableAdapters.find(adapter => adapter.isSatisfiedBy(this.config.email));
 
-    if (adapter === undefined) {
-      throw new Error(`Could not find email adapter for given configuration.`);
+    if (emailAdapter === undefined) {
+      throw new Error('Could not find email adapter for given configuration.');
     }
 
-    return adapter;
+    return emailAdapter;
   }
 }
 
 const mailtrapAdapter = createMailtrapAdapter();
 
-export const create = (defaultAdapters = [mailtrapAdapter], config = configuration) => new EmailService(config, defaultAdapters);
+export const create = (defaultAdapters = [mailtrapAdapter], config = configuration) => {
+  return new EmailService(config, defaultAdapters);
+};

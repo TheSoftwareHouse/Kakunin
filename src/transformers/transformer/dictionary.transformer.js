@@ -1,4 +1,4 @@
-import { dictionaries } from '../../dictionaries';
+import { dictionaries as dicts } from '../../dictionaries';
 
 class DictionaryTransformer {
   constructor(dictionaries) {
@@ -6,7 +6,7 @@ class DictionaryTransformer {
   }
 
   isSatisfiedBy(prefix) {
-    return 'd:' === prefix;
+    return prefix === 'd:';
   }
 
   transform(value) {
@@ -14,4 +14,4 @@ class DictionaryTransformer {
     return this.dictionaries.getMappedValue(splittedValue[0], splittedValue[1]);
   }
 }
-export const createDictionaryTransformer = (dicts = dictionaries) => new DictionaryTransformer(dicts);
+export const createDictionaryTransformer = (dictionaries = dicts) => new DictionaryTransformer(dictionaries);

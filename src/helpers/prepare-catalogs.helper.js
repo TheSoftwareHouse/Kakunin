@@ -1,7 +1,7 @@
 import fs from 'fs';
 import mkdirp from 'mkdirp';
 
-export const prepareCatalogs = async (directory) => {
+export const prepareCatalogs = async directory => {
   if (fs.existsSync(directory)) {
     return Promise.resolve();
   }

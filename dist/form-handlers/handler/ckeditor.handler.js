@@ -18,6 +18,7 @@ class CKEditorHandler {
     return browser.waitForAngular();
   }
 
+  // eslint-disable-next-line no-unused-vars
   handleCheck(page, elementName, desiredValue) {
     return Promise.reject('Checking CKEditor is not supported');
   }

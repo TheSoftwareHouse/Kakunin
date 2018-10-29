@@ -5,8 +5,8 @@ if (process.env.NODE_ENV === 'test') {
   config = {
     projectPath: process.cwd(),
     email: {
-      config: {}
-    }
+      config: {},
+    },
   };
 } else {
   const configFile = process.argv.find(name => name.indexOf('--config') >= 0);

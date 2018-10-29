@@ -1,11 +1,8 @@
-import * as comparator from './comparator';
+import * as comparators from './comparator';
 
 class Comparators {
   constructor() {
-    this.availableComparators = [
-      comparator.DateComparator,
-      comparator.NumberComparator,
-    ];
+    this.availableComparators = [comparators.DateComparator, comparators.NumberComparator];
   }
 
   compare(values, order) {
@@ -19,7 +16,7 @@ class Comparators {
   }
 
   findComparator(values) {
-    return this.availableComparators.find((comparator) => comparator.isSatisfiedBy(values));
+    return this.availableComparators.find(comparator => comparator.isSatisfiedBy(values));
   }
 
   addComparator(comparator) {

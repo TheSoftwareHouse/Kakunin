@@ -3,6 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+/* eslint-disable max-len */
 const regex = exports.regex = {
   arabianCharacters: '\u0621-\u064A',
   arabianNumbers: '\u0660-\u0669',
@@ -14,5 +15,6 @@ const regex = exports.regex = {
   pdfFileType: 'application/pdf',
   email: "[A-Za-z0-9!#$%&'*+/=?^_`{|}~-]+(?:.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?",
   // todo: following regex should be moved to tests/regexes
-  someRandomLinkRegex: '(http(s)?:\/\/some-random-link\.com)'
+  someRandomLinkRegex: '(http(s)?://some-random-link.com)'
 };
+/* eslint-enable max-len */

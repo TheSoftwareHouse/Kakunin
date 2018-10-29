@@ -4,28 +4,31 @@ import fs from 'fs';
 import path from 'path';
 
 class Initializer {
-  createProjectDirectory(path) {
-    const projectPath = process.cwd() + path;
+  // eslint-disable-next-line class-methods-use-this
+  createProjectDirectory(dirPath) {
+    const projectPath = process.cwd() + dirPath;
 
     mkdirp(projectPath);
 
     console.log(`Created directory at path ${projectPath}`);
   }
 
-  createTemplateFile(path, content) {
-    const filePath = process.cwd() + path;
+  // eslint-disable-next-line class-methods-use-this
+  createTemplateFile(templatePath, content) {
+    const filePath = process.cwd() + templatePath;
 
     fs.writeFileSync(filePath, content);
 
     console.log(`Created file at path ${filePath}`);
   }
 
-  createTemplateFileWithContentFrom(path, file) {
-    const content = fs.readFileSync(__dirname + '/../templates/' + file);
+  createTemplateFileWithContentFrom(contentPath, file) {
+    const content = fs.readFileSync(`${__dirname}/../templates/${file}`);
 
-    this.createTemplateFile(path, content);
+    this.createTemplateFile(contentPath, content);
   }
 
+  // eslint-disable-next-line class-methods-use-this
   async promptFolders(message, defaultValue, type = 'input') {
     let fullMessage = message;
 
@@ -33,15 +36,17 @@ class Initializer {
       fullMessage += ` [${defaultValue}]`;
     }
 
-    return await inquirer.prompt([
-      {
-        type: type,
-        name: 'input',
-        message: fullMessage
-      }
-    ]).then(function (answer) {
-      return answer.input === '' ? defaultValue : answer.input;
-    });
+    return inquirer
+      .prompt([
+        {
+          type: type,
+          name: 'input',
+          message: fullMessage,
+        },
+      ])
+      .then(function(answer) {
+        return answer.input === '' ? defaultValue : answer.input;
+      });
   }
 
   async initConfig(commandArgs) {
@@ -74,28 +79,29 @@ class Initializer {
       clearLocalStorageAfterScenario: true,
       email: null,
       headless: false,
-      noGpu: false
+      noGpu: false,
     };
 
     if (typeof commandArgs.type === 'undefined') {
-      await inquirer.prompt([
-        {
-          type: 'rawlist',
-          name: 'type',
-          message: 'What kind of application would you like to test?',
-          choices: [
-            { name: 'Angular 1', value: 'ng1' },
-            { name: 'Angular 2', value: 'ng2' },
-            { name: 'Other web app (e.g. React, jQuery based etc.)', value: 'otherWeb' }
-          ]
-        }
-      ]).then(function (answer) {
-        conf.type = answer.type;
-      });
+      await inquirer
+        .prompt([
+          {
+            type: 'rawlist',
+            name: 'type',
+            message: 'What kind of application would you like to test?',
+            choices: [
+              { name: 'Angular 1', value: 'ng1' },
+              { name: 'Angular 2', value: 'ng2' },
+              { name: 'Other web app (e.g. React, jQuery based etc.)', value: 'otherWeb' },
+            ],
+          },
+        ])
+        .then(function(answer) {
+          conf.type = answer.type;
+        });
     } else {
       conf.type = commandArgs.type;
     }
-
 
     if (typeof commandArgs.baseUrl === 'undefined') {
       conf.baseUrl = await this.promptFolders('What is base url?', 'http://localhost:3000');
@@ -104,30 +110,31 @@ class Initializer {
     }
 
     if (typeof commandArgs.emailType === 'undefined') {
-      await inquirer.prompt([
-        {
-          type: 'rawlist',
-          name: 'type',
-          message: 'What kind of email service would you like to use?',
-          choices: [
-            { name: 'None', value: 'none' },
-            { name: 'Custom (you will have to fill configuration on your own)', value: 'custom' },
-            { name: 'MailTrap', value: 'mailtrap' }
-          ]
-        }
-      ]).then(function (answer) {
-        if (answer.type !== 'none') {
-          conf.email = {
-            type: answer.type
-          };
-        }
-      });
+      await inquirer
+        .prompt([
+          {
+            type: 'rawlist',
+            name: 'type',
+            message: 'What kind of email service would you like to use?',
+            choices: [
+              { name: 'None', value: 'none' },
+              { name: 'Custom (you will have to fill configuration on your own)', value: 'custom' },
+              { name: 'MailTrap', value: 'mailtrap' },
+            ],
+          },
+        ])
+        .then(function(answer) {
+          if (answer.type !== 'none') {
+            conf.email = {
+              type: answer.type,
+            };
+          }
+        });
     } else {
       conf.email = {
         type: commandArgs.emailType,
-      }
+      };
     }
-
 
     if (conf.email && conf.email.type === 'mailtrap') {
       conf.email = {
@@ -135,8 +142,8 @@ class Initializer {
         config: {
           url: 'https://mailtrap.io',
           apiKey: '',
-          inboxId: ''
-        }
+          inboxId: '',
+        },
       };
 
       if (typeof commandArgs.emailApiKey === 'undefined') {
@@ -146,7 +153,10 @@ class Initializer {
       }
 
       if (typeof commandArgs.emailInboxId === 'undefined') {
-        conf.email.config.inboxId = await this.promptFolders('Type in your mailtrap inboxId:', conf.email.config.inboxId);
+        conf.email.config.inboxId = await this.promptFolders(
+          'Type in your mailtrap inboxId:',
+          conf.email.config.inboxId
+        );
       } else {
         conf.email.config.inboxId = commandArgs.emailInboxId;
       }
@@ -158,11 +168,24 @@ class Initializer {
       conf.browserHeight = parseInt(await this.promptFolders('What is desired browser height?', conf.browserHeight));
 
       conf.timeout = parseInt(await this.promptFolders('What is desired step timeout in seconds?', conf.timeout));
-      conf.intervalEmail = parseInt(await this.promptFolders('What is desired step email interval in seconds?', conf.intervalEmail));
-      conf.maxEmailRepeats = parseInt(await this.promptFolders('How many times emails should be checked - maximum repeats?', conf.maxEmailRepeats));
-      conf.elementsVisibilityTimeout = parseInt(await this.promptFolders('What is desired elements visibility timeout in seconds?', conf.elementsVisibilityTimeout));
-      conf.waitForPageTimeout = parseInt(await this.promptFolders('How long should I wait for page to load in seconds?', conf.waitForPageTimeout));
-      conf.downloadTimeout = parseInt(await this.promptFolders('How long should I wait for files to download in seconds?', conf.downloadTimeout));
+      conf.intervalEmail = parseInt(
+        await this.promptFolders('What is desired step email interval in seconds?', conf.intervalEmail)
+      );
+      conf.maxEmailRepeats = parseInt(
+        await this.promptFolders('How many times emails should be checked - maximum repeats?', conf.maxEmailRepeats)
+      );
+      conf.elementsVisibilityTimeout = parseInt(
+        await this.promptFolders(
+          'What is desired elements visibility timeout in seconds?',
+          conf.elementsVisibilityTimeout
+        )
+      );
+      conf.waitForPageTimeout = parseInt(
+        await this.promptFolders('How long should I wait for page to load in seconds?', conf.waitForPageTimeout)
+      );
+      conf.downloadTimeout = parseInt(
+        await this.promptFolders('How long should I wait for files to download in seconds?', conf.downloadTimeout)
+      );
 
       conf.reports = await this.promptFolders('Where are your reports stored?', conf.reports);
       conf.downloads = await this.promptFolders('Where are your downloads stored?', conf.downloads);
@@ -173,20 +196,34 @@ class Initializer {
       conf.matchers = [await this.promptFolders('Where are your matchers stored?', conf.matchers[0])];
       conf.generators = [await this.promptFolders('Where are your generators stored?', conf.generators[0])];
       conf.form_handlers = [await this.promptFolders('Where are your form handlers stored?', conf.form_handlers[0])];
-      conf.step_definitions = [await this.promptFolders('Where are your step definitions stored?', conf.step_definitions[0])];
+      conf.step_definitions = [
+        await this.promptFolders('Where are your step definitions stored?', conf.step_definitions[0]),
+      ];
       conf.comparators = [await this.promptFolders('Where are your comparators stored?', conf.comparators[0])];
       conf.dictionaries = [await this.promptFolders('Where are your dictionaries stored?', conf.dictionaries[0])];
       conf.regexes = [await this.promptFolders('Where are your regexes stored?', conf.regexes[0])];
       conf.hooks = [await this.promptFolders('Where are your hooks stored?', conf.hooks[0])];
       conf.transformers = [await this.promptFolders('Where are your transformers stored?', conf.transformers[0])];
 
-      conf.clearEmailInboxBeforeTests = await this.promptFolders('Should email inbox be cleared before tests?', conf.clearEmailInboxBeforeTests, 'confirm');
-      conf.clearCookiesAfterScenario = await this.promptFolders('Should cookies be cleared after scenario?', conf.clearCookiesAfterScenario, 'confirm');
-      conf.clearLocalStorageAfterScenario = await this.promptFolders('Should local storage be cleared after scenario?', conf.clearLocalStorageAfterScenario, 'confirm');
+      conf.clearEmailInboxBeforeTests = await this.promptFolders(
+        'Should email inbox be cleared before tests?',
+        conf.clearEmailInboxBeforeTests,
+        'confirm'
+      );
+      conf.clearCookiesAfterScenario = await this.promptFolders(
+        'Should cookies be cleared after scenario?',
+        conf.clearCookiesAfterScenario,
+        'confirm'
+      );
+      conf.clearLocalStorageAfterScenario = await this.promptFolders(
+        'Should local storage be cleared after scenario?',
+        conf.clearLocalStorageAfterScenario,
+        'confirm'
+      );
       conf.browserMob = {
         serverPort: parseInt(await this.promptFolders('Define port where browsermob-proxy is running!', 8887)),
         port: parseInt(await this.promptFolders('Define port where browsermob-proxy should be listening!', 8888)),
-        host: await this.promptFolders('Define host where browsermob-proxy is running!', 'localhost')
+        host: await this.promptFolders('Define host where browsermob-proxy is running!', 'localhost'),
       };
     }
 
@@ -195,10 +232,10 @@ class Initializer {
         accounts: [
           {
             email: '',
-            password: ''
-          }
-        ]
-      }
+            password: '',
+          },
+        ],
+      },
     };
 
     this.createTemplateFile('/kakunin.conf.js', 'module.exports = ' + JSON.stringify(conf, null, 4));
@@ -207,13 +244,15 @@ class Initializer {
   async initEnv() {
     const envs = [];
 
-    envs.push('FIXTURES_RELOAD_HOST=' + await this.promptFolders('Define FIXTURES_RELOAD_HOST', ''));
+    envs.push('FIXTURES_RELOAD_HOST=' + (await this.promptFolders('Define FIXTURES_RELOAD_HOST', '')));
 
     this.createTemplateFile('/.env', envs.join('\n'));
   }
 
   async generateProjectStructure() {
+    /* eslint-disable */
     const config = require(process.cwd() + '/kakunin.conf.js');
+    /* eslint-enable */
 
     this.createProjectDirectory(config.reports);
     this.createProjectDirectory(path.join(config.reports, 'report'));

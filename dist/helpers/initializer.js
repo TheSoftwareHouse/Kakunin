@@ -27,28 +27,31 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
 class Initializer {
-  createProjectDirectory(path) {
-    const projectPath = process.cwd() + path;
+  // eslint-disable-next-line class-methods-use-this
+  createProjectDirectory(dirPath) {
+    const projectPath = process.cwd() + dirPath;
 
     (0, _mkdirp2.default)(projectPath);
 
     console.log(`Created directory at path ${projectPath}`);
   }
 
-  createTemplateFile(path, content) {
-    const filePath = process.cwd() + path;
+  // eslint-disable-next-line class-methods-use-this
+  createTemplateFile(templatePath, content) {
+    const filePath = process.cwd() + templatePath;
 
     _fs2.default.writeFileSync(filePath, content);
 
     console.log(`Created file at path ${filePath}`);
   }
 
-  createTemplateFileWithContentFrom(path, file) {
-    const content = _fs2.default.readFileSync(__dirname + '/../templates/' + file);
+  createTemplateFileWithContentFrom(contentPath, file) {
+    const content = _fs2.default.readFileSync(`${__dirname}/../templates/${file}`);
 
-    this.createTemplateFile(path, content);
+    this.createTemplateFile(contentPath, content);
   }
 
+  // eslint-disable-next-line class-methods-use-this
   promptFolders(message, defaultValue, type = 'input') {
     return _asyncToGenerator(function* () {
       let fullMessage = message;
@@ -57,7 +60,7 @@ class Initializer {
         fullMessage += ` [${defaultValue}]`;
       }
 
-      return yield _inquirer2.default.prompt([{
+      return _inquirer2.default.prompt([{
         type: type,
         name: 'input',
         message: fullMessage
@@ -230,7 +233,9 @@ class Initializer {
     var _this3 = this;
 
     return _asyncToGenerator(function* () {
+      /* eslint-disable */
       const config = require(process.cwd() + '/kakunin.conf.js');
+      /* eslint-enable */
 
       _this3.createProjectDirectory(config.reports);
       _this3.createProjectDirectory(_path2.default.join(config.reports, 'report'));

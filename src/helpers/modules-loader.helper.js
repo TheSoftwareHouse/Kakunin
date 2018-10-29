@@ -3,7 +3,7 @@ import path from 'path';
 import config from './config.helper';
 
 class ModulesLoader {
-  constructor(config) {
+  constructor(configuration) {
     this.paths = {
       comparators: [],
       dictionaries: [],
@@ -12,24 +12,22 @@ class ModulesLoader {
       matchers: [],
       regexes: [],
       transformers: [],
-      emails: []
+      emails: [],
     };
 
-    Object.keys(this.paths).forEach((group) => {
+    Object.keys(this.paths).forEach(group => {
       if (typeof config[group] !== 'undefined') {
-        config[group]
-          .forEach((groupPath) => this.paths[group].push(
-            path.join(config.projectPath + groupPath)
-          ));
+        configuration[group].forEach(groupPath => {
+          this.paths[group].push(path.join(configuration.projectPath + groupPath));
+        });
       }
     });
   }
 
   getModules(group) {
-    return this
-      .getFilePaths(
-        this.paths[group]).map(file => require(file[1]) // eslint-disable-line global-require
-      );
+    return this.getFilePaths(this.paths[group]).map(
+      file => require(file[1]) // eslint-disable-line global-require
+    );
   }
 
   getModulesAsObject(projectFolders) {
@@ -43,25 +41,22 @@ class ModulesLoader {
     return modules;
   }
 
+  // eslint-disable-next-line class-methods-use-this
   getFilePaths(folders) {
     let files = [];
 
-    folders.forEach(
-      folder => {
-        if (fs.existsSync(folder)) {
-          files = files.concat(fs
+    folders.forEach(folder => {
+      if (fs.existsSync(folder)) {
+        files = files.concat(
+          fs
             .readdirSync(folder)
             .filter(file => file !== '.gitkeep' && file.indexOf('.spec.js') < 0)
-            .map(file => [
-              file.substr(0, file.indexOf('.')),
-              `${folder}/${file}`
-            ])
-          );
-        } else {
-          console.log(`Directory ${folder} does not exist.`);
-        }
+            .map(file => [file.substr(0, file.indexOf('.')), `${folder}/${file}`])
+        );
+      } else {
+        console.log(`Directory ${folder} does not exist.`);
       }
-    );
+    });
 
     return files;
   }

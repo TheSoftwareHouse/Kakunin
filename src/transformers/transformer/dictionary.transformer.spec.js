@@ -1,6 +1,6 @@
-import { create as createDictionaries} from '../../dictionaries/dictionaries';
+import { create as createDictionaries } from '../../dictionaries/dictionaries';
 import { createDictionaryTransformer } from './dictionary.transformer';
-import fakeDictionary  from '../../tests/dictionaries/fake-dictionary'
+import fakeDictionary from '../../tests/dictionaries/fake-dictionary';
 
 const dictionaries = createDictionaries();
 

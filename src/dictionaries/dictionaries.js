@@ -14,7 +14,7 @@ class Dictionaries {
   }
 
   findDictionary(name) {
-    return this.availableDictionaries.find((dic) => dic.isSatisfiedBy(name));
+    return this.availableDictionaries.find(dic => dic.isSatisfiedBy(name));
   }
 
   findMappedValueByPhrase(phrase) {
@@ -23,7 +23,7 @@ class Dictionaries {
       const dictionary = this.findDictionary(parameters[1]);
 
       if (dictionary) {
-        return this.getMappedValue(parameters[1], parameters[2])
+        return this.getMappedValue(parameters[1], parameters[2]);
       }
     }
 
