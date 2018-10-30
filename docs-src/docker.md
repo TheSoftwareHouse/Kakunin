@@ -1,16 +1,18 @@
 # Docker for Kakunin tests
 
-This section will walk you through building your own docker image for your tests.
+This section explains how to run kakunin tests inside docker, below examples of Dockerfile
+and docker-compose.yml files let you build your first docker image and run tests.
 
 ## Dockerfile:
 
 This file is responsible for building the whole environment for our e2e tests.
 It will allow you to run tests on local and CI environments, 
 by configuring and copying the whole project inside the container.
+Just simply place it inside your e2e project root.
 
-To clarify what's happening Dockerfile example contains comments describing the whole process.
+Below an example of Dockerfile
 
-### Example:
+### Example of Dockerfile:
 ```bash
 # Downloading selenium image and setting privileges
 FROM selenium/standalone-chrome:3.14.0
@@ -42,7 +44,7 @@ RUN export DISPLAY=:99.0
 USER seluser
 ```
 
-## docker-compose.yml
+##docker-compose.yml
 
 Compose is a tool for defining and running multi-container Docker applications, which we use
 for running our tests.
@@ -59,7 +61,7 @@ Composition below allows you to run e2e tests inside the container and configure
 in CI environments.
 
 
-### Example:
+### Example of docker-compose.yml:
 ```bash
 e2e:
       build: .
@@ -67,23 +69,10 @@ e2e:
       command: sh -c "Xvfb -ac :99 -screen 0 1280x1024x16 & npm run kakunin"
 ```
 
-## Configuration examples:
+### How to run step by step
+1. Install docker (e.g Docker for Mac),
+2. Create Dockerfile and docker-compose.yml in the root of your e2e project,
+3. Run in command line `docker-compose up -d ` which will start docker and build image
+ if it's not build
+4. Run in command line `docker-compose run --rm e2e` to run your tests
 
-### Cron
-
-Edit cron crontab -e. Remember to always use full paths.
-
-``25 4 * * * cd /path/to/e2e && /usr/local/bin/docker-compose run --rm e2e``
-Or if you use custom script as proxy
-
-Command to run script
-```
-25 4 * * * /path/to/e2e-script.sh
-```
-Bash script:
-```bash
-#!/usr/bin/env bash
-
-cd /path/to/e2e
-/usr/local/bin/docker-compose run --rm e2e
-```

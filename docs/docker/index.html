@@ -380,8 +380,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#example" title="Example:" class="md-nav__link">
-    Example:
+  <a href="#example-of-dockerfile" title="Example of Dockerfile:" class="md-nav__link">
+    Example of Dockerfile:
   </a>
   
 </li>
@@ -400,28 +400,15 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#example_1" title="Example:" class="md-nav__link">
-    Example:
+  <a href="#example-of-docker-composeyml" title="Example of docker-compose.yml:" class="md-nav__link">
+    Example of docker-compose.yml:
   </a>
   
 </li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#configuration-examples" title="Configuration examples:" class="md-nav__link">
-    Configuration examples:
-  </a>
-  
-    <nav class="md-nav">
-      <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#cron" title="Cron" class="md-nav__link">
-    Cron
+  <a href="#how-to-run-step-by-step" title="How to run step by step" class="md-nav__link">
+    How to run step by step
   </a>
   
 </li>
@@ -471,8 +458,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#example" title="Example:" class="md-nav__link">
-    Example:
+  <a href="#example-of-dockerfile" title="Example of Dockerfile:" class="md-nav__link">
+    Example of Dockerfile:
   </a>
   
 </li>
@@ -491,28 +478,15 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#example_1" title="Example:" class="md-nav__link">
-    Example:
+  <a href="#example-of-docker-composeyml" title="Example of docker-compose.yml:" class="md-nav__link">
+    Example of docker-compose.yml:
   </a>
   
 </li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#configuration-examples" title="Configuration examples:" class="md-nav__link">
-    Configuration examples:
-  </a>
-  
-    <nav class="md-nav">
-      <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#cron" title="Cron" class="md-nav__link">
-    Cron
+  <a href="#how-to-run-step-by-step" title="How to run step by step" class="md-nav__link">
+    How to run step by step
   </a>
   
 </li>
@@ -542,15 +516,17 @@
                 
                 
                 <h1 id="docker-for-kakunin-tests">Docker for Kakunin tests</h1>
-<p>This section will walk you through building your own docker image for your tests.</p>
+<p>This section explains how to run kakunin tests inside docker, below examples of Dockerfile
+and docker-compose.yml files let you build your first docker image and run tests.</p>
 <h2 id="dockerfile">Dockerfile:</h2>
-<p>This file is responsible for building whole environment for our e2e tests.
+<p>This file is responsible for building the whole environment for our e2e tests.
 It will allow you to run tests on local and CI environments, 
-by configuring and coping whole project inside container.</p>
-<p>To clarify what's happening Dockerfile example contains comments describing whole process.</p>
-<h3 id="example">Example:</h3>
+by configuring and copying the whole project inside the container.
+Just simply place it inside your e2e project root.</p>
+<p>Below an example of Dockerfile</p>
+<h3 id="example-of-dockerfile">Example of Dockerfile:</h3>
 <div class="codehilite"><pre><span></span><span class="c1"># Downloading selenium image and setting privileges</span>
-FROM selenium/standalone-chrome:latest
+FROM selenium/standalone-chrome:3.14.0
 USER root
 <span class="c1"># Setting test directory</span>
 WORKDIR /app
@@ -569,50 +545,42 @@ RUN <span class="nb">set</span> -x <span class="se">\</span>
         nodejs <span class="se">\</span>
     <span class="o">&amp;&amp;</span> npm install -g npm@latest
 RUN <span class="nv">PATH</span><span class="o">=</span>/usr/bin/node:<span class="nv">$PATH</span>
-<span class="c1"># Setting Xvfb</span>
-RUN <span class="nb">export</span> <span class="nv">DISPLAY</span><span class="o">=</span>:99.0
-RUN Xvfb -ac <span class="nv">$DISPLAY</span> <span class="p">&amp;</span>
 <span class="c1"># Copy tests directory with ignored files from .dockerignore</span>
-COPY . .
+COPY --chown<span class="o">=</span>seluser:seluser . .
 <span class="c1"># Removing node_modules in case of existence or lack of .dockerignore and installing from package.json</span>
 RUN rm -rf ./node_modules <span class="se">\</span>
     <span class="o">&amp;&amp;</span> npm install
+<span class="c1"># Setting Xvfb</span>
+RUN <span class="nb">export</span> <span class="nv">DISPLAY</span><span class="o">=</span>:99.0
+USER seluser
 </pre></div>
 
 
 <h2 id="docker-composeyml">docker-compose.yml</h2>
 <p>Compose is a tool for defining and running multi-container Docker applications, which we use
 for running our tests.</p>
-<p>Running command: <code>docker-compose up -d</code> will start Dockerfile script as a result it builds container.</p>
+<p>Running command: <code>docker-compose up -d</code> will start Dockerfile script, as a result, it builds the container.</p>
 <p>Running command: <code>docker-compose build</code> or <code>docker-compose up --build</code> will 
 rebuild container, if there were made any changes.</p>
-<p>Running command: <code>docker-compose run --rm e2e</code> will start running tests inside container</p>
-<p>Composition below allows you to run e2e tests inside container and configure it locally or
-on CI environments.</p>
-<h3 id="example_1">Example:</h3>
+<p>Running command: <code>docker-compose run --rm e2e</code> will start running tests inside the container</p>
+<p>Composition below allows you to run e2e tests inside the container and configure it locally or
+in CI environments.</p>
+<h3 id="example-of-docker-composeyml">Example of docker-compose.yml:</h3>
 <div class="codehilite"><pre><span></span>e2e:
       build: .
       working_dir: /app
-      command: sh -c <span class="s2">&quot;npm run kakunin&quot;</span>
+      command: sh -c <span class="s2">&quot;Xvfb -ac :99 -screen 0 1280x1024x16 &amp; npm run kakunin&quot;</span>
 </pre></div>
 
 
-<h2 id="configuration-examples">Configuration examples:</h2>
-<h3 id="cron">Cron</h3>
-<p>Edit cron crontab -e. Remember to always use full paths.</p>
-<p><code>25 4 * * * cd /path/to/e2e &amp;&amp; /usr/local/bin/docker-compose run --rm e2e</code>
-Or if you use custom script as proxy</p>
-<p>Command to run script</p>
-<div class="codehilite"><pre><span></span>25 4 * * * /path/to/e2e-script.sh
-</pre></div>
-
-
-<p>Bash script:</p>
-<div class="codehilite"><pre><span></span><span class="ch">#!/usr/bin/env bash</span>
-
-<span class="nb">cd</span> /path/to/e2e
-/usr/local/bin/docker-compose run --rm e2e
-</pre></div>
+<h3 id="how-to-run-step-by-step">How to run step by step</h3>
+<ol>
+<li>Install docker (e.g Docker for Mac),</li>
+<li>Create Dockerfile and docker-compose.yml in the root of your e2e project,</li>
+<li>Run in command line <code>docker-compose up -d</code> which will start docker and build image
+ if it's not build</li>
+<li>Run in command line <code>docker-compose run --rm e2e</code> to run your tests</li>
+</ol>
                 
                   
                 
