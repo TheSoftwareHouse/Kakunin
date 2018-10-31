@@ -472,7 +472,7 @@
         }, 
         {
             "location": "/parallel-testing/", 
-            "text": "Parallel testing\n\n\nThere is a possibility to run tests in parallel.\n\n\nHow to execute\n\n\nUse a command \nnpm run kakunin -- --parallel \nnumber of instances\n where \nnumber of instances\n is a number.\n\n\nExample:\n- \nnpm run kakunin -- --chrome --parallel 2\n\n\nKeep in mind that the merged report is available in the \nreports/report/index.html\n file. text\n\n\nTroubleshooting\n\n\n\n\nRunning more than one instance in \nFirefox\n is not possible now (fix in-progress).", 
+            "text": "Parallel testing\n\n\nThere is a possibility to run tests in parallel.\n\n\nHow to execute\n\n\nUse a command \nnpm run kakunin -- --parallel \nnumber of instances\n where \nnumber of instances\n is a number.\n\n\nExample:\n- \nnpm run kakunin -- --chrome --parallel 2\n\n\nKeep in mind that the merged report is available in the \nreports/report/index.html\n file. text\n\n\nSpecify pattern per each instance\n\n\n\n\nnpm run kakunin -- --parallel \nnumber of instances\n --pattern \nregex to much feature\n --pattern \nregex to much feature\n\n\n\n\nKeep in mind that:\n\n\n\n\nthe number given in \nparallel\n must be equal to passed \npatterns\n\n\nnumber of instances\n is a number of instances of the specified browser\n\n\nregex\n is a pattern that is used to specify the list of specs that will be executed in each of the instances\n\n\n\n\n\n\nTroubleshooting\n\n\n\n\nRunning more than one instance in \nFirefox\n is not possible now (fix in-progress).", 
             "title": "Parallel testing"
         }, 
         {
@@ -484,6 +484,11 @@
             "location": "/parallel-testing/#how-to-execute", 
             "text": "Use a command  npm run kakunin -- --parallel  number of instances  where  number of instances  is a number.  Example:\n-  npm run kakunin -- --chrome --parallel 2  Keep in mind that the merged report is available in the  reports/report/index.html  file. text", 
             "title": "How to execute"
+        }, 
+        {
+            "location": "/parallel-testing/#specify-pattern-per-each-instance", 
+            "text": "npm run kakunin -- --parallel  number of instances  --pattern  regex to much feature  --pattern  regex to much feature   Keep in mind that:   the number given in  parallel  must be equal to passed  patterns  number of instances  is a number of instances of the specified browser  regex  is a pattern that is used to specify the list of specs that will be executed in each of the instances", 
+            "title": "Specify pattern per each instance"
         }, 
         {
             "location": "/parallel-testing/#troubleshooting", 
