@@ -82,6 +82,25 @@ const getExtendedBrowsersConfigs = config => {
   return configs;
 };
 
+const chunkSpecs = (commandArgs, allSpecs, expectedArrayLength, numberOfInstances) => {
+  if (commandArgs.pattern !== undefined && typeof commandArgs.pattern !== 'boolean') {
+    const patterns = commandArgs.pattern.split(',');
+    const chunkedSpecs = [];
+
+    if (patterns.length !== numberOfInstances) {
+      throw new Error('Number of the specified patterns is different than number of instances!');
+    }
+
+    for (const pattern of patterns) {
+      chunkedSpecs.push(allSpecs.filter(spec => spec.match(new RegExp(pattern))));
+    }
+
+    return chunkedSpecs;
+  }
+
+  return _lodash2.default.chunk(allSpecs, expectedArrayLength);
+};
+
 const browsersConfiguration = (config, commandArgs) => {
   return _asyncToGenerator(function* () {
     const browsersSettings = [];
@@ -89,11 +108,10 @@ const browsersConfiguration = (config, commandArgs) => {
     const allSpecs = _glob2.default.sync(config.features.map(function (file) {
       return _path2.default.join(config.projectPath, file, '**/*.feature');
     })[0]);
-    const isPararell = commandArgs.parallel !== undefined && Number.isInteger(commandArgs.parallel) && commandArgs.parallel !== 0;
-
-    const numberOfInstances = isPararell ? commandArgs.parallel >= allSpecs.length ? allSpecs.length : commandArgs.parallel : 1;
+    const isParallel = commandArgs.parallel !== undefined && Number.isInteger(commandArgs.parallel) && commandArgs.parallel !== 0;
+    const numberOfInstances = isParallel ? commandArgs.parallel >= allSpecs.length ? allSpecs.length : commandArgs.parallel : 1;
     const expectedArrayLength = Math.ceil(allSpecs.length / numberOfInstances);
-    const chunkedSpecs = _lodash2.default.chunk(allSpecs, expectedArrayLength);
+    const chunkedSpecs = chunkSpecs(commandArgs, allSpecs, expectedArrayLength, numberOfInstances);
 
     if (allSpecs.length === 0) {
       throw new Error('Could not find any files matching regex in the directory!');
