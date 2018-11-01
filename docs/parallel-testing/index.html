@@ -339,6 +339,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#specify-pattern-per-each-instance" title="Specify pattern per each instance" class="md-nav__link">
+    Specify pattern per each instance
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#troubleshooting" title="Troubleshooting" class="md-nav__link">
     Troubleshooting
   </a>
@@ -394,6 +401,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#specify-pattern-per-each-instance" title="Specify pattern per each instance" class="md-nav__link">
+    Specify pattern per each instance
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#troubleshooting" title="Troubleshooting" class="md-nav__link">
     Troubleshooting
   </a>
@@ -424,6 +438,17 @@
 <p>Example:
 - <code>npm run kakunin -- --chrome --parallel 2</code></p>
 <p><span style="color:red">Keep in mind that the merged report is available in the <code>reports/report/index.html</code> file. text</span></p>
+<h3 id="specify-pattern-per-each-instance">Specify pattern per each instance</h3>
+<ul>
+<li><code>npm run kakunin -- --parallel &lt;number of instances&gt; --pattern &lt;regex to much feature&gt; --pattern &lt;regex to much feature&gt;</code></li>
+</ul>
+<p>Keep in mind that:</p>
+<ul>
+<li>the number given in <code>parallel</code> must be equal to passed <code>patterns</code></li>
+<li><code>&lt;number of instances&gt;</code> is a number of instances of the specified browser</li>
+<li><code>&lt;regex&gt;</code> is a pattern that is used to specify the list of specs that will be executed in each of the instances</li>
+</ul>
+<hr />
 <h3 id="troubleshooting">Troubleshooting</h3>
 <ol>
 <li>Running more than one instance in <code>Firefox</code> is not possible now (fix in-progress).</li>

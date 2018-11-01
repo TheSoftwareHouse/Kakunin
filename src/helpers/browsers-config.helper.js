@@ -1,9 +1,9 @@
 import glob from 'glob';
-import _ from 'lodash';
 import path from 'path';
 const { createFirefoxProfile } = require('./create-firefox-profile.helper');
 const { safariBrowserConfigurator } = require('./safari-browser-configurator.helper');
 const { prepareBrowserInstance } = require('./prepare-browser-instance-specs.helper');
+const { chunkSpecs } = require('./chunk-specs.helper');
 
 const getDefaultBrowsersConfigs = config => {
   const chromeConfig = {
@@ -88,16 +88,15 @@ const browsersConfiguration = (config, commandArgs) => {
     const browsersSettings = [];
     const browserConfigs = getExtendedBrowsersConfigs(config, commandArgs);
     const allSpecs = glob.sync(config.features.map(file => path.join(config.projectPath, file, '**/*.feature'))[0]);
-    const isPararell =
+    const isParallel =
       commandArgs.parallel !== undefined && Number.isInteger(commandArgs.parallel) && commandArgs.parallel !== 0;
-
-    const numberOfInstances = isPararell
+    const numberOfInstances = isParallel
       ? commandArgs.parallel >= allSpecs.length
         ? allSpecs.length
         : commandArgs.parallel
       : 1;
     const expectedArrayLength = Math.ceil(allSpecs.length / numberOfInstances);
-    const chunkedSpecs = _.chunk(allSpecs, expectedArrayLength);
+    const chunkedSpecs = chunkSpecs(commandArgs, allSpecs, expectedArrayLength, numberOfInstances);
 
     if (allSpecs.length === 0) {
       throw new Error('Could not find any files matching regex in the directory!');

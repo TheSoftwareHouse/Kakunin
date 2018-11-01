@@ -4,10 +4,6 @@ var _glob = require('glob');
 
 var _glob2 = _interopRequireDefault(_glob);
 
-var _lodash = require('lodash');
-
-var _lodash2 = _interopRequireDefault(_lodash);
-
 var _path = require('path');
 
 var _path2 = _interopRequireDefault(_path);
@@ -19,6 +15,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 const { createFirefoxProfile } = require('./create-firefox-profile.helper');
 const { safariBrowserConfigurator } = require('./safari-browser-configurator.helper');
 const { prepareBrowserInstance } = require('./prepare-browser-instance-specs.helper');
+const { chunkSpecs } = require('./chunk-specs.helper');
 
 const getDefaultBrowsersConfigs = config => {
   const chromeConfig = {
@@ -89,11 +86,10 @@ const browsersConfiguration = (config, commandArgs) => {
     const allSpecs = _glob2.default.sync(config.features.map(function (file) {
       return _path2.default.join(config.projectPath, file, '**/*.feature');
     })[0]);
-    const isPararell = commandArgs.parallel !== undefined && Number.isInteger(commandArgs.parallel) && commandArgs.parallel !== 0;
-
-    const numberOfInstances = isPararell ? commandArgs.parallel >= allSpecs.length ? allSpecs.length : commandArgs.parallel : 1;
+    const isParallel = commandArgs.parallel !== undefined && Number.isInteger(commandArgs.parallel) && commandArgs.parallel !== 0;
+    const numberOfInstances = isParallel ? commandArgs.parallel >= allSpecs.length ? allSpecs.length : commandArgs.parallel : 1;
     const expectedArrayLength = Math.ceil(allSpecs.length / numberOfInstances);
-    const chunkedSpecs = _lodash2.default.chunk(allSpecs, expectedArrayLength);
+    const chunkedSpecs = chunkSpecs(commandArgs, allSpecs, expectedArrayLength, numberOfInstances);
 
     if (allSpecs.length === 0) {
       throw new Error('Could not find any files matching regex in the directory!');
