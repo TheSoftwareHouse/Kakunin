@@ -13,7 +13,7 @@
         <meta name="description" content="Kakunin - E2E testing framework on steroids">
       
       
-        <link rel="canonical" href="https://thesoftwarehouse.github.io/Kakunin/performance-testing/">
+        <link rel="canonical" href="https://thesoftwarehouse.github.io/Kakunin/docker/">
       
       
       
@@ -40,7 +40,7 @@
     
     
       
-        <title>Performance testing - Kakunin</title>
+        <title>Docker - Kakunin</title>
       
     
     
@@ -94,7 +94,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="../#what-needs-to-be-done" tabindex="1" class="md-skip">
+      <a href="../#docker-for-kakunin-tests" tabindex="1" class="md-skip">
         Skip to content
       </a>
     
@@ -120,7 +120,7 @@
                 Kakunin
               </span>
               <span class="md-header-nav__topic">
-                Performance testing
+                Docker
               </span>
             
           
@@ -319,20 +319,11 @@
       
       
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    
-      
-    
-    
-    <a href="./" title="Performance testing" class="md-nav__link md-nav__link--active">
+  <li class="md-nav__item">
+    <a href="../performance-testing/" title="Performance testing" class="md-nav__link">
       Performance testing
     </a>
-    
   </li>
 
     
@@ -352,11 +343,89 @@
       
       
 
+  
 
-  <li class="md-nav__item">
-    <a href="../docker/" title="Docker" class="md-nav__link">
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Docker
+      </label>
+    
+    <a href="./" title="Docker" class="md-nav__link md-nav__link--active">
       Docker
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#dockerfile" title="Dockerfile:" class="md-nav__link">
+    Dockerfile:
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-of-dockerfile" title="Example of Dockerfile:" class="md-nav__link">
+    Example of Dockerfile:
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker-composeyml" title="docker-compose.yml" class="md-nav__link">
+    docker-compose.yml
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-of-docker-composeyml" title="Example of docker-compose.yml:" class="md-nav__link">
+    Example of docker-compose.yml:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-to-run-step-by-step" title="How to run step by step" class="md-nav__link">
+    How to run step by step
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
   </li>
 
     
@@ -377,6 +446,62 @@
     
   
   
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#dockerfile" title="Dockerfile:" class="md-nav__link">
+    Dockerfile:
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-of-dockerfile" title="Example of Dockerfile:" class="md-nav__link">
+    Example of Dockerfile:
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker-composeyml" title="docker-compose.yml" class="md-nav__link">
+    docker-compose.yml
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-of-docker-composeyml" title="Example of docker-compose.yml:" class="md-nav__link">
+    Example of docker-compose.yml:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-to-run-step-by-step" title="How to run step by step" class="md-nav__link">
+    How to run step by step
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -387,71 +512,74 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/TheSoftwareHouse/Kakunin/edit/master/docs-src/performance-testing.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                  <a href="https://github.com/TheSoftwareHouse/Kakunin/edit/master/docs-src/docker.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
-                <p>Performance testing is possible thanks to <code>browsermob-proxy</code>.</p>
-<p>It saves all data from network tab (Google Chrome console) which is generated during the test.</p>
-<p>There is a possibility to compare <code>TTFB</code> value with a maximum given one. </p>
-<p><code>TTFB</code> (Time to first byte) measures the duration from the client making an HTTP request to the first byte of a response being received by the client's browser.</p>
-<p>More details can be found in documentation - <code>Built-in steps</code> section.</p>
-<h3 id="what-needs-to-be-done">What needs to be done?</h3>
-<h1 id="get-started">Get started</h1>
-<ol>
-<li>
-<p>Download <code>browsermob-proxy</code> from <code>https://github.com/lightbody/browsermob-proxy</code></p>
-</li>
-<li>
-<p>Navigate in terminal to the catalog</p>
-</li>
-<li>
-<p>Use following command to start the REST API</p>
-</li>
-</ol>
-<div class="codehilite"><pre><span></span>./browsermob-proxy -port 8887
+                <h1 id="docker-for-kakunin-tests">Docker for Kakunin tests</h1>
+<p>This section explains how to run kakunin tests inside docker, below examples of Dockerfile
+and docker-compose.yml files let you build your first docker image and run tests.</p>
+<h2 id="dockerfile">Dockerfile:</h2>
+<p>This file is responsible for building the whole environment for our e2e tests.
+It will allow you to run tests on local and CI environments, 
+by configuring and copying the whole project inside the container.
+Just simply place it inside your e2e project root.</p>
+<p>Below an example of Dockerfile</p>
+<h3 id="example-of-dockerfile">Example of Dockerfile:</h3>
+<div class="codehilite"><pre><span></span><span class="c1"># Downloading selenium image and setting privileges</span>
+FROM selenium/standalone-chrome:3.14.0
+USER root
+<span class="c1"># Setting test directory</span>
+WORKDIR /app
+<span class="c1"># Install openjdk-8-jdk-headless</span>
+RUN apt-get update -qqy <span class="se">\</span>
+  <span class="o">&amp;&amp;</span> apt-get -qqy --no-install-recommends install <span class="se">\</span>
+    xvfb <span class="se">\</span>
+    openjdk-8-jdk-headless <span class="se">\</span>
+    curl <span class="se">\</span>
+    make <span class="se">\</span>
+  <span class="o">&amp;&amp;</span> rm -rf /var/lib/apt/lists/* /var/cache/apt/*
+<span class="c1"># Installing node 8 globally and setting paths</span>
+RUN <span class="nb">set</span> -x <span class="se">\</span>
+    <span class="o">&amp;&amp;</span> curl -sL https://deb.nodesource.com/setup_8.x <span class="p">|</span> bash - <span class="se">\</span>
+    <span class="o">&amp;&amp;</span> apt-get install -y <span class="se">\</span>
+        nodejs <span class="se">\</span>
+    <span class="o">&amp;&amp;</span> npm install -g npm@latest
+RUN <span class="nv">PATH</span><span class="o">=</span>/usr/bin/node:<span class="nv">$PATH</span>
+<span class="c1"># Copy tests directory with ignored files from .dockerignore</span>
+COPY --chown<span class="o">=</span>seluser:seluser . .
+<span class="c1"># Removing node_modules in case of existence or lack of .dockerignore and installing from package.json</span>
+RUN rm -rf ./node_modules <span class="se">\</span>
+    <span class="o">&amp;&amp;</span> npm install
+<span class="c1"># Setting Xvfb</span>
+RUN <span class="nb">export</span> <span class="nv">DISPLAY</span><span class="o">=</span>:99.0
+USER seluser
 </pre></div>
 
 
-<h1 id="configuration">Configuration</h1>
-<ol>
-<li>Add <code>browsermob-proxy</code> configuration to <code>kakunin.conf.js</code></li>
-</ol>
-<p>You can use one of the following methods to configure browsermob-proxy:</p>
-<ul>
-<li>
-<p><code>npm run kakunin init -- --advanced</code> and go through the process</p>
-</li>
-<li>
-<p>or add it manually to the config file:</p>
-</li>
-</ul>
-<div class="codehilite"><pre><span></span>    <span class="s2">&quot;browserMob&quot;</span><span class="o">:</span> <span class="p">{</span>
-      <span class="s2">&quot;serverPort&quot;</span><span class="o">:</span> <span class="mi">8887</span><span class="p">,</span>
-      <span class="s2">&quot;port&quot;</span><span class="o">:</span> <span class="mi">8888</span><span class="p">,</span>
-      <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;localhost&quot;</span>
-    <span class="p">}</span>
+<h2 id="docker-composeyml">docker-compose.yml</h2>
+<p>Compose is a tool for defining and running multi-container Docker applications, which we use
+for running our tests.</p>
+<p>Running command: <code>docker-compose up -d</code> will start Dockerfile script, as a result, it builds the container.</p>
+<p>Running command: <code>docker-compose build</code> or <code>docker-compose up --build</code> will 
+rebuild container, if there were made any changes.</p>
+<p>Running command: <code>docker-compose run --rm e2e</code> will start running tests inside the container</p>
+<p>Composition below allows you to run e2e tests inside the container and configure it locally or
+in CI environments.</p>
+<h3 id="example-of-docker-composeyml">Example of docker-compose.yml:</h3>
+<div class="codehilite"><pre><span></span>e2e:
+      build: .
+      working_dir: /app
+      command: sh -c <span class="s2">&quot;Xvfb -ac :99 -screen 0 1280x1024x16 &amp; npm run kakunin&quot;</span>
 </pre></div>
 
 
-<h1 id="run-tests">Run tests</h1>
+<h3 id="how-to-run-step-by-step">How to run step by step</h3>
 <ol>
-<li>
-<p><code>performance steps</code> must be used in the scenario where you are testing performance</p>
-</li>
-<li>
-<p>Scenario must have a tag <code>@performance</code></p>
-</li>
-<li>
-<p>Run tests with special parameter:</p>
-</li>
-</ol>
-<div class="codehilite"><pre><span></span>npm run kakunin -- --performance
-</pre></div>
-
-
-<h1 id="results">Results</h1>
-<ol>
-<li><code>.har</code> files are saved in catalog <code>reports/performance/*.har</code></li>
+<li>Install docker (e.g Docker for Mac),</li>
+<li>Create Dockerfile and docker-compose.yml in the root of your e2e project,</li>
+<li>Run in command line <code>docker-compose up -d</code> which will start docker and build image
+ if it's not build</li>
+<li>Run in command line <code>docker-compose run --rm e2e</code> to run your tests</li>
 </ol>
                 
                   
@@ -473,7 +601,7 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../transformers/" title="Transformers" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../extending/" title="Extending Kakunin" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -482,25 +610,11 @@
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Transformers
-              </span>
-            </div>
-          </a>
-        
-        
-          <a href="../extending/" title="Extending Kakunin" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
-            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
-              <span class="md-flex__ellipsis">
-                <span class="md-footer-nav__direction">
-                  Next
-                </span>
                 Extending Kakunin
               </span>
             </div>
-            <div class="md-flex__cell md-flex__cell--shrink">
-              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
-            </div>
           </a>
+        
         
       </nav>
     </div>

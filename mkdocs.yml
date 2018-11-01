@@ -21,6 +21,8 @@ pages:
   - Transformers: transformers.md
   - Performance testing: performance-testing.md
   - Extending Kakunin: extending.md
+  - Docker: docker.md
+
 
 markdown_extensions:
   - codehilite
