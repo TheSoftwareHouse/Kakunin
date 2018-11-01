@@ -4,10 +4,6 @@ var _glob = require('glob');
 
 var _glob2 = _interopRequireDefault(_glob);
 
-var _lodash = require('lodash');
-
-var _lodash2 = _interopRequireDefault(_lodash);
-
 var _path = require('path');
 
 var _path2 = _interopRequireDefault(_path);
@@ -19,6 +15,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 const { createFirefoxProfile } = require('./create-firefox-profile.helper');
 const { safariBrowserConfigurator } = require('./safari-browser-configurator.helper');
 const { prepareBrowserInstance } = require('./prepare-browser-instance-specs.helper');
+const { chunkSpecs } = require('./chunk-specs.helper');
 
 const getDefaultBrowsersConfigs = config => {
   const chromeConfig = {
@@ -80,25 +77,6 @@ const getExtendedBrowsersConfigs = config => {
   }
 
   return configs;
-};
-
-const chunkSpecs = (commandArgs, allSpecs, expectedArrayLength, numberOfInstances) => {
-  if (commandArgs.pattern !== undefined && typeof commandArgs.pattern !== 'boolean') {
-    const patterns = commandArgs.pattern.split(',');
-    const chunkedSpecs = [];
-
-    if (patterns.length !== numberOfInstances) {
-      throw new Error('Number of the specified patterns is different than number of instances!');
-    }
-
-    for (const pattern of patterns) {
-      chunkedSpecs.push(allSpecs.filter(spec => spec.match(new RegExp(pattern))));
-    }
-
-    return chunkedSpecs;
-  }
-
-  return _lodash2.default.chunk(allSpecs, expectedArrayLength);
 };
 
 const browsersConfiguration = (config, commandArgs) => {
