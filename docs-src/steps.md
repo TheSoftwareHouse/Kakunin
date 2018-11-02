@@ -533,10 +533,6 @@ If the generator exists, then the value will be saved under the `:variableName` 
 
 ##Debug
 
-###`I pause`
-
-Pauses tests execution and allows to continue manually by pressing combination of `ctrl+c` inside terminal.
-
 ###`I wait for ":seconds" seconds`
 
 Waits with execution of next step for an amount provided by parameter `:seconds`.
