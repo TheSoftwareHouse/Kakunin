@@ -46,6 +46,7 @@ class Initializer {
 
   async initConfig(commandArgs) {
     const conf = {
+      type: 'otherWeb',
       browserWidth: 1600,
       browserHeight: 900,
       timeout: 60,
@@ -76,26 +77,6 @@ class Initializer {
       headless: false,
       noGpu: false
     };
-
-    if (typeof commandArgs.type === 'undefined') {
-      await inquirer.prompt([
-        {
-          type: 'rawlist',
-          name: 'type',
-          message: 'What kind of application would you like to test?',
-          choices: [
-            { name: 'Angular 1', value: 'ng1' },
-            { name: 'Angular 2', value: 'ng2' },
-            { name: 'Other web app (e.g. React, jQuery based etc.)', value: 'otherWeb' }
-          ]
-        }
-      ]).then(function (answer) {
-        conf.type = answer.type;
-      });
-    } else {
-      conf.type = commandArgs.type;
-    }
-
 
     if (typeof commandArgs.baseUrl === 'undefined') {
       conf.baseUrl = await this.promptFolders('What is base url?', 'http://localhost:3000');
