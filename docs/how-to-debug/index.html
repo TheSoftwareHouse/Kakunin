@@ -11,7 +11,7 @@
         <meta name="description" content="Kakunin - E2E testing framework on steroids">
       
       
-        <link rel="canonical" href="https://thesoftwarehouse.github.io/Kakunin/parallel-testing/">
+        <link rel="canonical" href="https://thesoftwarehouse.github.io/Kakunin/how-to-debug/">
       
       
       
@@ -28,7 +28,7 @@
 
     
       
-        <title>Parallel testing - Kakunin</title>
+        <title>How to debug - Kakunin</title>
       
     
     
@@ -88,7 +88,7 @@
             
               
             
-            Parallel testing
+            How to debug
           
         </span>
       </div>
@@ -255,11 +255,43 @@
       
       
 
+  
 
-  <li class="md-nav__item">
-    <a href="../how-to-debug/" title="How to debug" class="md-nav__link">
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        How to debug
+      </label>
+    
+    <a href="./" title="How to debug" class="md-nav__link md-nav__link--active">
       How to debug
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-debug" title="How to debug" class="md-nav__link">
+    How to debug
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
+    
   </li>
 
     
@@ -315,61 +347,11 @@
       
       
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
-    
-      
-    
-    
-      <label class="md-nav__link md-nav__link--active" for="toc">
-        Parallel testing
-      </label>
-    
-    <a href="./" title="Parallel testing" class="md-nav__link md-nav__link--active">
+  <li class="md-nav__item">
+    <a href="../parallel-testing/" title="Parallel testing" class="md-nav__link">
       Parallel testing
     </a>
-    
-      
-<nav class="md-nav md-nav--secondary">
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="toc">Table of contents</label>
-    <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#how-to-execute" title="How to execute" class="md-nav__link">
-    How to execute
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#specify-pattern-per-each-instance" title="Specify pattern per each instance" class="md-nav__link">
-    Specify pattern per each instance
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#troubleshooting" title="Troubleshooting" class="md-nav__link">
-    Troubleshooting
-  </a>
-  
-</li>
-      
-      
-      
-    </ul>
-  
-</nav>
-    
   </li>
 
     
@@ -399,29 +381,13 @@
 <nav class="md-nav md-nav--secondary">
   
   
-    
-  
   
     <label class="md-nav__title" for="toc">Table of contents</label>
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#how-to-execute" title="How to execute" class="md-nav__link">
-    How to execute
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#specify-pattern-per-each-instance" title="Specify pattern per each instance" class="md-nav__link">
-    Specify pattern per each instance
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#troubleshooting" title="Troubleshooting" class="md-nav__link">
-    Troubleshooting
+  <a href="#how-to-debug" title="How to debug" class="md-nav__link">
+    How to debug
   </a>
   
 </li>
@@ -440,31 +406,20 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/TheSoftwareHouse/Kakunin/edit/master/docs-src/parallel-testing.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                  <a href="https://github.com/TheSoftwareHouse/Kakunin/edit/master/docs-src/how-to-debug.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
-                <h1 id="parallel-testing">Parallel testing</h1>
-<p>There is a possibility to run tests in parallel.</p>
-<h3 id="how-to-execute">How to execute</h3>
-<p>Use a command <code>npm run kakunin -- --parallel &lt;number of instances&gt;</code> where <code>number of instances</code> is a number.</p>
-<p>Example:
-- <code>npm run kakunin -- --chrome --parallel 2</code></p>
-<p><span style="color:red">Keep in mind that the merged report is available in the <code>reports/report/index.html</code> file. text</span></p>
-<h3 id="specify-pattern-per-each-instance">Specify pattern per each instance</h3>
-<ul>
-<li><code>npm run kakunin -- --parallel &lt;number of instances&gt; --pattern &lt;regex to much feature&gt; --pattern &lt;regex to much feature&gt;</code></li>
-</ul>
-<p>Keep in mind that:</p>
-<ul>
-<li>the number given in <code>parallel</code> must be equal to passed <code>patterns</code></li>
-<li><code>&lt;number of instances&gt;</code> is a number of instances of the specified browser</li>
-<li><code>&lt;regex&gt;</code> is a pattern that is used to specify the list of specs that will be executed in each of the instances</li>
-</ul>
-<hr />
-<h3 id="troubleshooting">Troubleshooting</h3>
+                  <h1>How to debug</h1>
+                
+                <h2 id="how-to-debug">How to debug</h2>
 <ol>
-<li>Running more than one instance in <code>Firefox</code> is not possible now (fix in-progress).</li>
+<li>Install globally <code>ndb</code>: <code>npm install -g ndb</code></li>
+<li>Run Kakunin with <code>ndb</code> before command: <code>ndb npm run kakunin</code></li>
 </ol>
+<p>A new instance of Chromium will be started within a window where you can add breakpoints.
+<code>ndb</code> is synced with the project - you can make changes there.</p>
+<p>Keep in mind that <code>ndb</code> requires Node &gt;=8.0.0. It works best with Node &gt;=10.</p>
+<p>More information can be found under the <a href="https://www.npmjs.com/package/ndb">link</a></p>
                 
                   
                 
@@ -483,7 +438,7 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../performance-testing/" title="Performance testing" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../how-it-works/" title="How it works" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -492,19 +447,19 @@
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Performance testing
+                How it works
               </span>
             </div>
           </a>
         
         
-          <a href="../extending/" title="Extending Kakunin" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../steps/" title="Built-in steps" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Extending Kakunin
+                Built-in steps
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">

@@ -6,8 +6,4 @@ var _cucumber = require('cucumber');
   Then(/^I wait for "([^"]*)" seconds$/, function (number) {
     return browser.sleep(Number(number) * 1000);
   });
-
-  Then(/^I pause$/, function () {
-    browser.pause();
-  });
 });
