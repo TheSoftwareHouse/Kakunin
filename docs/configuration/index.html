@@ -36,7 +36,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-3.0.4">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-3.0.6">
     
     
       
@@ -94,7 +94,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="../#kakunin-config" tabindex="1" class="md-skip">
+      <a href="#kakunin-config" tabindex="1" class="md-skip">
         Skip to content
       </a>
     
@@ -249,7 +249,7 @@
 
 
   <li class="md-nav__item">
-    <a href=".." title="Getting started" class="md-nav__link">
+    <a href="../getting-started/" title="Getting started" class="md-nav__link">
       Getting started
     </a>
   </li>
@@ -461,6 +461,7 @@
                 
                 <h2 id="kakunin-config">Kakunin config</h2>
 <div class="codehilite"><pre><span></span><span class="k">module</span>.<span class="n">exports</span> = {
+    <span class="s">&quot;type&quot;</span>: <span class="s">&quot;otherWeb&quot;</span>,
     <span class="s">&quot;browserWidth&quot;</span>: <span class="mi">1600</span>,
     <span class="s">&quot;browserHeight&quot;</span>: <span class="mi">900</span>,
     <span class="s">&quot;timeout&quot;</span>: <span class="mi">60</span>,
@@ -511,7 +512,6 @@
     <span class="s">&quot;email&quot;</span>: <span class="n">null</span>,
     <span class="s">&quot;headless&quot;</span>: <span class="n">false</span>,
     <span class="s">&quot;noGpu&quot;</span>: <span class="n">false</span>,
-    <span class="s">&quot;type&quot;</span>: <span class="s">&quot;otherWeb&quot;</span>,
     <span class="s">&quot;baseUrl&quot;</span>: <span class="s">&quot;http://localhost:8080&quot;</span>,
     <span class="s">&quot;accounts&quot;</span>: {
         <span class="s">&quot;someAccount&quot;</span>: {
@@ -572,7 +572,7 @@
 
 <p><code>headless</code> - flag to activate chrome headless browser <code>default: false</code></p>
 <p><code>noGpu</code> - flag to activate cpu only mode <code>default: false</code></p>
-<p><code>type</code> - type of application either <code>ng1 | ng2 | otherWeb</code></p>
+<p><code>type</code> - type of application <code>otherWeb</code></p>
 <p><code>baseUrl</code> - url of tested application</p>
 <p><code>accounts</code> - object to store accounts information. This is bound to <code>userProvider</code> and allows to use advanced email checking options like recipient checking.</p>
 <div class="codehilite"><pre><span></span><span class="s2">&quot;someAccount&quot;</span><span class="err">:</span> <span class="p">{</span>
@@ -609,7 +609,7 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href=".." title="Getting started" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../getting-started/" title="Getting started" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -671,7 +671,7 @@
       
     </div>
     
-      <script src="../assets/javascripts/application.583bbe55.js"></script>
+      <script src="../assets/javascripts/application.5e60981f.js"></script>
       
       <script>app.initialize({version:"1.0.4",url:{base:".."}})</script>
       

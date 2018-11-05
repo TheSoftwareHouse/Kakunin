@@ -13,7 +13,7 @@
         <meta name="description" content="Kakunin - E2E testing framework on steroids">
       
       
-        <link rel="canonical" href="https://thesoftwarehouse.github.io/Kakunin/">
+        <link rel="canonical" href="https://thesoftwarehouse.github.io/Kakunin/getting-started/">
       
       
       
@@ -35,21 +35,21 @@
       
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
-      <link rel="shortcut icon" href="assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-3.0.4">
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-3.0.6">
     
     
       
-        <title>Kakunin</title>
+        <title>Getting started - Kakunin</title>
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/application.451f80e5.css">
+      <link rel="stylesheet" href="../assets/stylesheets/application.451f80e5.css">
       
       
     
     
-      <script src="assets/javascripts/modernizr.1aa3b519.js"></script>
+      <script src="../assets/javascripts/modernizr.1aa3b519.js"></script>
     
     
       
@@ -58,7 +58,7 @@
         <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
       
     
-    <link rel="stylesheet" href="assets/fonts/material-icons.css">
+    <link rel="stylesheet" href="../assets/fonts/material-icons.css">
     
     
   </head>
@@ -237,7 +237,7 @@
 
 
   <li class="md-nav__item">
-    <a href="quickstart/" title="Quick start" class="md-nav__link">
+    <a href="../quickstart/" title="Quick start" class="md-nav__link">
       Quick start
     </a>
   </li>
@@ -259,7 +259,7 @@
         Getting started
       </label>
     
-    <a href="." title="Getting started" class="md-nav__link md-nav__link--active">
+    <a href="./" title="Getting started" class="md-nav__link md-nav__link--active">
       Getting started
     </a>
     
@@ -323,7 +323,7 @@
 
 
   <li class="md-nav__item">
-    <a href="configuration/" title="Configuration" class="md-nav__link">
+    <a href="../configuration/" title="Configuration" class="md-nav__link">
       Configuration
     </a>
   </li>
@@ -335,7 +335,7 @@
 
 
   <li class="md-nav__item">
-    <a href="how-it-works/" title="How it works" class="md-nav__link">
+    <a href="../how-it-works/" title="How it works" class="md-nav__link">
       How it works
     </a>
   </li>
@@ -347,7 +347,7 @@
 
 
   <li class="md-nav__item">
-    <a href="steps/" title="Built-in steps" class="md-nav__link">
+    <a href="../steps/" title="Built-in steps" class="md-nav__link">
       Built-in steps
     </a>
   </li>
@@ -359,7 +359,7 @@
 
 
   <li class="md-nav__item">
-    <a href="matchers/" title="Matchers" class="md-nav__link">
+    <a href="../matchers/" title="Matchers" class="md-nav__link">
       Matchers
     </a>
   </li>
@@ -371,7 +371,7 @@
 
 
   <li class="md-nav__item">
-    <a href="transformers/" title="Transformers" class="md-nav__link">
+    <a href="../transformers/" title="Transformers" class="md-nav__link">
       Transformers
     </a>
   </li>
@@ -383,7 +383,7 @@
 
 
   <li class="md-nav__item">
-    <a href="performance-testing/" title="Performance testing" class="md-nav__link">
+    <a href="../performance-testing/" title="Performance testing" class="md-nav__link">
       Performance testing
     </a>
   </li>
@@ -395,7 +395,7 @@
 
 
   <li class="md-nav__item">
-    <a href="extending/" title="Extending Kakunin" class="md-nav__link">
+    <a href="../extending/" title="Extending Kakunin" class="md-nav__link">
       Extending Kakunin
     </a>
   </li>
@@ -407,7 +407,7 @@
 
 
   <li class="md-nav__item">
-    <a href="docker/" title="Docker" class="md-nav__link">
+    <a href="../docker/" title="Docker" class="md-nav__link">
       Docker
     </a>
   </li>
@@ -482,7 +482,7 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/TheSoftwareHouse/Kakunin/edit/master/docs-src/index.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                  <a href="https://github.com/TheSoftwareHouse/Kakunin/edit/master/docs-src/getting-started.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
                   <h1>Getting started</h1>
@@ -532,11 +532,10 @@ Chrome
 
 
 <p>The above command will run Kakunin's init script.
-<em> Answer what kind of app you're going to test (<code>default: AngularJS</code>)
-</em> Enter URL where your tested app will be running (<code>default: http://localhost:3000</code>)
-* Choose if you plan to use some emails checking service (<code>default: none</code>)</p>
+<em> Enter URL where your tested app will be running (<code>default: http://localhost:3000</code>)
+</em> Choose if you plan to use some emails checking service (<code>default: none</code>)</p>
 <p>Also, there is a possibility to answer these question by a command line.</p>
-<div class="codehilite"><pre><span></span>npm run kakunin init -- --baseUrl https://google.com --type otherWeb --emailType none
+<div class="codehilite"><pre><span></span>npm run kakunin init -- --baseUrl https://google.com --emailType none
 </pre></div>
 
 
@@ -644,7 +643,7 @@ mklink kakunin-navigation.js ..<span class="se">\n</span>ode_modules<span class=
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="quickstart/" title="Quick start" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../quickstart/" title="Quick start" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -659,7 +658,7 @@ mklink kakunin-navigation.js ..<span class="se">\n</span>ode_modules<span class=
           </a>
         
         
-          <a href="configuration/" title="Configuration" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../configuration/" title="Configuration" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
@@ -689,7 +688,7 @@ mklink kakunin-navigation.js ..<span class="se">\n</span>ode_modules<span class=
       
         
   <div class="md-footer-social">
-    <link rel="stylesheet" href="./assets/fonts/font-awesome.css">
+    <link rel="stylesheet" href="../assets/fonts/font-awesome.css">
     
       <a href="https://www.facebook.com/TheSoftwareHousePL/" class="md-footer-social__link fa fa-facebook"></a>
     
@@ -706,9 +705,9 @@ mklink kakunin-navigation.js ..<span class="se">\n</span>ode_modules<span class=
       
     </div>
     
-      <script src="assets/javascripts/application.583bbe55.js"></script>
+      <script src="../assets/javascripts/application.5e60981f.js"></script>
       
-      <script>app.initialize({version:"1.0.4",url:{base:"."}})</script>
+      <script>app.initialize({version:"1.0.4",url:{base:".."}})</script>
       
     
     
