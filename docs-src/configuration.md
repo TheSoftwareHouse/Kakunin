@@ -2,6 +2,7 @@
 
 ```
 module.exports = {
+    "type": "otherWeb",
     "browserWidth": 1600,
     "browserHeight": 900,
     "timeout": 60,
@@ -52,7 +53,6 @@ module.exports = {
     "email": null,
     "headless": false,
     "noGpu": false,
-    "type": "otherWeb",
     "baseUrl": "http://localhost:8080",
     "accounts": {
         "someAccount": {
@@ -145,7 +145,7 @@ for custom email checking system only type is required:
 
 `noGpu` - flag to activate cpu only mode `default: false`
 
-`type` - type of application either `ng1 | ng2 | otherWeb`
+`type` - type of application `otherWeb`
 
 `baseUrl` - url of tested application
 

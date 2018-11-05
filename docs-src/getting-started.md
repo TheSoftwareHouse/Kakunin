@@ -43,13 +43,12 @@ Inside `package.json` file; add new script in `scripts` section:
 npm run kakunin init
 ```
 The above command will run Kakunin's init script.
-* Answer what kind of app you're going to test (`default: AngularJS`)
 * Enter URL where your tested app will be running (`default: http://localhost:3000`)
 * Choose if you plan to use some emails checking service (`default: none`)
 
 Also, there is a possibility to answer these question by a command line.
 ```bash
-npm run kakunin init -- --baseUrl https://google.com --type otherWeb --emailType none
+npm run kakunin init -- --baseUrl https://google.com --emailType none
 ```
 Available parameters: `baseUrl`, `type`, `emailType`, `emailApiKey`, `emailInboxId`.
 You will not be asked about question that you already answered by a command.

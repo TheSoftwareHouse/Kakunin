@@ -48,10 +48,6 @@ In order to install Kakunin you have to make sure that you have installed:
 
 * answer literally few questions:
 
-    
-    `What kind of application would you like to test?` : `otherWeb`
-    
-      
     `What is base url? [http://localhost:3000]`: `http://todomvc.com`
        
     `What kind of email service would you like to use?`: `none` 
