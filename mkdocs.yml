@@ -13,7 +13,7 @@ google_analytics: ['UA-106047429-1', 'auto']
 
 pages:
   - Quick start: quickstart.md
-  - Getting started: index.md
+  - Getting started: getting-started.md
   - Configuration: configuration.md
   - Cross-browser: cross-browser.md
   - How it works: how-it-works.md
