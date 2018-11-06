@@ -145,7 +145,7 @@ for custom email checking system only type is required:
 
 `noGpu` - flag to activate cpu only mode `default: false`
 
-`type` - type of application either `ng1 | ng2 | otherWeb`
+`type` - type of application `otherWeb`
 
 `baseUrl` - url of tested application
 

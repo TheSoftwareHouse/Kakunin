@@ -28,7 +28,7 @@ npm init
 
 Install dependencies
 ```bash
-npm install cross-env protractor webdriver-manager kakunin  --save
+npm install crnoss-env protractor webdriver-manager kakunin  --save
 ```
     
 Inside `package.json` file; add new script in `scripts` section:
@@ -49,7 +49,7 @@ The above command will run Kakunin's init script.
 
 Also, there is a possibility to answer these question by a command line.
 ```bash
-npm run kakunin init -- --baseUrl https://google.com --type otherWeb --emailType none
+npm run kakunin init -- --baseUrl https://google.com --emailType none
 ```
 Available parameters: `baseUrl`, `type`, `emailType`, `emailApiKey`, `emailInboxId`.
 You will not be asked about question that you already answered by a command.
