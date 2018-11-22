@@ -28,6 +28,16 @@ I visit the "myPage" page with parameters:
 
 this will result in visiting the `/orders/1/product/2` page.
 
+###`I switch to window number "indexOfTab" of a browser`
+
+Switches the current tab to the tab specified in the step by `indexOfTab` parameter.
+This step must be used if a page was opened in the different tab than the current one. Otherwise, Kakunin does not have access to the elements.
+
+###`I close the current browser tab`
+
+Closes the currently opened tab and then set the first tab as a default/current.
+Keep in mind that using this step while only one tab is opened might cause closing the browser (Google Chrome default behaviour).
+
 ### `the ":pageFileName" page is displayed`
 
 Checks if current browser url matches url of `pageFileName` page object.
