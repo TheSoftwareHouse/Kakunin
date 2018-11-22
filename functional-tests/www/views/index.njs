@@ -11,6 +11,7 @@
     <a name="linkPage" class="appearTable" href="/wait-for-appear/table"> Simple wait for table</a><br/>
     <a name="linkPage" class="appearForm" href="/wait-for-appear/form"> Simple wait for form</a><br/>
     <a name="linkPage" class="matchers" href="/matchers">Simple matchers</a><br/>
+    <a name="linkPage" class="matchersInNewTab" target="_blank" href="/matchers">Matchers in a new tab</a><br/>
 
   </div>
 {% endblock %}

@@ -18,7 +18,7 @@ class MainPage extends BasePage {
     this.appearTable = $('.appearTable');
     this.appearForm = $('.appearForm');
     this.matchersLink = $('.matchers');
-
+    this.matchersInNewTabLink = $('.matchersInNewTab');
   }
 }
 
