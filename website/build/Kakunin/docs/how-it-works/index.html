@@ -1,0 +1,183 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>How it works · Kakunin</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="&lt;p&gt;Kakunin is built with &lt;code&gt;no-js&lt;/code&gt; experience in mind. Because of that you&#x27;re able to test even complicated apps just&lt;/p&gt;
+"/><meta name="docsearch:version" content="2.3.0"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="How it works · Kakunin"/><meta property="og:type" content="website"/><meta property="og:url" content="https://thesoftwarehouse.github.io/Kakunin//Kakunin/index.html"/><meta property="og:description" content="&lt;p&gt;Kakunin is built with &lt;code&gt;no-js&lt;/code&gt; experience in mind. Because of that you&#x27;re able to test even complicated apps just&lt;/p&gt;
+"/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="/Kakunin/img/favicon/favicon.ico"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-dark.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><link rel="stylesheet" href="/Kakunin/css/main.css"/></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/Kakunin/"><img class="logo" src="/Kakunin/img/kakunin_white_logo.svg" alt="Kakunin"/><h2 class="headerTitleWithLogo">Kakunin</h2></a><a href="/Kakunin/versions"><h3>2.3.0</h3></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li><li class=""><a href="https://github.com/TheSoftwareHouse/Kakunin" target="_self">GitHub</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><i></i></div><h2><i>›</i><span>Kakunin</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Kakunin</h3><ul><li class="navListItem"><a class="navItem" href="/Kakunin/docs/quickstart">Quick start</a></li><li class="navListItem"><a class="navItem" href="/Kakunin/docs/">Getting started</a></li><li class="navListItem"><a class="navItem" href="/Kakunin/docs/configuration">Configuration</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/Kakunin/docs/how-it-works">How it works</a></li><li class="navListItem"><a class="navItem" href="/Kakunin/docs/steps">Built-in steps</a></li><li class="navListItem"><a class="navItem" href="/Kakunin/docs/matchers">Matchers</a></li><li class="navListItem"><a class="navItem" href="/Kakunin/docs/transformers">Transformers</a></li><li class="navListItem"><a class="navItem" href="/Kakunin/docs/cross-browser">Cross-browser testing</a></li><li class="navListItem"><a class="navItem" href="/Kakunin/docs/parallel-testing">Parallel testing</a></li><li class="navListItem"><a class="navItem" href="/Kakunin/docs/performance-testing">Performance testing</a></li><li class="navListItem"><a class="navItem" href="/Kakunin/docs/extending">Extending Kakunin</a></li></ul></div></div></section></div><script>
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              const headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                if (event.target.tagName === 'A') {
+                  document.body.classList.remove('tocActive');
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">How it works</h1></header><article><div><span><p>Kakunin is built with <code>no-js</code> experience in mind. Because of that you're able to test even complicated apps just
+by knowing Kakunin (Gherkin) steps and a few good practices.</p>
+<h2><a class="anchor" aria-hidden="true" id="concepts"></a><a href="#concepts" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Concepts</h2>
+<p>Kakunin uses <code>cucumber-js</code> internally, because of that all tests (or rather scenarios) are using <code>Gherkin</code> as a &quot;programming&quot;
+language.</p>
+<p>A simple scenario could look like this:</p>
+<pre><code class="hljs css language-gherkin"><span class="hljs-keyword">Feature</span>:
+    <span class="hljs-keyword">Scenario</span>: Display user profile for logged user
+        <span class="hljs-keyword">Given</span> I am logged in as a <span class="hljs-string">"user"</span>
+        <span class="hljs-keyword">When</span> the <span class="hljs-string">"dashboard"</span> page is displayed
+        <span class="hljs-keyword">And</span> I click the <span class="hljs-string">"profileButton"</span> element
+        <span class="hljs-keyword">Then</span> the <span class="hljs-string">"myProfile"</span> page is displayed
+        <span class="hljs-keyword">And</span> the <span class="hljs-string">"myName"</span> element is visible
+</code></pre>
+<p>This is how most of Kakunin test scenarios look like.</p>
+<p>There are a few concepts to be explained.</p>
+<h2><a class="anchor" aria-hidden="true" id="page-objects"></a><a href="#page-objects" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Page objects</h2>
+<p>Page object is a code representation of a page displayed in browser. Kakunin has built-in <code>BasePage</code> page object, that you should extend.</p>
+<p>Page object contains information about page url, its elements, locators, but can also have some custom methods if necessary.</p>
+<p>A very simple example of Kakunin's Page Object could look like the following:</p>
+<pre><code class="hljs css language-javascript"><span class="hljs-keyword">const</span> { BasePage } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'kakunin'</span>);
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DashboardPage</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">BasePage</span> </span>{
+    <span class="hljs-keyword">constructor</span>() {
+        <span class="hljs-keyword">super</span>();
+        
+        <span class="hljs-keyword">this</span>.url = <span class="hljs-string">'/dashboard'</span>;
+    }
+}
+
+<span class="hljs-built_in">module</span>.exports = DashboardPage;
+</code></pre>
+<p>As you can see a basic Page Object must extend one of the Kakunin's Objects and needs to have url field defined (<code>this.url</code>).</p>
+<p>This code should be saved inside <code>pages</code> directory in a file with <code>js</code> extension.
+Note that a file name is very important, because we're going to use it as parameter for steps. For example, the following step:</p>
+<pre><code class="hljs css language-gherkin"><span class="hljs-keyword">When</span> the <span class="hljs-string">"dashboard"</span> page is displayed
+</code></pre>
+<p>expects that there is a file named <code>dashboard.js</code> inside the <code>pages</code> directory.</p>
+<p>Every step that we are using is somehow connected to an object called <code>currentPage</code>. This object value is set to a
+page object that we expect to be on.</p>
+<p>This is done by two kinds of steps:</p>
+<ul>
+<li><code>Then the &quot;dashboard&quot; page is displayed</code> - this one checks if current url in browser is the same as the one inside Page Object and changes a value of the <code>currentPage</code> field
+to this page object</li>
+<li><code>When I visit the &quot;dashboard&quot; page</code> - this one goes to the url specified in Page Object and attaches the Page Object to the <code>currentPage</code> field as above</li>
+</ul>
+<p>This concept is a very simple and allows you to easily debug the framework. You can be sure that each subsequent step that declared below the ones above will be executed in context of a page object specified in those methods.
+For example, having the following code:</p>
+<pre><code class="hljs css language-gherkin"><span class="hljs-keyword">Feature</span>:
+    <span class="hljs-keyword">Scenario</span>: Display user profile for logged user
+        <span class="hljs-keyword">Given</span> I am logged in as a <span class="hljs-string">"user"</span>
+        <span class="hljs-keyword">When</span> the <span class="hljs-string">"dashboard"</span> page is displayed
+        <span class="hljs-keyword">And</span> I click the <span class="hljs-string">"profileButton"</span> element
+        <span class="hljs-keyword">Then</span> the <span class="hljs-string">"myProfile"</span> page is displayed
+        <span class="hljs-keyword">And</span> the <span class="hljs-string">"myName"</span> element is visible
+</code></pre>
+<p>The step named <code>And I click the &quot;profileButton&quot; element</code> is executed in context of <code>dashboard</code> Page Object, thus we can assume that <code>profileButton</code> should be defined inside the
+<code>pages/dashboard.js</code> file.</p>
+<p>At the same time the step <code>And the &quot;myName&quot; element is visible</code> is executed in context of <code>myProfile</code>, so <code>myName</code> should be defined in <code>pages/myProfile.js</code> file.</p>
+<h2><a class="anchor" aria-hidden="true" id="elements-and-locators"></a><a href="#elements-and-locators" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Elements and locators</h2>
+<p>The second concept that you have to understand are elements and locators.</p>
+<p>Every element that you see on website can be represented as a element inside the page object. This allows us to use it as a parameter for a step, as we did in:
+<code>And the &quot;myName&quot; element is visible</code>.</p>
+<p>Defining elements is very simple. Let's say we have such page object:</p>
+<pre><code class="hljs">const { <span class="hljs-type">BasePage</span> } = require(<span class="hljs-symbol">'kakuni</span>n');
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DashboardPage</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">BasePage</span> </span>{
+    constructor() {
+        <span class="hljs-keyword">super</span>();
+        
+        <span class="hljs-keyword">this</span>.url = '/dashboard';
+    }
+}
+
+module.exports = <span class="hljs-type">DashboardPage</span>;
+</code></pre>
+<p>Elements should be defined inside <code>constructor</code> method. Let's add element for <code>myName</code>:</p>
+<pre><code class="hljs">const { <span class="hljs-type">BasePage</span> } = require(<span class="hljs-symbol">'kakuni</span>n');
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DashboardPage</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">BasePage</span> </span>{
+    constructor() {
+        <span class="hljs-keyword">super</span>();
+        
+        <span class="hljs-keyword">this</span>.url = '/dashboard';
+        
+        <span class="hljs-keyword">this</span>.myName = element(by.css('.myName'));
+    }
+}
+
+module.exports = <span class="hljs-type">DashboardPage</span>;
+</code></pre>
+<p>As you see we added a single line <code>this.myName = element(by.css('.myName'));</code>.</p>
+<p><code>by.css('.myName')</code> - is a locator, this is a standard protractor syntax, you can read more on protractors documentation</p>
+<p>By joining <code>element</code> method with a locator, we created element to be used by our steps.</p>
+<h2><a class="anchor" aria-hidden="true" id="compare-urls-exa"></a><a href="#compare-urls-exa" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Compare URLs exa</h2>
+<p>Compare URL examples:</p>
+<table>
+<thead>
+<tr><th>Page Object URL</th><th>Current Browser URL</th><th>Base URL - config file</th><th>Results</th></tr>
+</thead>
+<tbody>
+<tr><td><a href="http://localhost:8080/incorrect-data">http://localhost:8080/incorrect-data</a></td><td><a href="http://localhost:8080/tabular-data">http://localhost:8080/tabular-data</a></td><td><a href="https://example-url.com">https://example-url.com</a></td><td>FALSE</td></tr>
+<tr><td><a href="http://localhost:8080/incorrect-data/">http://localhost:8080/incorrect-data/</a></td><td><a href="http://localhost:8080/tabular-data">http://localhost:8080/tabular-data</a></td><td><a href="https://example-url.com">https://example-url.com</a></td><td>FALSE</td></tr>
+<tr><td><a href="http://google/incorrect-data">http://google/incorrect-data</a></td><td><a href="http://localhost:8080/tabular-data">http://localhost:8080/tabular-data</a></td><td><a href="https://example-url.com">https://example-url.com</a></td><td>FALSE</td></tr>
+<tr><td><a href="http://google/tabular-data">http://google/tabular-data</a></td><td><a href="http://localhost:8080/tabular-data">http://localhost:8080/tabular-data</a></td><td><a href="https://example-url.com">https://example-url.com</a></td><td>FALSE</td></tr>
+<tr><td><a href="http://google/incorrect-data/">http://google/incorrect-data/</a></td><td><a href="http://localhost:8080/tabular-data">http://localhost:8080/tabular-data</a></td><td><a href="https://example-url.com">https://example-url.com</a></td><td>FALSE</td></tr>
+<tr><td>/incorrect-data</td><td><a href="http://website.com/tabular-data">http://website.com/tabular-data</a></td><td><a href="https://example-url.com">https://example-url.com</a></td><td>FALSE</td></tr>
+<tr><td>/incorrect-data/</td><td><a href="http://website.com/tabular-data">http://website.com/tabular-data</a></td><td><a href="http://incorrect.com">http://incorrect.com</a></td><td>FALSE</td></tr>
+<tr><td><a href="http://localhost:8080/tabular-data">http://localhost:8080/tabular-data</a></td><td><a href="http://localhost:8080/tabular-data">http://localhost:8080/tabular-data</a></td><td><a href="https://example-url.com">https://example-url.com</a></td><td>TRUE</td></tr>
+<tr><td><a href="http://localhost:8080/tabular-data/">http://localhost:8080/tabular-data/</a></td><td><a href="http://localhost:8080/tabular-data">http://localhost:8080/tabular-data</a></td><td><a href="http://localhost:8080">http://localhost:8080</a></td><td>TRUE</td></tr>
+<tr><td>/tabular-data</td><td><a href="http://localhost:8080/tabular-data">http://localhost:8080/tabular-data</a></td><td><a href="http://localhost:8080">http://localhost:8080</a></td><td>TRUE</td></tr>
+<tr><td>/tabular-data/</td><td><a href="http://localhost:8080/tabular-data">http://localhost:8080/tabular-data</a></td><td><a href="http://localhost:8080">http://localhost:8080</a></td><td>TRUE</td></tr>
+<tr><td>/tabular-data</td><td><a href="http://localhost:8080/tabular-data">http://localhost:8080/tabular-data</a></td><td><a href="https://google.pl">https://google.pl</a></td><td>FALSE</td></tr>
+<tr><td>/tabular-data/</td><td><a href="http://localhost:8080/tabular-data">http://localhost:8080/tabular-data</a></td><td><a href="https://google.pl">https://google.pl</a></td><td>FALSE</td></tr>
+<tr><td>/</td><td><a href="https://google.pl/new">https://google.pl/new</a></td><td><a href="https://google.pl">https://google.pl</a></td><td>FALSE</td></tr>
+<tr><td></td><td><a href="https://google.pl/new">https://google.pl/new</a></td><td><a href="https://google.pl">https://google.pl</a></td><td>FALSE</td></tr>
+<tr><td></td><td><a href="http://localhost:8080">http://localhost:8080</a></td><td><a href="http://localhost:8080">http://localhost:8080</a></td><td>TRUE</td></tr>
+<tr><td>/</td><td><a href="https://google.pl">https://google.pl</a></td><td><a href="https://google.com">https://google.com</a></td><td>FALSE</td></tr>
+<tr><td><a href="https://google.com/:example/:name">https://google.com/:example/:name</a></td><td><a href="https://google.com/example/janek">https://google.com/example/janek</a></td><td><a href="https://example-url.com">https://example-url.com</a></td><td>TRUE</td></tr>
+<tr><td><a href="https://google.com/:name">https://google.com/:name</a></td><td><a href="https://google.com/janek">https://google.com/janek</a></td><td><a href="https://example-url.com">https://example-url.com</a></td><td>TRUE</td></tr>
+<tr><td><a href="https://google.com/account/:username/settings/display">https://google.com/account/:username/settings/display</a></td><td><a href="https://google.com/account/janek/settings/display">https://google.com/account/janek/settings/display</a></td><td><a href="https://example-url.com">https://example-url.com</a></td><td>TRUE</td></tr>
+<tr><td>/account/settings/:userType</td><td><a href="https://incorrect-host/account/settings/admin">https://incorrect-host/account/settings/admin</a></td><td><a href="https://google.com">https://google.com</a></td><td>FALSE</td></tr>
+<tr><td>/account/settings/:userType/something</td><td><a href="https://incorrect-host/account/settings/admin">https://incorrect-host/account/settings/admin</a></td><td><a href="https://example-url.com">https://example-url.com</a></td><td>FALSE</td></tr>
+<tr><td><a href="https://incorrect-host/account/settings/:userType/something">https://incorrect-host/account/settings/:userType/something</a></td><td><a href="https://incorrect-host/account/settings/admin">https://incorrect-host/account/settings/admin</a></td><td><a href="https://example-url.com">https://example-url.com</a></td><td>FALSE</td></tr>
+<tr><td>/account/settings/:userType</td><td><a href="https://google.com/account/settings/user">https://google.com/account/settings/user</a></td><td><a href="https://google.com">https://google.com</a></td><td>TRUE</td></tr>
+</tbody>
+</table>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/Kakunin/docs/configuration"><span class="arrow-prev">← </span><span>Configuration</span></a><a class="docs-next button" href="/Kakunin/docs/steps"><span>Built-in steps</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#concepts">Concepts</a></li><li><a href="#page-objects">Page objects</a></li><li><a href="#elements-and-locators">Elements and locators</a></li><li><a href="#compare-urls-exa">Compare URLs exa</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/Kakunin/" class="nav-home custom"><img src="/Kakunin/img/kakunin_white_logo_text.svg" alt="Kakunin" width="200 " height="77"/></a><div><h5>Docs:</h5><a href="
+                /Kakunin/docs/quickstart">Quick start</a><a href="
+                /Kakunin/docs/configuration">Configuration</a><a href="
+                /Kakunin/docs/extending">Extending</a></div><div><h5>Features:</h5><a href="
+                /Kakunin/docs/cross-browser">Cross-browser testing</a><a href="
+                /Kakunin/docs/parallel-testing">Parallel testing</a><a href="
+                /Kakunin/docs/performance-testing">Performance testing</a><a href="
+                /Kakunin/docs/docker">Docker</a></div><div><h5>Support:</h5><div class="footer-row"><a href="https://github.com/TheSoftwareHouse/Kakunin">GitHub</a><a href="https://kakunin.io">Contact us</a></div></div></section><section class="copyright">Copyright © 2018 The Software House</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+                document.addEventListener('keyup', function(e) {
+                  if (e.target !== document.body) {
+                    return;
+                  }
+                  // keyCode for '/' (slash)
+                  if (e.keyCode === 191) {
+                    const search = document.getElementById('search_input_react');
+                    search && search.focus();
+                  }
+                });
+              </script><script>
+              var search = docsearch({
+                
+                apiKey: 'my-api-key',
+                indexName: 'my-index-name',
+                inputSelector: '#search_input_react',
+                algoliaOptions: {}
+              });
+            </script></body></html>

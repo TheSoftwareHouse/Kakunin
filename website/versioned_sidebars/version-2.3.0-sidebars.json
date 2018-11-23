@@ -1,0 +1,17 @@
+{
+  "version-2.3.0-docs": {
+    "Kakunin": [
+      "version-2.3.0-quickstart",
+      "version-2.3.0-index",
+      "version-2.3.0-configuration",
+      "version-2.3.0-how-it-works",
+      "version-2.3.0-steps",
+      "version-2.3.0-matchers",
+      "version-2.3.0-transformers",
+      "version-2.3.0-cross-browser",
+      "version-2.3.0-parallel-testing",
+      "version-2.3.0-performance-testing",
+      "version-2.3.0-extending"
+    ]
+  }
+}
