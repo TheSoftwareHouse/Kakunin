@@ -1,0 +1,97 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Performance testing · Kakunin</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="&lt;p&gt;Performance testing is possible thanks to &lt;code&gt;browsermob-proxy&lt;/code&gt;.&lt;/p&gt;
+"/><meta name="docsearch:version" content="2.3.0"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Performance testing · Kakunin"/><meta property="og:type" content="website"/><meta property="og:url" content="https://thesoftwarehouse.github.io/Kakunin//Kakunin/index.html"/><meta property="og:description" content="&lt;p&gt;Performance testing is possible thanks to &lt;code&gt;browsermob-proxy&lt;/code&gt;.&lt;/p&gt;
+"/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="/Kakunin/img/favicon/favicon.ico"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-dark.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><link rel="stylesheet" href="/Kakunin/css/main.css"/></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/Kakunin/"><img class="logo" src="/Kakunin/img/kakunin_white_logo.svg" alt="Kakunin"/><h2 class="headerTitleWithLogo">Kakunin</h2></a><a href="/Kakunin/versions"><h3>2.3.0</h3></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li><li class=""><a href="https://github.com/TheSoftwareHouse/Kakunin" target="_self">GitHub</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><i></i></div><h2><i>›</i><span>Kakunin</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Kakunin</h3><ul><li class="navListItem"><a class="navItem" href="/Kakunin/docs/quickstart">Quick start</a></li><li class="navListItem"><a class="navItem" href="/Kakunin/docs/">Getting started</a></li><li class="navListItem"><a class="navItem" href="/Kakunin/docs/configuration">Configuration</a></li><li class="navListItem"><a class="navItem" href="/Kakunin/docs/how-it-works">How it works</a></li><li class="navListItem"><a class="navItem" href="/Kakunin/docs/steps">Built-in steps</a></li><li class="navListItem"><a class="navItem" href="/Kakunin/docs/matchers">Matchers</a></li><li class="navListItem"><a class="navItem" href="/Kakunin/docs/transformers">Transformers</a></li><li class="navListItem"><a class="navItem" href="/Kakunin/docs/cross-browser">Cross-browser testing</a></li><li class="navListItem"><a class="navItem" href="/Kakunin/docs/parallel-testing">Parallel testing</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/Kakunin/docs/performance-testing">Performance testing</a></li><li class="navListItem"><a class="navItem" href="/Kakunin/docs/extending">Extending Kakunin</a></li></ul></div></div></section></div><script>
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              const headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                if (event.target.tagName === 'A') {
+                  document.body.classList.remove('tocActive');
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Performance testing</h1></header><article><div><span><p>Performance testing is possible thanks to <code>browsermob-proxy</code>.</p>
+<p>It saves all data from network tab (Google Chrome console) which is generated during the test.</p>
+<p>There is a possibility to compare <code>TTFB</code> value with a maximum given one.</p>
+<p><code>TTFB</code> (Time to first byte) measures the duration from the client making an HTTP request to the first byte of a response being received by the client's browser.</p>
+<p>More details can be found in documentation - <code>Built-in steps</code> section.</p>
+<h1><a class="anchor" aria-hidden="true" id="what-needs-to-be-done"></a><a href="#what-needs-to-be-done" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>What needs to be done?</h1>
+<h2><a class="anchor" aria-hidden="true" id="get-started"></a><a href="#get-started" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Get started</h2>
+<ol>
+<li><p>Download <code>browsermob-proxy</code> from <code>https://github.com/lightbody/browsermob-proxy</code></p></li>
+<li><p>Navigate in terminal to the catalog</p></li>
+<li><p>Use following command to start the REST API</p></li>
+</ol>
+<pre><code class="hljs">./browsermob-proxy -port <span class="hljs-number">8887</span>
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="configuration"></a><a href="#configuration" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Configuration</h2>
+<ol>
+<li>Add <code>browsermob-proxy</code> configuration to <code>kakunin.conf.js</code></li>
+</ol>
+<p>You can use one of the following methods to configure browsermob-proxy:</p>
+<ul>
+<li><p><code>npm run kakunin init -- --advanced</code> and go through the process</p></li>
+<li><p>or add it manually to the config file:</p></li>
+</ul>
+<pre><code class="hljs css language-javascript">    <span class="hljs-string">"browserMob"</span>: {
+      <span class="hljs-string">"serverPort"</span>: <span class="hljs-number">8887</span>,
+      <span class="hljs-string">"port"</span>: <span class="hljs-number">8888</span>,
+      <span class="hljs-string">"host"</span>: <span class="hljs-string">"localhost"</span>
+    }
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="run-tests"></a><a href="#run-tests" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Run tests</h2>
+<ol>
+<li><p><code>performance steps</code> must be used in the scenario where you are testing performance</p></li>
+<li><p>Scenario must have a tag <code>@performance</code></p></li>
+<li><p>Run tests with special parameter:</p></li>
+</ol>
+<pre><code class="hljs">npm <span class="hljs-built_in">run</span> kakunin <span class="hljs-comment">-- --performance</span>
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="results"></a><a href="#results" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Results</h2>
+<ol>
+<li><code>.har</code> files are saved in catalog <code>reports/performance/*.har</code></li>
+</ol>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/Kakunin/docs/parallel-testing"><span class="arrow-prev">← </span><span>Parallel testing</span></a><a class="docs-next button" href="/Kakunin/docs/extending"><span>Extending Kakunin</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#get-started">Get started</a></li><li><a href="#configuration">Configuration</a></li><li><a href="#run-tests">Run tests</a></li><li><a href="#results">Results</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/Kakunin/" class="nav-home custom"><img src="/Kakunin/img/kakunin_white_logo_text.svg" alt="Kakunin" width="200 " height="77"/></a><div><h5>Docs:</h5><a href="
+                /Kakunin/docs/quickstart">Quick start</a><a href="
+                /Kakunin/docs/configuration">Configuration</a><a href="
+                /Kakunin/docs/extending">Extending</a></div><div><h5>Features:</h5><a href="
+                /Kakunin/docs/cross-browser">Cross-browser testing</a><a href="
+                /Kakunin/docs/parallel-testing">Parallel testing</a><a href="
+                /Kakunin/docs/performance-testing">Performance testing</a><a href="
+                /Kakunin/docs/docker">Docker</a></div><div><h5>Support:</h5><div class="footer-row"><a href="https://github.com/TheSoftwareHouse/Kakunin">GitHub</a><a href="https://kakunin.io">Contact us</a></div></div></section><section class="copyright">Copyright © 2018 The Software House</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+                document.addEventListener('keyup', function(e) {
+                  if (e.target !== document.body) {
+                    return;
+                  }
+                  // keyCode for '/' (slash)
+                  if (e.keyCode === 191) {
+                    const search = document.getElementById('search_input_react');
+                    search && search.focus();
+                  }
+                });
+              </script><script>
+              var search = docsearch({
+                
+                apiKey: 'my-api-key',
+                indexName: 'my-index-name',
+                inputSelector: '#search_input_react',
+                algoliaOptions: {}
+              });
+            </script></body></html>
