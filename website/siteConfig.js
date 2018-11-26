@@ -16,8 +16,8 @@ const siteConfig = {
     favicon: 'img/favicon/favicon.ico',
 
     algolia: {
-        apiKey: 'my-api-key',
-        indexName: 'my-index-name',
+        apiKey: '3cda5a3d6672f433f13a4a2cda6d2186',
+        indexName: 'kakunin',
         algoliaOptions: {} // Optional, if provided by Algolia
     },
 

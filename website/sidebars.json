@@ -1,17 +1,29 @@
 {
   "docs": {
-    "Kakunin": [
+    "Documentation": [
       "quickstart",
       "index",
       "configuration",
-      "how-it-works",
-      "steps",
+      "how-it-works"
+    ],
+    "Built in mechanisms":[
       "matchers",
       "transformers",
+      "extending"
+    ],
+    "Features": [
       "cross-browser",
       "parallel-testing",
       "performance-testing",
-      "extending"
+      "docker"
+    ],
+    "Steps": [
+      "steps-navigation",
+      "steps-forms",
+      "steps-elements",
+      "steps-files",
+      "steps-generators",
+      "steps-debug"
     ]
   }
 }
