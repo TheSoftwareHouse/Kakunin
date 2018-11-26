@@ -1,0 +1,17 @@
+{
+  "docs": {
+    "Kakunin": [
+      "quickstart",
+      "index",
+      "configuration",
+      "how-it-works",
+      "steps",
+      "matchers",
+      "transformers",
+      "cross-browser",
+      "parallel-testing",
+      "performance-testing",
+      "extending"
+    ]
+  }
+}
