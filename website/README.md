@@ -1,4 +1,37 @@
-This website was created with [Docusaurus](https://docusaurus.io/).
+<h1>
+  <p align="center">
+    <img src="./data/kakunin_logo.png" alt="kakunin.png" width="550"/>
+  </p>
+</h1>
+
+<p align="center">
+   <img src="./data/travis.png" alt="travis.png" width="25" />
+   Current travis build:
+   <a href="https://travis-ci.org/TheSoftwareHouse/Kakunin"><img src="https://travis-ci.org/TheSoftwareHouse/Kakunin.svg?branch=master" alt="build status" height="18"></a>
+  &emsp;
+  <img src="./data/npm.png" alt="npm.png" width="25"/> 
+  Current npm version:
+  <a href="https://badge.fury.io/js/kakunin"><img src="https://badge.fury.io/js/kakunin.svg" alt="npm version" height="18"></a>
+</p>
+
+<p align="center">
+  <a href="#key-features">Key Features</a> •
+  <a href="#documentation">Documentation</a> •
+  <a href="#contributing">Contributing</a> •
+  <a href="#issues">Issues</a> •
+  <a href="#you-may-also-like-our-other-projects">Related</a> •
+  <a href="#about-us">About us</a>
+</p>
+
+<p align="center">
+     <img src="./data/pageObjectFeature.gif" alt="pageObjectFeature.gif"/>
+</p>
+
+<h1>
+</h1>
+
+
+
 
 # What's In This Document
 
