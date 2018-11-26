@@ -368,8 +368,3 @@ Attachments should be returned as an array of objects with given schema:
 ```
 
 this is MailTrap attachment format.
-
-
-version 2.4.0
-
-ver 2.5.0

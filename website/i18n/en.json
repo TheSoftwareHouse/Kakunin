@@ -11,6 +11,9 @@
       "cross-browser": {
         "title": "Cross-browser testing"
       },
+      "docker": {
+        "title": "Docker"
+      },
       "extending": {
         "title": "Extending Kakunin"
       },
@@ -32,43 +35,76 @@
       "quickstart": {
         "title": "Quick start"
       },
-      "steps": {
-        "title": "Built-in steps"
+      "steps-debug": {
+        "title": "Debug"
+      },
+      "steps-elements": {
+        "title": "Elements"
+      },
+      "steps-files": {
+        "title": "Files"
+      },
+      "steps-forms": {
+        "title": "Forms"
+      },
+      "steps-generators": {
+        "title": "Generators"
+      },
+      "steps-navigation": {
+        "title": "Navigation"
       },
       "transformers": {
         "title": "Transformers"
       },
-      "version-2.3.0-configuration": {
+      "version-2.4.0-configuration": {
         "title": "Configuration"
       },
-      "version-2.3.0-cross-browser": {
+      "version-2.4.0-cross-browser": {
         "title": "Cross-browser testing"
       },
-      "version-2.3.0-extending": {
+      "version-2.4.0-docker": {
+        "title": "Docker"
+      },
+      "version-2.4.0-extending": {
         "title": "Extending Kakunin"
       },
-      "version-2.3.0-how-it-works": {
+      "version-2.4.0-how-it-works": {
         "title": "How it works"
       },
-      "version-2.3.0-index": {
+      "version-2.4.0-index": {
         "title": "Getting started"
       },
-      "version-2.3.0-matchers": {
+      "version-2.4.0-matchers": {
         "title": "Matchers"
       },
-      "version-2.3.0-parallel-testing": {
+      "version-2.4.0-parallel-testing": {
         "title": "Parallel testing"
       },
-      "version-2.3.0-performance-testing": {
+      "version-2.4.0-performance-testing": {
         "title": "Performance testing"
       },
-      "version-2.3.0-quickstart": {
+      "version-2.4.0-quickstart": {
         "title": "Quick start"
       },
-      "version-2.3.0-steps": {
-        "title": "Built-in steps"
+      "version-2.4.0-steps-debug": {
+        "title": "Debug"
       },
-      "version-2.3.0-transformers": {
+      "version-2.4.0-steps-elements": {
+        "title": "Elements"
+      },
+      "version-2.4.0-steps-files": {
+        "title": "Files"
+      },
+      "version-2.4.0-steps-forms": {
+        "title": "Forms"
+      },
+      "version-2.4.0-steps-generators": {
+        "title": "Generators"
+      },
+      "version-2.4.0-steps-navigation": {
+        "title": "Navigation"
+      },
+      "version-2.4.0-transformers": {
         "title": "Transformers"
       }
     },
@@ -76,7 +112,10 @@
       "GitHub": "GitHub"
     },
     "categories": {
-      "Kakunin": "Kakunin"
+      "Documentation": "Documentation",
+      "Built in mechanisms": "Built in mechanisms",
+      "Features": "Features",
+      "Steps": "Steps"
     }
   },
   "pages-strings": {

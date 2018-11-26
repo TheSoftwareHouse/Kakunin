@@ -16,52 +16,49 @@ JDK
 Chrome
 ```
   
-* Create directory for your project and enter it
+Create directory for your project and enter it
 
-    ```bash
-    $mkdir my_project
-    cd my_project
-    ```
+```bash
+$mkdir my_project
+cd my_project
+```
     
-* Initialize JavaScript project
+Initialize JavaScript project
+```bash
+npm init
+```
 
-    ```bash
-    npm init
-    ```
+Install dependencies
 
-* Install dependencies
+```bash
+npm install cross-env protractor webdriver-manager kakunin  --save
+```
 
-    ```bash
-    npm install cross-env protractor webdriver-manager kakunin  --save
-    ```
-
-* Inside `package.json` file add new script in `scripts` section:
-
-    ```js
-    ...
-    "scripts": {
-      "kakunin": "cross-env NODE_ENV=prod kakunin"
-    },
-    ...
-    ```
-    
+Inside `package.json` file add new script in `scripts` section:
+```js
+...
+"scripts": {
+  "kakunin": "cross-env NODE_ENV=prod kakunin"
+},
+...
+```
 
 ## Configure Kakunin
+Run initialization command 
 
-* Run initialization command 
+```bash
+npm run kakunin init
+```
 
-    ```bash
-    npm run kakunin init
-    ```
+Answer literally few questions:
 
-* Answer literally few questions:
-    ```text
-     What kind of application would you like to test? : otherWeb
+```text
+What kind of application would you like to test? : otherWeb
         
-     What is base url? [http://localhost:3000]: http://todomvc.com
+What is base url? [http://localhost:3000]: http://todomvc.com
            
-     What kind of email service would you like to use?: none
-    ```  
+What kind of email service would you like to use?: none
+```  
 And you're set! Now let's write some test!
 
 ## Test the app
