@@ -17,11 +17,12 @@ const generatedReportsDirectory = path.join(reportsDirectory, 'report');
 const featureReportsDirectory = path.join(generatedReportsDirectory, 'features');
 const performanceReportsDirectory = path.join(reportsDirectory, 'performance');
 
-const prepareReportCatalogs = () => {
-  prepareCatalogs(reportsDirectory);
-  prepareCatalogs(generatedReportsDirectory);
-  prepareCatalogs(featureReportsDirectory);
-  prepareCatalogs(performanceReportsDirectory);
+const prepareReportCatalogs = async () => {
+  await prepareCatalogs(reportsDirectory);
+  await prepareCatalogs(jsonOutputDirectory);
+  await prepareCatalogs(generatedReportsDirectory);
+  await prepareCatalogs(featureReportsDirectory);
+  await prepareCatalogs(performanceReportsDirectory);
 };
 
 const deleteReportFiles = () => {

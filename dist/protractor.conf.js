@@ -23,12 +23,19 @@ const generatedReportsDirectory = path.join(reportsDirectory, 'report');
 const featureReportsDirectory = path.join(generatedReportsDirectory, 'features');
 const performanceReportsDirectory = path.join(reportsDirectory, 'performance');
 
-const prepareReportCatalogs = () => {
-  prepareCatalogs(reportsDirectory);
-  prepareCatalogs(generatedReportsDirectory);
-  prepareCatalogs(featureReportsDirectory);
-  prepareCatalogs(performanceReportsDirectory);
-};
+const prepareReportCatalogs = (() => {
+  var _ref = _asyncToGenerator(function* () {
+    yield prepareCatalogs(reportsDirectory);
+    yield prepareCatalogs(jsonOutputDirectory);
+    yield prepareCatalogs(generatedReportsDirectory);
+    yield prepareCatalogs(featureReportsDirectory);
+    yield prepareCatalogs(performanceReportsDirectory);
+  });
+
+  return function prepareReportCatalogs() {
+    return _ref.apply(this, arguments);
+  };
+})();
 
 const deleteReportFiles = () => {
   deleteReports(reportsDirectory);
@@ -70,13 +77,13 @@ exports.config = {
   }],
 
   beforeLaunch: (() => {
-    var _ref = _asyncToGenerator(function* () {
+    var _ref2 = _asyncToGenerator(function* () {
       yield prepareReportCatalogs();
       yield deleteReportFiles();
     });
 
     return function beforeLaunch() {
-      return _ref.apply(this, arguments);
+      return _ref2.apply(this, arguments);
     };
   })(),
 
