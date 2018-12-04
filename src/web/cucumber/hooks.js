@@ -1,12 +1,12 @@
-import config from '../helpers/config.helper';
+import config from '../../core/config.helper';
 import fs from 'fs';
 import path from 'path';
-import userProvider from '../helpers/user-provider.helper';
-import fixturesLoader from '../helpers/fixtures-loader.helper';
-import parameters from './parameters';
+import userProvider from '../user-provider.helper';
+import fixturesLoader from '../fixtures/fixtures-loader.helper';
+import parameters from '../parameters';
 import chalk from 'chalk';
 import { defineSupportCode } from 'cucumber';
-import variableStore from '../helpers/variable-store.helper';
+import variableStore from '../variable-store.helper';
 
 const logRequestTime = timeStart => {
   const timeDiff = process.hrtime(timeStart);

@@ -1,4 +1,4 @@
-import config from './config.helper';
+import config from '../core/config.helper';
 const accounts = config.accounts;
 
 const userProvider = {

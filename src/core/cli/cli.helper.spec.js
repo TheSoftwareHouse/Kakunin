@@ -21,12 +21,14 @@ describe('Cli helpers', () => {
     expect(isInitCommand(['arg1', 'arg2', 'init'])).toEqual(true);
   });
 
-  it('returns default config path', () => {
+  it('returns default configHelper path', () => {
     expect(getConfigPath('some-file.config.js', undefined, '/my/path')).toEqual('/my/path/some-file.config.js');
   });
 
-  it('returns config path by config file', () => {
-    expect(getConfigPath('some-file.config.js', 'other-config.js', '/my/path')).toEqual('/my/path/other-config.js');
+  it('returns configHelper path by configHelper file', () => {
+    expect(getConfigPath('some-file.config.js', 'other-config.helper.jsper.js', '/my/path')).toEqual(
+      '/my/path/other-configHelper.helper.js'
+    );
   });
 
   it('creates empty tags cli argument if neither performance nor tags param is defined', () => {
