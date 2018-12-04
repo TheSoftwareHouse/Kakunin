@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import configHelper from './config.helper';
+import config from './config.helper';
 
 class ModulesLoader {
   constructor(configuration) {
@@ -16,7 +16,7 @@ class ModulesLoader {
     };
 
     Object.keys(this.paths).forEach(group => {
-      if (typeof configHelper[group] !== 'undefined') {
+      if (typeof config[group] !== 'undefined') {
         configuration[group].forEach(groupPath => {
           this.paths[group].push(path.join(configuration.projectPath + groupPath));
         });
@@ -62,4 +62,4 @@ class ModulesLoader {
   }
 }
 
-export const create = (configuration = configHelper) => new ModulesLoader(configuration);
+export const create = (configuration = config) => new ModulesLoader(configuration);
