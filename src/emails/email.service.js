@@ -1,4 +1,4 @@
-import configuration from '../helpers/config.helper';
+import configuration from '../core/config.helper';
 import { create as createMailtrapAdapter } from './adapter/mailtrap.client.js';
 
 class EmailService {

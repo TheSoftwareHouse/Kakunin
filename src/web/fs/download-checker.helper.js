@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import config from './config.helper';
+import config from '../../core/config.helper';
 
 const DownloadChecker = {
   wasDownloaded: function(expectedFileName) {

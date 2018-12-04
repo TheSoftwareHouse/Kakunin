@@ -1,4 +1,4 @@
-import config from '../helpers/config.helper';
+import config from '../core/config.helper';
 import { waitForVisibilityOf, waitForInvisibilityOf } from '../helpers/wait-for-condition.helper';
 import { isRelativePage, waitForUrlChangeTo } from '../helpers/url-parser.helper';
 

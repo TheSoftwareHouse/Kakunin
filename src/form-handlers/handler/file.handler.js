@@ -1,5 +1,5 @@
 import path from 'path';
-import config from '../../helpers/config.helper';
+import config from '../../core/config.helper';
 
 class FileHandler {
   isSatisfiedBy(element) {

@@ -1,4 +1,4 @@
-import { isRelativePage, waitForUrlChangeTo } from '../helpers/url-parser.helper';
+import { isRelativePage, waitForUrlChangeTo } from './url-parser.helper';
 
 const exampleBaseUrl = 'https://example-base-url.com';
 

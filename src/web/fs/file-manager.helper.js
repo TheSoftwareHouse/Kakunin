@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import xlsx from 'node-xlsx';
-import config from './config.helper';
+import config from '../../core/config.helper';
 
 const FileManager = {
   wasDownloaded: function(expectedFileName) {

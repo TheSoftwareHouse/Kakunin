@@ -2,8 +2,8 @@ import glob from 'glob';
 import path from 'path';
 const { createFirefoxProfile } = require('./create-firefox-profile.helper');
 const { safariBrowserConfigurator } = require('./safari-browser-configurator.helper');
-const { prepareBrowserInstance } = require('./prepare-browser-instance-specs.helper');
-const { chunkSpecs } = require('./chunk-specs.helper');
+const { prepareBrowserInstance } = require('../parallel/prepare-browser-instance-specs.helper');
+const { chunkSpecs } = require('../parallel/chunk-specs.helper');
 
 const getDefaultBrowsersConfigs = config => {
   const chromeConfig = {

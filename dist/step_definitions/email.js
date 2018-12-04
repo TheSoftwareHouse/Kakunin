@@ -10,7 +10,7 @@ var _filters = require('../emails/filters');
 
 var _matchers = require('../matchers');
 
-var _config = require('../helpers/config.helper');
+var _config = require('../core/config.helper');
 
 var _config2 = _interopRequireDefault(_config);
 
