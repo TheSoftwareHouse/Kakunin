@@ -1,6 +1,6 @@
 import { defineSupportCode } from 'cucumber';
 import chalk from 'chalk';
-import config from '../helpers/config.helper';
+import config from '../core/config.helper';
 import { create as createAnalyser } from '../helpers/time-to-first-byte-analyser.helper';
 
 const analyser = createAnalyser();

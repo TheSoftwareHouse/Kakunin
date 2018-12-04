@@ -10,7 +10,7 @@ var _variableStore2 = _interopRequireDefault(_variableStore);
 
 var _comparators = require('../comparators');
 
-var _config = require('../helpers/config.helper');
+var _config = require('../core/config.helper');
 
 var _config2 = _interopRequireDefault(_config);
 

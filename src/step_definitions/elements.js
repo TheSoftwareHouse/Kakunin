@@ -2,7 +2,7 @@ import { defineSupportCode } from 'cucumber';
 import { matchers, regexBuilder } from '../matchers';
 import variableStore from '../helpers/variable-store.helper';
 import { comparators } from '../comparators';
-import config from '../helpers/config.helper';
+import config from '../core/config.helper';
 import chalk from 'chalk';
 import { waitForCondition } from '../helpers/wait-for-condition.helper';
 

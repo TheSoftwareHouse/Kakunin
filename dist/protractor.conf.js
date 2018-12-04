@@ -4,14 +4,14 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
-require('./helpers/prototypes');
+require('./core/prototypes');
 const path = require('path');
 const chai = require('chai');
-const config = require('./helpers/config.helper').default;
-const modulesLoader = require('./helpers/modules-loader.helper.js').create();
-const { deleteReports } = require('./helpers/delete-files.helper');
-const { prepareCatalogs } = require('./helpers/prepare-catalogs.helper');
-const browsersConfiguration = require('./helpers/browsers-config.helper');
+const config = require('./core/config.helper').default;
+const modulesLoader = require('./core/modules-loader.helper.js').create();
+const { deleteReports } = require('./core/fs/delete-files.helper');
+const { prepareCatalogs } = require('./core/fs/prepare-catalogs.helper');
+const browsersConfiguration = require('./web/browsers/browsers-config.helper');
 const chaiAsPromised = require('chai-as-promised');
 const { emailService } = require('./emails');
 const commandArgs = require('minimist')(process.argv.slice(2));
@@ -53,7 +53,7 @@ exports.config = {
   specs: [],
 
   cucumberOpts: {
-    require: ['./configuration/config.js', './configuration/hooks.js', './step_definitions/**/*.js', ...config.step_definitions.map(file => path.join(config.projectPath, file, '**/*.js')), ...config.hooks.map(file => path.join(config.projectPath, file, '**/*.js'))],
+    require: ['./web/cucumber/config.js', './web/cucumber/hooks.js', './step_definitions/**/*.js', ...config.step_definitions.map(file => path.join(config.projectPath, file, '**/*.js')), ...config.hooks.map(file => path.join(config.projectPath, file, '**/*.js'))],
     format: [`json:./${config.reports}/features-report.json`],
     profile: false,
     'no-source': true

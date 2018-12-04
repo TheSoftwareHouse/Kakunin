@@ -1,5 +1,5 @@
 import fetch from 'node-fetch';
-import configuration from '../../helpers/config.helper';
+import configuration from '../../core/config.helper';
 
 class MailTrapClient {
   constructor(requestClient, config) {

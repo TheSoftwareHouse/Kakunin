@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.create = undefined;
 
-var _config = require('../helpers/config.helper');
+var _config = require('../core/config.helper');
 
 var _config2 = _interopRequireDefault(_config);
 
