@@ -10,7 +10,7 @@ var _config = require('../core/config.helper');
 
 var _config2 = _interopRequireDefault(_config);
 
-var _timeToFirstByteAnalyser = require('../helpers/time-to-first-byte-analyser.helper');
+var _timeToFirstByteAnalyser = require('../web/performance/time-to-first-byte-analyser.helper');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 

@@ -26,9 +26,7 @@ describe('Cli helpers', () => {
   });
 
   it('returns config path by config file', () => {
-    expect(getConfigPath('some-file.config.js', 'other-config.helper.jsper.js', '/my/path')).toEqual(
-      '/my/path/other-config.helper.js'
-    );
+    expect(getConfigPath('some-file.config.js', 'other-config.js', '/my/path')).toEqual('/my/path/other-config.js');
   });
 
   it('creates empty tags cli argument if neither performance nor tags param is defined', () => {

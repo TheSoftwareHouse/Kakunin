@@ -1,6 +1,6 @@
 import { defineSupportCode } from 'cucumber';
-import fileManager from '../helpers/file-manager.helper';
-import variableStore from '../helpers/variable-store.helper';
+import fileManager from '../web/fs/file-manager.helper';
+import variableStore from '../web/variable-store.helper';
 
 defineSupportCode(function({ Then }) {
   Then(/^the file "([^"]*)" should be downloaded$/, function(filename) {

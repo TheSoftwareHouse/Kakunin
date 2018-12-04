@@ -2,11 +2,11 @@
 
 var _cucumber = require('cucumber');
 
-var _fileManager = require('../helpers/file-manager.helper');
+var _fileManager = require('../web/fs/file-manager.helper');
 
 var _fileManager2 = _interopRequireDefault(_fileManager);
 
-var _variableStore = require('../helpers/variable-store.helper');
+var _variableStore = require('../web/variable-store.helper');
 
 var _variableStore2 = _interopRequireDefault(_variableStore);
 

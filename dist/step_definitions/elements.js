@@ -4,7 +4,7 @@ var _cucumber = require('cucumber');
 
 var _matchers = require('../matchers');
 
-var _variableStore = require('../helpers/variable-store.helper');
+var _variableStore = require('../web/variable-store.helper');
 
 var _variableStore2 = _interopRequireDefault(_variableStore);
 
@@ -18,7 +18,7 @@ var _chalk = require('chalk');
 
 var _chalk2 = _interopRequireDefault(_chalk);
 
-var _waitForCondition = require('../helpers/wait-for-condition.helper');
+var _waitForCondition = require('../web/cucumber/wait-for-condition.helper');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
