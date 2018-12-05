@@ -1,11 +1,11 @@
-require('./helpers/prototypes');
+require('./core/prototypes');
 const path = require('path');
 const chai = require('chai');
-const config = require('./helpers/config.helper').default;
-const modulesLoader = require('./helpers/modules-loader.helper.js').create();
-const { deleteReports } = require('./helpers/delete-files.helper');
-const { prepareCatalogs } = require('./helpers/prepare-catalogs.helper');
-const browsersConfiguration = require('./helpers/browsers-config.helper');
+const config = require('./core/config.helper').default;
+const modulesLoader = require('./core/modules-loader.helper.js').create();
+const { deleteReports } = require('./core/fs/delete-files.helper');
+const { prepareCatalogs } = require('./core/fs/prepare-catalogs.helper');
+const browsersConfiguration = require('./web/browsers/browsers-config.helper');
 const chaiAsPromised = require('chai-as-promised');
 const { emailService } = require('./emails');
 const commandArgs = require('minimist')(process.argv.slice(2));
@@ -49,8 +49,8 @@ exports.config = {
 
   cucumberOpts: {
     require: [
-      './configuration/config.js',
-      './configuration/hooks.js',
+      './web/cucumber/config.js',
+      './web/cucumber/hooks.js',
       './step_definitions/**/*.js',
       ...config.step_definitions.map(file => path.join(config.projectPath, file, '**/*.js')),
       ...config.hooks.map(file => path.join(config.projectPath, file, '**/*.js')),

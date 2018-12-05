@@ -1,4 +1,4 @@
-import { create } from '../../../helpers/modules-loader.helper';
+import { create } from '../../../core/modules-loader.helper';
 import { regex } from './regexes/default';
 
 const modulesLoader = create();

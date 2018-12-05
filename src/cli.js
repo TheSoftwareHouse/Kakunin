@@ -1,6 +1,6 @@
 #!/usr/bin/env node
-import initializer from './helpers/initializer';
-import { isInitCommand, getConfigPath, createTagsCLIArgument, filterCLIArguments } from './helpers/cli.helper';
+import initializer from './core/cli/initializer';
+import { isInitCommand, getConfigPath, createTagsCLIArgument, filterCLIArguments } from './core/cli/cli.helper';
 
 const commandArgs = require('minimist')(process.argv.slice(2));
 const path = require('path');

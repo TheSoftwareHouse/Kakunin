@@ -9,7 +9,7 @@ var _path = require('path');
 
 var _path2 = _interopRequireDefault(_path);
 
-var _config = require('../../helpers/config.helper');
+var _config = require('../../core/config.helper');
 
 var _config2 = _interopRequireDefault(_config);
 

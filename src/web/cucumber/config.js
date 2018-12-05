@@ -1,4 +1,4 @@
-import config from '../helpers/config.helper';
+import config from '../../core/config.helper';
 const { defineSupportCode } = require('cucumber');
 
 defineSupportCode(function({ setDefaultTimeout }) {

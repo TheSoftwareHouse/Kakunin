@@ -1,5 +1,5 @@
 import { defineSupportCode } from 'cucumber';
-import variableStore from '../helpers/variable-store.helper';
+import variableStore from '../web/variable-store.helper';
 import { transformers } from '../transformers';
 
 defineSupportCode(function({ When }) {

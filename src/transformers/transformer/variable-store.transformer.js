@@ -1,4 +1,4 @@
-import store from '../../helpers/variable-store.helper';
+import store from '../../web/variable-store.helper';
 
 class VariableStoreTransformer {
   constructor(variableStore) {

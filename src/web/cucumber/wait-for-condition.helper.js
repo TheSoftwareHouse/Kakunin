@@ -1,4 +1,4 @@
-import config from './config.helper';
+import config from '../../core/config.helper';
 const globalTimeout = parseInt(config.elementsVisibilityTimeout) * 1000;
 
 export const waitForCondition = (condition, timeout) => {

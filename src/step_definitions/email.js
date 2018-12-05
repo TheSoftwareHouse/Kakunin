@@ -2,7 +2,7 @@ import { defineSupportCode } from 'cucumber';
 import sugar from 'sugar-date';
 import { filters } from '../emails/filters';
 import { regexBuilder } from '../matchers';
-import config from '../helpers/config.helper';
+import config from '../core/config.helper';
 
 import { emailService } from '../emails';
 

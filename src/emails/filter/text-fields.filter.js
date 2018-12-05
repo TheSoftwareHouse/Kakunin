@@ -1,5 +1,5 @@
 import { regexBuilder } from '../../matchers';
-import variableStore from '../../helpers/variable-store.helper';
+import variableStore from '../../web/variable-store.helper';
 
 class TextFieldFilter {
   isSatisfiedBy(type) {

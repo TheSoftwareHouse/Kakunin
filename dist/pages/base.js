@@ -4,13 +4,13 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _config = require('../helpers/config.helper');
+var _config = require('../core/config.helper');
 
 var _config2 = _interopRequireDefault(_config);
 
-var _waitForCondition = require('../helpers/wait-for-condition.helper');
+var _waitForCondition = require('../web/cucumber/wait-for-condition.helper');
 
-var _urlParser = require('../helpers/url-parser.helper');
+var _urlParser = require('../web/url-parser.helper');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 

@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 'use strict';
 
-var _initializer = require('./helpers/initializer');
+var _initializer = require('./core/cli/initializer');
 
 var _initializer2 = _interopRequireDefault(_initializer);
 
-var _cli = require('./helpers/cli.helper');
+var _cli = require('./core/cli/cli.helper');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
