@@ -236,6 +236,7 @@ class Initializer {
 
     this.createProjectDirectory(config.reports);
     this.createProjectDirectory(path.join(config.reports, 'report'));
+    this.createProjectDirectory(path.join(config.reports, 'json-output-folder'));
     this.createProjectDirectory(path.join(config.reports, 'report', 'features'));
     this.createProjectDirectory(path.join(config.reports, 'performance'));
     this.createProjectDirectory(config.downloads);
@@ -255,6 +256,7 @@ class Initializer {
     this.createProjectDirectory(config.emails[0]);
 
     this.createTemplateFile(path.join(config.downloads, '.gitkeep'), '');
+    this.createTemplateFile(path.join(config.reports, 'json-output-folder', '.gitkeep'), '');
     this.createTemplateFile(path.join(config.reports, 'report', '.gitkeep'), '');
     this.createTemplateFile(path.join(config.reports, 'report', 'features', '.gitkeep'), '');
     this.createTemplateFile(path.join(config.reports, 'performance', '.gitkeep'), '');
