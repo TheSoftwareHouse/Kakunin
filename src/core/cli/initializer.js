@@ -23,7 +23,7 @@ class Initializer {
   }
 
   createTemplateFileWithContentFrom(contentPath, file) {
-    const content = fs.readFileSync(`${__dirname}/../templates/${file}`);
+    const content = fs.readFileSync(path.join(__dirname, `../../../templates/${file}`));
 
     this.createTemplateFile(contentPath, content);
   }

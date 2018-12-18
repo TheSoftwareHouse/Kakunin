@@ -46,7 +46,7 @@ class Initializer {
   }
 
   createTemplateFileWithContentFrom(contentPath, file) {
-    const content = _fs2.default.readFileSync(`${__dirname}/../templates/${file}`);
+    const content = _fs2.default.readFileSync(_path2.default.join(__dirname, `../../../templates/${file}`));
 
     this.createTemplateFile(contentPath, content);
   }
@@ -227,6 +227,7 @@ class Initializer {
 
       _this3.createProjectDirectory(config.reports);
       _this3.createProjectDirectory(_path2.default.join(config.reports, 'report'));
+      _this3.createProjectDirectory(_path2.default.join(config.reports, 'json-output-folder'));
       _this3.createProjectDirectory(_path2.default.join(config.reports, 'report', 'features'));
       _this3.createProjectDirectory(_path2.default.join(config.reports, 'performance'));
       _this3.createProjectDirectory(config.downloads);
@@ -246,6 +247,7 @@ class Initializer {
       _this3.createProjectDirectory(config.emails[0]);
 
       _this3.createTemplateFile(_path2.default.join(config.downloads, '.gitkeep'), '');
+      _this3.createTemplateFile(_path2.default.join(config.reports, 'json-output-folder', '.gitkeep'), '');
       _this3.createTemplateFile(_path2.default.join(config.reports, 'report', '.gitkeep'), '');
       _this3.createTemplateFile(_path2.default.join(config.reports, 'report', 'features', '.gitkeep'), '');
       _this3.createTemplateFile(_path2.default.join(config.reports, 'performance', '.gitkeep'), '');
