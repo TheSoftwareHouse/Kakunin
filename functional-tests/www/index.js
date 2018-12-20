@@ -71,6 +71,33 @@ app.get('/matchers', function(req, res) {
   res.render('matchers/matchers.njs');
 });
 
+app.get('/getTestEndpoint', function (req, res) {
+  res.setHeader('Content-Type', 'application/json');
+  const header = req.header('host');
+  if (header === 'localhost:8080') {
+    return res.send(JSON.stringify(
+      { id: 1,
+        title: 'Kaunin',
+        body: 'test' }
+    ));
+  }
+  res.status(403);
+  return res.end();
+});
+
+app.post('/postTestEndpoint', function (req, res) {
+  const name = req.body.name;
+  const title = req.body.title;
+  const header = req.header('User-Agent');
+  const object = { code: 'created', name: name, title: title };
+  if (header === 'Mozilla') {
+    res.status(403);
+    return res.end();
+  }
+  res.status(201);
+  return res.json(object);
+});
+
 app.use('/xlsx', xlsxDataRouting());
 
 app.listen(8080, function() {
