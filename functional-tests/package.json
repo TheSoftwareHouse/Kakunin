@@ -12,19 +12,17 @@
   },
   "author": "",
   "dependencies": {
-    "cross-env": "5.2.0",
-    "body-parser": "1.18.3",
+    "cross-env": "^5.2.0",
     "eslint": "5.10.0",
     "eslint-config-airbnb": "17.1.0",
     "eslint-plugin-import": "2.14.0",
     "eslint-plugin-jsx-a11y": "6.1.2",
     "eslint-plugin-react": "7.11.1",
     "express": "4.16.4",
-    "nunjucks": "3.1.4",
-    "node-fetch": "2.3.0",
     "kakunin": "file:../",
-    "protractor": "5.4.1",
-    "webdriver-manager": "12.1.0"
+    "node-fetch": "2.3.0",
+    "nunjucks": "3.1.4",
+    "protractor": "^5.4.1"
   },
   "license": "ISC",
   "devDependencies": {
