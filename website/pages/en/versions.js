@@ -45,6 +45,17 @@ function Versions() {
               </tr>
             </tbody>
           </table>
+          <h3 id="rc">Pre-release versions</h3>
+          <table className="versions">
+            <tbody>
+              <tr>
+                <th>next</th>
+                <td>
+                  <a href={`${siteConfig.baseUrl}docs/next/`}>Documentation</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
           <h3 id="archive">Past Versions</h3>
           <table className="versions">
             <tbody>

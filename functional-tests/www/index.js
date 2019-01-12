@@ -1,6 +1,5 @@
 const express = require('express');
 const nunjucks = require('nunjucks');
-const bodyParser = require('body-parser');
 const path = require('path');
 const app = express();
 const { xlsxDataRouting } = require('./jsonData/xlsxData.router');
@@ -14,8 +13,8 @@ nunjucks.configure(app.get('views'), {
   express: app
 });
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.get('/', function (req, res) {
   res.render('index.njs');

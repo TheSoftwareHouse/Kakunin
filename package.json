@@ -30,6 +30,9 @@
     },
     {
       "name": "Wojciech Wójcik"
+    },
+    {
+      "name": "Józef Szymala"
     }
   ],
   "bin": {
@@ -37,7 +40,6 @@
   },
   "main": "./dist/index",
   "scripts": {
-    "postinstall": "webdriver-manager update",
     "units": "cross-env jest --setupFiles ./src/tests/init.js",
     "functional": "cd functional-tests && npm i && npm run test",
     "test": "npm run units && npm run functional",
@@ -55,7 +57,6 @@
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "babel-register": "^6.26.0",
-    "cross-env": "^5.2.0",
     "eslint": "^5.10.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-plugin-import": "^2.14.0",
@@ -68,6 +69,7 @@
     "prettier": "^1.15.3"
   },
   "dependencies": {
+    "cross-env": "^5.2.0",
     "browsermob-proxy": "^1.0.9",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
