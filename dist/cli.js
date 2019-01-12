@@ -13,6 +13,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 const commandArgs = require('minimist')(process.argv.slice(2));
 const path = require('path');
+const fs = require('fs');
 const childProcess = require('child_process');
 const envfile = require('node-env-file');
 const os = require('os');
@@ -30,6 +31,10 @@ if ((0, _cli.isInitCommand)(process.argv)) {
   const argv = ['./node_modules/kakunin/dist/protractor.conf.js', `--config=${(0, _cli.getConfigPath)('kakunin.conf.js', commandArgs.config, process.cwd())}`, `--projectPath=${process.cwd()}`, '--disableChecks', ...(0, _cli.createTagsCLIArgument)(commandArgs), ...(0, _cli.filterCLIArguments)(optionsToFilter)(commandArgs)];
 
   const protractorExecutable = os.platform() === 'win32' ? 'protractor.cmd' : 'protractor';
+
+  if (!fs.existsSync(path.join(process.cwd(), 'node_modules', 'protractor', 'node_modules', 'webdriver-manager', 'selenium', 'update-config.json'))) {
+    childProcess.execSync(path.join(process.cwd(), 'node_modules', '.bin', 'webdriver-manager update'));
+  }
 
   childProcess.spawn(path.join('node_modules', '.bin', protractorExecutable), argv, {
     stdio: 'inherit',

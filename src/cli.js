@@ -4,6 +4,7 @@ import { isInitCommand, getConfigPath, createTagsCLIArgument, filterCLIArguments
 
 const commandArgs = require('minimist')(process.argv.slice(2));
 const path = require('path');
+const fs = require('fs');
 const childProcess = require('child_process');
 const envfile = require('node-env-file');
 const os = require('os');
@@ -28,6 +29,22 @@ if (isInitCommand(process.argv)) {
   ];
 
   const protractorExecutable = os.platform() === 'win32' ? 'protractor.cmd' : 'protractor';
+
+  if (
+    !fs.existsSync(
+      path.join(
+        process.cwd(),
+        'node_modules',
+        'protractor',
+        'node_modules',
+        'webdriver-manager',
+        'selenium',
+        'update-config.json'
+      )
+    )
+  ) {
+    childProcess.execSync(path.join(process.cwd(), 'node_modules', '.bin', 'webdriver-manager update'));
+  }
 
   childProcess
     .spawn(path.join('node_modules', '.bin', protractorExecutable), argv, {
