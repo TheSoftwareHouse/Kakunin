@@ -6,7 +6,7 @@ class CurrentUserFilter {
   }
 
   filter(emails, type, value, world) {
-    return emails.filter((email) => email.to_email === world.currentUser.account.email);
+    return emails.filter(email => email.to_email === world.currentUser.account.email);
   }
 }
 

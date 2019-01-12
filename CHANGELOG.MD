@@ -1,4 +1,39 @@
+#### v2.4.0
+
+- `When I pause` step has been deleted as the `browser.pause()` method is not supported since Node 8.x.x
+- added `how to debug` section to the documentation
+- added example how to configure docker for Kakunin projects
+- configured Travis CI - unit and functional tests
+- added support for Safari and Firefox browsers (take a look at the `cross-browser` section in the documentation)
+- added parallel functionality (take a look at the `parallel` section in the documentation)
+- configured prettier and eslint on `git commit` action
+- added a possibility to use `When I store` and `There is element` steps on `input`/`textarea` fields
+- added `faker` generator (generate random names, cities etc.)
+
+##### v2.3.0
+
+- added a new step: `success if email not found`
+- updated `emails section` in the documentation
+- added a possibility to answer prompts by a bash command in the `init process`
+- fixed `file.js` step and added functional tests covering `compare xlsx with stored data`
+- updated dependencies
+
+##### v2.2.0
+
+- added migration rules to version `v2.2.0`
+- fixed `wait for url change` error
+- improved CLI scripts and added tests
+- improved `When I click step` - added an extra wait until the element is clickable
+- fixed the cache problem in the `local storage` (wait until the cache is cleared)
+- improved how the matchers errors are displayed
+- changed Mocca into Jest
+- changed Chai for Jest syntax
+- moved `maxEmailRepeats` to the configuration
+- updated Mailtrap adapter due to changed API (take a look at the `MIGRATION-2.2.0.MD`)
+- updated dependencies
+
 ##### v2.1.0
+
 - multiple code refactors
 - improved url comparing
 - fixed bug: missing "reports/report/features" catalogs required to execute tests
@@ -53,7 +88,7 @@
 ##### v0.16.2
 
 - added new step `I visit the "pageName" page with parameters:` which replaces wildcards with a values given in the table
-- fixed step `I wait for "condition" of the "element" element`, currently timeout is set properly to `elementsVisibilityTimeout` key which is placed in kakunin.config.js 
+- fixed step `I wait for "condition" of the "element" element`, currently timeout is set properly to `elementsVisibilityTimeout` key which is placed in kakunin.config.js
 - improved step `I wait for "condition" of the "element" element`, currently singleElement and arrayElements can be checked
 - change step implementation: `I click the "keyName" key` to `I press the "keyName" key`
 

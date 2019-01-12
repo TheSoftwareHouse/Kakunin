@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.createVariableStoreTransformer = undefined;
 
-var _variableStore = require('../../helpers/variable-store.helper');
+var _variableStore = require('../../web/variable-store.helper');
 
 var _variableStore2 = _interopRequireDefault(_variableStore);
 
@@ -17,7 +17,7 @@ class VariableStoreTransformer {
   }
 
   isSatisfiedBy(prefix) {
-    return 'v:' === prefix;
+    return prefix === 'v:';
   }
 
   transform(value) {

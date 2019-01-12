@@ -6,27 +6,27 @@ var _chalk = require('chalk');
 
 var _chalk2 = _interopRequireDefault(_chalk);
 
-var _config = require('../helpers/config.helper');
+var _config = require('../core/config.helper');
 
 var _config2 = _interopRequireDefault(_config);
 
-var _timeToFirstByteAnalyser = require('../helpers/time-to-first-byte-analyser.helper');
+var _timeToFirstByteAnalyser = require('../web/performance/time-to-first-byte-analyser.helper');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const analyser = (0, _timeToFirstByteAnalyser.create)();
-const browsermob = require('browsermob-proxy').Proxy;
+const Browsermob = require('browsermob-proxy').Proxy;
 const fs = require('fs');
 let proxy;
 
 (0, _cucumber.defineSupportCode)(function ({ When, Then }) {
   When(/^I start performance monitor mode$/, function () {
-    proxy = new browsermob({
+    proxy = new Browsermob({
       port: _config2.default.browserMob.serverPort
     });
 
     let proxyReady = false;
-    proxy.start(_config2.default.browserMob.port, (err, data) => {
+    proxy.start(_config2.default.browserMob.port, err => {
       if (!err) {
         proxy.startHAR(_config2.default.browserMob.port, 'test', true, true, () => {
           proxyReady = true;
@@ -58,7 +58,8 @@ let proxy;
     });
 
     return browser.driver.wait(() => {
-      return this.performanceReportFile = uniqueFileName, proxyDone;
+      this.performanceReportFile = uniqueFileName;
+      return proxyDone;
     });
   });
 
@@ -68,7 +69,7 @@ let proxy;
 
       if (slowRequests.length > 0) {
         slowRequests.forEach(({ url, ttfb }) => {
-          console.log(_chalk2.default.white.bgRed('\r\n', `Slow request:`, '\r\n', `URL: ${url}`, '\r\n', `TTFB: ${ttfb.toFixed(2)} ms`, '\r\n'));
+          console.log(_chalk2.default.white.bgRed('\r\n', 'Slow request:', '\r\n', `URL: ${url}`, '\r\n', `TTFB: ${ttfb.toFixed(2)} ms`, '\r\n'));
         });
 
         return Promise.reject('TTFB value is too big! Details available above.');

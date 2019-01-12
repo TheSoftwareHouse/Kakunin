@@ -1,4 +1,4 @@
-import {create} from './transformers';
+import { create } from './transformers';
 
 const transformers = create();
 
@@ -11,11 +11,11 @@ describe('Value transformers', () => {
 
   it('returns transformed value when expected transformer has been found', () => {
     const fakeTransformer = {
-      isSatisfiedBy: (prefix) => prefix === 'v:',
-      transform: (value) => {
+      isSatisfiedBy: prefix => prefix === 'v:',
+      transform: value => {
         expect(value).toEqual('value');
         return 'expected value';
-      }
+      },
     };
     const transformers = create([fakeTransformer]);
 
@@ -24,8 +24,8 @@ describe('Value transformers', () => {
 
   it('adds a transformer', () => {
     const customTransformer = {
-      isSatisfiedBy: (prefix) => prefix === 'j:',
-      transform: () => 'custom-transformer'
+      isSatisfiedBy: prefix => prefix === 'j:',
+      transform: () => 'custom-transformer',
     };
 
     transformers.addTransformer(customTransformer);

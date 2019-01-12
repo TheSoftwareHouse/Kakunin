@@ -1,17 +1,19 @@
-import * as matcher from './matcher';
+import * as matchers from './matcher';
+
+export const separator = ':';
 
 class Matchers {
   constructor() {
     this.availableMatchers = [
-      matcher.regexMatcher,
-      matcher.clickableMatcher,
-      matcher.invisibleMatcher,
-      matcher.notClickableMatcher,
-      matcher.presentMatcher,
-      matcher.textMatcher,
-      matcher.visibleMatcher,
-      matcher.attributeMatcher,
-      matcher.currentDateMatcher,
+      matchers.regexMatcher,
+      matchers.clickableMatcher,
+      matchers.invisibleMatcher,
+      matchers.notClickableMatcher,
+      matchers.presentMatcher,
+      matchers.textMatcher,
+      matchers.visibleMatcher,
+      matchers.attributeMatcher,
+      matchers.currentDateMatcher,
     ];
   }
 
@@ -31,9 +33,8 @@ class Matchers {
   }
 
   findMatcher(prefix, params) {
-    return this.availableMatchers.find((matcher) => matcher.isSatisfiedBy(prefix, ...params));
+    return this.availableMatchers.find(matcher => matcher.isSatisfiedBy(prefix, ...params));
   }
 }
 
 export const create = () => new Matchers();
-export const separator = ':';

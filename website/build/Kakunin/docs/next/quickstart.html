@@ -1,0 +1,169 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Quick start · Kakunin</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="&lt;p&gt;As a quick demonstration of the framework let&#x27;s test the&lt;/p&gt;
+"/><meta name="docsearch:version" content="next"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Quick start · Kakunin"/><meta property="og:type" content="website"/><meta property="og:url" content="https://thesoftwarehouse.github.io/Kakunin//Kakunin/index.html"/><meta property="og:description" content="&lt;p&gt;As a quick demonstration of the framework let&#x27;s test the&lt;/p&gt;
+"/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="/Kakunin/img/favicon/favicon.ico"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-dark.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><link rel="stylesheet" href="/Kakunin/css/main.css"/></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/Kakunin/"><img class="logo" src="/Kakunin/img/kakunin_white_logo.svg" alt="Kakunin"/><h2 class="headerTitleWithLogo">Kakunin</h2></a><a href="/Kakunin/versions"><h3>next</h3></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li><li class=""><a href="https://github.com/TheSoftwareHouse/Kakunin" target="_self">GitHub</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><i></i></div><h2><i>›</i><span>Documentation</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Documentation</h3><ul><li class="navListItem navListItemActive"><a class="navItem" href="/Kakunin/docs/next/quickstart">Quick start</a></li><li class="navListItem"><a class="navItem" href="/Kakunin/docs/next/">Getting started</a></li><li class="navListItem"><a class="navItem" href="/Kakunin/docs/next/configuration">Configuration</a></li><li class="navListItem"><a class="navItem" href="/Kakunin/docs/next/how-it-works">How it works</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Built in mechanisms</h3><ul><li class="navListItem"><a class="navItem" href="/Kakunin/docs/next/matchers">Matchers</a></li><li class="navListItem"><a class="navItem" href="/Kakunin/docs/next/transformers">Transformers</a></li><li class="navListItem"><a class="navItem" href="/Kakunin/docs/next/extending">Extending Kakunin</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Features</h3><ul><li class="navListItem"><a class="navItem" href="/Kakunin/docs/next/cross-browser">Cross-browser testing</a></li><li class="navListItem"><a class="navItem" href="/Kakunin/docs/next/parallel-testing">Parallel testing</a></li><li class="navListItem"><a class="navItem" href="/Kakunin/docs/next/performance-testing">Performance testing</a></li><li class="navListItem"><a class="navItem" href="/Kakunin/docs/next/docker">Docker</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Steps</h3><ul><li class="navListItem"><a class="navItem" href="/Kakunin/docs/next/steps-navigation">Navigation</a></li><li class="navListItem"><a class="navItem" href="/Kakunin/docs/next/steps-forms">Forms</a></li><li class="navListItem"><a class="navItem" href="/Kakunin/docs/next/steps-elements">Elements</a></li><li class="navListItem"><a class="navItem" href="/Kakunin/docs/next/steps-files">Files</a></li><li class="navListItem"><a class="navItem" href="/Kakunin/docs/next/steps-generators">Generators</a></li><li class="navListItem"><a class="navItem" href="/Kakunin/docs/next/steps-debug">Debug</a></li></ul></div></div></section></div><script>
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              const headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                if (event.target.tagName === 'A') {
+                  document.body.classList.remove('tocActive');
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Quick start</h1></header><article><div><span><p>As a quick demonstration of the framework let's test the
+<a href="http://todomvc.com/examples/react/#/">React variant of TodoMVC</a> project.
+Of course other testing other frameworks is possible, you can try it
+by yourself!</p>
+<h2><a class="anchor" aria-hidden="true" id="install-packages"></a><a href="#install-packages" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Install packages</h2>
+<p>In order to install Kakunin you have to make sure that you have installed:</p>
+<pre><code class="hljs css language-text">node.js - v7.8.0 min
+JDK
+Chrome
+</code></pre>
+<p>Create directory for your project and enter it</p>
+<pre><code class="hljs css language-bash"><span class="hljs-variable">$mkdir</span> my_project
+<span class="hljs-built_in">cd</span> my_project
+</code></pre>
+<p>Initialize JavaScript project</p>
+<pre><code class="hljs css language-bash">npm init
+</code></pre>
+<p>Install dependencies</p>
+<pre><code class="hljs css language-bash">npm install cross-env protractor webdriver-manager kakunin  --save
+</code></pre>
+<p>Inside <code>package.json</code> file add new script in <code>scripts</code> section:</p>
+<pre><code class="hljs css language-js">...
+<span class="hljs-string">"scripts"</span>: {
+  <span class="hljs-string">"kakunin"</span>: <span class="hljs-string">"cross-env NODE_ENV=prod kakunin"</span>
+},
+...
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="configure-kakunin"></a><a href="#configure-kakunin" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Configure Kakunin</h2>
+<p>Run initialization command</p>
+<pre><code class="hljs css language-bash">npm run kakunin init
+</code></pre>
+<p>Answer literally few questions:</p>
+<pre><code class="hljs css language-text">What kind of application would you like to test? : otherWeb
+        
+What is base url? [http://localhost:3000]: http://todomvc.com
+           
+What kind of email service would you like to use?: none
+</code></pre>
+<p>And you're set! Now let's write some test!</p>
+<h2><a class="anchor" aria-hidden="true" id="test-the-app"></a><a href="#test-the-app" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Test the app</h2>
+<p>Create a page object that will contain instructions on how to locate elements in the projects.
+Create a file <code>pages/main.js</code>:</p>
+<pre><code class="hljs css language-javascript"><span class="hljs-keyword">const</span> { BasePage } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'kakunin'</span>);
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MainPage</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">BasePage</span> </span>{
+    <span class="hljs-keyword">constructor</span>() {
+        <span class="hljs-keyword">super</span>();
+
+        <span class="hljs-comment">// define the main url for the page</span>
+        <span class="hljs-keyword">this</span>.url = <span class="hljs-string">'/examples/react/#/'</span>;
+
+        <span class="hljs-comment">// whole form tag</span>
+        <span class="hljs-keyword">this</span>.addTodoForm = $(<span class="hljs-string">'.todoapp'</span>);
+
+        <span class="hljs-comment">// input field</span>
+        <span class="hljs-keyword">this</span>.todoInput = $(<span class="hljs-string">'input.new-todo'</span>);
+
+        <span class="hljs-comment">// list of currently added todos</span>
+        <span class="hljs-keyword">this</span>.todos = $$(<span class="hljs-string">'.todo-list .view'</span>);
+        <span class="hljs-keyword">this</span>.todoLabel = by.css(<span class="hljs-string">'label'</span>);
+
+        <span class="hljs-comment">// first todo item in a list</span>
+        <span class="hljs-keyword">this</span>.firstTodoItem = <span class="hljs-keyword">this</span>.todos.get(<span class="hljs-number">0</span>);
+    }
+}
+
+<span class="hljs-built_in">module</span>.exports = MainPage;
+</code></pre>
+<p>Now that we have prepared the locators, we can start writing our test. Let's test adding new todo item.</p>
+<p>Create a file named: <code>features/adding_todo.feature</code> with the following contents:</p>
+<pre><code class="hljs css language-gherkin"><span class="hljs-keyword">Feature</span>:
+
+    <span class="hljs-keyword">Scenario</span>: Adding todo
+        <span class="hljs-keyword">Given</span> I visit the <span class="hljs-string">"main"</span> page
+        <span class="hljs-keyword">And</span> I wait for <span class="hljs-string">"visibilityOf"</span> of the <span class="hljs-string">"addTodoForm"</span> element
+        <span class="hljs-keyword">And</span> the <span class="hljs-string">"addTodoForm"</span> element is visible
+        <span class="hljs-keyword">When</span> I fill the <span class="hljs-string">"addTodoForm"</span> form with:
+            |<span class="hljs-string"> todoInput </span>|<span class="hljs-string"> My new todo </span>|
+        <span class="hljs-keyword">And</span> I press the <span class="hljs-string">"enter"</span> key
+        <span class="hljs-keyword">Then</span> there are <span class="hljs-string">"equal 1"</span> <span class="hljs-string">"todos"</span> elements
+
+</code></pre>
+<p>And that's it! All you have to do now is to run the test and watch the magic happens ;)</p>
+<pre><code class="hljs css language-bash">npm run kakunin
+</code></pre>
+<p>The tests may run quite fast so you might not been able to see that it
+really works as expected. To check if the todo items has been really
+added to the list, let's use a simple hack - let's pause the running
+test right after the todo has been added.</p>
+<p>To do that, let's upgrade our Scenario. Update the file:</p>
+<pre><code class="hljs css language-gherkin"><span class="hljs-keyword">Feature</span>:
+
+    <span class="hljs-keyword">Scenario</span>: Adding todo
+        <span class="hljs-keyword">Given</span> I visit the <span class="hljs-string">"main"</span> page
+        <span class="hljs-keyword">And</span> I wait for <span class="hljs-string">"visibilityOf"</span> of the <span class="hljs-string">"addTodoForm"</span> element
+        <span class="hljs-keyword">And</span> the <span class="hljs-string">"addTodoForm"</span> element is visible
+        <span class="hljs-keyword">When</span> I fill the <span class="hljs-string">"addTodoForm"</span> form with:
+            |<span class="hljs-string"> todoInput </span>|<span class="hljs-string"> My new todo </span>|
+        <span class="hljs-keyword">And</span> I wait for <span class="hljs-string">"1"</span> seconds
+        <span class="hljs-keyword">And</span> I press the <span class="hljs-string">"enter"</span> key
+        <span class="hljs-keyword">When</span> I fill the <span class="hljs-string">"addTodoForm"</span> form with:
+            |<span class="hljs-string"> todoInput </span>|<span class="hljs-string"> Another todo item! </span>|
+        <span class="hljs-keyword">And</span> I wait for <span class="hljs-string">"1"</span> seconds
+        <span class="hljs-keyword">And</span> I press the <span class="hljs-string">"enter"</span> key
+        <span class="hljs-keyword">Then</span> there are <span class="hljs-string">"equal 2"</span> <span class="hljs-string">"todos"</span> elements
+        <span class="hljs-keyword">Then</span> I wait for <span class="hljs-string">"5"</span> seconds
+
+</code></pre>
+<p>As you can see, we've added 1 new step that waits for a second before
+&quot;pressing&quot; the <code>enter</code> key. We've also added a second todo item with
+a short pause at the end of the test so you can see the changes.</p>
+<p>If you want to see what can we do more with the TodoMVC project, take a look
+at the <code>example</code> dir, where you'll find a complete set of test for the project.</p>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-next button" href="/Kakunin/docs/next/index"><span>Getting started</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#install-packages">Install packages</a></li><li><a href="#configure-kakunin">Configure Kakunin</a></li><li><a href="#test-the-app">Test the app</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/Kakunin/" class="nav-home custom"><img src="/Kakunin/img/kakunin_white_logo_text.svg" alt="Kakunin" width="200 " height="77"/></a><div><h5>Docs:</h5><a href="
+                /Kakunin/docs/quickstart">Quick start</a><a href="
+                /Kakunin/docs/configuration">Configuration</a><a href="
+                /Kakunin/docs/extending">Extending</a></div><div><h5>Features:</h5><a href="
+                /Kakunin/docs/cross-browser">Cross-browser testing</a><a href="
+                /Kakunin/docs/parallel-testing">Parallel testing</a><a href="
+                /Kakunin/docs/performance-testing">Performance testing</a><a href="
+                /Kakunin/docs/docker">Docker</a></div><div><h5>Support:</h5><div class="footer-row"><a href="https://github.com/TheSoftwareHouse/Kakunin">GitHub</a><a href="https://kakunin.io">Contact us</a></div></div></section><section class="copyright">Copyright © 2018 The Software House</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+                document.addEventListener('keyup', function(e) {
+                  if (e.target !== document.body) {
+                    return;
+                  }
+                  // keyCode for '/' (slash)
+                  if (e.keyCode === 191) {
+                    const search = document.getElementById('search_input_react');
+                    search && search.focus();
+                  }
+                });
+              </script><script>
+              var search = docsearch({
+                
+                apiKey: '3cda5a3d6672f433f13a4a2cda6d2186',
+                indexName: 'kakunin',
+                inputSelector: '#search_input_react',
+                algoliaOptions: {}
+              });
+            </script></body></html>

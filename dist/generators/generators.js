@@ -7,13 +7,13 @@ exports.create = undefined;
 
 var _generator = require('./generator');
 
-var generator = _interopRequireWildcard(_generator);
+var generators = _interopRequireWildcard(_generator);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 class Generators {
   constructor() {
-    this.availableGenerators = [generator.stringWithLengthGenerator];
+    this.availableGenerators = [generators.personalDataGenerator, generators.stringWithLengthGenerator];
   }
 
   generate(generatorName, ...params) {

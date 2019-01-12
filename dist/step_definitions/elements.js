@@ -4,13 +4,13 @@ var _cucumber = require('cucumber');
 
 var _matchers = require('../matchers');
 
-var _variableStore = require('../helpers/variable-store.helper');
+var _variableStore = require('../web/variable-store.helper');
 
 var _variableStore2 = _interopRequireDefault(_variableStore);
 
 var _comparators = require('../comparators');
 
-var _config = require('../helpers/config.helper');
+var _config = require('../core/config.helper');
 
 var _config2 = _interopRequireDefault(_config);
 
@@ -18,7 +18,7 @@ var _chalk = require('chalk');
 
 var _chalk2 = _interopRequireDefault(_chalk);
 
-var _waitForCondition = require('../helpers/wait-for-condition.helper');
+var _waitForCondition = require('../web/cucumber/wait-for-condition.helper');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -46,6 +46,18 @@ const handlePromises = (hashedData, onSuccess, onReject) => resolvedPromises => 
 };
 
 (0, _cucumber.defineSupportCode)(function ({ When, Then }) {
+  function checkNumberOfElements(numberExpression, element) {
+    const self = this;
+    const numberPattern = /\d+/g;
+    const numbers = numberExpression.match(numberPattern).map(item => parseInt(item));
+
+    const expectFunction = function (words, num) {
+      return expect(self.currentPage.getNumberOfElements(element)).to.eventually.be[words.pop()](...num);
+    };
+
+    return expectFunction(numberExpression.substr(0, numberExpression.indexOf(numbers[0]) - 1).split(' '), numbers);
+  }
+
   When(/^I wait for "([^"]*)" of the "([^"]*)" element$/, function (condition, elementName) {
     if (this.currentPage[elementName] instanceof protractor.ElementArrayFinder) {
       return (0, _waitForCondition.waitForCondition)(condition, timeout)(this.currentPage[elementName].first());
@@ -59,22 +71,39 @@ const handlePromises = (hashedData, onSuccess, onReject) => resolvedPromises => 
   });
 
   When(/^I click the "([^"]*)" element$/, function (elementName) {
-    return this.currentPage.scrollIntoElement(elementName).catch(() => Promise.resolve()).then(() => this.currentPage.waitForVisibilityOf(elementName)).then(() => this.currentPage.scrollIntoElement(elementName)).then(() => this.currentPage.click(elementName)).catch(error => {
-      return (0, _waitForCondition.waitForCondition)('elementToBeClickable', timeout)(this.currentPage[elementName]).then(() => this.currentPage.click(elementName));
-    }).catch(error => {
+    return this.currentPage.scrollIntoElement(elementName).catch(() => Promise.resolve()).then(() => this.currentPage.waitForVisibilityOf(elementName)).then(() => this.currentPage.scrollIntoElement(elementName)).then(() => this.currentPage.click(elementName)).catch(() => {
+      return (0, _waitForCondition.waitForCondition)('elementToBeClickable', timeout)(this.currentPage[elementName]).then(() => {
+        return this.currentPage.click(elementName);
+      });
+    }).catch(() => {
       console.warn('Warning! Element was not clickable. We need to scroll it down.');
       return browser.executeScript('window.scrollBy(0,50);').then(() => this.currentPage.waitForVisibilityOf(elementName)).then(() => this.currentPage.click(elementName));
-    }).catch(error => {
+    }).catch(() => {
+      console.warn('Warning! Element was not clickable. We need use the WebDriver method to perform the click action.');
+      return browser.actions().mouseMove(this.currentPage[elementName]).mouseMove({ x: 5, y: 0 }).click().perform();
+    }).catch(() => {
       return Promise.reject(`Error, after scrolling the element "${elementName}" is still not clickable.`);
     });
   });
 
   When(/^I store the "([^"]*)" element text as "([^"]*)" variable$/, function (elementName, variable) {
-    return this.currentPage.waitForVisibilityOf(elementName).then(() => {
-      return this.currentPage[elementName].getText().then(text => {
+    var _this = this;
+
+    return this.currentPage.waitForVisibilityOf(elementName).then(_asyncToGenerator(function* () {
+      const elementTag = yield _this.currentPage[elementName].getTagName(function (tag) {
+        return tag;
+      });
+
+      if (elementTag === 'input' || elementTag === 'textarea') {
+        return _this.currentPage[elementName].getAttribute('value').then(function (value) {
+          _variableStore2.default.storeVariable(variable, value);
+        });
+      }
+
+      return _this.currentPage[elementName].getText().then(function (text) {
         _variableStore2.default.storeVariable(variable, text);
       });
-    });
+    }));
   });
 
   When(/^I update the "([^"]*)" element text as "([^"]*)" variable$/, function (elementName, variable) {
@@ -113,7 +142,6 @@ const handlePromises = (hashedData, onSuccess, onReject) => resolvedPromises => 
       console.log('Waiting for element to disappear...');
 
       return self.currentPage.isPresent(element).then(isPresent => {
-
         if (!isPresent) {
           clearInterval(interval);
           sync();
@@ -125,7 +153,6 @@ const handlePromises = (hashedData, onSuccess, onReject) => resolvedPromises => 
         if (maxRepeats === 0) {
           clearInterval(interval);
           sync('Element is still visible');
-          return;
         }
       });
     }, 1500);
@@ -164,7 +191,6 @@ const handlePromises = (hashedData, onSuccess, onReject) => resolvedPromises => 
     const columns = data.raw().map(element => element[0]);
     const promises = [];
     return this.currentPage.waitForVisibilityOf(table).then(() => {
-
       return this.currentPage[table].each(function (element) {
         const rowPromises = [];
 
@@ -218,7 +244,6 @@ const handlePromises = (hashedData, onSuccess, onReject) => resolvedPromises => 
     }
 
     return this.currentPage.waitForVisibilityOf(elementName).then(() => {
-
       return checkNumberOfElements.call(this, numberExpression, elementName).then(function () {
         const promises = [];
 
@@ -237,7 +262,6 @@ const handlePromises = (hashedData, onSuccess, onReject) => resolvedPromises => 
     const pageElement = this.currentPage[elementName];
 
     return this.currentPage.waitForVisibilityOf(elementName).then(() => {
-
       return _matchers.matchers.match(pageElement, _variableStore2.default.replaceTextVariables(value)).then(function (matcherResult) {
         return expect(matcherResult).to.be.true;
       });
@@ -251,18 +275,6 @@ const handlePromises = (hashedData, onSuccess, onReject) => resolvedPromises => 
       return expect(matcherResult).to.not.be.true;
     }).catch(() => Promise.resolve());
   });
-
-  function checkNumberOfElements(numberExpression, element) {
-    const self = this;
-    const numberPattern = /\d+/g;
-    const numbers = numberExpression.match(numberPattern).map(item => parseInt(item));
-
-    const expectFunction = function (words, numbers) {
-      return expect(self.currentPage.getNumberOfElements(element)).to.eventually.be[words.pop()](...numbers);
-    };
-
-    return expectFunction(numberExpression.substr(0, numberExpression.indexOf(numbers[0]) - 1).split(' '), numbers);
-  }
 
   Then(/^there are "([^"]*)" "([^"]*)" elements$/, checkNumberOfElements);
 
@@ -290,7 +302,6 @@ const handlePromises = (hashedData, onSuccess, onReject) => resolvedPromises => 
 
     const promises = [];
     return this.currentPage.waitForVisibilityOf(elementName).then(() => {
-
       return allElements.each(function (element) {
         hashedData.forEach(function (hash) {
           promises.push(_matchers.matchers.match(element.element(self.currentPage[hash[0]].locator()), _variableStore2.default.replaceTextVariables(hash[1])).catch(() => false));
@@ -339,19 +350,21 @@ const handlePromises = (hashedData, onSuccess, onReject) => resolvedPromises => 
   When(/^I infinitely scroll to the "([^"]*)" element$/, function (elementName) {
     const self = this;
 
-    const scrollToLoader = () => self.currentPage.isPresent(elementName).then(isPresent => {
-      if (isPresent) {
-        return self.currentPage.scrollIntoElement(elementName);
-      }
+    const scrollToLoader = () => {
+      return self.currentPage.isPresent(elementName).then(isPresent => {
+        if (isPresent) {
+          return self.currentPage.scrollIntoElement(elementName);
+        }
 
-      return Promise.resolve();
-    }).then(() => self.currentPage.isPresent(elementName)).then(isPresent => {
-      if (isPresent) {
-        return browser.sleep(1000).then(() => scrollToLoader());
-      }
+        return Promise.resolve();
+      }).then(() => self.currentPage.isPresent(elementName)).then(isPresent => {
+        if (isPresent) {
+          return browser.sleep(1000).then(() => scrollToLoader());
+        }
 
-      return Promise.resolve();
-    });
+        return Promise.resolve();
+      });
+    };
 
     return scrollToLoader();
   });
@@ -363,7 +376,7 @@ const handlePromises = (hashedData, onSuccess, onReject) => resolvedPromises => 
   });
 
   When(/^I drag "([^"]*)" element and drop over "([^"]*)" element$/, (() => {
-    var _ref = _asyncToGenerator(function* (elementDrag, elementDrop) {
+    var _ref2 = _asyncToGenerator(function* (elementDrag, elementDrop) {
       const wait = function (timeToWait) {
         return browser.sleep(timeToWait);
       };
@@ -379,7 +392,7 @@ const handlePromises = (hashedData, onSuccess, onReject) => resolvedPromises => 
     });
 
     return function (_x, _x2) {
-      return _ref.apply(this, arguments);
+      return _ref2.apply(this, arguments);
     };
   })());
 });

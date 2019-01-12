@@ -3,17 +3,19 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.separator = exports.create = undefined;
+exports.create = exports.separator = undefined;
 
 var _matcher = require('./matcher');
 
-var matcher = _interopRequireWildcard(_matcher);
+var matchers = _interopRequireWildcard(_matcher);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
+const separator = exports.separator = ':';
+
 class Matchers {
   constructor() {
-    this.availableMatchers = [matcher.regexMatcher, matcher.clickableMatcher, matcher.invisibleMatcher, matcher.notClickableMatcher, matcher.presentMatcher, matcher.textMatcher, matcher.visibleMatcher, matcher.attributeMatcher, matcher.currentDateMatcher];
+    this.availableMatchers = [matchers.regexMatcher, matchers.clickableMatcher, matchers.invisibleMatcher, matchers.notClickableMatcher, matchers.presentMatcher, matchers.textMatcher, matchers.visibleMatcher, matchers.attributeMatcher, matchers.currentDateMatcher];
   }
 
   addMatcher(matcher) {
@@ -37,4 +39,3 @@ class Matchers {
 }
 
 const create = exports.create = () => new Matchers();
-const separator = exports.separator = ':';

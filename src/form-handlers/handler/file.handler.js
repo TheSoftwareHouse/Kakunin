@@ -1,20 +1,22 @@
 import path from 'path';
-import config from '../../helpers/config.helper';
+import config from '../../core/config.helper';
 
 class FileHandler {
   isSatisfiedBy(element) {
-    return element.getTagName()
-      .then(function (tagName) {
-        if (tagName === 'input') {
-          return element.getAttribute('type').then((inputType) => inputType === 'file');
-        }
+    return element.getTagName().then(function(tagName) {
+      if (tagName === 'input') {
+        return element.getAttribute('type').then(inputType => inputType === 'file');
+      }
 
-        if (tagName instanceof Array) {
-          return element.first().getAttribute('type').then((inputType) => inputType === 'file');
-        }
+      if (tagName instanceof Array) {
+        return element
+          .first()
+          .getAttribute('type')
+          .then(inputType => inputType === 'file');
+      }
 
-        return false;
-      });
+      return false;
+    });
   }
 
   handleFill(page, elementName, desiredValue) {
@@ -24,7 +26,7 @@ class FileHandler {
   }
 
   handleCheck(page, elementName, desiredValue) {
-    return page[elementName].getText().then(function (text) {
+    return page[elementName].getText().then(function(text) {
       if (text === desiredValue) {
         return Promise.resolve();
       }

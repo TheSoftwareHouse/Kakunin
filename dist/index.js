@@ -56,7 +56,7 @@ Object.defineProperty(exports, 'generators', {
   }
 });
 
-var _variableStore = require('./helpers/variable-store.helper');
+var _variableStore = require('./web/variable-store.helper');
 
 Object.defineProperty(exports, 'variableStore', {
   enumerable: true,
@@ -92,7 +92,7 @@ Object.defineProperty(exports, 'emailService', {
   }
 });
 
-var _waitForCondition = require('./helpers/wait-for-condition.helper');
+var _waitForCondition = require('./web/cucumber/wait-for-condition.helper');
 
 Object.defineProperty(exports, 'waitForVisibilityOf', {
   enumerable: true,

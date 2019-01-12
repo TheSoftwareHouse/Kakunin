@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 'use strict';
 
-var _initializer = require('./helpers/initializer');
+var _initializer = require('./core/cli/initializer');
 
 var _initializer2 = _interopRequireDefault(_initializer);
 
-var _cli = require('./helpers/cli.helper');
+var _cli = require('./core/cli/cli.helper');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -13,7 +13,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 const commandArgs = require('minimist')(process.argv.slice(2));
 const path = require('path');
-const child_process = require('child_process');
+const childProcess = require('child_process');
 const envfile = require('node-env-file');
 const os = require('os');
 
@@ -31,7 +31,7 @@ if ((0, _cli.isInitCommand)(process.argv)) {
 
   const protractorExecutable = os.platform() === 'win32' ? 'protractor.cmd' : 'protractor';
 
-  child_process.spawn(path.join('node_modules', '.bin', protractorExecutable), argv, {
+  childProcess.spawn(path.join('node_modules', '.bin', protractorExecutable), argv, {
     stdio: 'inherit',
     cwd: process.cwd()
   }).once('exit', code => {

@@ -18,10 +18,12 @@ class AttributeMatcher {
         return true;
       }
 
+      /* eslint-disable max-len */
       return Promise.reject(`
         Matcher "AttributeMatcher" could not match regex on element "${element.locator()}" on attribute "${attributeName}". 
         Expected to match: "${_regexBuilder.regexBuilder.buildRegex(`r:${regexName}`).toString()}", Given: "${value}"
       `);
+      /* eslint-enable max-len */
     });
   }
 }

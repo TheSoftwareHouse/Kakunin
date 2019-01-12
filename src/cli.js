@@ -1,10 +1,10 @@
 #!/usr/bin/env node
-import initializer from './helpers/initializer';
-import { isInitCommand, getConfigPath, createTagsCLIArgument, filterCLIArguments } from './helpers/cli.helper';
+import initializer from './core/cli/initializer';
+import { isInitCommand, getConfigPath, createTagsCLIArgument, filterCLIArguments } from './core/cli/cli.helper';
 
 const commandArgs = require('minimist')(process.argv.slice(2));
 const path = require('path');
-const child_process = require('child_process');
+const childProcess = require('child_process');
 const envfile = require('node-env-file');
 const os = require('os');
 
@@ -24,16 +24,18 @@ if (isInitCommand(process.argv)) {
     `--projectPath=${process.cwd()}`,
     '--disableChecks',
     ...createTagsCLIArgument(commandArgs),
-    ...filterCLIArguments(optionsToFilter)(commandArgs)
+    ...filterCLIArguments(optionsToFilter)(commandArgs),
   ];
 
   const protractorExecutable = os.platform() === 'win32' ? 'protractor.cmd' : 'protractor';
 
-  child_process.spawn(path.join('node_modules', '.bin', protractorExecutable), argv, {
-    stdio: 'inherit',
-    cwd: process.cwd()
-  }).once('exit', (code) => {
-    console.log('Protractor has finished');
-    process.exit(code);
-  });
+  childProcess
+    .spawn(path.join('node_modules', '.bin', protractorExecutable), argv, {
+      stdio: 'inherit',
+      cwd: process.cwd(),
+    })
+    .once('exit', code => {
+      console.log('Protractor has finished');
+      process.exit(code);
+    });
 }

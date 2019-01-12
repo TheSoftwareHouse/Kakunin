@@ -1,13 +1,13 @@
 import { defineSupportCode } from 'cucumber';
-import fileManager from '../helpers/file-manager.helper';
-import variableStore from '../helpers/variable-store.helper';
+import fileManager from '../web/fs/file-manager.helper';
+import variableStore from '../web/variable-store.helper';
 
-defineSupportCode(function ({ Then }) {
-  Then(/^the file "([^"]*)" should be downloaded$/, function (filename) {
+defineSupportCode(function({ Then }) {
+  Then(/^the file "([^"]*)" should be downloaded$/, function(filename) {
     return fileManager.wasDownloaded(variableStore.replaceTextVariables(filename));
   });
 
-  Then(/^the file "([^"]*)" contains table data stored under "([^"]*)" variable$/, function (filename, variableName) {
+  Then(/^the file "([^"]*)" contains table data stored under "([^"]*)" variable$/, function(filename, variableName) {
     const file = fileManager.parseXLS(variableStore.replaceTextVariables(filename));
     const storedData = variableStore.getVariableValue(variableName);
     const rows = file.filter((row, index) => row.length > 0 && index > 0);
@@ -67,6 +67,6 @@ defineSupportCode(function ({ Then }) {
           return Promise.reject('Arrays are different!');
         }
       }
-    })
-  })
+    });
+  });
 });

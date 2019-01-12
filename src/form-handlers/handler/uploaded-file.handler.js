@@ -3,12 +3,13 @@ class UploadedFileHandler {
     return Promise.resolve(elementName.endsWith('Uploaded'));
   }
 
+  // eslint-disable-next-line no-unused-vars
   handleFill(page, elementName, desiredValue) {
     throw new Error('Not supported for this field type');
   }
 
   handleCheck(page, elementName, desiredValue) {
-    return page[elementName].getText().then(function (text) {
+    return page[elementName].getText().then(function(text) {
       if (text.indexOf(desiredValue) >= 0) {
         return Promise.resolve();
       }

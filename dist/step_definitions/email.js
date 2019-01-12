@@ -10,7 +10,7 @@ var _filters = require('../emails/filters');
 
 var _matchers = require('../matchers');
 
-var _config = require('../helpers/config.helper');
+var _config = require('../core/config.helper');
 
 var _config2 = _interopRequireDefault(_config);
 
@@ -50,16 +50,17 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
   }
 
   function filterEmails(emails, data) {
+    let originalEmails = emails;
     const checks = data.raw().filter(elem => elem[0] !== 'file');
 
     for (let i = 0; i < checks.length; i++) {
       const checkType = checks[i][0];
       const checkValue = checks[i][1];
 
-      emails = _filters.filters.filter(emails, checkType, checkValue, this);
+      originalEmails = _filters.filters.filter(originalEmails, checkType, checkValue, this);
     }
 
-    return emails;
+    return originalEmails;
   }
 
   function getFilesExtensions(data) {
@@ -135,7 +136,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
     const interval = setInterval(() => {
       console.log('Checking mailbox for email...');
 
-      _emails.emailService.getEmails().then(emails => filterEmails.call(self, emails, data)).then(filteredEmails => rejectIfEmailFound(filteredEmails)).then(filteredEmails => rejectIfMaxRepeatsReached(filteredEmails, maxRepeats)).then(() => maxRepeats--).catch(err => err === 'No emails found and maximum repeats reached' ? stopInterval(interval, sync) : stopInterval(interval, sync.bind(null, err)));
+      _emails.emailService.getEmails().then(emails => filterEmails.call(self, emails, data)).then(filteredEmails => rejectIfEmailFound(filteredEmails)).then(filteredEmails => rejectIfMaxRepeatsReached(filteredEmails, maxRepeats)).then(() => maxRepeats--).catch(err => {
+        err === 'No emails found and maximum repeats reached' ? stopInterval(interval, sync) : stopInterval(interval, sync.bind(null, err));
+      });
     }, timeout);
   });
 });

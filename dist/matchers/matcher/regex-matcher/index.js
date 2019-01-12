@@ -21,7 +21,7 @@ class RegexMatcher {
   match(element, regexName) {
     return element.getText().then(text => {
       return element.getAttribute('value').then(value => {
-        const regex = _regexBuilder.regexBuilder.buildRegex(`r:${regexName}`);
+        const regularExpression = _regexBuilder.regexBuilder.buildRegex(`r:${regexName}`);
 
         if (text === '') {
           if (value === null) {
@@ -31,23 +31,23 @@ class RegexMatcher {
                 `);
           }
 
-          if (regex.test(value)) {
+          if (regularExpression.test(value)) {
             return true;
           }
 
           return Promise.reject(`
                 Matcher "RegexMatcher" could not match regex on element "${element.locator()}" on value "${value}". 
-                Expected to match: "${regex.toString()}", Given: "${value}"
+                Expected to match: "${regularExpression.toString()}", Given: "${value}"
               `);
         }
 
-        if (regex.test(text)) {
+        if (regularExpression.test(text)) {
           return true;
         }
 
         return Promise.reject(`
               Matcher "RegexMatcher" could not match regex on element "${element.locator()}" on text "${text}". 
-              Expected to match: "${regex.toString()}", Given: "${text}"
+              Expected to match: "${regularExpression.toString()}", Given: "${text}"
             `);
       });
     });

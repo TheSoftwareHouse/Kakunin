@@ -1,8 +1,8 @@
 export const NumberComparator = {
-  isSatisfiedBy: (values) => {
+  isSatisfiedBy: values => {
     for (let i = 0; i < values.length; i++) {
       const value = Number(values[i]);
-      if (isNaN(value)) {
+      if (Number.isNaN(value)) {
         return false;
       }
     }
@@ -14,7 +14,7 @@ export const NumberComparator = {
       const previousValue = Number(values[i - 1]);
       const currentValue = Number(values[i]);
 
-      if (isNaN(previousValue) || isNaN(currentValue)) {
+      if (Number.isNaN(previousValue) || Number.isNaN(currentValue)) {
         return Promise.reject(`${values[i - 1]} and ${values[i]} cannot be NaN after conversion to Number`);
       }
 
@@ -27,5 +27,5 @@ export const NumberComparator = {
       }
     }
     return Promise.resolve();
-  }
+  },
 };

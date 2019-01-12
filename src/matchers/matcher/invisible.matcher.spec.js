@@ -6,18 +6,16 @@ describe('Invisible matcher', () => {
   });
 
   it('is not satisfied when unsupported parameters are given', () => {
-    const incorrectParameters = [
-      { prefix: 'f', name: 'isVisible' },
-      { prefix: 't', name: 'isNotVisible' }
-    ];
-    incorrectParameters.forEach((parameter) => expect(invisibleMatcher
-      .isSatisfiedBy(parameter.prefix, parameter.name)).toEqual(false))
+    const incorrectParameters = [{ prefix: 'f', name: 'isVisible' }, { prefix: 't', name: 'isNotVisible' }];
+    incorrectParameters.forEach(parameter =>
+      expect(invisibleMatcher.isSatisfiedBy(parameter.prefix, parameter.name)).toEqual(false)
+    );
   });
 
-  it('returns rejected promise when the element is visible', (done) => {
+  it('returns rejected promise when the element is visible', done => {
     const mockedElement = {
       isDisplayed: () => Promise.resolve(true),
-      locator: () => 'some-locator'
+      locator: () => 'some-locator',
     };
 
     invisibleMatcher.match(mockedElement).catch(() => {
@@ -25,13 +23,13 @@ describe('Invisible matcher', () => {
     });
   });
 
-  it('returns true when the element is not visible', (done) => {
+  it('returns true when the element is not visible', done => {
     const mockedElement = {
       isDisplayed: () => Promise.reject(),
-      locator: () => 'some-locator'
+      locator: () => 'some-locator',
     };
 
-    invisibleMatcher.match(mockedElement).then((result) => {
+    invisibleMatcher.match(mockedElement).then(result => {
       expect(result).toEqual(true);
       done();
     });

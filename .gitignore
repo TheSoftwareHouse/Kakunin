@@ -21,3 +21,8 @@ docker-compose.override.yml
 !example/reports/.gitkeep
 !reports/.gitkeep
 .DS_Store
+functional-tests/package-lock.json
+
+website/yarn.lock
+website/node_modules
+website/i18n/*

@@ -8,6 +8,7 @@ class UploadedFileHandler {
     return Promise.resolve(elementName.endsWith('Uploaded'));
   }
 
+  // eslint-disable-next-line no-unused-vars
   handleFill(page, elementName, desiredValue) {
     throw new Error('Not supported for this field type');
   }

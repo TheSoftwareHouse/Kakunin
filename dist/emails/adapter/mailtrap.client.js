@@ -11,7 +11,7 @@ var _nodeFetch = require('node-fetch');
 
 var _nodeFetch2 = _interopRequireDefault(_nodeFetch);
 
-var _config = require('../../helpers/config.helper');
+var _config = require('../../core/config.helper');
 
 var _config2 = _interopRequireDefault(_config);
 
@@ -122,4 +122,6 @@ class MailTrapClient {
   }
 }
 
-const create = exports.create = (requestClient = _nodeFetch2.default, config = _config2.default.email) => new MailTrapClient(requestClient, config);
+const create = exports.create = (requestClient = _nodeFetch2.default, config = _config2.default.email) => {
+  return new MailTrapClient(requestClient, config);
+};

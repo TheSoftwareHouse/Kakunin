@@ -7,7 +7,7 @@ exports.textFieldFilter = undefined;
 
 var _matchers = require('../../matchers');
 
-var _variableStore = require('../../helpers/variable-store.helper');
+var _variableStore = require('../../web/variable-store.helper');
 
 var _variableStore2 = _interopRequireDefault(_variableStore);
 
@@ -18,6 +18,7 @@ class TextFieldFilter {
     return ['subject', 'from_email', 'from_name', 'to_email', 'to_name', 'html_body', 'text_body'].indexOf(type) !== -1;
   }
 
+  // eslint-disable-next-line no-unused-vars
   filter(emails, type, value, world) {
     return emails.filter(email => {
       if (value.startsWith('r:')) {

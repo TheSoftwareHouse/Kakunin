@@ -1,13 +1,8 @@
 import moment from 'moment';
 
-export const supportedFormats = [
-  'DD-MM-YYYY',
-  'DD-MM-YY',
-  'DD/MM/YYYY',
-  'DD/MM/YY'
-];
+export const supportedFormats = ['DD-MM-YYYY', 'DD-MM-YY', 'DD/MM/YYYY', 'DD/MM/YY'];
 
-const isValidDate = (date) => {
+const isValidDate = date => {
   for (let index = 0; index < supportedFormats.length; index++) {
     if (moment(date, supportedFormats[index]).isValid()) {
       return true;
@@ -18,8 +13,7 @@ const isValidDate = (date) => {
 };
 
 export const DateComparator = {
-
-  isSatisfiedBy: (values) => {
+  isSatisfiedBy: values => {
     for (let i = 0; i < values.length; i++) {
       const date = values[i];
       const found = isValidDate(date);
@@ -37,9 +31,9 @@ export const DateComparator = {
       const date = values[i];
       const foundPrevious = moment(
         datePrevious,
-        supportedFormats.find((format) => moment(datePrevious, format).isValid())
+        supportedFormats.find(format => moment(datePrevious, format).isValid())
       );
-      const found = moment(date, supportedFormats.find((format) => moment(date, format).isValid()));
+      const found = moment(date, supportedFormats.find(format => moment(date, format).isValid()));
 
       const previousTimestamp = foundPrevious.unix();
       const currentTimestamp = found.unix();
@@ -53,5 +47,5 @@ export const DateComparator = {
       }
     }
     return Promise.resolve();
-  }
+  },
 };

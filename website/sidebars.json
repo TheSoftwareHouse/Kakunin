@@ -1,0 +1,29 @@
+{
+  "docs": {
+    "Documentation": [
+      "quickstart",
+      "index",
+      "configuration",
+      "how-it-works"
+    ],
+    "Built in mechanisms":[
+      "matchers",
+      "transformers",
+      "extending"
+    ],
+    "Features": [
+      "cross-browser",
+      "parallel-testing",
+      "performance-testing",
+      "docker"
+    ],
+    "Steps": [
+      "steps-navigation",
+      "steps-forms",
+      "steps-elements",
+      "steps-files",
+      "steps-generators",
+      "steps-debug"
+    ]
+  }
+}
