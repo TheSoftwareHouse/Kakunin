@@ -3,7 +3,7 @@
   "localized-strings": {
     "next": "Next",
     "previous": "Previous",
-    "tagline": "E2E testing framework on steroids",
+    "tagline": "Are you looking for an automation testing tool? Here's Kakunin – an open-source framework for end-to-end, automated software testing.",
     "docs": {
       "configuration": {
         "title": "Configuration"
