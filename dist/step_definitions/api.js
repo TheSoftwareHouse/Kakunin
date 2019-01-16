@@ -6,7 +6,7 @@ var _config = require('../core/config.helper');
 
 var _config2 = _interopRequireDefault(_config);
 
-var _restApiService = require('../rest/restApiService.js');
+var _restApiService = require('../REST/rest-api-service.js');
 
 var _restApiService2 = _interopRequireDefault(_restApiService);
 

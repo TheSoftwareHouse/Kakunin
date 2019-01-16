@@ -1,5 +1,5 @@
 import fetch from 'node-fetch';
-import ApiResponse from '../rest/apiResponse.js';
+import ApiResponse from './api-response.js';
 
 class RestApiService {
   constructor(baseUrl) {
@@ -8,12 +8,13 @@ class RestApiService {
 
   fetch(method, endpoint) {
     return fetch(`${this.baseUrl}${endpoint}`, { method }).then(response => {
-      return response
-        .json()
-        .then(body => {
+      const contentType = response.headers.get('content-type');
+      if (contentType.startsWith('application/json')) {
+        return response.json().then(body => {
           return new ApiResponse(response.status, body);
-        })
-        .catch(error => console.log(error));
+        });
+      }
+      return new ApiResponse(response.status, {});
     });
   }
 }

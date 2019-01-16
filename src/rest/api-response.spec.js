@@ -1,4 +1,4 @@
-import ApiResponse from '../rest/apiResponse.js';
+import ApiResponse from './api-response.js';
 
 const response = new ApiResponse(200, { type: 'Fiat', model: '500', color: 'white' });
 
