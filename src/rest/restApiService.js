@@ -8,9 +8,12 @@ class RestApiService {
 
   fetch(method, endpoint) {
     return fetch(`${this.baseUrl}${endpoint}`, { method }).then(response => {
-      return response.json().then(body => {
-        return new ApiResponse(response.status, body);
-      });
+      return response
+        .json()
+        .then(body => {
+          return new ApiResponse(response.status, body);
+        })
+        .catch(error => console.log(error));
     });
   }
 }

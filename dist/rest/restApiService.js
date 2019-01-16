@@ -19,7 +19,7 @@ class RestApiService {
     return (0, _nodeFetch2.default)(`${this.baseUrl}${endpoint}`, { method }).then(response => {
       return response.json().then(body => {
         return new _apiResponse2.default(response.status, body);
-      });
+      }).catch(error => console.log(error));
     });
   }
 }
