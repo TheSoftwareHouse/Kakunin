@@ -1,4 +1,4 @@
-const _ = require('lodash');
+import _ from 'lodash';
 
 class ApiResponse {
   constructor(responseStatus, body) {
@@ -10,8 +10,7 @@ class ApiResponse {
     return this.status === status;
   }
 
-  hasMatch(body) {
-    console.log(this.body);
+  hasBodyMatch(body) {
     return _.isEqual(this.body, body);
   }
 }

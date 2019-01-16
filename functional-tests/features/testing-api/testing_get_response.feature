@@ -1,7 +1,7 @@
 Feature: Store table and compare jsons
     As a kakunin user
     I want to test restApi
-@wip
+
     Scenario: REST example test
     Given I send "GET" request on "/people/1/" endpoint
     Then the response code should be "200"

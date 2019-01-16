@@ -1,12 +1,12 @@
-const fetch = require('node-fetch');
-const ApiResponse = require('../rest/apiResponse.js');
+import fetch from 'node-fetch';
+import ApiResponse from '../rest/apiResponse.js';
 
 class RestApiService {
   constructor(baseUrl) {
     this.baseUrl = baseUrl;
   }
 
-  fetchFunction(method, endpoint) {
+  fetch(method, endpoint) {
     return fetch(`${this.baseUrl}${endpoint}`, { method }).then(response => {
       return response.json().then(body => {
         return new ApiResponse(response.status, body);

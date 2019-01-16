@@ -15,18 +15,18 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 const service = new _restApiService2.default(_config2.default.apiUrl);
 
 (0, _cucumber.defineSupportCode)(function ({ When, Then }) {
-  let responseResult;
+  let fetchResult;
 
-  When(/^When I send "([^"]*)" request on "([^"]*)" endpoint$/, function (method, endpoint) {
+  When(/^I send "([^"]*)" request on "([^"]*)" endpoint$/, function (method, endpoint) {
     // eslint-disable-next-line no-return-assign
-    return service.fetchFunction(method, endpoint).then(response => responseResult = response);
+    return service.fetch(method, endpoint).then(response => fetchResult = response);
   });
 
-  Then(/^The response code should be "([^"]*)"$/, function (status) {
-    return expect(responseResult.hasStatus(status)).to.be.true;
+  Then(/^the response code should be "([^"]*)"$/, function (status) {
+    return expect(fetchResult.hasStatus(parseInt(status))).to.be.true;
   });
 
-  Then(/^Then the response should exact match to body:$/, function (body) {
-    return expect(responseResult.hasMatch(body)).to.be.true;
+  Then(/^the response should exact match to body:$/, function (body) {
+    return expect(fetchResult.hasBodyMatch(JSON.parse(body))).to.be.true;
   });
 });

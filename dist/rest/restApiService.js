@@ -1,17 +1,24 @@
 'use strict';
 
-const fetch = require('node-fetch');
-const ApiResponse = require('../rest/apiResponse.js');
+var _nodeFetch = require('node-fetch');
+
+var _nodeFetch2 = _interopRequireDefault(_nodeFetch);
+
+var _apiResponse = require('../rest/apiResponse.js');
+
+var _apiResponse2 = _interopRequireDefault(_apiResponse);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 class RestApiService {
   constructor(baseUrl) {
     this.baseUrl = baseUrl;
   }
 
-  fetchFunction(method, endpoint) {
-    return fetch(`${this.baseUrl}${endpoint}`, { method }).then(response => {
+  fetch(method, endpoint) {
+    return (0, _nodeFetch2.default)(`${this.baseUrl}${endpoint}`, { method }).then(response => {
       return response.json().then(body => {
-        return new ApiResponse(response.status, body);
+        return new _apiResponse2.default(response.status, body);
       });
     });
   }

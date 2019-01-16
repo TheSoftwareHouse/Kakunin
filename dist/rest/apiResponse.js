@@ -1,6 +1,10 @@
 'use strict';
 
-const _ = require('lodash');
+var _lodash = require('lodash');
+
+var _lodash2 = _interopRequireDefault(_lodash);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 class ApiResponse {
   constructor(responseStatus, body) {
@@ -12,9 +16,8 @@ class ApiResponse {
     return this.status === status;
   }
 
-  hasMatch(body) {
-    console.log(this.body);
-    return _.isEqual(this.body, body);
+  hasBodyMatch(body) {
+    return _lodash2.default.isEqual(this.body, body);
   }
 }
 
