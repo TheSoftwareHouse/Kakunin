@@ -1,6 +1,6 @@
 import { defineSupportCode } from 'cucumber';
 import config from '../core/config.helper';
-import RestApiService from '../REST/rest-api-service.js';
+import RestApiService from '../rest/rest-api-service.js';
 
 const service = new RestApiService(config.apiUrl);
 
