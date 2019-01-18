@@ -49,6 +49,7 @@ module.exports = {
     "noGpu": false,
     "type": "otherWeb",
     "baseUrl": "http://localhost:8080",
+    "apiUrl": "https://swapi.co/api",
     "browserMob": {
       "serverPort": 8887,
       "port": 8888,
