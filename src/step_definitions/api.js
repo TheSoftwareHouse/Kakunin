@@ -14,7 +14,7 @@ defineSupportCode(function({ When, Then }) {
 
   When(/^I send "([^"]*)" request on "([^"]*)" endpoint with body:$/, function(method, endpoint, payload) {
     // eslint-disable-next-line no-return-assign
-    return service.fetch(method, endpoint, payload).then(response => (fetchResult = response));
+    return service.fetch(method, endpoint, JSON.parse(payload)).then(response => (fetchResult = response));
   });
 
   Then(/^the response code should be "([^"]*)"$/, function(status) {
@@ -26,6 +26,6 @@ defineSupportCode(function({ When, Then }) {
   });
 
   Then(/^the response should match JSON schema:$/, function(schema) {
-    return expect(fetchResult.hasMatchingSchema(schema));
+    return expect(fetchResult.hasMatchingSchema(JSON.parse(schema))).to.be.true;
   });
 });

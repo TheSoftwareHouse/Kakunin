@@ -32,7 +32,7 @@ class ApiResponse {
   hasMatchingSchema(schema) {
     const test = ajv.compile(schema);
     const isValid = test(this.body);
-    console.log(this.body);
+
     return isValid ? true : { obj: this.body, error: test.errors };
   }
 }

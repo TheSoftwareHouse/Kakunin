@@ -20,8 +20,8 @@ class RestApiService {
     return fetch(url, { method, body, headers: this.headers }).then(response => {
       const contentType = response.headers.get('content-type');
       if (contentType.startsWith('application/json')) {
-        return response.json().then(responseBody => {
-          return new ApiResponse(response.status, responseBody);
+        return response.json().then(requestBody => {
+          return new ApiResponse(response.status, requestBody, response.headers);
         });
       }
       return new ApiResponse(response.status, {});

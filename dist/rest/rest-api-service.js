@@ -29,8 +29,8 @@ class RestApiService {
     return (0, _nodeFetch2.default)(url, { method, body, headers: this.headers }).then(response => {
       const contentType = response.headers.get('content-type');
       if (contentType.startsWith('application/json')) {
-        return response.json().then(body => {
-          return new _apiResponse2.default(response.status, body);
+        return response.json().then(requestBody => {
+          return new _apiResponse2.default(response.status, requestBody, response.headers);
         });
       }
       return new _apiResponse2.default(response.status, {});
