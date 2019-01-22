@@ -13,7 +13,7 @@ class RestApiService {
     return `${this.baseUrl}${endpoint}`;
   }
 
-  fetch(method, endpoint, payload = false) {
+  fetch(method, endpoint, payload = undefined) {
     const url = this.resolveUrl(endpoint);
     const body = payload ? JSON.stringify(payload) : undefined;
 

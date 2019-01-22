@@ -36,6 +36,10 @@ const service = new _restApiService2.default(_config2.default.apiUrl);
   });
 
   Then(/^the response should match JSON schema:$/, function (schema) {
-    return expect(fetchResult.hasMatchingSchema(JSON.parse(schema))).to.be.true;
+    try {
+      fetchResult.hasMatchingSchema(JSON.parse(schema));
+    } catch (error) {
+      console.error(error);
+    }
   });
 });
