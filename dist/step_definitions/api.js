@@ -43,7 +43,7 @@ const service = new _restApiService2.default(_config2.default.apiUrl);
     try {
       fetchResult.hasMatchingSchema(JSON.parse(schema));
     } catch (error) {
-      console.error(error);
+      return Promise.reject(error);
     }
   });
 });

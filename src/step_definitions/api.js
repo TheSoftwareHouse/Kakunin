@@ -33,7 +33,7 @@ defineSupportCode(function({ When, Then }) {
     try {
       fetchResult.hasMatchingSchema(JSON.parse(schema));
     } catch (error) {
-      console.error(error);
+      return Promise.reject(error);
     }
   });
 });
