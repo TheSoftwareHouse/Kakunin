@@ -8,8 +8,17 @@ defineSupportCode(function({ When, Then }) {
   let fetchResult;
 
   When(/^I send "([^"]*)" request on "([^"]*)" endpoint$/, function(method, endpoint) {
-    // eslint-disable-next-line no-return-assign
-    return service.fetch(method, endpoint).then(response => (fetchResult = response));
+    return service.fetch(method, endpoint).then(response => {
+      fetchResult = response;
+      return response;
+    });
+  });
+
+  When(/^I send "([^"]*)" request on "([^"]*)" endpoint with body:$/, function(method, endpoint, payload) {
+    return service.fetch(method, endpoint, JSON.parse(payload)).then(response => {
+      fetchResult = response;
+      return response;
+    });
   });
 
   Then(/^the response code should be "([^"]*)"$/, function(status) {
@@ -18,5 +27,13 @@ defineSupportCode(function({ When, Then }) {
 
   Then(/^the response should exact match to body:$/, function(body) {
     return expect(fetchResult.hasBodyMatch(JSON.parse(body))).to.be.true;
+  });
+
+  Then(/^the response should match JSON schema:$/, function(schema) {
+    try {
+      fetchResult.hasMatchingSchema(JSON.parse(schema));
+    } catch (error) {
+      return Promise.reject(error);
+    }
   });
 });
