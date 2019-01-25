@@ -14,3 +14,11 @@ Feature: Navigation
             | title  | myPageTitle |
         Then there is element "pageId" with value "t:myPageId"
         And there is element "title" with value "t:myPageTitle"
+
+    Scenario: Navigate to parametrized url with additional params
+        Given I visit the "navigationPages" page with parameters:
+            | pageId           | myPageId    |
+            | title            | myPageTitle |
+            | additionalParam1 | value1      |
+            | additionalParam2 | value2      |
+        Then the "additionalParams" page is displayed
