@@ -30,8 +30,18 @@ class Page {
   visitWithParameters(data) {
     let url = this.url;
 
+    const additionalParams = [];
     for (const item of data.raw()) {
-      url = url.replace(`:${item[0]}`, item[1]);
+      if (url.indexOf(`:${item[0]}`) === -1) {
+        additionalParams.push(item);
+      } else {
+        url = url.replace(`:${item[0]}`, item[1]);
+      }
+    }
+
+    if (additionalParams.length > 0) {
+      const esc = encodeURIComponent;
+      url = url + '?' + additionalParams.map(item => esc(item[0]) + '=' + esc(item[1])).join('&');
     }
 
     if (_config2.default.type === 'otherWeb') {
