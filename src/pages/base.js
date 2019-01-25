@@ -14,27 +14,27 @@ class Page {
   }
 
   visitWithParameters(data) {
-    let url = this.url;
-
+    const esc = encodeURIComponent;
     const additionalParams = [];
-    for (const item of data.raw()) {
-      if (url.indexOf(`:${item[0]}`) === -1) {
-        additionalParams.push(item);
-      } else {
-        url = url.replace(`:${item[0]}`, item[1]);
-      }
-    }
 
-    if (additionalParams.length > 0) {
-      const esc = encodeURIComponent;
-      url = url + '?' + additionalParams.map(item => esc(item[0]) + '=' + esc(item[1])).join('&');
-    }
+    this.url =
+      data.reduce((url, item) => {
+        if (url.indexOf(`:${item[0]}`) === -1) {
+          additionalParams.push(item);
+          return url;
+        }
+        return url.replace(`:${item[0]}`, item[1]);
+      }, this.url) +
+      (additionalParams.length > 0)
+        ? '?' +
+          additionalParams
+            .map(item => {
+              return esc(item[0]) + '=' + esc(item[1]);
+            })
+            .join('&')
+        : '';
 
-    if (config.type === 'otherWeb') {
-      return protractor.browser.get(url);
-    }
-
-    return protractor.browser.get(url).then(() => protractor.browser.waitForAngular());
+    return this.visit();
   }
 
   async isOn() {

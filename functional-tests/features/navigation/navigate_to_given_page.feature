@@ -18,7 +18,7 @@ Feature: Navigation
     Scenario: Navigate to parametrized url with additional params
         Given I visit the "navigationPages" page with parameters:
             | pageId           | myPageId    |
-            | title            | myPageTitle |
             | additionalParam1 | value1      |
+            | title            | myPageTitle |
             | additionalParam2 | value2      |
         Then the "additionalParams" page is displayed
