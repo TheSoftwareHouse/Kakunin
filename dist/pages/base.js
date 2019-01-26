@@ -31,15 +31,15 @@ class Page {
     const esc = encodeURIComponent;
     const additionalParams = [];
 
-    this.url = data.reduce((url, item) => {
+    this.url = data.raw().reduce((url, item) => {
       if (url.indexOf(`:${item[0]}`) === -1) {
         additionalParams.push(item);
         return url;
       }
       return url.replace(`:${item[0]}`, item[1]);
-    }, this.url) + (additionalParams.length > 0) ? '?' + additionalParams.map(item => {
+    }, this.url) + (additionalParams.length > 0 ? '?' + additionalParams.map(item => {
       return esc(item[0]) + '=' + esc(item[1]);
-    }).join('&') : '';
+    }).join('&') : '');
 
     return this.visit();
   }

@@ -18,21 +18,21 @@ class Page {
     const additionalParams = [];
 
     this.url =
-      data.reduce((url, item) => {
+      data.raw().reduce((url, item) => {
         if (url.indexOf(`:${item[0]}`) === -1) {
           additionalParams.push(item);
           return url;
         }
         return url.replace(`:${item[0]}`, item[1]);
       }, this.url) +
-      (additionalParams.length > 0)
+      (additionalParams.length > 0
         ? '?' +
           additionalParams
             .map(item => {
               return esc(item[0]) + '=' + esc(item[1]);
             })
             .join('&')
-        : '';
+        : '');
 
     return this.visit();
   }
