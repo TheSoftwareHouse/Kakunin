@@ -31,17 +31,23 @@ class Page {
     const esc = encodeURIComponent;
     const additionalParams = [];
 
-    this.url = data.raw().reduce((url, item) => {
-      if (url.indexOf(`:${item[0]}`) === -1) {
+    const url = data.raw().reduce((prev, item) => {
+      if (prev.indexOf(`:${item[0]}`) === -1) {
         additionalParams.push(item);
-        return url;
+        return prev;
       }
-      return url.replace(`:${item[0]}`, item[1]);
+      return prev.replace(`:${item[0]}`, item[1]);
     }, this.url) + (additionalParams.length > 0 ? '?' + additionalParams.map(item => {
       return esc(item[0]) + '=' + esc(item[1]);
     }).join('&') : '');
 
-    return this.visit();
+    if (_config2.default.type === 'otherWeb' || !(0, _urlParser.isRelativePage)(url)) {
+      protractor.browser.ignoreSynchronization = true;
+
+      return protractor.browser.get(url);
+    }
+
+    return protractor.browser.get(url).then(() => protractor.browser.waitForAngular());
   }
 
   isOn() {
