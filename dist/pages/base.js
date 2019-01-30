@@ -12,6 +12,8 @@ var _waitForCondition = require('../web/cucumber/wait-for-condition.helper');
 
 var _urlParser = require('../web/url-parser.helper');
 
+var _querystring = require('querystring');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
@@ -28,7 +30,6 @@ class Page {
   }
 
   visitWithParameters(data) {
-    const esc = encodeURIComponent;
     const additionalParams = [];
 
     const url = data.raw().reduce((prev, item) => {
@@ -37,9 +38,7 @@ class Page {
         return prev;
       }
       return prev.replace(`:${item[0]}`, item[1]);
-    }, this.url) + (additionalParams.length > 0 ? '?' + additionalParams.map(item => {
-      return esc(item[0]) + '=' + esc(item[1]);
-    }).join('&') : '');
+    }, this.url) + (additionalParams.length > 0 ? '?' + (0, _querystring.stringify)(additionalParams) : '');
 
     if (_config2.default.type === 'otherWeb' || !(0, _urlParser.isRelativePage)(url)) {
       protractor.browser.ignoreSynchronization = true;

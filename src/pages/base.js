@@ -1,6 +1,7 @@
 import config from '../core/config.helper';
 import { waitForVisibilityOf, waitForInvisibilityOf } from '../web/cucumber/wait-for-condition.helper';
 import { isRelativePage, waitForUrlChangeTo } from '../web/url-parser.helper';
+import { stringify } from 'querystring';
 
 class Page {
   visit() {
@@ -14,7 +15,6 @@ class Page {
   }
 
   visitWithParameters(data) {
-    const esc = encodeURIComponent;
     const additionalParams = [];
 
     const url =
@@ -24,15 +24,7 @@ class Page {
           return prev;
         }
         return prev.replace(`:${item[0]}`, item[1]);
-      }, this.url) +
-      (additionalParams.length > 0
-        ? '?' +
-          additionalParams
-            .map(item => {
-              return esc(item[0]) + '=' + esc(item[1]);
-            })
-            .join('&')
-        : '');
+      }, this.url) + (additionalParams.length > 0 ? '?' + stringify(additionalParams) : '');
 
     if (config.type === 'otherWeb' || !isRelativePage(url)) {
       protractor.browser.ignoreSynchronization = true;
