@@ -3,7 +3,7 @@ import * as dictionaries from './dictionaries';
 import * as pages from './pages';
 
 export { matchers, regexBuilder } from './matchers';
-export { defineSupportCode } from 'cucumber';
+export { defineSupportCode, Given, When, Then, After, Before, AfterAll, BeforeAll } from 'cucumber';
 export { dictionaries } from './dictionaries';
 export { transformers } from './transformers';
 export { generators } from './generators';

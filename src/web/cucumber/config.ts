@@ -1,6 +1,4 @@
 import config from '../../core/config.helper';
-import { defineSupportCode } from 'cucumber';
+import { setDefaultTimeout } from 'cucumber';
 
-defineSupportCode(({ setDefaultTimeout }) => {
-  setDefaultTimeout(Number(config.timeout) * 1000);
-});
+setDefaultTimeout(Number(config.timeout) * 1000);

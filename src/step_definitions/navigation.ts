@@ -1,32 +1,30 @@
-import { defineSupportCode } from 'cucumber';
+import { Then, Given } from 'cucumber';
 
-defineSupportCode(({ Then, Given }) => {
-  Given(/^I visit the "([^"]*)" page$/, function(pageName) {
-    expect(browser.page[pageName]).toBeDefined();
+Given(/^I visit the "([^"]*)" page$/, function(pageName) {
+  expect(browser.page[pageName]).toBeDefined();
 
-    this.currentPage = browser.page[pageName];
+  this.currentPage = browser.page[pageName];
 
-    return this.currentPage.visit();
-  });
+  return this.currentPage.visit();
+});
 
-  Given(/^I visit the "([^"]*)" page with parameters:$/, function(pageName, data) {
-    expect(browser.page[pageName]).toBeDefined();
+Given(/^I visit the "([^"]*)" page with parameters:$/, function(pageName, data) {
+  expect(browser.page[pageName]).toBeDefined();
 
-    this.currentPage = browser.page[pageName];
+  this.currentPage = browser.page[pageName];
 
-    return this.currentPage.visitWithParameters(data);
-  });
+  return this.currentPage.visitWithParameters(data);
+});
 
-  Then(/^the "([^"]*)" page is displayed$/, function(pageName) {
-    const self = this;
+Then(/^the "([^"]*)" page is displayed$/, function(pageName) {
+  const self = this;
 
-    return browser.page[pageName].isOn().then(checkResult => {
-      if (typeof checkResult !== 'object') {
-        return Promise.reject('Check result must be an object!!!');
-      }
+  return browser.page[pageName].isOn().then(checkResult => {
+    if (typeof checkResult !== 'object') {
+      return Promise.reject('Check result must be an object!!!');
+    }
 
-      self.currentPage = browser.page[pageName];
-      self.urlParameters = checkResult.parameters;
-    });
+    self.currentPage = browser.page[pageName];
+    self.urlParameters = checkResult.parameters;
   });
 });

@@ -1,5 +1,5 @@
 import chalk from 'chalk';
-import { defineSupportCode } from 'cucumber';
+import { After, Before } from 'cucumber';
 import * as fs from 'fs';
 import * as path from 'path';
 import config from '../../core/config.helper';
@@ -59,71 +59,67 @@ const clearDownload = callback => {
   callback();
 };
 
-defineSupportCode(({ After, Before }) => {
-  After(function(scenario, callback) {
-    if (scenario.result.status !== 'passed') {
-      takeScreenshot(this).then(() => {
-        clearCookiesAndLocalStorage(callback);
-      });
-    } else {
+After(function(scenario, callback) {
+  if (scenario.result.status !== 'passed') {
+    takeScreenshot(this).then(() => {
       clearCookiesAndLocalStorage(callback);
-    }
-  });
+    });
+  } else {
+    clearCookiesAndLocalStorage(callback);
+  }
+});
 
-  Before(function(scenario, callback) {
-    this.currentUser = null;
+Before(function(scenario, callback) {
+  this.currentUser = null;
 
-    if (typeof this.userProvider === 'undefined') {
-      this.userProvider = userProvider;
-    }
+  if (typeof this.userProvider === 'undefined') {
+    this.userProvider = userProvider;
+  }
 
-    variableStore.clearVariables();
+  variableStore.clearVariables();
 
-    callback();
-  });
+  callback();
+});
 
-  Before('@downloadClearBefore', (scenario, callback) => {
-    clearDownload(callback);
-  });
+Before('@downloadClearBefore', (scenario, callback) => {
+  clearDownload(callback);
+});
 
-  After('@downloadClearAfter', (scenario, callback) => {
-    clearDownload(callback);
-  });
+After('@downloadClearAfter', (scenario, callback) => {
+  clearDownload(callback);
+});
 
-  Before('@reloadFixtures', (scenario, callback) => {
-    console.log(chalk.black.bgYellow('Reloading fixtures'));
+Before('@reloadFixtures', (scenario, callback) => {
+  console.log(chalk.black.bgYellow('Reloading fixtures'));
 
-    const timeStart = process.hrtime();
+  const timeStart = process.hrtime();
 
-    fixturesLoader
-      .reloadFixtures(parameters.getReloadFixturesEndpoint())
-      .then(response => {
-        if (response.status === 200) {
-          console.log(chalk.black.bgGreen('Fixtures reloaded'));
-        } else {
-          console.log(chalk.black.bgRed('There was a problem with fixtures reloading. The response is: '), response);
-        }
+  fixturesLoader
+    .reloadFixtures(parameters.getReloadFixturesEndpoint())
+    .then(response => {
+      if (response.status === 200) {
+        console.log(chalk.black.bgGreen('Fixtures reloaded'));
+      } else {
+        console.log(chalk.black.bgRed('There was a problem with fixtures reloading. The response is: '), response);
+      }
 
-        logRequestTime(timeStart);
+      logRequestTime(timeStart);
 
-        callback();
-      })
-      .catch(error => {
-        console.log(chalk.black.bgRed('An error occurred during fixtures reloading: '), error);
+      callback();
+    })
+    .catch(error => {
+      console.log(chalk.black.bgRed('An error occurred during fixtures reloading: '), error);
 
-        logRequestTime(timeStart);
+      logRequestTime(timeStart);
 
-        callback();
-      });
-  });
+      callback();
+    });
+});
 
-  After('@reloadUsers', function(scenario, callback) {
-    if (this.currentUser !== null) {
-      this.userProvider.lockUser(this.currentUser.account, this.currentUser.type);
-    }
+After('@reloadUsers', function(scenario, callback) {
+  if (this.currentUser !== null) {
+    this.userProvider.lockUser(this.currentUser.account, this.currentUser.type);
+  }
 
-    callback();
-  });
-
-  protractor.browser.ignoreSynchronization = config.type === 'otherWeb';
+  callback();
 });
