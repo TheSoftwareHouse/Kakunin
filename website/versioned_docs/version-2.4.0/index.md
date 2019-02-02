@@ -94,7 +94,7 @@ Created file at path /Users/example-user/projects/test/pages/page.js
 Created file at path /Users/example-user/projects/test/matchers/matcher.js
 Created file at path /Users/example-user/projects/test/generators/generator.js
 Created file at path /Users/example-user/projects/test/step_definitions/steps.js
-Created file at path /Users/example-user/projects/test/regexes/regex.js
+Created file at path /Users/example-user/projects/test/regexes/regex.ts
 Created file at path /Users/example-user/projects/test/hooks/hook.js
 ```
 
@@ -155,25 +155,22 @@ Paste this code into terminal and restart your IDE:
 For Linux/MacOs:
 
 ```bash
-ln -s ../node_modules/kakunin/dist/step_definitions/elements.js kakunin-elements.js
-ln -s ../node_modules/kakunin/dist/step_definitions/debug.js kakunin-debug.js
-ln -s ../node_modules/kakunin/dist/step_definitions/file.js kakunin-file.js
-ln -s ../node_modules/kakunin/dist/step_definitions/form.js kakunin-form.js
-ln -s ../node_modules/kakunin/dist/step_definitions/email.js kakunin-email.js
-ln -s ../node_modules/kakunin/dist/step_definitions/generators.js kakunin-generators.js
-ln -s ../node_modules/kakunin/dist/step_definitions/navigation.js kakunin-navigation.js 
+ln -s ../node_modules/kakunin/dist/step_definitions/elements.ts kakunin-elements.ts
+ln -s ../node_modules/kakunin/dist/step_definitions/debug.ts kakunin-debug.ts
+ln -s ../node_modules/kakunin/dist/step_definitions/file.ts kakunin-file.ts
+ln -s ../node_modules/kakunin/dist/step_definitions/form.ts kakunin-form.ts
+ln -s ../node_modules/kakunin/dist/step_definitions/email.ts kakunin-email.ts
+ln -s ../node_modules/kakunin/dist/step_definitions/generators.ts kakunin-generators.ts
+ln -s ../node_modules/kakunin/dist/step_definitions/navigation.ts kakunin-navigation.ts 
 ```
 
 For Windows 8+: (you have to do this as administrator)
 
 ```bash
-mklink kakunin-elements.js ..\node_modules\kakunin\dist\step_definitions\elements.js"
-mklink kakunin-debug.js ..\node_modules\kakunin\dist\step_definitions\debug.js"
-mklink kakunin-file.js ..\node_modules\kakunin\dist\step_definitions\file.js"
-mklink kakunin-form.js ..\node_modules\kakunin\dist\step_definitions\form.js"
-mklink kakunin-email.js ..\node_modules\kakunin\dist\step_definitions\email.js"
-mklink kakunin-generators.js ..\node_modules\kakunin\dist\step_definitions\generators.js"
-mklink kakunin-navigation.js ..\node_modules\kakunin\dist\step_definitions\navigation.js"
+mklink kakunin-elements.ts ..\node_modules\kakunin\dist\step_definitions\elements.ts"debug.ts"
+mklinkdebug.ts-file.ts ..\node_modules\kakunin\dist\step_defidebug.tsfile.ts"form.ts"
+mklink form.ts-email.ts ..\node_modules\kakunin\dist\step_defform.tss\email.ts"generators.ts"
+mgenerators.ts-navigation.ts ..\node_modules\kakunin\dist\stegenerators.ts\navigation.ts"
 ```
 
 Keep in mind that `mklink` is not available in older Windows distributions.

@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "commonjs",
+    "allowSyntheticDefaultImports": false,
+    "outDir": "dist",
+    "noUnusedLocals": true,
+    "noImplicitAny": false,
+    "removeComments": false
+  },
+  "exclude": [
+    "node_modules",
+    "**/*.spec.ts",
+    "dist/**"
+  ],
+  "include": [
+    "./src/kakunin.d.ts",
+    "./src/**/*.ts"
+  ]
+}

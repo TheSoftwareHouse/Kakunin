@@ -98,7 +98,7 @@ Created file at path /Users/example-user/projects/test/pages/page.js
 Created file at path /Users/example-user/projects/test/matchers/matcher.js
 Created file at path /Users/example-user/projects/test/generators/generator.js
 Created file at path /Users/example-user/projects/test/step_definitions/steps.js
-Created file at path /Users/example-user/projects/test/regexes/regex.js
+Created file at path /Users/example-user/projects/test/regexes/regex.ts
 Created file at path /Users/example-user/projects/test/hooks/hook.js
 </code></pre>
 <p>And you're set! Now you can run the tests using Kakunin:</p>
@@ -133,22 +133,22 @@ Due to non-resolved issue in Jetbrains editors (<a href="https://youtrack.jetbra
 </code></pre>
 <p>Paste this code into terminal and restart your IDE:</p>
 <p>For Linux/MacOs:</p>
-<pre><code class="hljs css language-bash">ln -s ../node_modules/kakunin/dist/step_definitions/elements.js kakunin-elements.js
-ln -s ../node_modules/kakunin/dist/step_definitions/debug.js kakunin-debug.js
-ln -s ../node_modules/kakunin/dist/step_definitions/file.js kakunin-file.js
-ln -s ../node_modules/kakunin/dist/step_definitions/form.js kakunin-form.js
-ln -s ../node_modules/kakunin/dist/step_definitions/email.js kakunin-email.js
-ln -s ../node_modules/kakunin/dist/step_definitions/generators.js kakunin-generators.js
-ln -s ../node_modules/kakunin/dist/step_definitions/navigation.js kakunin-navigation.js 
+<pre><code class="hljs css language-bash">ln -s ../node_modules/kakunin/dist/step_definitions/elements.ts kakunin-elements.ts
+ln -s ../node_modules/kakunin/dist/step_definitions/debug.ts kakunin-debug.ts
+ln -s ../node_modules/kakunin/dist/step_definitions/file.ts kakunin-file.ts
+ln -s ../node_modules/kakunin/dist/step_definitions/form.ts kakunin-form.ts
+ln -s ../node_modules/kakunin/dist/step_definitions/email.ts kakunin-email.ts
+ln -s ../node_modules/kakunin/dist/step_definitions/generators.ts kakunin-generators.ts
+ln -s ../node_modules/kakunin/dist/step_definitions/navigation.ts kakunin-navigation.ts
 </code></pre>
 <p>For Windows 8+: (you have to do this as administrator)</p>
-<pre><code class="hljs css language-bash">mklink kakunin-elements.js ..\node_modules\kakunin\dist\step_definitions\elements.js<span class="hljs-string">"
-mklink kakunin-debug.js ..\node_modules\kakunin\dist\step_definitions\debug.js"</span>
-mklink kakunin-file.js ..\node_modules\kakunin\dist\step_definitions\file.js<span class="hljs-string">"
-mklink kakunin-form.js ..\node_modules\kakunin\dist\step_definitions\form.js"</span>
-mklink kakunin-email.js ..\node_modules\kakunin\dist\step_definitions\email.js<span class="hljs-string">"
-mklink kakunin-generators.js ..\node_modules\kakunin\dist\step_definitions\generators.js"</span>
-mklink kakunin-navigation.js ..\node_modules\kakunin\dist\step_definitions\navigation.js<span class="hljs-string">"
+<pre><code class="hljs css language-bash">mklink kakunin-elements.ts ..\node_modules\kakunin\dist\step_definitions\elements.ts<span class="hljs-string">"
+mklink kakunin-debug.ts ..\node_modules\kakunin\dist\step_definitions\debug.ts"</span>
+mklink kakunin-file.ts ..\node_modules\kakunin\dist\step_definitions\file.ts<span class="hljs-string">"
+mklink kakunin-form.ts ..\node_modules\kakunin\dist\step_definitions\form.ts"</span>
+mklink kakunin-email.ts ..\node_modules\kakunin\dist\step_definitions\email.ts<span class="hljs-string">"
+mklink kakunin-generators.ts ..\node_modules\kakunin\dist\step_definitions\generators.ts"</span>
+mklink kakunin-navigation.ts ..\node_modules\kakunin\dist\step_definitions\navigation.ts<span class="hljs-string">"
 </span></code></pre>
 <p>Keep in mind that <code>mklink</code> is not available in older Windows distributions.</p>
 <p>This will create symlinks inside <code>step_definitions</code> directory and make <code>cucumberjs</code> plugin recognize kakunin built-in steps.</p>
@@ -172,7 +172,7 @@ mklink kakunin-navigation.js ..\node_modules\kakunin\dist\step_definitions\navig
                 });
               </script><script>
               var search = docsearch({
-                
+
                 apiKey: '3cda5a3d6672f433f13a4a2cda6d2186',
                 indexName: 'kakunin',
                 inputSelector: '#search_input_react',

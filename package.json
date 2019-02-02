@@ -41,42 +41,53 @@
   "bin": {
     "kakunin": "./dist/cli.js"
   },
+  "preferGlobal": true,
   "main": "./dist/index",
   "scripts": {
-    "units": "cross-env jest --setupFiles ./src/tests/init.js",
+    "units": "cross-env jest  --setupFiles ./src/tests/init.ts",
     "functional": "cd functional-tests && npm i && npm run test",
     "test": "npm run units && npm run functional",
     "test-ci": "npm run units && cd functional-tests && npm i && npm run test-ci",
-    "lint": "eslint \"src/**/*.js\" --ignore-pattern=\"*.spec.js\"",
-    "prettier": "npm run prettier --write",
-    "build": "babel src --out-dir dist --ignore 'tests','*.spec.js' && babel templates --out-dir dist/templates --copy-files"
+    "lint": "tslint -c tslint.json 'src/**/*.ts'",
+    "lint-fix": "tslint -c tslint.json 'src/**/*.ts' --fix",
+    "prettier": "prettier --write 'src/**/*.ts'",
+    "type-check": "tsc --noEmit",
+    "build": "tsc"
   },
   "engines": {
     "node": ">=7.7.3",
     "npm": ">=4.1.2"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-preset-env": "^1.7.0",
-    "babel-register": "^6.26.0",
-    "eslint": "^5.10.0",
-    "eslint-config-airbnb": "^17.1.0",
-    "eslint-plugin-import": "^2.14.0",
-    "eslint-plugin-jsx-a11y": "^6.1.2",
-    "eslint-plugin-react": "^7.11.1",
+    "@types/cucumber": "^4.0.4",
+    "@types/extend": "^3.0.0",
+    "@types/faker": "^4.1.5",
+    "@types/glob": "^7.1.1",
+    "@types/inquirer": "0.0.43",
+    "@types/jest": "^23.3.13",
+    "@types/lodash": "^4.14.120",
+    "@types/minimist": "^1.2.0",
+    "@types/mkdirp": "^0.5.2",
+    "@types/moment": "^2.13.0",
+    "@types/node": "^10.12.18",
+    "@types/node-fetch": "^2.1.4",
+    "@types/protractor": "^4.0.0",
+    "@types/shelljs": "^0.8.1",
     "fetch-mock": "^7.2.5",
     "husky": "^1.2.0",
     "jest": "^23.6.0",
     "lint-staged": "^8.1.0",
-    "prettier": "^1.15.3"
+    "prettier": "^1.15.3",
+    "ts-jest": "^23.10.5",
+    "tslint": "^5.9.1",
+    "tslint-config-prettier": "^1.10.0",
+    "tslint-sonarts": "^1.6.0",
+    "typescript": "^3.2.4"
   },
   "dependencies": {
     "ajv": "^6.7.0",
     "browsermob-proxy": "^1.0.9",
     "chai": "^4.2.0",
-    "chai-as-promised": "^7.1.1",
-    "chai-string": "^1.5.0",
     "chalk": "^2.4.1",
     "child_process": "^1.0.2",
     "cross-env": "^5.2.0",
@@ -103,8 +114,32 @@
     "sugar-date": "^2.0.6",
     "webdriver-manager": "^12.1.0"
   },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.ts",
+      "!src/**/index.ts",
+      "!src/**/*.d.ts"
+    ],
+    "transform": {
+      "^.+\\.(t|j)sx?$": "ts-jest"
+    },
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ],
+    "globals": {
+      "ts-jest": {
+        "tsConfigFile": "tsconfig.test.json"
+      }
+    }
+  },
   "lint-staged": {
-    "src/**/*.js": [
+    "src/**/*.ts": [
       "prettier --write",
       "npm run lint",
       "git add"

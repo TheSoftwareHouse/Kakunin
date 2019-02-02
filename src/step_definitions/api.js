@@ -16,8 +16,7 @@ defineSupportCode(function({ When, Then }) {
 
   When(/^I send "([^"]*)" request on "([^"]*)" endpoint with body:$/, function(method, endpoint, payload) {
     return service.fetch(method, endpoint, JSON.parse(payload)).then(response => {
-      fetchResult = response;
-      return response;
+      return fetchResult = response;
     });
   });
 
