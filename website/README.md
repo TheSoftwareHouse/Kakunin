@@ -134,7 +134,7 @@ Docusaurus support versifying, right know we started to using this feature from 
 # Building application
 
 1. To build application in `website/` folder run `yarn build` 
-2. After that in `website/dist/Kakunin` will be created application for latest version `2.4.0-1`
+2. After that in `website/build/Kakunin` will be created application for latest version `2.4.0-1`
 
 # Publishing
 

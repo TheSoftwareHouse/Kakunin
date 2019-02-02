@@ -1,6 +1,6 @@
 import { create as createDictionaries } from '../../dictionaries/dictionaries';
 import { createDictionaryTransformer } from './dictionary.transformer';
-const fakeDictionary = require('../../tests/dictionaries/fake-dictionary');
+import fakeDictionary = require('../../tests/dictionaries/fake-dictionary');
 
 const dictionaries = createDictionaries();
 

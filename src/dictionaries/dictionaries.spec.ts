@@ -1,5 +1,5 @@
 import { create } from './dictionaries';
-const fakeDictionary = require('../tests/dictionaries/fake-dictionary');
+import fakeDictionary = require('../tests/dictionaries/fake-dictionary');
 
 const dictionaries = create();
 
