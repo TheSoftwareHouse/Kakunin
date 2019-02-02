@@ -45,7 +45,7 @@
   "main": "./dist/index",
   "scripts": {
     "units": "cross-env jest  --setupFiles ./src/tests/init.ts",
-    "functional": "cd functional-tests && npm i && npm run test",
+    "functional": "npm run build && cd functional-tests && rm -rf package-lock.json && rm -rf node_modules && npm i && npm run test",
     "test": "npm run units && npm run functional",
     "test-ci": "npm run units && cd functional-tests && npm i && npm run test-ci",
     "lint": "tslint -c tslint.json 'src/**/*.ts'",
