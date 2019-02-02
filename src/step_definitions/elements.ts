@@ -1,5 +1,4 @@
 import * as chai from 'chai';
-import chalk from 'chalk';
 import { When, Then } from 'cucumber';
 import { comparators } from '../comparators';
 import config from '../core/config.helper';
@@ -156,26 +155,6 @@ When(/^I wait for the "([^"]*)" element to disappear$/, function(element, sync) 
       }
     });
   }, 1500);
-});
-
-Then(/^the "([^"]*)" element is present$/, async function(elementName) {
-  console.log(
-    chalk.red.bgBlack(
-      'DEPRECATED: the "([^"]*)" element is present , use I wait for "([^"]*)" of the "([^"]*)" element instead.'
-    )
-  );
-
-  return await expect(this.currentPage.isPresent(elementName)).resolves.toBe(true);
-});
-
-Then(/^the "([^"]*)" element is not present$/, async function(elementName) {
-  console.log(
-    chalk.red.bgBlack(
-      'DEPRECATED: the "([^"]*)" element is not present , use I wait for the "([^"]*)" element to disappear instead.'
-    )
-  );
-
-  return await expect(this.currentPage.isPresent(elementName)).resolves.toBe(false);
 });
 
 Then(/^the "([^"]*)" element is visible$/, function(elementName) {

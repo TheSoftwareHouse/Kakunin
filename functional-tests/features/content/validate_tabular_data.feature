@@ -16,7 +16,6 @@ Feature: Tabular data
         Given I visit the "main" page
         When I click the "tabularDataLink" element
         Then the "tabularData" page is displayed
-        And the "rows" element is present
         And the "rows" element is visible
         And there are "at least 4" following elements for element "rows":
             | indexLocator | r:validNumber   |
