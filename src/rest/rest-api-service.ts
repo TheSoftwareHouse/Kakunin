@@ -2,7 +2,8 @@ import fetch from 'node-fetch';
 import ApiResponse = require('./api-response');
 
 class RestApiService {
-  private baseUrl: string;
+  private readonly baseUrl: string;
+  private headers: { 'Content-Type': string };
 
   constructor(baseUrl) {
     this.baseUrl = baseUrl;
@@ -11,11 +12,11 @@ class RestApiService {
     };
   }
 
-  resolveUrl(endpoint) {
+  public resolveUrl(endpoint) {
     return `${this.baseUrl}${endpoint}`;
   }
 
-  fetch(method, endpoint, payload = undefined) {
+  public fetch(method, endpoint, payload?: string | object) {
     const url = this.resolveUrl(endpoint);
     const body = payload ? JSON.stringify(payload) : undefined;
 
@@ -23,7 +24,7 @@ class RestApiService {
       const contentType = response.headers.get('content-type');
       if (contentType.startsWith('application/json')) {
         return response.json().then(requestBody => {
-          return new ApiResponse(response.status, requestBody, response.headers);
+          return new ApiResponse(response.status, requestBody);
         });
       }
       return new ApiResponse(response.status, {});

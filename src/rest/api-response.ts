@@ -2,7 +2,6 @@ import * as _ from 'lodash';
 import * as Ajv from 'ajv';
 const ajv = new Ajv({ allErrors: true });
 
-
 class ApiResponse {
   private readonly status: string;
   private readonly body: any;
@@ -28,7 +27,7 @@ class ApiResponse {
     const isValid = test(this.body);
 
     if (isValid === false) {
-      throw 'Response doesnt match schema';
+      throw new Error('Response doesnt match schema');
     }
   }
 }
