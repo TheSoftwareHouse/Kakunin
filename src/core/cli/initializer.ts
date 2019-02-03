@@ -216,7 +216,7 @@ class Initializer {
       },
     };
 
-    this.createTemplateFile('/kakunin.conf.js', 'export = ' + JSON.stringify(conf, null, 4));
+    this.createTemplateFile('/kakunin.conf.js', 'module.exports = ' + JSON.stringify(conf, null, 4));
   }
 
   public async initEnv() {
