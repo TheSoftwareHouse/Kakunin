@@ -24,7 +24,7 @@ module.exports = {
   clearLocalStorageAfterScenario: true,
   email: null,
   headless: false,
-  noGpu: false,
+  noGpu: true,
   type: 'otherWeb',
   baseUrl: 'http://localhost:8080',
   apiUrl: 'https://jsonplaceholder.typicode.com/',

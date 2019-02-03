@@ -41,7 +41,6 @@
   "bin": {
     "kakunin": "./dist/cli.js"
   },
-  "preferGlobal": true,
   "main": "./dist/index",
   "scripts": {
     "units": "cross-env jest  --setupFiles ./src/tests/init.ts",
@@ -53,7 +52,7 @@
     "prettier": "prettier --write 'src/**/*.ts'",
     "type-check": "tsc --noEmit",
     "build": "tsc",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build && npm run test"
   },
   "engines": {
     "node": ">=7.7.3",
