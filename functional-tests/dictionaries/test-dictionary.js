@@ -5,7 +5,7 @@ class TestDictionary extends BaseDictionary {
   constructor() {
     super('test-dictionary', {
       'test-name': 'Janek',
-      'test-value': 'lux'
+      'test-value': 'lux',
     });
   }
 }

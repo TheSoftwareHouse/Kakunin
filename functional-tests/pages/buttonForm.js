@@ -9,7 +9,6 @@ class ButtonForm extends BasePage {
     this.url = '/form/disappear';
 
     this.disappearBtn = $('#button');
-
   }
 }
 

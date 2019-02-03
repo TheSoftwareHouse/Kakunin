@@ -6,14 +6,27 @@ Feature: Tabular data
         Given I visit the "main" page
         When I click the "tabularDataLink" element
         Then the "tabularData" page is displayed
+        And there are "at least 1" "rows" elements
+        And there are "above 3" "rows" elements
+        And there are "below 5" "rows" elements
+        And there are "within 3 5" "rows" elements
         And there are "equal 4" "rows" elements
 
     Scenario: Validate tabular data count and content, also check sorting
         Given I visit the "main" page
         When I click the "tabularDataLink" element
         Then the "tabularData" page is displayed
-        And the "rows" element is present
         And the "rows" element is visible
+        And there are "at least 4" following elements for element "rows":
+            | indexLocator | r:validNumber   |
+        And there are "above 3" following elements for element "rows":
+            | indexLocator | r:validNumber   |
+        And there are "equal 4" following elements for element "rows":
+            | indexLocator | r:validNumber   |
+        And there are "below 5" following elements for element "rows":
+            | indexLocator | r:validNumber   |
+        And there are "within 3-5" following elements for element "rows":
+            | indexLocator | r:validNumber   |
         And there are "equal 4" following elements for element "rows":
             | indexLocator | r:validNumber   |
             | idLocator    | t:MY_CUSTOM_ID_ |

@@ -161,18 +161,20 @@ ln -s ../node_modules/kakunin/dist/step_definitions/form.js kakunin-form.js
 ln -s ../node_modules/kakunin/dist/step_definitions/email.js kakunin-email.js
 ln -s ../node_modules/kakunin/dist/step_definitions/generators.js kakunin-generators.js
 ln -s ../node_modules/kakunin/dist/step_definitions/navigation.js kakunin-navigation.js 
+ln -s ../node_modules/kakunin/dist/step_definitions/performance.js kakunin-performance.js 
 ```
 
 For Windows 8+: (you have to do this as administrator)
 
 ```bash
-mklink kakunin-elements.js ..\node_modules\kakunin\dist\step_definitions\elements.js"
-mklink kakunin-debug.js ..\node_modules\kakunin\dist\step_definitions\debug.js"
-mklink kakunin-file.js ..\node_modules\kakunin\dist\step_definitions\file.js"
-mklink kakunin-form.js ..\node_modules\kakunin\dist\step_definitions\form.js"
-mklink kakunin-email.js ..\node_modules\kakunin\dist\step_definitions\email.js"
-mklink kakunin-generators.js ..\node_modules\kakunin\dist\step_definitions\generators.js"
-mklink kakunin-navigation.js ..\node_modules\kakunin\dist\step_definitions\navigation.js"
+mklink kakunin-elements.js ../node_modules/kakunin/dist/step_definitions/elements.js
+mklink kakunin-debug.js ../node_modules/kakunin/dist/step_definitions/debug.js 
+mklink kakunin-file.js ../node_modules/kakunin/dist/step_definitions/file.js 
+mklink kakunin-form.js ../node_modules/kakunin/dist/step_definitions/form.js 
+mklink kakunin-email.js ../node_modules/kakunin/dist/step_definitions/email.js
+mklink kakunin-generators.js ../node_modules/kakunin/dist/step_definitions/generators.js 
+mklink kakunin-navigation.js ../node_modules/kakunin/dist/step_definitions/navigation.js 
+mklink kakunin-performance.js ../node_modules/kakunin/dist/step_definitions/performance.js 
 ```
 
 Keep in mind that `mklink` is not available in older Windows distributions.

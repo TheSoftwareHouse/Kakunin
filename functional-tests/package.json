@@ -7,8 +7,8 @@
     "kakunin": "cross-env NODE_ENV=prod kakunin",
     "start": "pm2 update && pm2 start www",
     "stop": "pm2 delete www",
-    "test-ci": "npm run start && webdriver-manager update --gecko false && npm run kakunin -- --parallel 4 && npm run stop",
-    "test": "npm run start && webdriver-manager update && npm run kakunin && npm run stop"
+    "test-ci": "npm run start && npm run kakunin -- --parallel 4 && npm run stop",
+    "test": "npm run start && npm run kakunin && npm run stop"
   },
   "author": "",
   "dependencies": {
