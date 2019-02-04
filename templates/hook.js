@@ -1,7 +1,5 @@
-const { defineSupportCode } = require('kakunin');
+const { Before } = require('kakunin');
 
-defineSupportCode(({ Before }) => {
-  Before(function () {
-    console.log('If you can see this in console then hook is working properly.');
-  });
+Before(() => {
+  console.log('If you can see this in console then hook is working properly.');
 });
