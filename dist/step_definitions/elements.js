@@ -273,7 +273,85 @@ const handlePromises = (hashedData, onSuccess, onReject) => resolvedPromises => 
 
     return _matchers.matchers.match(pageElement, _variableStore2.default.replaceTextVariables(value)).then(function (matcherResult) {
       return expect(matcherResult).to.not.be.true;
-    }).catch(() => Promise.resolve());
+    }).catch(error => {
+      if (error.message === 'expected true to be false') {
+        return Promise.reject(error);
+      }
+      return Promise.resolve();
+    });
+  });
+
+  Then(/^there is element "([^"]*)" containing "([^"]*)" text$/, function (elementName, value) {
+    const pageElement = this.currentPage[elementName];
+
+    return this.currentPage.waitForVisibilityOf(elementName).then(() => {
+      return _matchers.matchers.match(pageElement, _variableStore2.default.replaceTextVariables(`t:${value}`)).then(function (matcherResult) {
+        return expect(matcherResult).to.be.true;
+      });
+    });
+  });
+
+  Then(/^there is no element "([^"]*)" containing "([^"]*)" text$/, function (elementName, value) {
+    const pageElement = this.currentPage[elementName];
+
+    return _matchers.matchers.match(pageElement, _variableStore2.default.replaceTextVariables(`t:${value}`)).then(function (matcherResult) {
+      return expect(matcherResult).to.be.false;
+    }).catch(error => {
+      if (error.message === 'expected true to be false') {
+        return Promise.reject(error);
+      }
+      return Promise.resolve();
+    });
+  });
+
+  Then(/^there is element "([^"]*)" matching "([^"]*)" matcher$/, function (elementName, matcher) {
+    const pageElement = this.currentPage[elementName];
+
+    return this.currentPage.waitForVisibilityOf(elementName).then(() => {
+      return _matchers.matchers.match(pageElement, _variableStore2.default.replaceTextVariables(`f:${matcher}`)).then(function (matcherResult) {
+        return expect(matcherResult).to.be.true;
+      });
+    });
+  });
+
+  Then(/^there is no element "([^"]*)" matching "([^"]*)" matcher$/, function (elementName, matcher) {
+    const pageElement = this.currentPage[elementName];
+
+    return this.currentPage.waitForVisibilityOf(elementName).then(() => {
+      return _matchers.matchers.match(pageElement, _variableStore2.default.replaceTextVariables(`f:${matcher}`)).then(function (matcherResult) {
+        return expect(matcherResult).to.be.false;
+      }).catch(error => {
+        if (error.message === 'expected true to be false') {
+          return Promise.reject(error);
+        }
+        return Promise.resolve();
+      });
+    });
+  });
+
+  Then(/^there is element "([^"]*)" with "([^"]*)" regex$/, function (elementName, matcher) {
+    const pageElement = this.currentPage[elementName];
+
+    return this.currentPage.waitForVisibilityOf(elementName).then(() => {
+      return _matchers.matchers.match(pageElement, _variableStore2.default.replaceTextVariables(`r:${matcher}`)).then(function (matcherResult) {
+        return expect(matcherResult).to.be.true;
+      });
+    });
+  });
+
+  Then(/^there is no element "([^"]*)" with "([^"]*)" regex$/, function (elementName, matcher) {
+    const pageElement = this.currentPage[elementName];
+
+    return this.currentPage.waitForVisibilityOf(elementName).then(() => {
+      return _matchers.matchers.match(pageElement, _variableStore2.default.replaceTextVariables(`r:${matcher}`)).then(function (matcherResult) {
+        return expect(matcherResult).to.be.false;
+      }).catch(error => {
+        if (error.message === 'expected true to be false') {
+          return Promise.reject(error);
+        }
+        return Promise.resolve();
+      });
+    });
   });
 
   Then(/^there are "([^"]*)" "([^"]*)" elements$/, checkNumberOfElements);
