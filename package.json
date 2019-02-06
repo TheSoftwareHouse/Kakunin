@@ -43,7 +43,7 @@
     "test": "npm run units && npm run functional",
     "test-ci": "npm run units && cd functional-tests && npm i && npm run test-ci",
     "lint": "eslint \"src/**/*.js\" --ignore-pattern=\"*.spec.js\"",
-    "prettier": "npm run prettier --write",
+    "prettier": "prettier --write",
     "build": "babel src --out-dir dist --ignore 'tests','*.spec.js' && babel templates --out-dir dist/templates --copy-files"
   },
   "engines": {
