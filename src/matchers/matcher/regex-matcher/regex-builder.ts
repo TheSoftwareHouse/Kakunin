@@ -1,7 +1,7 @@
 import regex from './regex';
 
 class RegexBuilder {
-  public buildRegex(regexTemplate) {
+  public buildRegex(regexTemplate: string): RegExp {
     for (const property in regex) {
       if (regex.hasOwnProperty(property) && regexTemplate === 'r:' + property) {
         return new RegExp(regex[property]);

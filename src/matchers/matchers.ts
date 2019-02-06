@@ -2,8 +2,8 @@ import * as matchers from './matcher';
 
 export const separator = ':';
 
-class Matchers {
-  private availableMatchers: any;
+class Matchers implements MatchersInterface {
+  private availableMatchers: MatcherInterface[];
 
   constructor() {
     this.availableMatchers = [

@@ -1,4 +1,4 @@
-class PresentMatcher {
+class PresentMatcher implements MatcherInterface {
   public isSatisfiedBy(prefix, name) {
     return prefix === 'f' && name === 'isPresent';
   }

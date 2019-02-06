@@ -1,4 +1,4 @@
-class InvisibleMatcher {
+class InvisibleMatcher implements MatcherInterface {
   public isSatisfiedBy(prefix, name) {
     return prefix === 'f' && name === 'isNotVisible';
   }

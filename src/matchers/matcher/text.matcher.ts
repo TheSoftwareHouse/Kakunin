@@ -1,6 +1,6 @@
 import { separator } from '../matchers';
 
-class TextMatcher {
+class TextMatcher implements MatcherInterface {
   public isSatisfiedBy(prefix) {
     return prefix === 't';
   }

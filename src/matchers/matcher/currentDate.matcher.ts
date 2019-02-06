@@ -1,6 +1,6 @@
 import * as moment from 'moment';
 
-class CurrentDateMatcher {
+class CurrentDateMatcher implements MatcherInterface {
   public isSatisfiedBy(prefix, name) {
     return prefix === 'f' && name === 'currentDate';
   }

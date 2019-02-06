@@ -2,7 +2,7 @@ import { attributeMatcher } from './attribute.matcher';
 
 describe('Attribute matcher', () => {
   it('is satisfied when the prefix and name are correct', () => {
-    expect(attributeMatcher.isSatisfiedBy('attribute', 'class:some-url-regex')).toEqual(true);
+    expect(attributeMatcher.isSatisfiedBy('attribute')).toEqual(true);
   });
 
   it('is not satisfied when the prefix and name are incorrect', () => {
@@ -12,9 +12,7 @@ describe('Attribute matcher', () => {
       { prefix: 'g', name: 'isVisible' },
     ];
 
-    incorrectParameters.forEach(parameters =>
-      expect(attributeMatcher.isSatisfiedBy(parameters.prefix, parameters.name)).toEqual(false)
-    );
+    incorrectParameters.forEach(parameters => expect(attributeMatcher.isSatisfiedBy(parameters.prefix)).toEqual(false));
   });
 
   it('returns true when the attribute is matched', done => {
