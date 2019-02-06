@@ -8,6 +8,7 @@ class MatchersPage extends BasePage {
 
     this.url = '/matchers';
 
+    this.dateMatcherText = $('p.date-matcher ');
     this.dateElement = $('span.current_date ');
   }
 }
