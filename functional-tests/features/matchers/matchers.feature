@@ -1,7 +1,7 @@
 Feature: Matchers
     As a Kakunin user
     I want to fill input and then check if the value matches the expected result
-
+@wip
 Scenario: Fill the input and check value
     Given I visit the "main" page
     When I click the "formLink" element

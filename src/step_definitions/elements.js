@@ -301,26 +301,15 @@ defineSupportCode(function({ When, Then }) {
 
     return matchers
       .match(pageElement, variableStore.replaceTextVariables(value))
-      .then(function(matcherResult) {
-        return expect(matcherResult).to.not.be.true;
-      })
-      .catch(error => {
-        if (error.message === 'expected true to be false') {
-          return Promise.reject(error);
-        }
-        return Promise.resolve();
-      });
+      .catch(() => Promise.resolve(false))
+      .then(result => (result ? Promise.reject() : Promise.resolve()));
   });
 
   Then(/^there is element "([^"]*)" containing "([^"]*)" text$/, function(elementName, value) {
     const pageElement = this.currentPage[elementName];
 
     return this.currentPage.waitForVisibilityOf(elementName).then(() => {
-      return matchers
-        .match(pageElement, variableStore.replaceTextVariables(`t:${value}`))
-        .then(function(matcherResult) {
-          return expect(matcherResult).to.be.true;
-        });
+      return matchers.match(pageElement, variableStore.replaceTextVariables(`t:${value}`));
     });
   });
 
@@ -329,15 +318,8 @@ defineSupportCode(function({ When, Then }) {
 
     return matchers
       .match(pageElement, variableStore.replaceTextVariables(`t:${value}`))
-      .then(function(matcherResult) {
-        return expect(matcherResult).to.be.false;
-      })
-      .catch(error => {
-        if (error.message === 'expected true to be false') {
-          return Promise.reject(error);
-        }
-        return Promise.resolve();
-      });
+      .catch(() => Promise.resolve(false))
+      .then(result => (result ? Promise.reject() : Promise.resolve()));
   });
 
   Then(/^there is element "([^"]*)" matching "([^"]*)" matcher$/, function(elementName, matcher) {
@@ -358,15 +340,8 @@ defineSupportCode(function({ When, Then }) {
     return this.currentPage.waitForVisibilityOf(elementName).then(() => {
       return matchers
         .match(pageElement, variableStore.replaceTextVariables(`f:${matcher}`))
-        .then(function(matcherResult) {
-          return expect(matcherResult).to.be.false;
-        })
-        .catch(error => {
-          if (error.message === 'expected true to be false') {
-            return Promise.reject(error);
-          }
-          return Promise.resolve();
-        });
+        .catch(() => Promise.resolve(false))
+        .then(result => (result ? Promise.reject() : Promise.resolve()));
     });
   });
 
@@ -388,15 +363,8 @@ defineSupportCode(function({ When, Then }) {
     return this.currentPage.waitForVisibilityOf(elementName).then(() => {
       return matchers
         .match(pageElement, variableStore.replaceTextVariables(`r:${matcher}`))
-        .then(function(matcherResult) {
-          return expect(matcherResult).to.be.false;
-        })
-        .catch(error => {
-          if (error.message === 'expected true to be false') {
-            return Promise.reject(error);
-          }
-          return Promise.resolve();
-        });
+        .catch(() => Promise.resolve(false))
+        .then(result => (result ? Promise.reject() : Promise.resolve()));
     });
   });
 
