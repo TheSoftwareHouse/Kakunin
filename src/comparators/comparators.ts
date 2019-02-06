@@ -1,11 +1,9 @@
 import * as comparators from './comparator';
 
 class Comparators {
-  private availableComparators: Comparator[];
-
-  constructor() {
-    this.availableComparators = [comparators.DateComparator, comparators.NumberComparator];
-  }
+  constructor(
+    private availableComparators: Comparator[] = [comparators.DateComparator, comparators.NumberComparator]
+  ) {}
 
   public compare(values: any[], order: string): Promise<string | void> {
     const comparator = this.findComparator(values);
