@@ -106,6 +106,9 @@
       },
       "version-2.4.0-transformers": {
         "title": "Transformers"
+      },
+      "version-2.5.0-steps-elements": {
+        "title": "Elements"
       }
     },
     "links": {

@@ -201,9 +201,53 @@ Allows to check if `:elementName` has a value that matches the `:matcher`.
 
 ---
 
+## `there is element ":elementName" containing ":matcher" text`
+
+Allows to check if `:elementName` contains a text that matches the `:matcher`.
+
+---
+
+## `there is element ":elementName" matching ":matcher" matcher`
+
+Allows to check if `:elementName` matches the given type of `:matcher`. For example:
+
+```gherkin
+there is element "button" matching "isClickable" matcher
+```
+
+---
+
+## `there is element ":elementName" with regex ":matcher"`
+
+Allows to check if `:elementName` matches given type of regex. For example:
+
+```gherkin
+there is element "input" with regex "notEmpty"
+```
+
+---
+
 ## `there is no element ":elementName" with value ":matcherName"`
 
 Allows to check if there is no `:elementName` that matches the `:matcher`.
+
+---
+
+## `there is no element ":elementName" containing ":matcher" text`
+
+Allows to check if `:elementName` doesn't contain a text that matches the `:matcher`.
+
+---
+
+## `there is no element ":elementName" matching ":matcher" matcher`
+
+Allows to check if `:elementName` is not matching the given type of `:matcher`.
+
+---
+
+## `there is no element ":elementName" with regex ":matcher"`
+
+Allows to check if `:elementName` is not matching given type of regex.
 
 ---
 

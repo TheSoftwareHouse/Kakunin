@@ -121,7 +121,7 @@ Id should be in lowercase - it is used in `website/sidebars.json`.
 
 # Versifying
 
-Docusaurus support versifying, right know we started to using this feature from  `2.4.0` Kakunin version.
+Docusaurus support versifying, right now we started to using this feature from  `2.4.0` Kakunin version.
 
 1. To add new version of documentation open `website/` folder
 2. Run `yarn run version [version]` example `yarn run version 2.4.0-1`

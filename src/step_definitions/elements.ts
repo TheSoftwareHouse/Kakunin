@@ -277,8 +277,67 @@ Then(/^there is no element "([^"]*)" with value "([^"]*)"$/, function(elementNam
 
   return matchers
     .match(pageElement, variableStore.replaceTextVariables(value))
-    .then(matcherResult => expect(matcherResult).not.toBe(true))
-    .catch(() => Promise.resolve());
+    .catch(() => Promise.resolve(false))
+    .then(result => (result ? Promise.reject() : Promise.resolve()));
+});
+
+Then(/^there is element "([^"]*)" containing "([^"]*)" text$/, function(elementName, value) {
+  const pageElement = this.currentPage[elementName];
+
+  return this.currentPage.waitForVisibilityOf(elementName).then(() => {
+    return matchers.match(pageElement, variableStore.replaceTextVariables(`t:${value}`));
+  });
+});
+
+Then(/^there is no element "([^"]*)" containing "([^"]*)" text$/, function(elementName, value) {
+  const pageElement = this.currentPage[elementName];
+
+  return matchers
+    .match(pageElement, variableStore.replaceTextVariables(`t:${value}`))
+    .catch(() => Promise.resolve(false))
+    .then(result => (result ? Promise.reject() : Promise.resolve()));
+});
+
+Then(/^there is element "([^"]*)" matching "([^"]*)" matcher$/, function(elementName, matcher) {
+  const pageElement = this.currentPage[elementName];
+
+  return this.currentPage.waitForVisibilityOf(elementName).then(() => {
+    return matchers
+      .match(pageElement, variableStore.replaceTextVariables(`f:${matcher}`))
+      .then(matcherResult => expect(matcherResult).toBe(true));
+  });
+});
+
+Then(/^there is no element "([^"]*)" matching "([^"]*)" matcher$/, function(elementName, matcher) {
+  const pageElement = this.currentPage[elementName];
+
+  return this.currentPage.waitForVisibilityOf(elementName).then(() => {
+    return matchers
+      .match(pageElement, variableStore.replaceTextVariables(`f:${matcher}`))
+      .catch(() => Promise.resolve(false))
+      .then(result => (result ? Promise.reject() : Promise.resolve()));
+  });
+});
+
+Then(/^there is element "([^"]*)" with "([^"]*)" regex$/, function(elementName, matcher) {
+  const pageElement = this.currentPage[elementName];
+
+  return this.currentPage.waitForVisibilityOf(elementName).then(() => {
+    return matchers
+      .match(pageElement, variableStore.replaceTextVariables(`r:${matcher}`))
+      .then(matcherResult => expect(matcherResult).toBe(true));
+  });
+});
+
+Then(/^there is no element "([^"]*)" with "([^"]*)" regex$/, function(elementName, matcher) {
+  const pageElement = this.currentPage[elementName];
+
+  return this.currentPage.waitForVisibilityOf(elementName).then(() => {
+    return matchers
+      .match(pageElement, variableStore.replaceTextVariables(`r:${matcher}`))
+      .catch(() => Promise.resolve(false))
+      .then(result => (result ? Promise.reject() : Promise.resolve()));
+  });
 });
 
 Then(/^there are "([^"]*)" "([^"]*)" elements$/, checkNumberOfElements);
