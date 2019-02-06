@@ -1,6 +1,6 @@
 import { regexBuilder } from './regex-matcher/regex-builder';
 
-class AttributeMatcher implements MatcherInterface {
+class AttributeMatcher implements Matcher {
   public isSatisfiedBy(prefix) {
     return prefix === 'attribute';
   }

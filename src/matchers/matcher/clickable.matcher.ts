@@ -1,4 +1,4 @@
-class ClickableMatcher implements MatcherInterface {
+class ClickableMatcher implements Matcher {
   public isSatisfiedBy(prefix, name) {
     return prefix === 'f' && name === 'isClickable';
   }

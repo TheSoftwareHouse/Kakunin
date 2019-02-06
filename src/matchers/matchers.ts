@@ -2,11 +2,9 @@ import * as matchers from './matcher';
 
 export const separator = ':';
 
-class Matchers implements MatchersInterface {
-  private availableMatchers: MatcherInterface[];
-
-  constructor() {
-    this.availableMatchers = [
+class Matchers {
+  constructor(
+    private availableMatchers: Matcher[] = [
       matchers.regexMatcher,
       matchers.clickableMatcher,
       matchers.invisibleMatcher,
@@ -16,16 +14,16 @@ class Matchers implements MatchersInterface {
       matchers.visibleMatcher,
       matchers.attributeMatcher,
       matchers.currentDateMatcher,
-    ];
-  }
+    ]
+  ) {}
 
-  public addMatcher(matcher) {
+  public addMatcher(matcher: Matcher): void {
     this.availableMatchers.push(matcher);
   }
 
-  public match(element, matcherName) {
+  public match(element: object, matcherName: string): Promise<string | boolean> {
     const splittedValue = matcherName.split(separator);
-    const matcher = this.findMatcher(splittedValue[0], splittedValue.slice(1));
+    const matcher = this.findMatcher(splittedValue[0], splittedValue[1]);
 
     if (matcher === undefined) {
       throw new Error(`Could not find matcher for ${matcherName}.`);
@@ -34,8 +32,8 @@ class Matchers implements MatchersInterface {
     return matcher.match(element, ...splittedValue.slice(1));
   }
 
-  public findMatcher(prefix, params) {
-    return this.availableMatchers.find(matcher => matcher.isSatisfiedBy(prefix, ...params));
+  public findMatcher(prefix: string, param: string): Matcher {
+    return this.availableMatchers.find(matcher => matcher.isSatisfiedBy(prefix, param));
   }
 }
 
