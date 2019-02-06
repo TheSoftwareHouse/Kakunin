@@ -1,10 +1,10 @@
-class UploadedFileHandler {
+class UploadedFileHandler implements FormHandler {
   public isSatisfiedBy(element, elementName) {
     return Promise.resolve(elementName.endsWith('Uploaded'));
   }
 
   public handleFill(page, elementName, desiredValue) {
-    throw new Error('Not supported for this field type');
+    return Promise.reject('Not supported for this field type');
   }
 
   public handleCheck(page, elementName, desiredValue) {

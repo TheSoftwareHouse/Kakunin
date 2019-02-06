@@ -1,4 +1,4 @@
-class RadioHandler {
+class RadioHandler implements FormHandler {
   public isSatisfiedBy(element) {
     return element.getTagName().then(tagName => {
       if (tagName === 'input') {
