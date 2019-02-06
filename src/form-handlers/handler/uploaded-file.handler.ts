@@ -1,4 +1,4 @@
-class UploadedFileHandler implements HandlerInterface {
+class UploadedFileHandler implements FormHandler {
   public isSatisfiedBy(element, elementName) {
     return Promise.resolve(elementName.endsWith('Uploaded'));
   }

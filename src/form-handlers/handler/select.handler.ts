@@ -1,4 +1,4 @@
-class SelectHandler implements HandlerInterface {
+class SelectHandler implements FormHandler {
   private optionsSelector: object;
 
   constructor() {

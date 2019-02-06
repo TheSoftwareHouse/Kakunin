@@ -1,4 +1,4 @@
-class CustomAngularSelectHandler implements HandlerInterface {
+class CustomAngularSelectHandler implements FormHandler {
   private selectedOptionSelector: object;
   private optionsSelector: object;
 

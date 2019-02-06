@@ -1,7 +1,7 @@
 import * as formHandler from './handler';
 
-class FormHandler implements HandlersInterface {
-  private availableHandlers: HandlerInterface[];
+class FormHandlers {
+  private availableHandlers: FormHandler[];
 
   constructor() {
     this.availableHandlers = [
@@ -16,11 +16,11 @@ class FormHandler implements HandlersInterface {
     ];
   }
 
-  public addHandler(handler) {
+  public addHandler(handler: FormHandler): void {
     this.availableHandlers.push(handler);
   }
 
-  public async handleFill(page, elementName, desiredValue) {
+  public async handleFill(page: object, elementName: string, desiredValue: string): Promise<string | void> {
     const handlers = this.getHandlers();
 
     for (const handler of handlers) {
@@ -34,7 +34,7 @@ class FormHandler implements HandlersInterface {
     return Promise.reject('Could not find matching handler.');
   }
 
-  public async handleCheck(page, elementName, desiredValue) {
+  public async handleCheck(page: object, elementName: string, desiredValue: string): Promise<string | void> {
     const handlers = this.getHandlers();
 
     for (const handler of handlers) {
@@ -48,9 +48,9 @@ class FormHandler implements HandlersInterface {
     return Promise.reject('Could not find matching handler.');
   }
 
-  public getHandlers() {
+  public getHandlers(): FormHandler[] {
     return this.availableHandlers.sort((handler, otherHandler) => handler.getPriority() - otherHandler.getPriority());
   }
 }
 
-export default new FormHandler();
+export default new FormHandlers();

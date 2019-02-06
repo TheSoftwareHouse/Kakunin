@@ -1,4 +1,4 @@
-class DefaultHandler implements HandlerInterface {
+class DefaultHandler implements FormHandler {
   public isSatisfiedBy() {
     return Promise.resolve(true);
   }

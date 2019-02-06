@@ -1,7 +1,7 @@
 import * as path from 'path';
 import config from '../../core/config.helper';
 
-class FileHandler implements HandlerInterface {
+class FileHandler implements FormHandler {
   public isSatisfiedBy(element) {
     return element.getTagName().then(tagName => {
       if (tagName === 'input') {
