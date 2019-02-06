@@ -12,7 +12,7 @@ const isValidDate = date => {
   return false;
 };
 
-export const DateComparator: ComparatorInterface = {
+export const DateComparator: Comparator = {
   isSatisfiedBy: values => {
     for (const date of values) {
       const found = isValidDate(date);
