@@ -1,4 +1,4 @@
-class CKEditorHandler {
+class CKEditorHandler implements HandlerInterface {
   public isSatisfiedBy(element, elementName) {
     return Promise.resolve(elementName.endsWith('CKEditor'));
   }

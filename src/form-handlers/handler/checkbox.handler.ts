@@ -1,4 +1,4 @@
-class CheckboxHandler {
+class CheckboxHandler implements HandlerInterface {
   public isSatisfiedBy(element) {
     return element.getTagName().then(tagName => {
       if (tagName === 'input') {

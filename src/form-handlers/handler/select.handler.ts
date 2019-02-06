@@ -1,5 +1,5 @@
-class SelectHandler {
-  private optionsSelector: any;
+class SelectHandler implements HandlerInterface {
+  private optionsSelector: object;
 
   constructor() {
     this.optionsSelector = by.css('option');

@@ -1,6 +1,6 @@
-class CustomAngularSelectHandler {
-  private selectedOptionSelector: any;
-  private optionsSelector: any;
+class CustomAngularSelectHandler implements HandlerInterface {
+  private selectedOptionSelector: object;
+  private optionsSelector: object;
 
   constructor() {
     this.optionsSelector = by.css('ul.ui-select-choices li a.ui-select-choices-row-inner');

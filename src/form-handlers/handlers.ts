@@ -1,22 +1,26 @@
 import * as formHandler from './handler';
 
-const availableHandlers = [
-  formHandler.checkboxHandler,
-  formHandler.ckEditorHandler,
-  formHandler.customAngularSelectHandler,
-  formHandler.defaultHandler,
-  formHandler.fileHandler,
-  formHandler.radioHandler,
-  formHandler.selectHandler,
-  formHandler.uploadedFileHandler,
-];
+class FormHandler implements HandlersInterface {
+  private availableHandlers: HandlerInterface[];
 
-const FormHandler = {
-  addHandler(handler) {
-    availableHandlers.push(handler);
-  },
+  constructor() {
+    this.availableHandlers = [
+      formHandler.checkboxHandler,
+      formHandler.ckEditorHandler,
+      formHandler.customAngularSelectHandler,
+      formHandler.defaultHandler,
+      formHandler.fileHandler,
+      formHandler.radioHandler,
+      formHandler.selectHandler,
+      formHandler.uploadedFileHandler,
+    ];
+  }
 
-  async handleFill(page, elementName, desiredValue) {
+  public addHandler(handler) {
+    this.availableHandlers.push(handler);
+  }
+
+  public async handleFill(page, elementName, desiredValue) {
     const handlers = this.getHandlers();
 
     for (const handler of handlers) {
@@ -28,9 +32,9 @@ const FormHandler = {
     }
 
     return Promise.reject('Could not find matching handler.');
-  },
+  }
 
-  async handleCheck(page, elementName, desiredValue) {
+  public async handleCheck(page, elementName, desiredValue) {
     const handlers = this.getHandlers();
 
     for (const handler of handlers) {
@@ -42,11 +46,11 @@ const FormHandler = {
     }
 
     return Promise.reject('Could not find matching handler.');
-  },
+  }
 
-  getHandlers() {
-    return availableHandlers.sort((handler, otherHandler) => handler.getPriority() - otherHandler.getPriority());
-  },
-};
+  public getHandlers() {
+    return this.availableHandlers.sort((handler, otherHandler) => handler.getPriority() - otherHandler.getPriority());
+  }
+}
 
-export default FormHandler;
+export default new FormHandler();
