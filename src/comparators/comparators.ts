@@ -1,7 +1,7 @@
 import * as comparators from './comparator';
 
-class Comparators {
-  private availableComparators: any;
+class Comparators implements ComparatorsInterface {
+  private availableComparators: ComparatorInterface[];
 
   constructor() {
     this.availableComparators = [comparators.DateComparator, comparators.NumberComparator];

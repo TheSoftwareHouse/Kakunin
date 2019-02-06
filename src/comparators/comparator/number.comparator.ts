@@ -1,4 +1,4 @@
-export const NumberComparator = {
+export const NumberComparator: ComparatorInterface = {
   isSatisfiedBy: values => {
     for (const value of values) {
       const numberValue = Number(value);
