@@ -1,10 +1,8 @@
 import * as formHandler from './handler';
 
 class FormHandlers {
-  private availableHandlers: FormHandler[];
-
-  constructor() {
-    this.availableHandlers = [
+  constructor(
+    private availableHandlers: FormHandler[] = [
       formHandler.checkboxHandler,
       formHandler.ckEditorHandler,
       formHandler.customAngularSelectHandler,
@@ -13,8 +11,8 @@ class FormHandlers {
       formHandler.radioHandler,
       formHandler.selectHandler,
       formHandler.uploadedFileHandler,
-    ];
-  }
+    ]
+  ) {}
 
   public addHandler(handler: FormHandler): void {
     this.availableHandlers.push(handler);

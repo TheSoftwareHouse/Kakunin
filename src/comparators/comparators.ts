@@ -1,13 +1,11 @@
 import * as comparators from './comparator';
 
 class Comparators {
-  private availableComparators: any;
+  constructor(
+    private availableComparators: Comparator[] = [comparators.DateComparator, comparators.NumberComparator]
+  ) {}
 
-  constructor() {
-    this.availableComparators = [comparators.DateComparator, comparators.NumberComparator];
-  }
-
-  public compare(values, order) {
+  public compare(values: any[], order: string): Promise<string | void> {
     const comparator = this.findComparator(values);
 
     if (comparator === undefined) {
@@ -17,11 +15,11 @@ class Comparators {
     return comparator.compare(values, order);
   }
 
-  public findComparator(values) {
+  public findComparator(values: any[]): Comparator {
     return this.availableComparators.find(comparator => comparator.isSatisfiedBy(values));
   }
 
-  public addComparator(comparator) {
+  public addComparator(comparator: Comparator): void {
     this.availableComparators.push(comparator);
   }
 }
