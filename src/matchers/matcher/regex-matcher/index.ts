@@ -1,7 +1,7 @@
 import regex from './regex';
 import { regexBuilder } from './regex-builder';
 
-class RegexMatcher {
+class RegexMatcher implements Matcher {
   public isSatisfiedBy(prefix, name) {
     return prefix === 'r' && typeof regex[name] !== 'undefined';
   }

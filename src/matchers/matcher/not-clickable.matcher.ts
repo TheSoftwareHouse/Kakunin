@@ -1,4 +1,4 @@
-class NotClickableMatcher {
+class NotClickableMatcher implements Matcher {
   public isSatisfiedBy(prefix, name) {
     return prefix === 'f' && name === 'isNotClickable';
   }

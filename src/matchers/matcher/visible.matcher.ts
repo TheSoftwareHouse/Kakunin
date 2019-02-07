@@ -1,4 +1,4 @@
-class VisibleMatcher {
+class VisibleMatcher implements Matcher {
   public isSatisfiedBy(prefix, name) {
     return prefix === 'f' && name === 'isVisible';
   }
