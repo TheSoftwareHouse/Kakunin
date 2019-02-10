@@ -1,5 +1,4 @@
-import { create } from './dictionaries';
-import { Base } from './';
+import { createDictionary as create, Base as BaseDictionary } from './';
 import fakeDictionary = require('../tests/dictionaries/fake-dictionary');
 
 const dictionaries = create();
@@ -22,7 +21,7 @@ describe('Dictionaries', () => {
   });
 
   it('adds a dictionary', () => {
-    const customDictionary = new Base('my-dictionary', { 'some-key': 'mapped-some-key' });
+    const customDictionary = new BaseDictionary('my-dictionary', { 'some-key': 'mapped-some-key' });
 
     dictionaries.addDictionary(customDictionary);
 
