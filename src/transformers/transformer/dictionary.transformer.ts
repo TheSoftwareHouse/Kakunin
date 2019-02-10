@@ -1,11 +1,7 @@
-import { dictionaries as dicts } from '../../dictionaries';
+import { dictionaries as dicts, Dictionaries } from '../../dictionaries';
 
-class DictionaryTransformer {
-  private dictionaries: any;
-
-  constructor(dictionaries) {
-    this.dictionaries = dictionaries;
-  }
+class DictionaryTransformer implements ValueTransformer {
+  constructor(private dictionaries: Dictionaries) {}
 
   public isSatisfiedBy(prefix) {
     return prefix === 'd:';
