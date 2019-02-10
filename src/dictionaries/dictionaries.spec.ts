@@ -1,4 +1,5 @@
 import { create } from './dictionaries';
+import { Base } from './';
 import fakeDictionary = require('../tests/dictionaries/fake-dictionary');
 
 const dictionaries = create();
@@ -21,10 +22,7 @@ describe('Dictionaries', () => {
   });
 
   it('adds a dictionary', () => {
-    const customDictionary = {
-      isSatisfiedBy: name => name === 'my-dictionary',
-      getMappedValue: key => `mapped-${key}`,
-    };
+    const customDictionary = new Base('my-dictionary', { 'some-key': 'mapped-some-key' });
 
     dictionaries.addDictionary(customDictionary);
 
