@@ -3,13 +3,9 @@ import { createGeneratorTransformer } from './transformer/generator.transformer'
 import { createVariableStoreTransformer } from './transformer/variable-store.transformer';
 
 class Transformers {
-  private availableTransformers: any[];
+  constructor(private availableTransformers: ValueTransformer[]) {}
 
-  constructor(initTransformers) {
-    this.availableTransformers = initTransformers;
-  }
-
-  public transform(value) {
+  public transform(value: string): any {
     const transformer = this.findTransformer(value.substr(0, 2));
 
     if (transformer === undefined) {
@@ -19,11 +15,11 @@ class Transformers {
     return transformer.transform(value.substr(2));
   }
 
-  public findTransformer(prefix) {
+  public findTransformer(prefix: string): ValueTransformer {
     return this.availableTransformers.find(transformer => transformer.isSatisfiedBy(prefix));
   }
 
-  public addTransformer(transformer) {
+  public addTransformer(transformer: ValueTransformer): void {
     this.availableTransformers.push(transformer);
   }
 }
