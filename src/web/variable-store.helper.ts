@@ -1,11 +1,7 @@
-class VariableStore {
-  public variables: any[];
+export class VariableStore {
+  constructor(public variables: any[] = []) {}
 
-  constructor() {
-    this.variables = [];
-  }
-
-  public storeVariable(name, value) {
+  public storeVariable(name: string, value: any): void {
     const foundVariable = this.variables.find(variable => variable.name === name);
 
     if (typeof foundVariable !== 'undefined') {
@@ -15,7 +11,7 @@ class VariableStore {
     this.variables.push({ name, value });
   }
 
-  public updateVariable(name, value) {
+  public updateVariable(name: string, value: any): void {
     const foundVariable = this.variables.find(variable => variable.name === name);
 
     if (typeof foundVariable === 'undefined') {
@@ -25,7 +21,7 @@ class VariableStore {
     this.variables.push({ name, value });
   }
 
-  public getVariableValue(name) {
+  public getVariableValue(name: string): any {
     const foundVariable = this.variables.find(variable => variable.name === name);
 
     if (typeof foundVariable === 'undefined') {
@@ -35,17 +31,17 @@ class VariableStore {
     return foundVariable.value;
   }
 
-  public isStored(name) {
+  public isStored(name: string): boolean {
     const foundVariable = this.variables.find(variable => variable.name === name);
 
     return typeof foundVariable !== 'undefined';
   }
 
-  public clearVariables() {
+  public clearVariables(): void {
     this.variables = [];
   }
 
-  public replaceTextVariables(text) {
+  public replaceTextVariables(text: string): any {
     let newText = text;
     const variableNames = this.variables.map(variable => variable.name);
 
