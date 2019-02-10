@@ -1,14 +1,15 @@
 import * as generators from './generator';
 
-class Generators {
-  private availableGenerators: any;
+export class Generators {
+  constructor(
+    private availableGenerators: DataGenerator[] = [
+      generators.personalDataGenerator,
+      generators.stringWithLengthGenerator,
+    ]
+  ) {}
 
-  constructor() {
-    this.availableGenerators = [generators.personalDataGenerator, generators.stringWithLengthGenerator];
-  }
-
-  public generate(generatorName, ...params) {
-    const gen = this.findGenerator(generatorName);
+  public generate(generatorName: string, ...params: any): Promise<any> {
+    const gen: DataGenerator = this.findGenerator(generatorName);
 
     if (gen === undefined) {
       throw new Error(`Could not find generator for ${generatorName}.`);
@@ -17,11 +18,11 @@ class Generators {
     return gen.generate(...params);
   }
 
-  public addGenerator(generator) {
+  public addGenerator(generator: DataGenerator): void {
     this.availableGenerators.push(generator);
   }
 
-  public findGenerator(name) {
+  public findGenerator(name: string): DataGenerator {
     return this.availableGenerators.find(gen => gen.isSatisfiedBy(name));
   }
 }

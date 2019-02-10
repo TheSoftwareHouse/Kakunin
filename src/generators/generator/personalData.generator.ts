@@ -1,6 +1,6 @@
 import * as faker from 'faker';
 
-export const personalDataGenerator = {
+export const personalDataGenerator: DataGenerator = {
   isSatisfiedBy(name) {
     return name === 'personalData';
   },
