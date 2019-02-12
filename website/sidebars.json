@@ -15,7 +15,8 @@
       "cross-browser",
       "parallel-testing",
       "performance-testing",
-      "docker"
+      "docker",
+      "testing-rest-api"
     ],
     "Steps": [
       "steps-navigation",
