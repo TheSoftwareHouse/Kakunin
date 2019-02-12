@@ -21,7 +21,7 @@ class ApiResponse {
         const test = ajv.compile(schema);
         const isValid = test(this.body);
         if (isValid === false) {
-            throw 'Response doesnt match schema';
+            throw Error('Response doesnt match schema');
         }
     }
 }

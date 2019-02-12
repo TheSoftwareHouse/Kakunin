@@ -75,7 +75,6 @@ app.delete('/deleteTestEndpoint',function(req, res, next){
   return res.end();
 });
 
-
 app.get('/getTestEndpoint', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   const header = req.header('host');

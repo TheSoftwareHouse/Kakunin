@@ -6,9 +6,9 @@ const rest_api_service_1 = require("../rest/rest-api-service");
 const api_request_1 = require("../rest/api-request");
 const service = new rest_api_service_1.RestApiService(config_helper_1.default.apiUrl);
 let apiRequest = new api_request_1.ApiRequest();
-cucumber_1.defineSupportCode(function ({ When, Then }) {
+cucumber_1.defineSupportCode(({ When, Then }) => {
     let fetchResult;
-    When(/^I send "([^"]*)" request on "([^"]*)" endpoint$/, function (method, endpoint) {
+    When(/^I send "([^"]*)" request on "([^"]*)" endpoint$/, (method, endpoint) => {
         apiRequest.method = method;
         apiRequest.endpoint = endpoint;
         return service
@@ -22,7 +22,7 @@ cucumber_1.defineSupportCode(function ({ When, Then }) {
             return apiRequest;
         });
     });
-    When(/^I send "([^"]*)" request on "([^"]*)" endpoint with JSON body:$/, function (method, endpoint, payload) {
+    When(/^I send "([^"]*)" request on "([^"]*)" endpoint with JSON body:$/, (method, endpoint, payload) => {
         apiRequest.method = method;
         apiRequest.endpoint = endpoint;
         apiRequest.body = JSON.parse(payload);
@@ -38,16 +38,16 @@ cucumber_1.defineSupportCode(function ({ When, Then }) {
             return apiRequest;
         });
     });
-    When(/^I set request headers:$/, function (headers) {
+    When(/^I set request headers:$/, headers => {
         return apiRequest.addHeaders(headers.rowsHash());
     });
-    Then(/^the response code should be "([^"]*)"$/, function (status) {
+    Then(/^the response code should be "([^"]*)"$/, status => {
         return expect(fetchResult.hasStatus(parseInt(status))).toBe(true);
     });
-    Then(/^the response should exact match to body:$/, function (body) {
+    Then(/^the response should exact match to body:$/, body => {
         return expect(fetchResult.hasBodyMatch(JSON.parse(body))).toBe(true);
     });
-    Then(/^the response should match JSON schema:$/, function (schema) {
+    Then(/^the response should match JSON schema:$/, schema => {
         try {
             fetchResult.hasMatchingSchema(JSON.parse(schema));
         }

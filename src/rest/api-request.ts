@@ -1,6 +1,8 @@
 import { Headers } from 'node-fetch';
 
 export class ApiRequest {
+  public method: string;
+  public endpoint: string;
   private payload: string;
   private headers: any;
 

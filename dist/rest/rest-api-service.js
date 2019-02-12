@@ -6,9 +6,6 @@ class RestApiService {
     constructor(baseUrl) {
         this.baseUrl = baseUrl;
     }
-    resolveUrl(endpoint) {
-        return `${this.baseUrl}${endpoint}`;
-    }
     fetch(request) {
         const url = this.resolveUrl(request.endpoint);
         return node_fetch_1.default(url, { method: request.method, body: request.body, headers: request.headers }).then(response => {
@@ -21,6 +18,8 @@ class RestApiService {
             return new api_response_1.ApiResponse(response.status, {});
         });
     }
+    resolveUrl(endpoint) {
+        return `${this.baseUrl}${endpoint}`;
+    }
 }
 exports.RestApiService = RestApiService;
-// module.exports = RestApiService;

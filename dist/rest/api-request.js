@@ -19,4 +19,3 @@ class ApiRequest {
     }
 }
 exports.ApiRequest = ApiRequest;
-// export = ApiRequest;
