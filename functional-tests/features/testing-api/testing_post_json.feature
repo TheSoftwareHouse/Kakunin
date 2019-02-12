@@ -3,11 +3,11 @@ Feature: Test server post response
     I want to test restApi post request
 
     Scenario: REST post example test
-        Given I send "POST" request on "posts" endpoint with body:
+        Given I send "POST" request on "postTestEndpoint" endpoint with JSON body:
         """
         {
-            "title": "adam",
-            "body": "test"
+            "name": "adam",
+            "title": "test"
         }
         """
 
@@ -18,16 +18,16 @@ Feature: Test server post response
             "title": "Posts schema",
             "type": "object",
             "properties": {
-                "id": {
-                    "type": "integer"
+                "code": {
+                    "type": "string"
                 },
-                "title": {
+                "name": {
                     "type": "string"
                     },
-                "body": {
+                "title": {
                     "type": "string"
                 }
             },
-            "required": ["id", "title", "body"]
+            "required": ["code", "name", "title"]
         }
         """

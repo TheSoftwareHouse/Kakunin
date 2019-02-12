@@ -2,9 +2,9 @@ import * as _ from 'lodash';
 import * as Ajv from 'ajv';
 const ajv = new Ajv({ allErrors: true });
 
-class ApiResponse {
-  private readonly status: string;
-  private readonly body: any;
+export class ApiResponse {
+  private readonly body: object;
+  private readonly status: number;
 
   constructor(responseStatus, body) {
     this.body = body;
@@ -27,9 +27,7 @@ class ApiResponse {
     const isValid = test(this.body);
 
     if (isValid === false) {
-      throw new Error('Response doesnt match schema');
+      throw Error('Response doesnt match schema');
     }
   }
 }
-
-export = ApiResponse;

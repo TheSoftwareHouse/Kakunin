@@ -1,33 +1,64 @@
-import { When, Then } from 'cucumber';
+import { defineSupportCode } from 'cucumber';
 import config from '../core/config.helper';
-import RestApiService = require('../rest/rest-api-service.js');
+import { RestApiService } from '../rest/rest-api-service';
+import { ApiRequest } from '../rest/api-request';
 
 const service = new RestApiService(config.apiUrl);
+let apiRequest = new ApiRequest();
 
-let fetchResult;
+defineSupportCode(({ When, Then }) => {
+  let fetchResult;
 
-When(/^I send "([^"]*)" request on "([^"]*)" endpoint$/, (method, endpoint) => {
-  return service.fetch(method, endpoint).then(response => (fetchResult = response));
-});
-
-When(/^I send "([^"]*)" request on "([^"]*)" endpoint with body:$/, (method, endpoint, payload) => {
-  return service.fetch(method, endpoint, JSON.parse(payload)).then(response => {
-    return (fetchResult = response);
+  When(/^I send "([^"]*)" request on "([^"]*)" endpoint$/, (method, endpoint) => {
+    apiRequest.method = method;
+    apiRequest.endpoint = endpoint;
+    return service
+      .fetch(apiRequest)
+      .then(response => {
+        fetchResult = response;
+        return response;
+      })
+      .finally(() => {
+        apiRequest = new ApiRequest();
+        return apiRequest;
+      });
   });
-});
 
-Then(/^the response code should be "([^"]*)"$/, status => {
-  return expect(fetchResult.hasStatus(parseInt(status))).toBe(true);
-});
+  When(/^I send "([^"]*)" request on "([^"]*)" endpoint with JSON body:$/, (method, endpoint, payload) => {
+    apiRequest.method = method;
+    apiRequest.endpoint = endpoint;
+    apiRequest.body = JSON.parse(payload);
+    apiRequest.addHeaders({ 'Content-Type': 'application/json' });
 
-Then(/^the response should exact match to body:$/, body => {
-  return expect(fetchResult.hasBodyMatch(JSON.parse(body))).toBe(true);
-});
+    return service
+      .fetch(apiRequest)
+      .then(response => {
+        fetchResult = response;
+        return response;
+      })
+      .finally(() => {
+        apiRequest = new ApiRequest();
+        return apiRequest;
+      });
+  });
 
-Then(/^the response should match JSON schema:$/, schema => {
-  try {
-    fetchResult.hasMatchingSchema(JSON.parse(schema));
-  } catch (error) {
-    return Promise.reject(error);
-  }
+  When(/^I set request headers:$/, headers => {
+    return apiRequest.addHeaders(headers.rowsHash());
+  });
+
+  Then(/^the response code should be "([^"]*)"$/, status => {
+    return expect(fetchResult.hasStatus(parseInt(status))).toBe(true);
+  });
+
+  Then(/^the response should exact match to body:$/, body => {
+    return expect(fetchResult.hasBodyMatch(JSON.parse(body))).toBe(true);
+  });
+
+  Then(/^the response should match JSON schema:$/, schema => {
+    try {
+      fetchResult.hasMatchingSchema(JSON.parse(schema));
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  });
 });

@@ -1,4 +1,4 @@
-const ApiResponse = require('./api-response');
+import { ApiResponse } from './api-response';
 
 const response = new ApiResponse(200, { type: 'Fiat', model: '500', color: 'white' });
 
