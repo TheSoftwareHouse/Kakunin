@@ -70,6 +70,11 @@ app.post('/wait-for-appear/form/post', function(req, res) {
 app.get('/matchers', function(req, res) {
   res.render('matchers/matchers.njs');
 });
+app.delete('/deleteTestEndpoint',function(req, res, next){
+  res.status(200);
+  return res.end();
+});
+
 
 app.get('/getTestEndpoint', function (req, res) {
   res.setHeader('Content-Type', 'application/json');

@@ -3,7 +3,7 @@ Feature: Test server post response
     I want to test restApi post request
 
     Scenario: REST post example test
-        Given I send "POST" request on "/postTestEndpoint" endpoint with JSON body:
+        Given I send "POST" request on "postTestEndpoint" endpoint with JSON body:
         """
         {
             "name": "adam",

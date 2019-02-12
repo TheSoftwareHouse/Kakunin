@@ -5,7 +5,7 @@ Feature: Test setting headers
     Scenario: Setting http headers
         Given I set request headers:
         | User-Agent | Mozilla |
-        When I send "POST" request on "/postTestEndpoint" endpoint with JSON body:
+        When I send "POST" request on "postTestEndpoint" endpoint with JSON body:
         """
         {
             "title": "adam",

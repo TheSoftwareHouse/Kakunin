@@ -1,14 +1,15 @@
-import fetch from 'node-fetch';
+import { Headers } from 'node-fetch';
 
-class ApiRequest {
+export class ApiRequest {
+  private payload: string;
+  private headers: any;
+
   constructor() {
-    this.method = null;
-    this.endpoint = null;
     this.payload = null;
-    this.headers = new fetch.Headers();
+    this.headers = new Headers();
   }
 
-  addHeaders(headers) {
+  public addHeaders(headers) {
     for (const [key, value] of Object.entries(headers)) {
       this.headers.append(key, value);
     }
@@ -22,5 +23,3 @@ class ApiRequest {
     this.payload = payload ? JSON.stringify(payload) : undefined;
   }
 }
-
-module.exports = ApiRequest;

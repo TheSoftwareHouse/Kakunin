@@ -27,7 +27,7 @@ module.exports = {
   noGpu: true,
   type: 'otherWeb',
   baseUrl: 'http://localhost:8080',
-  apiUrl: 'https://jsonplaceholder.typicode.com/',
+  apiUrl: 'http://localhost:8080/',
   browserMob: {
     serverPort: 8887,
     port: 8888,
