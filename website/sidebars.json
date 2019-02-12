@@ -23,7 +23,8 @@
       "steps-elements",
       "steps-files",
       "steps-generators",
-      "steps-debug"
+      "steps-debug",
+      "steps-rest"
     ]
   }
 }

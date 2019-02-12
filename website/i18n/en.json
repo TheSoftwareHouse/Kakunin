@@ -53,6 +53,9 @@
       "steps-navigation": {
         "title": "Navigation"
       },
+      "steps-rest": {
+        "title": "Rest api"
+      },
       "transformers": {
         "title": "Transformers"
       },
