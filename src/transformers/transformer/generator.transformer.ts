@@ -1,11 +1,7 @@
-import { generators } from '../../generators';
+import { generators, Generators } from '../../generators';
 
-class GeneratorTransformer {
-  public generator: any;
-
-  constructor(generator) {
-    this.generator = generator;
-  }
+class GeneratorTransformer implements ValueTransformer {
+  constructor(public generator: Generators) {}
 
   public isSatisfiedBy(prefix) {
     return prefix === 'g:';

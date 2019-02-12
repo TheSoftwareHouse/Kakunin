@@ -1,4 +1,4 @@
-export const stringWithLengthGenerator = {
+export const stringWithLengthGenerator: DataGenerator = {
   isSatisfiedBy(name) {
     return name === 'stringWithLength';
   },
