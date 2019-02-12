@@ -91,7 +91,11 @@ app.get('/getTestEndpoint', function (req, res) {
 });
 
 app.patch('/patchTestEndpoint', function (req, res) {
-  res.status(200);
+  if(req.body.hasOwnProperty('first_name') === true) {
+    res.status(200);
+    return res.end();
+  }
+  res.status(400)
   return res.end();
 });
 
