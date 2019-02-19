@@ -1,4 +1,5 @@
 import * as moment from 'moment';
+import { Matcher } from '../matcher.interface';
 
 class CurrentDateMatcher implements Matcher {
   public isSatisfiedBy(prefix, name) {

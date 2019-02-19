@@ -1,6 +1,7 @@
 import { generators, Generators } from '../../generators';
+import { Transformer } from '../transformer.interface';
 
-class GeneratorTransformer implements ValueTransformer {
+class GeneratorTransformer implements Transformer {
   constructor(public generator: Generators) {}
 
   public isSatisfiedBy(prefix) {

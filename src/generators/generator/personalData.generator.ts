@@ -1,6 +1,7 @@
 import * as faker from 'faker';
+import { Generator } from '../generator.interface';
 
-export const personalDataGenerator: DataGenerator = {
+export const personalDataGenerator: Generator = {
   isSatisfiedBy(name) {
     return name === 'personalData';
   },

@@ -1,3 +1,5 @@
+import { FormHandler } from '../form-handler.interface';
+
 class CheckboxHandler implements FormHandler {
   public isSatisfiedBy(element) {
     return element.getTagName().then(tagName => {

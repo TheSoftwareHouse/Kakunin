@@ -1,4 +1,4 @@
-interface FormHandler {
+export interface FormHandler {
   isSatisfiedBy(element?: object, elementName?: string): Promise<boolean>;
   handleFill(page: object, elementName: string, desiredValue: string): Promise<string | void>;
   handleCheck(page: object, elementName: string, desiredValue: string): Promise<string | void>;

@@ -1,4 +1,6 @@
-export const stringWithLengthGenerator: DataGenerator = {
+import { Generator } from '../generator.interface';
+
+export const stringWithLengthGenerator: Generator = {
   isSatisfiedBy(name) {
     return name === 'stringWithLength';
   },

@@ -1,7 +1,8 @@
 import store from '../../web/variable-store.helper';
 import { VariableStore } from '../../web/variable-store.helper';
+import { Transformer } from '../transformer.interface';
 
-class VariableStoreTransformer implements ValueTransformer {
+class VariableStoreTransformer implements Transformer {
   constructor(private variableStore: VariableStore) {}
 
   public isSatisfiedBy(prefix) {

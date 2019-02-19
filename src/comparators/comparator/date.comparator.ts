@@ -1,4 +1,5 @@
 import * as moment from 'moment';
+import { Comparator } from '../comparator.interface';
 
 export const supportedFormats = ['DD-MM-YYYY', 'DD-MM-YY', 'DD/MM/YYYY', 'DD/MM/YY'];
 

@@ -1,4 +1,5 @@
 import { regexBuilder } from './regex-matcher/regex-builder';
+import { Matcher } from '../matcher.interface';
 
 class AttributeMatcher implements Matcher {
   public isSatisfiedBy(prefix) {

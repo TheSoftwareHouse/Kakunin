@@ -1,3 +1,5 @@
+import { Matcher } from '../matcher.interface';
+
 class VisibleMatcher implements Matcher {
   public isSatisfiedBy(prefix, name) {
     return prefix === 'f' && name === 'isVisible';

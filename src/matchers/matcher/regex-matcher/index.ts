@@ -1,5 +1,6 @@
 import regex from './regex';
 import { regexBuilder } from './regex-builder';
+import { Matcher } from '../../matcher.interface';
 
 class RegexMatcher implements Matcher {
   public isSatisfiedBy(prefix, name) {
