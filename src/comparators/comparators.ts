@@ -1,4 +1,5 @@
 import * as comparators from './comparator';
+import { Comparator } from './comparator.interface';
 
 class Comparators {
   constructor(

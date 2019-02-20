@@ -1,6 +1,7 @@
 import { dictionaries as dicts, Dictionaries } from '../../dictionaries';
+import { Transformer } from '../transformer.interface';
 
-class DictionaryTransformer implements ValueTransformer {
+class DictionaryTransformer implements Transformer {
   constructor(private dictionaries: Dictionaries) {}
 
   public isSatisfiedBy(prefix) {

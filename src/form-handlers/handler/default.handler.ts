@@ -1,3 +1,5 @@
+import { FormHandler } from '../form-handler.interface';
+
 class DefaultHandler implements FormHandler {
   public isSatisfiedBy() {
     return Promise.resolve(true);

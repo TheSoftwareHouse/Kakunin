@@ -1,4 +1,5 @@
 import * as formHandler from './handler';
+import { FormHandler } from './form-handler.interface';
 
 class FormHandlers {
   constructor(

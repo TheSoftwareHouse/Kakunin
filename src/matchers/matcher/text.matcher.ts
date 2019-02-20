@@ -1,4 +1,5 @@
 import { separator } from '../matchers';
+import { Matcher } from '../matcher.interface';
 
 class TextMatcher implements Matcher {
   public isSatisfiedBy(prefix) {

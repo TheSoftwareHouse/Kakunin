@@ -1,5 +1,6 @@
 import * as path from 'path';
 import config from '../../core/config.helper';
+import { FormHandler } from '../form-handler.interface';
 
 class FileHandler implements FormHandler {
   public isSatisfiedBy(element) {

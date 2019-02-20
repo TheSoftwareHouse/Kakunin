@@ -1,3 +1,5 @@
+import { Comparator } from '../comparator.interface';
+
 export const NumberComparator: Comparator = {
   isSatisfiedBy: values => {
     for (const value of values) {

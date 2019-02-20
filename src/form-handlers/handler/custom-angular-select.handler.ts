@@ -1,3 +1,5 @@
+import { FormHandler } from '../form-handler.interface';
+
 class CustomAngularSelectHandler implements FormHandler {
   private selectedOptionSelector: object;
   private optionsSelector: object;

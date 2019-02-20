@@ -1,3 +1,5 @@
+import { Matcher } from '../matcher.interface';
+
 class PresentMatcher implements Matcher {
   public isSatisfiedBy(prefix, name) {
     return prefix === 'f' && name === 'isPresent';

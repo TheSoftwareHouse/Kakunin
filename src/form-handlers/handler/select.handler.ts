@@ -1,3 +1,5 @@
+import { FormHandler } from '../form-handler.interface';
+
 class SelectHandler implements FormHandler {
   private optionsSelector: object;
 

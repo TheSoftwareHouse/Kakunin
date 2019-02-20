@@ -1,4 +1,5 @@
 import * as matchers from './matcher';
+import { Matcher } from './matcher.interface';
 
 export const separator = ':';
 

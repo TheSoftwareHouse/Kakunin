@@ -1,3 +1,5 @@
+import { Matcher } from '../matcher.interface';
+
 class ClickableMatcher implements Matcher {
   public isSatisfiedBy(prefix, name) {
     return prefix === 'f' && name === 'isClickable';
