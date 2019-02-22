@@ -51,8 +51,7 @@
     "lint-fix": "tslint -c tslint.json 'src/**/*.ts' --fix",
     "prettier": "prettier --write 'src/**/*.ts'",
     "type-check": "tsc --noEmit",
-    "build": "tsc",
-    "prepublishOnly": "npm run build && npm run test"
+    "build": "tsc"
   },
   "engines": {
     "node": ">=7.7.3",
