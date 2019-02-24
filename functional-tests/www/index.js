@@ -71,6 +71,15 @@ app.get('/matchers', function(req, res) {
   res.render('matchers/matchers.njs');
 });
 
+app.get('/form/select', function(req, res) {
+  res.render('form/select.njs');
+});
+app.post('/form/select/post', function(req, res) {
+  res.render('form/select.njs', {
+    form: req.body,
+  });
+});
+
 app.delete('/deleteTestEndpoint',function(req, res, next){
   res.status(200);
   return res.end();
