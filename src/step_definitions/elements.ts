@@ -272,11 +272,14 @@ Then(/^there is "([^"]*)" element with following dropdown list options:$/, funct
 
   return this.currentPage.waitForVisibilityOf(elementName).then(() => {
     allOptionElements.getText().then(textArray => {
-      hashedData.forEach(hash => {
-        hashedData.shift();
-        textArray.splice(textArray.indexOf(hash), 1);
-      });
-      expect(hashedData.length).toEqual(textArray.length);
+      if (textArray.length === hashedData.length) {
+        hashedData.forEach(hash => {
+          textArray.splice(textArray.indexOf(hash), 1);
+        });
+      } else {
+        return Promise.reject("Number of options doesn't match the number of asked");
+      }
+      expect(textArray.length).toEqual(0);
     });
   });
 });
