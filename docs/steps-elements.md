@@ -195,6 +195,31 @@ You can use all kind of matchers here.
 
 ---
 
+## `there are ":elementName" dropdown list elements with following options:`
+
+Allows to check if there is exact match to options provided in table for option selector. 
+```html
+<select name="list" id="personlist">
+  <option value="1">Person 1</option>
+  <option value="2">Person 2</option>
+  <option value="3">Person 3</option>
+  <option value="4">Person 4</option>
+</select>
+```
+For example:
+
+```gherkin
+there are "personOption" dropdown list elements with following options:
+  | Person 1      |
+  | Person 2      |
+  | Person 3      |
+  | Person 4      |
+```
+The element must be for example:  
+`this.personOption = this.personForm.$$('option');`.
+
+---
+
 ## `there is element ":elementName" with value ":matcher"`
 
 Allows to check if `:elementName` has a value that matches the `:matcher`.

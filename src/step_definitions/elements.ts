@@ -262,8 +262,8 @@ Then(/^there are "([^"]*)" following elements for element "([^"]*)":$/, function
   });
 });
 
-Then(/^there is "([^"]*)" element with following dropdown list options:$/, function(elementName, data) {
-  const allOptionElements = this.currentPage[elementName].$$('option');
+Then(/^there are "([^"]*)" dropdown list elements with following options:$/, function(elementName, data) {
+  const allOptionElements = this.currentPage[elementName];
   const hashedData = data.raw();
 
   if (hashedData.length === 0) {

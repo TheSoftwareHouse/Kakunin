@@ -10,6 +10,7 @@ class SimpleForm extends BasePage {
 
     this.form = $('form');
     this.selectPerson = $('#personlist');
+    this.personOption = this.selectPerson.$$('option');
     this.submitButton = this.form.$('input[type="submit"]');
   }
 }

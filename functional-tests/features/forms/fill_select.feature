@@ -6,7 +6,7 @@ Feature: Forms
         Given I visit the "main" page
         When I click the "formSelectLink" element
         Then the "simpleSelectForm" page is displayed
-        And there is "selectPerson" element with following dropdown list options:
+        And there are "personOption" dropdown list elements with following options:
             | Person3 |
             | Person2 |
             | Person1 |
