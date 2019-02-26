@@ -262,6 +262,28 @@ Then(/^there are "([^"]*)" following elements for element "([^"]*)":$/, function
   });
 });
 
+Then(/^there are "([^"]*)" dropdown list elements with following options:$/, function(elementName, data) {
+  const allOptionElements = this.currentPage[elementName];
+  const hashedData = data.raw();
+
+  if (hashedData.length === 0) {
+    return Promise.reject('Missing table under the step.');
+  }
+
+  return this.currentPage.waitForVisibilityOf(elementName).then(() => {
+    allOptionElements.getText().then(textArray => {
+      if (textArray.length === hashedData.length) {
+        hashedData.forEach(hash => {
+          textArray.splice(textArray.indexOf(hash), 1);
+        });
+      } else {
+        return Promise.reject("Number of options doesn't match the number of asked");
+      }
+      expect(textArray.length).toEqual(0);
+    });
+  });
+});
+
 Then(/^there is element "([^"]*)" with value "([^"]*)"$/, function(elementName, value) {
   const pageElement = this.currentPage[elementName];
 
