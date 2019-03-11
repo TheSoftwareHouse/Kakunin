@@ -2,6 +2,7 @@ import config from '../core/config.helper';
 import { waitForInvisibilityOf, waitForVisibilityOf } from '../web/cucumber/wait-for-condition.helper';
 import { isRelativePage, waitForUrlChangeTo } from '../web/url-parser.helper';
 import { stringify } from 'querystring';
+import { element } from 'protractor';
 
 class Page {
   private url: string;
@@ -49,43 +50,63 @@ class Page {
     }, config.waitForPageTimeout * 1000);
   }
 
-  public click(element) {
-    return this[element].click();
+  public click(elementName) {
+    return this.getElement(elementName).click();
   }
 
-  public isDisabled(element) {
-    return this[element].getAttribute('disabled').then(disabled => ['disabled', true, 'true'].indexOf(disabled) !== -1);
+  public isDisabled(elementName) {
+    return this.getElement(elementName)
+      .getAttribute('disabled')
+      .then(disabled => ['disabled', true, 'true'].indexOf(disabled) !== -1);
   }
 
-  public isVisible(element) {
-    return this[element].isDisplayed();
+  public isVisible(elementName) {
+    return this.getElement(elementName).isDisplayed();
   }
 
-  public isPresent(element) {
-    return this[element].isPresent();
+  public isPresent(elementName) {
+    return this.getElement(elementName).isPresent();
   }
 
   public getNumberOfElements(elementName) {
-    return this[elementName].count();
+    return this.getElements(elementName).count();
   }
 
   public scrollIntoElement(elementName, elementIndex?: string) {
     if (elementIndex !== undefined) {
       return browser.executeScript(
         'arguments[0].scrollIntoView(false);',
-        this[elementName].get(elementIndex).getWebElement()
+        this.getElement(elementName)
+          .get(elementIndex)
+          .getWebElement()
       );
     }
 
-    return browser.executeScript('arguments[0].scrollIntoView(false);', this[elementName].getWebElement());
+    return browser.executeScript('arguments[0].scrollIntoView(false);', this.getElement(elementName).getWebElement());
   }
 
   public waitForVisibilityOf(elementName) {
-    return waitForVisibilityOf(this[elementName]);
+    return waitForVisibilityOf(this.getElement(elementName));
   }
 
   public waitForInvisibilityOf(elementName) {
-    return waitForInvisibilityOf(this[elementName]);
+    return waitForInvisibilityOf(this.getElement(elementName));
+  }
+
+  public getElement(elementName) {
+    if (!this[elementName]) {
+      return element(by.css(elementName));
+    }
+
+    return this[elementName];
+  }
+
+  public getElements(elementName) {
+    if (!this[elementName]) {
+      return element.all(by.css(elementName));
+    }
+
+    return this[elementName];
   }
 }
 
