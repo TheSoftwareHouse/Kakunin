@@ -4,7 +4,8 @@ import * as path from 'path';
 import config from './core/config.helper';
 import { deleteReports } from './core/fs/delete-files.helper';
 import { prepareCatalogs } from './core/fs/prepare-catalogs.helper';
-import * as browsersConfiguration from './web/browsers/browsers-config.helper';
+import { browsersConfiguration } from './web/browsers/browsers-config.helper';
+import { getBrowsersDrivers } from './web/browsers/get-browser-drivers.helper';
 import { emailService } from './emails';
 const commandArgs = require('minimist')(process.argv.slice(2));
 const modulesLoader = require('./core/modules-loader.helper.js').create();
@@ -15,12 +16,12 @@ const generatedReportsDirectory = path.join(reportsDirectory, 'report');
 const featureReportsDirectory = path.join(generatedReportsDirectory, 'features');
 const performanceReportsDirectory = path.join(reportsDirectory, 'performance');
 
-const prepareReportCatalogs = async () => {
-  await prepareCatalogs(reportsDirectory);
-  await prepareCatalogs(jsonOutputDirectory);
-  await prepareCatalogs(generatedReportsDirectory);
-  await prepareCatalogs(featureReportsDirectory);
-  await prepareCatalogs(performanceReportsDirectory);
+const prepareReportCatalogs = () => {
+  prepareCatalogs(reportsDirectory);
+  prepareCatalogs(jsonOutputDirectory);
+  prepareCatalogs(generatedReportsDirectory);
+  prepareCatalogs(featureReportsDirectory);
+  prepareCatalogs(performanceReportsDirectory);
 };
 
 const deleteReportFiles = () => {
@@ -35,6 +36,7 @@ const deleteReportFiles = () => {
 
 exports.config = {
   getMultiCapabilities: browsersConfiguration(config, commandArgs),
+  jvmArgs: getBrowsersDrivers(commandArgs),
 
   useAllAngular2AppRoots: config.type === 'ng2',
 
@@ -70,9 +72,9 @@ exports.config = {
     },
   ],
 
-  async beforeLaunch() {
-    await prepareReportCatalogs();
-    await deleteReportFiles();
+  beforeLaunch() {
+    prepareReportCatalogs();
+    deleteReportFiles();
   },
 
   onPrepare() {
