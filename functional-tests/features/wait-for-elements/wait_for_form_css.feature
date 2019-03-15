@@ -8,18 +8,18 @@ Feature: Wait for forms
         Then the "appearSimpleForm" page is displayed
         When I click the ".colored" element
         And I fill the "form" form with:
-            | nameInput           | d:test-dictionary:test-name |
-            | descriptionTextarea | some description            |
-            | optionCheckboxes    | Checkbox Option 2           |
-            | optionCheckboxes    | Checkbox Option 3           |
-            | optionRadios        | third-radio-option          |
-            | statusSelect        | unknown                     |
+            | input[name="name"]           | d:test-dictionary:test-name |
+            | textarea[name="description"] | some description            |
+            | input[type="checkbox"]       | Checkbox Option 2           |
+            | input[type="checkbox"]       | Checkbox Option 3           |
+            | input[type="radio"]          | third-radio-option          |
+            | select[name="status"]        | unknown                     |
         Then the "form" form is filled with:
-            | nameInput           | d:test-dictionary:test-name |
-            | descriptionTextarea | some description            |
-            | optionCheckboxes    | Checkbox Option 2           |
-            | optionCheckboxes    | Checkbox Option 3           |
-            | optionRadios        | third-radio-option          |
-            | statusSelect        | unknown                     |
-        When I click the "submitButton" element
+            | input[name="name"]           | d:test-dictionary:test-name |
+            | textarea[name="description"] | some description            |
+            | input[type="checkbox"]       | Checkbox Option 2           |
+            | input[type="checkbox"]       | Checkbox Option 3           |
+            | input[type="radio"]          | third-radio-option          |
+            | select[name="status"]        | unknown                     |
+        When I click the "input[type='submit']" element
         Then the "appearSimpleFormPost" page is displayed

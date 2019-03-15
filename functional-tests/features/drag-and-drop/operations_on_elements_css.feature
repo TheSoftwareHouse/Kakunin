@@ -5,4 +5,4 @@ Feature: Drag and drop
     Scenario: Drag element and drop on the other one
         Given I visit the "dragAndDrop" page
         When I drag "#draggable" element and drop over "#droppable" element
-        Then the "kittensInsideTarget" element is visible
+        Then the ".ui-state-highlight" element is visible

@@ -50,29 +50,29 @@ class Page {
     }, config.waitForPageTimeout * 1000);
   }
 
-  public click(elementName) {
+  public click(elementName: string) {
     return this.getElement(elementName).click();
   }
 
-  public isDisabled(elementName) {
+  public isDisabled(elementName: string) {
     return this.getElement(elementName)
       .getAttribute('disabled')
       .then(disabled => ['disabled', true, 'true'].indexOf(disabled) !== -1);
   }
 
-  public isVisible(elementName) {
+  public isVisible(elementName: string) {
     return this.getElement(elementName).isDisplayed();
   }
 
-  public isPresent(elementName) {
+  public isPresent(elementName: string) {
     return this.getElement(elementName).isPresent();
   }
 
-  public getNumberOfElements(elementName) {
+  public getNumberOfElements(elementName: string) {
     return this.getElements(elementName).count();
   }
 
-  public scrollIntoElement(elementName, elementIndex?: string) {
+  public scrollIntoElement(elementName: string, elementIndex?: string) {
     if (elementIndex !== undefined) {
       return browser.executeScript(
         'arguments[0].scrollIntoView(false);',
@@ -85,15 +85,15 @@ class Page {
     return browser.executeScript('arguments[0].scrollIntoView(false);', this.getElement(elementName).getWebElement());
   }
 
-  public waitForVisibilityOf(elementName) {
+  public waitForVisibilityOf(elementName: string) {
     return waitForVisibilityOf(this.getElement(elementName));
   }
 
-  public waitForInvisibilityOf(elementName) {
+  public waitForInvisibilityOf(elementName: string) {
     return waitForInvisibilityOf(this.getElement(elementName));
   }
 
-  public getElement(elementName) {
+  public getElement(elementName: string) {
     if (!this[elementName]) {
       return element(by.css(elementName));
     }
@@ -101,7 +101,7 @@ class Page {
     return this[elementName];
   }
 
-  public getElements(elementName) {
+  public getElements(elementName: string) {
     if (!this[elementName]) {
       return element.all(by.css(elementName));
     }
