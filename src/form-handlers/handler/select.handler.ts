@@ -14,13 +14,15 @@ class SelectHandler implements FormHandler {
   public handleFill(page, elementName, desiredValue) {
     const self = this;
 
-    const filteredByText = page[elementName]
+    const filteredByText = page
+      .getElements(elementName)
       .all(this.optionsSelector)
       .filter(elem => elem.getText().then(text => text.trim() === desiredValue));
 
     return filteredByText.count().then(filteredByTextCount => {
       if (filteredByTextCount === 0) {
-        const filteredByValue = page[elementName]
+        const filteredByValue = page
+          .getElements(elementName)
           .all(by.css('option'))
           .filter(elem => elem.getAttribute('value').then(elemValue => elemValue === desiredValue));
 
@@ -41,7 +43,8 @@ class SelectHandler implements FormHandler {
   }
 
   public handleCheck(page, elementName, desiredValue) {
-    return page[elementName]
+    return page
+      .getElement(elementName)
       .all(this.optionsSelector)
       .filter(element => element.getAttribute('value').then(elemValue => elemValue === desiredValue))
       .count()

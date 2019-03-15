@@ -19,7 +19,8 @@ class RadioHandler implements FormHandler {
   }
 
   public handleFill(page, elementName, desiredValue) {
-    const firstRadio = page[elementName]
+    const firstRadio = page
+      .getElements(elementName)
       .filter(elem => elem.getAttribute('value').then(elemValue => elemValue === desiredValue))
       .first();
 
@@ -33,7 +34,7 @@ class RadioHandler implements FormHandler {
   }
 
   public handleCheck(page, elementName, desiredValue) {
-    const filteredElements = page[elementName].filter(element => element.isSelected());
+    const filteredElements = page.getElements(elementName).filter(element => element.isSelected());
 
     return filteredElements.count().then(count => {
       if (desiredValue === '') {

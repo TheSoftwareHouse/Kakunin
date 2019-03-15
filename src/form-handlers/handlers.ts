@@ -1,5 +1,6 @@
 import * as formHandler from './handler';
 import { FormHandler } from './form-handler.interface';
+import Base from '../pages/base';
 
 class FormHandlers {
   constructor(
@@ -19,11 +20,11 @@ class FormHandlers {
     this.availableHandlers.push(handler);
   }
 
-  public async handleFill(page: object, elementName: string, desiredValue: string): Promise<string | void> {
+  public async handleFill(page: Base, elementName: string, desiredValue: string): Promise<string | void> {
     const handlers = this.getHandlers();
 
     for (const handler of handlers) {
-      const isSatisfied = await handler.isSatisfiedBy(page[elementName], elementName);
+      const isSatisfied = await handler.isSatisfiedBy(page.getElement(elementName), elementName);
 
       if (isSatisfied) {
         return handler.handleFill(page, elementName, desiredValue);
@@ -33,11 +34,11 @@ class FormHandlers {
     return Promise.reject('Could not find matching handler.');
   }
 
-  public async handleCheck(page: object, elementName: string, desiredValue: string): Promise<string | void> {
+  public async handleCheck(page: Base, elementName: string, desiredValue: string): Promise<string | void> {
     const handlers = this.getHandlers();
 
     for (const handler of handlers) {
-      const isSatisfied = await handler.isSatisfiedBy(page[elementName], elementName);
+      const isSatisfied = await handler.isSatisfiedBy(page.getElement(elementName), elementName);
 
       if (isSatisfied) {
         return handler.handleCheck(page, elementName, desiredValue);
