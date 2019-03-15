@@ -4,7 +4,7 @@ Feature: Matchers
 
     Scenario: I want to match current date with format
         Given I visit the "main" page
-        When I click the "matchersLink" element
+        When I click the ".matchers" element
         Then the "matchers" page is displayed
         And there is element "span.current_date" with value "f:isVisible"
         And there is element "p.date-matcher" with value "t:Date/Time:"
@@ -15,6 +15,6 @@ Feature: Matchers
 
     Scenario: I want to match current date without additional parameters
         Given I visit the "main" page
-        When I click the "matchersLink" element
+        When I click the ".matchers" element
         Then the "matchers" page is displayed
         And there is element "span.current_date" with value "f:currentDate"

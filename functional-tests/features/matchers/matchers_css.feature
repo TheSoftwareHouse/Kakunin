@@ -4,10 +4,10 @@ Feature: Matchers
 
     Scenario: Fill the input and check value
         Given I visit the "main" page
-        When I click the "formLink" element
+        When I click the "a[href='/form/simple']" element
         Then the "simpleForm" page is displayed
         And I fill the "form" form with:
-            | nameInput | test |
+            | input[name="name"] | test |
         And there is element "input[name='name']" with value "t:test"
         And there is element "input[name='name']" containing "test" text
         And there is no element "input[name='name']" with value "t:hello"

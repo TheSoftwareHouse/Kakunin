@@ -4,7 +4,7 @@ Feature: Forms
 
     Scenario: Fill and check form fields
         Given I visit the "main" page
-        When I click the "formLink" element
+        When I click the "a[href='/form/simple']" element
         Then the "simpleForm" page is displayed
         When I generate random "stringWithLength:10" as "storedStringWithLength"
         And I fill the "form" form with:
