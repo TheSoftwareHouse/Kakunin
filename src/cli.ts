@@ -42,7 +42,7 @@ if (isInitCommand(process.argv)) {
       )
     )
   ) {
-    childProcess.execSync(path.join(process.cwd(), 'node_modules', '.bin', 'webdriver-manager update'));
+    childProcess.execSync(path.join(process.cwd(), 'node_modules', '.bin', 'webdriver-manager update --ie'));
   }
 
   childProcess

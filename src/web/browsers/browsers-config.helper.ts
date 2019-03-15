@@ -36,10 +36,15 @@ const getDefaultBrowsersConfigs = (config): any => {
     browserName: 'safari',
   };
 
+  const ieConfig = {
+    browserName: 'internet explorer',
+  };
+
   return {
     chromeConfig,
     firefoxConfig,
     safariConfig,
+    ieConfig,
   };
 };
 
@@ -83,8 +88,8 @@ const getExtendedBrowsersConfigs = (config): any => {
   return configs;
 };
 
-const browsersConfiguration = (config, commandArgs): any => {
-  return async () => {
+export const browsersConfiguration = (config, commandArgs): any => {
+  return () => {
     const browsersSettings = [];
     const browserConfigs = getExtendedBrowsersConfigs(config);
     const allSpecs = glob.sync(config.features.map(file => path.join(config.projectPath, file, '**/*.feature'))[0]);
@@ -109,7 +114,7 @@ const browsersConfiguration = (config, commandArgs): any => {
     };
 
     if (commandArgs.firefox) {
-      browserConfigs.firefoxConfig.firefox_profile = await createFirefoxProfile(config);
+      browserConfigs.firefoxConfig.firefox_profile = createFirefoxProfile(config);
       pushPreparedBrowserInstance('firefoxConfig');
     }
 
@@ -118,12 +123,17 @@ const browsersConfiguration = (config, commandArgs): any => {
       pushPreparedBrowserInstance('safariConfig');
     }
 
-    if (commandArgs.chrome || (commandArgs.firefox === undefined && commandArgs.safari === undefined)) {
+    if (commandArgs.ie) {
+      pushPreparedBrowserInstance('ieConfig');
+    }
+
+    if (
+      commandArgs.chrome ||
+      (commandArgs.firefox === undefined && commandArgs.safari === undefined && commandArgs.ie === undefined)
+    ) {
       pushPreparedBrowserInstance('chromeConfig');
     }
 
     return Promise.resolve(browsersSettings);
   };
 };
-
-export = browsersConfiguration;
