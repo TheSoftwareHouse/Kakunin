@@ -17,6 +17,9 @@
       "extending": {
         "title": "Extending Kakunin"
       },
+      "headless": {
+        "title": "Headless"
+      },
       "how-it-works": {
         "title": "How it works"
       },
