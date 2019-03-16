@@ -48,7 +48,7 @@ const getDefaultBrowsersConfigs = (config): any => {
   };
 };
 
-const getExtendedBrowsersConfigs = (config): any => {
+const getExtendedBrowsersConfigs = (config, commandArgs): any => {
   const configs = getDefaultBrowsersConfigs(config);
 
   if (config.performance) {
@@ -71,7 +71,10 @@ const getExtendedBrowsersConfigs = (config): any => {
     ];
   }
 
-  if (config.headless) {
+  if (
+    (config.headless && commandArgs.headless === undefined) ||
+    (commandArgs.headless && commandArgs.headless !== 'false')
+  ) {
     configs.chromeConfig.chromeOptions.args = [
       ...configs.chromeConfig.chromeOptions.args,
       '--headless',
@@ -91,7 +94,7 @@ const getExtendedBrowsersConfigs = (config): any => {
 export const browsersConfiguration = (config, commandArgs): any => {
   return () => {
     const browsersSettings = [];
-    const browserConfigs = getExtendedBrowsersConfigs(config);
+    const browserConfigs = getExtendedBrowsersConfigs(config, commandArgs);
     const allSpecs = glob.sync(config.features.map(file => path.join(config.projectPath, file, '**/*.feature'))[0]);
     const isParallel =
       commandArgs.parallel !== undefined && Number.isInteger(commandArgs.parallel) && commandArgs.parallel !== 0;
