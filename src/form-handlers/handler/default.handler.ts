@@ -6,22 +6,29 @@ class DefaultHandler implements FormHandler {
   }
 
   public handleFill(page, elementName, desiredValue) {
-    return page[elementName]
+    return page
+      .getElement(elementName)
       .isDisplayed()
-      .then(() => page[elementName].clear())
-      .then(() => page[elementName].sendKeys(desiredValue));
+      .then(() => page.getElement(elementName).clear())
+      .then(() => page.getElement(elementName).sendKeys(desiredValue));
   }
 
   public handleCheck(page, elementName, desiredValue) {
-    return page[elementName].isDisplayed().then(() => {
-      return page[elementName].getAttribute('value').then(value => {
-        if (value === desiredValue) {
-          return Promise.resolve();
-        }
+    return page
+      .getElement(elementName)
+      .isDisplayed()
+      .then(() => {
+        return page
+          .getElement(elementName)
+          .getAttribute('value')
+          .then(value => {
+            if (value === desiredValue) {
+              return Promise.resolve();
+            }
 
-        return Promise.reject(`Expected ${desiredValue} got ${value} for text input element ${elementName}`);
+            return Promise.reject(`Expected ${desiredValue} got ${value} for text input element ${elementName}`);
+          });
       });
-    });
   }
 
   public getPriority() {

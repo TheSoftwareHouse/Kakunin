@@ -19,7 +19,8 @@ class CheckboxHandler implements FormHandler {
   }
 
   public handleFill(page, elementName, desiredValue) {
-    return page[elementName]
+    return page
+      .getElements(elementName)
       .filter(elem => {
         return elem
           .element(by.xpath('..'))
@@ -33,7 +34,7 @@ class CheckboxHandler implements FormHandler {
   }
 
   public handleCheck(page, elementName, desiredValue) {
-    const filteredElements = page[elementName].filter(element => element.isSelected());
+    const filteredElements = page.getElements(elementName).filter(element => element.isSelected());
 
     return filteredElements.count().then(count => {
       if (desiredValue === '') {
@@ -44,7 +45,8 @@ class CheckboxHandler implements FormHandler {
         return Promise.reject(`Expected count to be 0 got ${count}`);
       }
 
-      return page[elementName]
+      return page
+        .getElements(elementName)
         .filter(element => {
           return element
             .element(by.xpath('..'))
