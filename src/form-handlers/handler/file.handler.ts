@@ -23,17 +23,20 @@ class FileHandler implements FormHandler {
   public handleFill(page, elementName, desiredValue) {
     const fileToUpload = path.resolve(path.join(config.projectPath, config.data, desiredValue));
 
-    return page[elementName].sendKeys(fileToUpload);
+    return page.getElements(elementName).sendKeys(fileToUpload);
   }
 
   public handleCheck(page, elementName, desiredValue) {
-    return page[elementName].getText().then(text => {
-      if (text === desiredValue) {
-        return Promise.resolve();
-      }
+    return page
+      .getElements(elementName)
+      .getText()
+      .then(text => {
+        if (text === desiredValue) {
+          return Promise.resolve();
+        }
 
-      return Promise.reject(`Expected ${desiredValue} got ${text} for file element ${elementName}`);
-    });
+        return Promise.reject(`Expected ${desiredValue} got ${text} for file element ${elementName}`);
+      });
   }
 
   public getPriority() {
