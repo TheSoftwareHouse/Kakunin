@@ -146,7 +146,7 @@ for custom email checking system only type is required:
 "type": "custom-type"
 ```
 
-`headless` - flag to activate chrome headless browser `default: false`
+`headless` - flag to activate chrome headless browser `default: false`. Keep in mind that CLI command `-- --headless=false/true` has higher priority than the config file.
 
 `noGpu` - flag to activate cpu only mode `default: false`
 
