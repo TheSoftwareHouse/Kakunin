@@ -29,3 +29,15 @@ Feature: Navigation
             | title            | myPageTitle |
             | additionalParam2 | value2      |
         Then the "additionalParams" page is displayed
+        # and again
+        When I visit the "navigationPages" page with parameters:
+            | pageId           | myPageId    |
+            | additionalParam1 | value2      |
+            | title            | myPageTitle |
+            | additionalParam2 | value3      |
+        Then I visit the "navigationPages" page with parameters:
+            | pageId           | myPageId    |
+            | additionalParam1 | value1      |
+            | title            | myPageTitle |
+            | additionalParam2 | value2      |
+        Then the "additionalParams" page is displayed
