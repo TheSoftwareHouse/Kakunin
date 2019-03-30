@@ -1,7 +1,5 @@
-<h1>
-  <p align="center">
-    <img src="/data/kakunin_logo.png" alt="kakunin.png" width="550"/>
-  </p>
+<h1 align="center">
+  <img src="/data/kakunin_logo.png" alt="kakunin.png" width="550"/>
 </h1>
 
 <p align="center">
@@ -24,12 +22,10 @@
 </p>
 
 <p align="center">
-     <img src="/data/pageObjectFeature.gif" alt="pageObjectFeature.gif"/>
+  <img src="/data/pageObjectFeature.gif" alt="pageObjectFeature.gif"/>
 </p>
 
-<h1>
-</h1>
-
+<br/>
 
 ### **Automated testing framework**
 
