@@ -10,6 +10,8 @@ class NavigationPagesPage extends BasePage {
 
     this.pageId = $('p.pageId');
     this.title = $('p.title');
+    this.queryParam1 = $('p.queryParam1');
+    this.queryParam2 = $('p.queryParam2');
   }
 }
 

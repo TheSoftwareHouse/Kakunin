@@ -50,7 +50,9 @@ app.post('/form/simple/post', function (req, res) {
 app.get('/navigation/pages/:pageId/titles/:title', function (req, res) {
   res.render('navigation/page.njs', {
     pageId: req.params.pageId,
-    title: req.params.title
+    title: req.params.title,
+    queryParam1: req.query.queryParam1,
+    queryParam2: req.query.queryParam2
   });
 });
 
