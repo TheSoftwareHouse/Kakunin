@@ -45,8 +45,8 @@ defineSupportCode(({ When, Then }) => {
   When(/^I send "([^"]*)" request on "([^"]*)" endpoint using form data:$/, (method, endpoint, payload) => {
     apiRequest.method = method;
     apiRequest.endpoint = endpoint;
-    apiRequest.body = payload;
-    apiRequest.addHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });
+    apiRequest.body = apiRequest.addFormData(payload.raw());
+    apiRequest.addHeaders({ 'Content-Type': 'multipart/form-data' });
 
     return service
       .fetch(apiRequest)

@@ -122,17 +122,14 @@ app.post('/postTestEndpoint', function (req, res) {
 });
 
 app.post('/postFormDataEndpoint', function (req, res) {
-  const name = req.body.name;
-  const title = req.body.title;
   const contentType = req.header('Content-Type');
-  const object = { code: 'created', name: name, title: title };
 
-  if (contentType !== 'application/x-www-form-urlencoded') {
+  if (contentType !== 'multipart/form-data') {
     res.status(403);
     return res.end();
   }
   res.status(201);
-  return res.json(object);
+  return res.end();
 });
 
 app.use('/xlsx', xlsxDataRouting());
