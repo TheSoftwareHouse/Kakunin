@@ -67,6 +67,14 @@ Given I send "POST" request on "/api/users" endpoint with body:
 Then the response code should be "201"
 ```
 
+or you can create post request and attach the form data to it: 
+
+```gherkin
+Given I send "POST" request on "/api/users" endpoint using form data:
+  | name | morpheus |
+Then the response code should be "201"
+```
+
 This scenario will create a post request to the application and verify if response was 201 (created). 
 The response is stored till creating another request. So if We want to test the response body of a server we can create scenarios
 like before:

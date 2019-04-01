@@ -30,6 +30,15 @@ I send "POST" request on "posts" endpoint with JSON body:
     """
 ```
 
+## `^I send "methodName" request on ":endpoint" endpoint using form data:`
+
+Sends request method to website endpoint using form data.
+
+```gherkin
+I send "POST" request on "posts" endpoint using form data:
+    | title | user |
+```
+
 ## `the response code should be ":statusCode"`
 
 Verifies if the server response code has match to given one.
