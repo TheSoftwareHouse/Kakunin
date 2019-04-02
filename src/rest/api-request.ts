@@ -1,12 +1,16 @@
 import { Headers } from 'node-fetch';
 import FormData = require('form-data');
 
+interface HeaderList {
+  [name: string]: string;
+}
+
 export class ApiRequest {
   public method: string;
   public endpoint: string;
-  private payload: any;
-  private headers: any;
-  private formData: any;
+  private payload: string | object;
+  private headers: Headers;
+  private formData: FormData;
 
   constructor() {
     this.payload = null;
@@ -14,7 +18,7 @@ export class ApiRequest {
     this.formData = new FormData();
   }
 
-  public addHeaders(headers) {
+  public addHeaders(headers: HeaderList) {
     for (const [key, value] of Object.entries(headers)) {
       this.headers.append(key, value);
     }
