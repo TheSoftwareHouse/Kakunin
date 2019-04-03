@@ -42,6 +42,24 @@ defineSupportCode(({ When, Then }) => {
       });
   });
 
+  When(/^I send "([^"]*)" request on "([^"]*)" endpoint using form data:$/, (method, endpoint, payload) => {
+    apiRequest.method = method;
+    apiRequest.endpoint = endpoint;
+    apiRequest.body = apiRequest.addFormData(payload.raw());
+    apiRequest.addHeaders({ 'Content-Type': 'multipart/form-data' });
+
+    return service
+      .fetch(apiRequest)
+      .then(response => {
+        fetchResult = response;
+        return response;
+      })
+      .finally(() => {
+        apiRequest = new ApiRequest();
+        return apiRequest;
+      });
+  });
+
   When(/^I set request headers:$/, headers => {
     return apiRequest.addHeaders(headers.rowsHash());
   });
