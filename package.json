@@ -95,7 +95,7 @@
     "protractor-multiple-cucumber-html-reporter-plugin": "^1.8.0",
     "shelljs": "^0.8.3",
     "sugar-date": "^2.0.6",
-    "webdriver-manager": "^12.1.0"
+    "webdriver-manager": "^13.0.0"
   },
   "lint-staged": {
     "src/**/*.js": [
