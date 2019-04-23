@@ -31,7 +31,7 @@ class FormHandlers {
       }
     }
 
-    return Promise.reject('Could not find matching handler.');
+    return Promise.reject('Could not find matching handlers.');
   }
 
   public async handleCheck(page: Base, elementName: string, desiredValue: string): Promise<string | void> {
@@ -45,7 +45,7 @@ class FormHandlers {
       }
     }
 
-    return Promise.reject('Could not find matching handler.');
+    return Promise.reject('Could not find matching handlers.');
   }
 
   public getHandlers(): FormHandler[] {
