@@ -1,7 +1,6 @@
 import { Before } from 'cucumber';
-import { HookHandler } from '../hook-handler.interface';
 
-class TestHook implements HookHandler {
+class TestHook {
   public handleHook() {
     Before(() => {
       console.log('Standard hook');

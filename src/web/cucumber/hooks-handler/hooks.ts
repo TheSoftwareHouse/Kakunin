@@ -2,7 +2,15 @@ import * as hookHandler from './handlers';
 import { HookHandler } from './hook-handler.interface';
 
 class HookHandlers {
-  constructor(private availableHandlers: HookHandler[] = [hookHandler.testHook, hookHandler.takeScreenshotHook]) {}
+  constructor(
+    private availableHandlers: HookHandler[] = [
+      hookHandler.takeScreenshotHook,
+      hookHandler.reloadFixturesHook,
+      hookHandler.clearDownloadHook,
+      hookHandler.reloadUserHook,
+      hookHandler.clearVariablesHook,
+    ]
+  ) {}
 
   public addHandler(handler: HookHandler): void {
     this.availableHandlers.push(handler);

@@ -70,7 +70,7 @@ class Initializer {
       dictionaries: ['/dictionaries'],
       transformers: ['/transformers'],
       regexes: ['/regexes'],
-      hooks: ['/hooks-handlers'],
+      hooks: ['/hooks'],
       clearEmailInboxBeforeTests: false,
       clearCookiesAfterScenario: true,
       clearLocalStorageAfterScenario: true,
@@ -180,7 +180,7 @@ class Initializer {
       conf.comparators = [await this.promptFolders('Where are your comparators stored?', conf.comparators[0])];
       conf.dictionaries = [await this.promptFolders('Where are your dictionaries stored?', conf.dictionaries[0])];
       conf.regexes = [await this.promptFolders('Where are your regexes stored?', conf.regexes[0])];
-      conf.hooks = [await this.promptFolders('Where are your hooks-handlers stored?', conf.hooks[0])];
+      conf.hooks = [await this.promptFolders('Where are your hooks stored?', conf.hooks[0])];
       conf.transformers = [await this.promptFolders('Where are your transformers stored?', conf.transformers[0])];
 
       conf.clearEmailInboxBeforeTests = await this.promptFolders(
@@ -263,6 +263,7 @@ class Initializer {
     this.createTemplateFileWithContentFrom(config.step_definitions[0] + '/steps.js', 'steps.js');
     this.createTemplateFileWithContentFrom(config.regexes[0] + '/regex.js', 'regex.js');
     this.createTemplateFileWithContentFrom(config.hooks[0] + '/hook.js', 'hook.js');
+    this.createTemplateFileWithContentFrom(config.hooks[0] + '/hook-example.ts', 'hook-example.ts');
   }
 }
 
