@@ -50,10 +50,9 @@ exports.config = {
   cucumberOpts: {
     require: [
       './web/cucumber/config.js',
-      './web/cucumber/hooks.js',
       './step_definitions/**/*.js',
+      './web/cucumber/hooks.js',
       ...config.step_definitions.map(file => path.join(config.projectPath, file, '**/*.js')),
-      ...config.hooks.map(file => path.join(config.projectPath, file, '**/*.js')),
     ],
     format: [`json:./${config.reports}/features-report.json`],
     profile: false,
@@ -92,6 +91,7 @@ exports.config = {
     modulesLoader.getModules('form_handlers');
     modulesLoader.getModules('transformers');
     modulesLoader.getModules('emails');
+    modulesLoader.getModules('hooks');
 
     const modules = modulesLoader.getModulesAsObject(config.pages.map(page => path.join(config.projectPath, page)));
 

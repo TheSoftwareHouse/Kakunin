@@ -1,3 +1,3 @@
-import { hookHandlers } from './hooks-handler';
+import { hookHandlers } from './hooks/hooks';
 
-hookHandlers.handleHook();
+hookHandlers.initializeHook();

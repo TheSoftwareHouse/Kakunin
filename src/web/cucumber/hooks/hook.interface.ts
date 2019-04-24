@@ -1,4 +1,4 @@
 export interface HookHandler {
-  handleHook(): string | void;
+  initializeHook(): void;
   getPriority(): number;
 }

@@ -12,7 +12,7 @@ export { default as handlers } from './form-handlers/handlers';
 export { comparators } from './comparators';
 export { emailService } from './emails';
 export { waitForVisibilityOf, waitForInvisibilityOf, waitForCondition } from './web/cucumber/wait-for-condition.helper';
-export { hookHandlers } from './web/cucumber/hooks-handler';
+export { hookHandlers } from './web/cucumber/hooks/hooks';
 
 export const BasePage = pages.Form;
 export const BaseDictionary = dictionaries.Base;

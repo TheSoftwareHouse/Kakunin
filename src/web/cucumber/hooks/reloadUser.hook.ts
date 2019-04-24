@@ -1,8 +1,8 @@
 import { After } from 'cucumber';
-import { HookHandler } from '../hook-handler.interface';
+import { HookHandler } from './hook.interface';
 
 class ReloadUserHook implements HookHandler {
-  public handleHook() {
+  public initializeHook() {
     After('@reloadUsers', function(scenario, callback) {
       if (this.currentUser !== null) {
         this.userProvider.lockUser(this.currentUser.account, this.currentUser.type);

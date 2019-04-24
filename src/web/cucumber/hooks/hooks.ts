@@ -1,5 +1,5 @@
-import * as hookHandler from './handlers';
-import { HookHandler } from './hook-handler.interface';
+import * as hookHandler from './index';
+import { HookHandler } from './hook.interface';
 
 class HookHandlers {
   constructor(
@@ -12,21 +12,21 @@ class HookHandlers {
     ]
   ) {}
 
-  public addHandler(handler: HookHandler): void {
+  public addHook(handler: HookHandler): void {
     this.availableHandlers.push(handler);
   }
 
-  public handleHook(): string | void {
-    const handlers = this.getHandlers();
+  public initializeHook(): void {
+    const handlers = this.getHooks();
 
     for (const handler of handlers) {
-      handler.handleHook();
+      handler.initializeHook();
     }
   }
 
-  public getHandlers(): HookHandler[] {
+  public getHooks(): HookHandler[] {
     return this.availableHandlers.sort((handler, otherHandler) => handler.getPriority() - otherHandler.getPriority());
   }
 }
 
-export default new HookHandlers();
+export const hookHandlers = new HookHandlers();

@@ -1,10 +1,10 @@
 import { Before } from 'cucumber';
-import { HookHandler } from '../hook-handler.interface';
-import userProvider from '../../../user-provider.helper';
-import variableStore from '../../../variable-store.helper';
+import { HookHandler } from './hook.interface';
+import userProvider from '../../user-provider.helper';
+import variableStore from '../../variable-store.helper';
 
 class ClearVariablesHook implements HookHandler {
-  public handleHook() {
+  public initializeHook() {
     Before(function(scenario, callback) {
       this.currentUser = null;
 

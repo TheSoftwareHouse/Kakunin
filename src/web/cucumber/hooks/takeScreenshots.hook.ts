@@ -1,6 +1,6 @@
+import { HookHandler } from './hook.interface';
+import config from '../../../core/config.helper';
 import { After } from 'cucumber';
-import { HookHandler } from '../hook-handler.interface';
-import config from '../../../../core/config.helper';
 
 const takeScreenshot = scenario => {
   return browser.takeScreenshot().then(
@@ -38,8 +38,8 @@ const clearCookiesAndLocalStorage = callback => {
 };
 
 class TakeScreenshotHook implements HookHandler {
-  public handleHook() {
-    After(function(scenario, callback) {
+  public initializeHook() {
+    return After(function(scenario, callback) {
       if (scenario.result.status !== 'passed') {
         takeScreenshot(this).then(() => {
           clearCookiesAndLocalStorage(callback);

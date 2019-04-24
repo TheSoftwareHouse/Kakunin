@@ -1,8 +1,8 @@
 import { After, Before } from 'cucumber';
-import { HookHandler } from '../hook-handler.interface';
+import { HookHandler } from './hook.interface';
 import * as fs from 'fs';
 import * as path from 'path';
-import config from '../../../../core/config.helper';
+import config from '../../../core/config.helper';
 
 const clearDownload = callback => {
   const files = fs.readdirSync(path.join(config.projectPath, config.downloads)).filter(file => file !== '.gitkeep');
@@ -15,7 +15,7 @@ const clearDownload = callback => {
 };
 
 class ClearDownloadHook implements HookHandler {
-  public handleHook() {
+  public initializeHook() {
     Before('@downloadClearBefore', (scenario, callback) => {
       clearDownload(callback);
     });

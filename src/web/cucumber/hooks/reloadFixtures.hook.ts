@@ -1,8 +1,8 @@
 import { Before } from 'cucumber';
-import { HookHandler } from '../hook-handler.interface';
+import { HookHandler } from './hook.interface';
 import chalk from 'chalk';
-import parameters from '../../../parameters';
-import fixturesLoader from '../../../fixtures/fixtures-loader.helper';
+import parameters from '../../parameters';
+import fixturesLoader from '../../fixtures/fixtures-loader.helper';
 
 const logRequestTime = timeStart => {
   const timeDiff = process.hrtime(timeStart);
@@ -11,8 +11,7 @@ const logRequestTime = timeStart => {
 };
 
 class ReloadFixturesHook implements HookHandler {
-  public handleHook() {
-    console.log('clear fixtures');
+  public initializeHook() {
     Before('@reloadFixtures', (scenario, callback) => {
       console.log(chalk.black.bgYellow('Reloading fixtures'));
 
