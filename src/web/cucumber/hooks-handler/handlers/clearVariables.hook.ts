@@ -19,7 +19,7 @@ class ClearVariablesHook implements HookHandler {
   }
 
   public getPriority() {
-    return 990;
+    return 1;
   }
 }
 

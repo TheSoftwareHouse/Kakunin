@@ -51,7 +51,7 @@ class TakeScreenshotHook implements HookHandler {
   }
 
   public getPriority() {
-    return 998;
+    return 1;
   }
 }
 

@@ -12,6 +12,7 @@ const logRequestTime = timeStart => {
 
 class ReloadFixturesHook implements HookHandler {
   public handleHook() {
+    console.log('clear fixtures');
     Before('@reloadFixtures', (scenario, callback) => {
       console.log(chalk.black.bgYellow('Reloading fixtures'));
 
@@ -41,7 +42,7 @@ class ReloadFixturesHook implements HookHandler {
   }
 
   public getPriority() {
-    return 990;
+    return 2;
   }
 }
 
