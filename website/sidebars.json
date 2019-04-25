@@ -9,7 +9,8 @@
     "Built in mechanisms":[
       "matchers",
       "transformers",
-      "extending"
+      "extending",
+      "hooks"
     ],
     "Features": [
       "cross-browser",

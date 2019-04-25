@@ -20,6 +20,9 @@
       "headless": {
         "title": "Headless"
       },
+      "hooks": {
+        "title": "Hooks"
+      },
       "how-it-works": {
         "title": "How it works"
       },
