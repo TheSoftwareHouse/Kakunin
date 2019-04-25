@@ -33,6 +33,16 @@ module.exports = {
     port: 8888,
     host: 'localhost',
   },
+  browserstack: {
+    seleniumAddress: 'http://hub-cloud.browserstack.com/wd/hub',
+    defaultPort: 45691,
+    capabilities: {
+      'browserstack.user': '',
+      'browserstack.key': '',
+      'browserstack.local': true,
+      browserName: 'chrome',
+    }
+  },
   accounts: {
     someAccount: {
       accounts: [
