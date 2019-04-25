@@ -14,6 +14,7 @@
     ],
     "Features": [
       "cross-browser",
+      "browserstack",
       "headless",
       "parallel-testing",
       "performance-testing",

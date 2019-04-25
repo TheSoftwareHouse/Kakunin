@@ -116,6 +116,10 @@ export const browsersConfiguration = (config, commandArgs): any => {
       }
     };
 
+    if (commandArgs.browserstack) {
+      return Promise.resolve([prepareBrowserInstance(config.browserstack.capabilities, allSpecs)]);
+    }
+
     if (commandArgs.firefox) {
       browserConfigs.firefoxConfig.firefox_profile = createFirefoxProfile(config);
       pushPreparedBrowserInstance('firefoxConfig');
@@ -139,4 +143,8 @@ export const browsersConfiguration = (config, commandArgs): any => {
 
     return Promise.resolve(browsersSettings);
   };
+};
+
+export const setSeleniumAddress = (commandArgs, config): string => {
+  return commandArgs.browserstack ? config.browserstack.seleniumAddress : '';
 };
