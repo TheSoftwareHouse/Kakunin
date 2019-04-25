@@ -5,6 +5,9 @@
     "previous": "Previous",
     "tagline": "Are you looking for an automation testing tool? Here's Kakunin – an open-source framework for end-to-end, automated software testing.",
     "docs": {
+      "browserstack": {
+        "title": "Browserstack integration"
+      },
       "configuration": {
         "title": "Configuration"
       },
