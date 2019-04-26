@@ -23,7 +23,7 @@ Remember that new Hook must contain these 2 methods to fulfill interface.
 After your hook is ready to use method `hookHandlers.addHook(Hook object)`
 
 
-### Example of example.hook.ts:
+### Example of example.hook.js:
 ```typescript
 const { hookHandlers, Before } = require('kakunin');
 
