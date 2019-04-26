@@ -4,10 +4,12 @@ import * as shell from 'shelljs';
 import config from '../../core/config.helper';
 
 export const disconnectBrowserstack = (browserstackEnabled: boolean) => {
-  const browserstackPid = shell.exec(`lsof -t -i :${config.browserstack.defaultPort}`).stdout;
+  if (browserstackEnabled && config.browserstack) {
+    const browserstackPid = shell.exec(`lsof -t -i :${config.browserstack.defaultPort}`).stdout;
 
-  if (browserstackEnabled && browserstackPid.length > 0) {
-    return shell.exec(`kill -9 ${browserstackPid}`);
+    if (browserstackPid.length > 0) {
+      return shell.exec(`kill -9 ${browserstackPid}`);
+    }
   }
 
   return Promise.resolve();
