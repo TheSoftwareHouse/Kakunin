@@ -15,13 +15,17 @@ Feature: Navigation
         Then there is element "pageId" with value "t:myPageId"
         And there is element "title" with value "t:myPageTitle"
 
-    Scenario: Navigate to parametrized url with query string 
+    Scenario: Navigate to parametrized url with additional params
         Given I visit the "navigationPages" page with parameters:
-            | pageId | myPageId    |
-            | title  | myPageTitle |
-            | queryParam1 | value1 |
-            | queryParam2 | value2 |
-        Then there is element "pageId" with value "t:myPageId"
-        And there is element "title" with value "t:myPageTitle"    
-        And there is element "queryParam1" with value "t:value1"    
-        And there is element "queryParam2" with value "t:value2"    
+            | pageId           | myPageId    |
+            | additionalParam1 | value1      |
+            | title            | myPageTitle |
+            | additionalParam2 | value2      |
+        Then the "additionalParams" page is displayed
+        # check again
+        Then I visit the "navigationPages" page with parameters:
+            | pageId           | myPageId    |
+            | additionalParam1 | value1      |
+            | title            | myPageTitle |
+            | additionalParam2 | value2      |
+        Then the "additionalParams" page is displayed

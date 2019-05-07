@@ -9,7 +9,7 @@
     }
   </style>
 
-  <p>Date/Time: <span class="current_date colored"id="datetime"></span></p>
+  <p class="date-matcher">Date/Time: <span class="current_date colored"id="datetime"></span></p>
 
 
 

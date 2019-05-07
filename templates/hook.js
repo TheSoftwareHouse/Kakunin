@@ -1,7 +1,15 @@
-const { defineSupportCode } = require('kakunin');
+const { hookHandlers, Before } = require('kakunin');
 
-defineSupportCode(({ Before }) => {
-  Before(function () {
-    console.log('If you can see this in console then hook is working properly.');
-  });
-});
+class TestHook {
+  initializeHook() {
+    Before(() => {
+      console.log('Standard hook');
+    });
+  }
+
+  getPriority() {
+    return 990;
+  }
+}
+
+hookHandlers.addHook(new TestHook());

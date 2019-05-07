@@ -1,0 +1,34 @@
+{
+  "defaultSeverity": "error",
+  "extends": [
+    "tslint:recommended",
+    "tslint-config-prettier",
+    "tslint-sonarts"
+  ],
+  "linterOptions": {
+    "exclude": [
+      "**/*.spec.ts",
+      "**/*.d.ts"
+    ]
+  },
+  "jsRules": {},
+  "rules": {
+    "no-extra-semicolon": false,
+    "no-empty-interface": false,
+    "object-literal-sort-keys": false,
+    "radix": false,
+    "interface-name": [true, "never-prefix"],
+    "ordered-imports": false,
+    "no-duplicate-string": false,
+    "variable-name": [true, "ban-keywords", "allow-leading-underscore", "allow-pascal-case"],
+    "interface-over-type-literal": false,
+    "no-angle-bracket-type-assertion": false,
+    "max-union-size": false,
+    "no-identical-functions": false,
+    "no-console": false,
+    "no-var-requires": false,
+    "cognitive-complexity": false,
+    "no-big-function": false
+  },
+  "rulesDirectory": []
+}
