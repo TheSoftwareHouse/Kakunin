@@ -10,6 +10,7 @@ class MainPage extends BasePage {
 
     this.linkDivs = $$('.available-examples-links');
     this.formLink = $('a[href="/form/simple"]');
+    this.formSelectLink = $('a[href="/form/select"]');
     this.absolutePageLink = $('a[href="/absolute-page"]');
     this.googleLink = $('a[href="https://www.google.pl"]');
     this.tabularDataLink = $('a[href="/tabular-data"]');

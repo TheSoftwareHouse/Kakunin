@@ -1,7 +1,5 @@
-const { matchers, variableStore, defineSupportCode } = require('kakunin');
+const { matchers, variableStore, Then } = require('kakunin');
 
-defineSupportCode(({ Then }) => {
-  Then(/^my matcher "([^"]*)" matches "([^"]*)"$/, function (matcher, text) {
-    return expect(matchers.match(variableStore.replaceTextVariables(text), matcher)).to.be.true;
-  });
+Then(/^my matcher "([^"]*)" matches "([^"]*)"$/, function (matcher, text) {
+  return expect(matchers.match(variableStore.replaceTextVariables(text), matcher)).toBe(true);
 });
