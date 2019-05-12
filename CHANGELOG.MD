@@ -1,3 +1,24 @@
+#### v3.0.0
+
+- added support for Browserstack
+- updated external libraries
+- locked selenium-standalone-server to `3.14.0` to prevent bugs caused due to updated external libraries (we'll update it manually)
+- coverted Kakunin from Javascript to Typescript
+- added possibility to set priority of hooks <span style="color:red">Breaking change! Take a look to the MIGRATION-3.0.0.MD</span>
+
+#### v2.6.0
+
+- added possibility to control `headless` by CLI by a command `npm run kakunin -- --headless`
+- added a possibility to visit URL w query params
+- added support for Internet Explorer
+
+#### v2.5.0
+
+- added prepublish script to run tests before publish on NPM
+- improved logging errors in the console
+- added docusaurus documentation
+- added possibility to test REST API
+
 #### v2.4.0
 
 - `When I pause` step has been deleted as the `browser.pause()` method is not supported since Node 8.x.x
