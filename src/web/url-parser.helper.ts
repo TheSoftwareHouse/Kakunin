@@ -1,7 +1,16 @@
 import * as Url from 'url';
 
 const extractDomain = url => Url.parse(url).host;
-const extractUrl = url => Url.parse(url).pathname;
+const extractUrl = url => {
+  const parsedUrl = Url.parse(url);
+
+  if (parsedUrl.hash) {
+    return parsedUrl.hash;
+  }
+
+  return parsedUrl.pathname;
+};
+
 const normalizeUrl = url => {
   if (url.length === 0) {
     return extractUrl('/');

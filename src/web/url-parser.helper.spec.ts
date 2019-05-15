@@ -1,6 +1,7 @@
 import { isRelativePage, waitForUrlChangeTo } from './url-parser.helper';
 
 const exampleBaseUrl = 'https://example-base-url.com';
+const localBaseUrl = 'http://localhost:8080';
 
 describe('URL parser', () => {
   it('returns false if a path in absolute URL is incorrect - without slash', () => {
@@ -58,6 +59,234 @@ describe('URL parser', () => {
     expect(
       waitForUrlChangeTo('/incorrect-data/', 'http://website.com/tabular-data').bind(null, 'http://incorrect.com')()
     ).toEqual(false);
+  });
+
+  it('returns empty object if a page URL and the current URL are the same - absolute URL without slash and special sign "#"', () => {
+    expect(
+      waitForUrlChangeTo('http://localhost:8080/#/tabular-data', 'http://localhost:8080/#/tabular-data').bind(
+        null,
+        exampleBaseUrl
+      )()
+    ).toEqual({});
+  });
+
+  it('returns false if newUrl does not contain the special sign "#" and the rest is the same - absolute URL', () => {
+    expect(
+      waitForUrlChangeTo('http://localhost:8080/tabular-data', 'http://localhost:8080/#/tabular-data').bind(
+        null,
+        exampleBaseUrl
+      )()
+    ).toEqual(false);
+  });
+
+  it('returns false if currentUrl does not contain the special sign "#" and the rest is the same - absolute URL', () => {
+    expect(
+      waitForUrlChangeTo('http://localhost:8080/#/tabular-data', 'http://localhost:8080/tabular-data').bind(
+        null,
+        exampleBaseUrl
+      )()
+    ).toEqual(false);
+  });
+
+  it('returns false if newUrl does not contain the special sign "#" and the rest is the same - relative URL', () => {
+    expect(
+      waitForUrlChangeTo('/tabular-data', 'http://localhost:8080/#/tabular-data').bind(null, exampleBaseUrl)()
+    ).toEqual(false);
+  });
+
+  it('returns false if currentUrl does not contain the special sign "#" and the rest is the same - relative URL', () => {
+    expect(
+      waitForUrlChangeTo('/#/tabular-data', 'http://localhost:8080/tabular-data').bind(null, exampleBaseUrl)()
+    ).toEqual(false);
+  });
+
+  it('returns empty object if a page URL and the current URL are the same - absolute URL with slash and special sign "#"', () => {
+    expect(
+      waitForUrlChangeTo('http://localhost:8080/#/tabular-data/', 'http://localhost:8080/#/tabular-data/').bind(
+        null,
+        exampleBaseUrl
+      )()
+    ).toEqual({});
+  });
+
+  it('returns empty object if a page URL and the current URL are the same - absolute URL with slash on newUrl and special sign "#"', () => {
+    expect(
+      waitForUrlChangeTo('http://localhost:8080/#/tabular-data/', 'http://localhost:8080/#/tabular-data').bind(
+        null,
+        exampleBaseUrl
+      )()
+    ).toEqual({});
+  });
+
+  it('returns empty object if a page URL and the current URL are the same - absolute URL with slash on currentUrl and special sign "#"', () => {
+    expect(
+      waitForUrlChangeTo('http://localhost:8080/#/tabular-data', 'http://localhost:8080/#/tabular-data/').bind(
+        null,
+        exampleBaseUrl
+      )()
+    ).toEqual({});
+  });
+
+  it('returns empty object if a page URL and the current URL are the same - absolute URL without slash and special sign "#"', () => {
+    expect(
+      waitForUrlChangeTo('http://localhost:8080/#/tabular-data', 'http://localhost:8080/#/tabular-data').bind(
+        null,
+        exampleBaseUrl
+      )()
+    ).toEqual({});
+  });
+
+  it('returns false if a page URL and the current URL are not the same - absolute URL with slash and special sign "#"', () => {
+    expect(
+      waitForUrlChangeTo('http://localhost:8080/#/incorrect/', 'http://localhost:8080/#/tabular-data/').bind(
+        null,
+        exampleBaseUrl
+      )()
+    ).toEqual(false);
+  });
+
+  it('returns false if a page URL and the current URL are not the same - absolute URL with slash on newUrl and special sign "#"', () => {
+    expect(
+      waitForUrlChangeTo('http://localhost:8080/#/incorrect/', 'http://localhost:8080/#/tabular-data').bind(
+        null,
+        exampleBaseUrl
+      )()
+    ).toEqual(false);
+  });
+
+  it('returns false if a page URL and the current URL are not the same - absolute URL with slash on currentUrl and special sign "#"', () => {
+    expect(
+      waitForUrlChangeTo('http://localhost:8080/#/incorrect', 'http://localhost:8080/#/tabular-data/').bind(
+        null,
+        exampleBaseUrl
+      )()
+    ).toEqual(false);
+  });
+
+  it('returns false if a page URL and the current URL are not the same - absolute URL with slash and special sign "#"', () => {
+    expect(
+      waitForUrlChangeTo('http://localhost:8080/#/tabular-data/', 'http://localhost:8080/#/incorrect/').bind(
+        null,
+        exampleBaseUrl
+      )()
+    ).toEqual(false);
+  });
+
+  it('returns false if a page URL and the current URL are not the same - absolute URL with slash on newUrl and special sign "#"', () => {
+    expect(
+      waitForUrlChangeTo('http://localhost:8080/#/tabular-data/', 'http://localhost:8080/#/incorrect').bind(
+        null,
+        exampleBaseUrl
+      )()
+    ).toEqual(false);
+  });
+
+  it('returns false if a page URL and the current URL are not the same - absolute URL with slash on currentUrl and special sign "#"', () => {
+    expect(
+      waitForUrlChangeTo('http://localhost:8080/#/tabular-data', 'http://localhost:8080/#/incorrect/').bind(
+        null,
+        exampleBaseUrl
+      )()
+    ).toEqual(false);
+  });
+
+  it('returns false if a page URL and the current URL are not the same - relative URL with slash and special sign "#"', () => {
+    expect(
+      waitForUrlChangeTo('/#/incorrect/', 'http://localhost:8080/#/tabular-data/').bind(null, localBaseUrl)()
+    ).toEqual(false);
+  });
+
+  it('returns false if a page URL and the current URL are not the same - relative URL with slash on newUrl and special sign "#"', () => {
+    expect(
+      waitForUrlChangeTo('/#/incorrect', 'http://localhost:8080/#/tabular-data/').bind(null, localBaseUrl)()
+    ).toEqual(false);
+  });
+
+  it('returns false if a page URL and the current URL are not the same - relative URL with slash on currentUrl and special sign "#"', () => {
+    expect(
+      waitForUrlChangeTo('/#/incorrect/', 'http://localhost:8080/#/tabular-data').bind(null, localBaseUrl)()
+    ).toEqual(false);
+  });
+
+  it('returns empty object if a page URL and the current URL are the same - relative URL with slash and special sign "#"', () => {
+    expect(
+      waitForUrlChangeTo('/#/tabular-data/', 'http://localhost:8080/#/tabular-data/').bind(null, localBaseUrl)()
+    ).toEqual({});
+  });
+
+  it('returns empty object if a page URL and the current URL are the same - relative URL with slash on currentUrlnewUrl and special sign "#"', () => {
+    expect(
+      waitForUrlChangeTo('/#/tabular-data', 'http://localhost:8080/#/tabular-data/').bind(null, localBaseUrl)()
+    ).toEqual({});
+  });
+
+  it('returns empty object if a page URL and the current URL are the same - relative URL with slash on newUrl and special sign "#"', () => {
+    expect(
+      waitForUrlChangeTo('/#/tabular-data/', 'http://localhost:8080/#/tabular-data').bind(null, localBaseUrl)()
+    ).toEqual({});
+  });
+
+  it('returns false if the newUrl contains special sign and the currentUrl not', () => {
+    expect(
+      waitForUrlChangeTo('/tabular-data/', 'http://localhost:8080/#/tabular-data').bind(null, localBaseUrl)()
+    ).toEqual(false);
+  });
+
+  it('returns false if if the newUrl does not contain special sign and the currentUrl does', () => {
+    expect(
+      waitForUrlChangeTo('/#/tabular-data/', 'http://localhost:8080/tabular-data').bind(null, localBaseUrl)()
+    ).toEqual(false);
+  });
+
+  it('returns false if the newUrl contains special sign and the currentUrl not - absolute urls', () => {
+    expect(
+      waitForUrlChangeTo('http://localhost:8080/#/tabular-data', 'http://localhost:8080/tabular-data/').bind(
+        null,
+        localBaseUrl
+      )()
+    ).toEqual(false);
+  });
+
+  it('returns false if if the newUrl does not contain special sign and the currentUrl does - absolute urls', () => {
+    expect(
+      waitForUrlChangeTo('http://localhost:8080/tabular-data', 'http://localhost:8080/#/tabular-data/').bind(
+        null,
+        localBaseUrl
+      )()
+    ).toEqual(false);
+  });
+
+  it('returns false if the url with wildcard is different - with special sign "#"', () => {
+    expect(
+      waitForUrlChangeTo('http://localhost:8080/#/tabular-data/:pageId', 'http://localhost:8080/#/tabular-data/').bind(
+        null,
+        localBaseUrl
+      )()
+    ).toEqual(false);
+  });
+
+  it('returns empty object if the url with wildcard is different - with special sign "#"', () => {
+    expect(
+      waitForUrlChangeTo(
+        'http://localhost:8080/#/tabular-data/:pageId',
+        'http://localhost:8080/#/tabular-data/1234'
+      ).bind(null, localBaseUrl)()
+    ).toEqual({ pageId: '1234' });
+  });
+
+  it('returns false if the url with wildcard is different - absolute URL with special sign "#"', () => {
+    expect(
+      waitForUrlChangeTo('/#/tabular-data/:pageId', 'http://localhost:8080/#/tabular-data/').bind(null, localBaseUrl)()
+    ).toEqual(false);
+  });
+
+  it('returns empty object if the url with wildcard is different - absolute URL with special sign "#"', () => {
+    expect(
+      waitForUrlChangeTo('/#/tabular-data/:pageId', 'http://localhost:8080/#/tabular-data/123').bind(
+        null,
+        localBaseUrl
+      )()
+    ).toEqual({ pageId: '123' });
   });
 
   it('returns empty object if a page URL and the current URL are the same - absolute URL without slash', () => {
