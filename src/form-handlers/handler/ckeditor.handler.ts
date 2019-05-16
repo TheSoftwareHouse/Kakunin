@@ -1,6 +1,8 @@
 import { FormHandler } from '../form-handler.interface';
 
 class CKEditorHandler implements FormHandler {
+  public readonly type = 'CKEditor';
+
   public isSatisfiedBy(element, elementName) {
     return Promise.resolve(elementName.endsWith('CKEditor'));
   }

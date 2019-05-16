@@ -1,6 +1,8 @@
 import { FormHandler } from '../form-handler.interface';
 
 class RadioHandler implements FormHandler {
+  public readonly type = 'radio';
+
   public isSatisfiedBy(element) {
     return element.getTagName().then(tagName => {
       if (tagName === 'input') {

@@ -1,6 +1,7 @@
 import { FormHandler } from '../form-handler.interface';
 
 class CustomAngularSelectHandler implements FormHandler {
+  public readonly type = 'customAngularSelect';
   private selectedOptionSelector: object;
   private optionsSelector: object;
 

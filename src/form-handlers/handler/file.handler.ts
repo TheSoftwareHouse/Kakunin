@@ -3,6 +3,8 @@ import config from '../../core/config.helper';
 import { FormHandler } from '../form-handler.interface';
 
 class FileHandler implements FormHandler {
+  public readonly type = 'file';
+
   public isSatisfiedBy(element) {
     return element.getTagName().then(tagName => {
       if (tagName === 'input') {

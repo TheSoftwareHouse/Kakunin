@@ -28,6 +28,58 @@ Feature: Forms
             | optionRadios        | third-radio-option          |
             | statusSelect        | unknown                     |
 
+    Scenario: Fill and check form fields - with extra third column
+        Given I visit the "main" page
+        When I click the "formLink" element
+        Then the "simpleForm" page is displayed
+        When I generate random "stringWithLength:10" as "storedStringWithLength"
+        And I fill the "form" form with:
+            | nameInput | v:storedStringWithLength |
+        Then the "form" form is filled with:
+            | nameInput | v:storedStringWithLength |
+        When I fill the "form" form with:
+            | nameInput           | d:test-dictionary:test-name |          |
+            | descriptionTextarea | some description            | default  |
+            | optionCheckboxes    | Checkbox Option 2           | checkbox |
+            | optionCheckboxes    | Checkbox Option 3           | checkbox |
+            | optionRadios        | third-radio-option          |          |
+            | statusSelect        | unknown                     | select   |
+        And I click the "submitButton" element
+        Then the "simpleFormPost" page is displayed
+        And the "form" form is filled with:
+            | nameInput           | d:test-dictionary:test-name | default  |
+            | descriptionTextarea | some description            |          |
+            | optionCheckboxes    | Checkbox Option 2           | checkbox |
+            | optionCheckboxes    | Checkbox Option 3           |          |
+            | optionRadios        | third-radio-option          | radio    |
+            | statusSelect        | unknown                     | select   |
+
+    Scenario: Fill and check form fields - with extra third column - all filled
+        Given I visit the "main" page
+        When I click the "formLink" element
+        Then the "simpleForm" page is displayed
+        When I generate random "stringWithLength:10" as "storedStringWithLength"
+        And I fill the "form" form with:
+            | nameInput | v:storedStringWithLength |
+        Then the "form" form is filled with:
+            | nameInput | v:storedStringWithLength |
+        When I fill the "form" form with:
+            | nameInput           | d:test-dictionary:test-name | default  |
+            | descriptionTextarea | some description            | default  |
+            | optionCheckboxes    | Checkbox Option 2           | checkbox |
+            | optionCheckboxes    | Checkbox Option 3           | checkbox |
+            | optionRadios        | third-radio-option          | radio    |
+            | statusSelect        | unknown                     | select   |
+        And I click the "submitButton" element
+        Then the "simpleFormPost" page is displayed
+        And the "form" form is filled with:
+            | nameInput           | d:test-dictionary:test-name | default  |
+            | descriptionTextarea | some description            | default  |
+            | optionCheckboxes    | Checkbox Option 2           | checkbox |
+            | optionCheckboxes    | Checkbox Option 3           | checkbox |
+            | optionRadios        | third-radio-option          | radio    |
+            | statusSelect        | unknown                     | select   |
+
     Scenario: Fill input and textarea fields and then store the values and check if the form was filled with expected data
         Given I visit the "main" page
         When I click the "formLink" element
