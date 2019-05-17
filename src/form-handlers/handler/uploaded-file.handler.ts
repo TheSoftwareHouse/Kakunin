@@ -1,6 +1,8 @@
 import { FormHandler } from '../form-handler.interface';
 
 class UploadedFileHandler implements FormHandler {
+  public readonly type = 'uploadedFile';
+
   public isSatisfiedBy(element, elementName) {
     return Promise.resolve(elementName.endsWith('Uploaded'));
   }

@@ -1,6 +1,8 @@
 import { FormHandler } from '../form-handler.interface';
 
 class DefaultHandler implements FormHandler {
+  public readonly type = 'default';
+
   public isSatisfiedBy() {
     return Promise.resolve(true);
   }

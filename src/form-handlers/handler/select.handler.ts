@@ -1,6 +1,7 @@
 import { FormHandler } from '../form-handler.interface';
 
 class SelectHandler implements FormHandler {
+  public readonly type = 'select';
   private optionsSelector: object;
 
   constructor() {

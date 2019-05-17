@@ -113,6 +113,7 @@
     "protractor-multiple-cucumber-html-reporter-plugin": "^1.8.0",
     "shelljs": "^0.8.3",
     "sugar-date": "^2.0.6",
+    "uuid": "^3.3.2",
     "webdriver-manager": "13.0.0"
   },
   "jest": {

@@ -1,6 +1,8 @@
 import { FormHandler } from '../form-handler.interface';
 
 class CheckboxHandler implements FormHandler {
+  public readonly type = 'checkbox';
+
   public isSatisfiedBy(element) {
     return element.getTagName().then(tagName => {
       if (tagName === 'input') {

@@ -1,3 +1,7 @@
+#### next
+
+- Added possibility to use third column in `fill/check form` steps (speed improvement required for Browserstack)
+
 #### v3.0.0
 
 - added support for Browserstack
