@@ -24,11 +24,11 @@ class Page {
     const url =
       data.raw().reduce((prev, item) => {
         if (prev.indexOf(`:${item[0]}`) === -1) {
-          additionalParams.push(item);
+          additionalParams[item[0]] = item[1];
           return prev;
         }
         return prev.replace(`:${item[0]}`, item[1]);
-      }, this.url) + (additionalParams.length > 0 ? '?' + stringify(additionalParams) : '');
+      }, this.url) + (Object.entries(additionalParams).length > 0 ? '?' + stringify(additionalParams) : '');
 
     if (config.type === 'otherWeb' || !isRelativePage(url)) {
       protractor.browser.ignoreSynchronization = true;
