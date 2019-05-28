@@ -4,7 +4,7 @@
 What needs to be done:
 1. Remove all locators from Page Objects
 ```javascript
-this.exampleLocator = by.css('.unique-class');
+this.exampleLocator = by.css('.unique-class'); 
 ```
 
 needs to be changed to:
