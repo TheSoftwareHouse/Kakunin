@@ -1,5 +1,6 @@
 import { Headers } from 'node-fetch';
 import FormData = require('form-data');
+import fs = require('fs');
 
 interface HeaderList {
   [name: string]: string;
@@ -26,7 +27,11 @@ export class ApiRequest {
 
   public addFormData(payload) {
     for (const table of payload) {
-      this.formData.append(table[0], table[1]);
+      if (table[2].length !== 0) {
+        this.formData.append(table[0], fs.createReadStream(table[2]));
+      } else {
+        this.formData.append(table[0], table[1]);
+      }
     }
     return this.formData;
   }

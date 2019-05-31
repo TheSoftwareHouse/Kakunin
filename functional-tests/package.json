@@ -8,19 +8,22 @@
     "start": "pm2 update && pm2 start www",
     "stop": "pm2 delete www",
     "test-ci": "npm run start && npm run kakunin -- --parallel 4 && npm run stop",
-    "test": "npm run start && npm run kakunin && npm run stop"
+    "test": "npm run start && npm run kakunin && npm run stop",
+    "logs": "pm2 logs www"
   },
   "author": "",
   "dependencies": {
-    "body-parser": "^1.18.3",
+    "body-parser": "^1.19.0",
     "cross-env": "^5.2.0",
     "eslint": "5.10.0",
     "eslint-config-airbnb": "17.1.0",
     "eslint-plugin-import": "2.14.0",
     "eslint-plugin-jsx-a11y": "6.1.2",
     "eslint-plugin-react": "7.11.1",
-    "express": "4.16.4",
+    "express": "^4.16.4",
+    "express-fileupload": "^1.1.4",
     "kakunin": "file:../",
+    "multer": "^1.4.1",
     "node-fetch": "2.3.0",
     "nunjucks": "3.1.4",
     "protractor": "^5.4.1"
