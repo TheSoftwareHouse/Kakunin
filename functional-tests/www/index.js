@@ -122,7 +122,7 @@ app.post('/postTestEndpoint', function (req, res) {
   const name = req.body.name;
   const title = req.body.title;
   const header = req.header('User-Agent');
-  const object = {code: 'created', name: name, title: title};
+  const object = { code: 'created', name: name, title: title };
   if (header === 'Mozilla') {
     res.status(403);
     return res.end();
@@ -153,8 +153,7 @@ app.get('/upload/multipart', function (req, res) {
 });
 
 app.post('/upload', upload.single('myFile'), (req, res) => {
-
-  let filename, uploadStatus, status;
+  let uploadStatus, status;
   if (Object.keys(req.files).length > 0) {
     status = 201;
     uploadStatus = 'File Uploaded Successfully';

@@ -27,7 +27,7 @@ export class ApiRequest {
 
   public addFormData(payload) {
     for (const table of payload) {
-      if (table[2].length !== 0) {
+      if (typeof table[2] !== 'undefined' && table[2].length !== 0) {
         this.formData.append(table[0], fs.createReadStream(table[2]));
       } else {
         this.formData.append(table[0], table[1]);
