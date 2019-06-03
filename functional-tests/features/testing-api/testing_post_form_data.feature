@@ -11,6 +11,6 @@ Feature: Test server post request using form data
 
     Scenario: REST upload example file
         Given I send "POST" request on "upload" endpoint using form data:
-            | name   | test |                         |
-            | myFile |      | ./data/kakunin_logo.png |
+            | name   | test |                       |
+            | myFile |      | data/kakunin_logo.png |
         Then the response code should be "201"
