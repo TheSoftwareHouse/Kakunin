@@ -7,7 +7,6 @@
 const React = require('react');
 
 class Footer extends React.Component {
-
   render() {
     return (
       <footer className="nav-footer" id="footer">
@@ -23,53 +22,59 @@ class Footer extends React.Component {
             )}
           </a>
           <div>
-              <h5>Docs:</h5>
-              <a
-                  href={`
-                ${this.props.config.baseUrl}docs/quickstart`}>
-                 Quick start
-              </a>
-              <a
-                  href={`
-                ${this.props.config.baseUrl}docs/configuration`}>
-                  Configuration
-              </a>
-              <a
-                  href={`
-                ${this.props.config.baseUrl}docs/extending`}>
-                  Extending
-              </a>
+            <h5>Docs:</h5>
+            <a
+              href={`
+                ${this.props.config.baseUrl}docs/quickstart`}
+            >
+              Quick start
+            </a>
+            <a
+              href={`
+                ${this.props.config.baseUrl}docs/configuration`}
+            >
+              Configuration
+            </a>
+            <a
+              href={`
+                ${this.props.config.baseUrl}docs/extending`}
+            >
+              Extending
+            </a>
           </div>
-            <div>
-                <h5>Features:</h5>
-                <a
-                    href={`
-                ${this.props.config.baseUrl}docs/cross-browser`}>
-                    Cross-browser testing
-                </a>
-                <a
-                    href={`
-                ${this.props.config.baseUrl}docs/parallel-testing`}>
-                    Parallel testing
-                </a>
-                <a
-                    href={`
-                ${this.props.config.baseUrl}docs/performance-testing`}>
-                    Performance testing
-                </a>
-                <a
-                    href={`
-                ${this.props.config.baseUrl}docs/docker`}>
-                    Docker
-                </a>
-            </div>
           <div>
-
+            <h5>Features:</h5>
+            <a
+              href={`
+                ${this.props.config.baseUrl}docs/cross-browser`}
+            >
+              Cross-browser testing
+            </a>
+            <a
+              href={`
+                ${this.props.config.baseUrl}docs/parallel-testing`}
+            >
+              Parallel testing
+            </a>
+            <a
+              href={`
+                ${this.props.config.baseUrl}docs/performance-testing`}
+            >
+              Performance testing
+            </a>
+            <a
+              href={`
+                ${this.props.config.baseUrl}docs/docker`}
+            >
+              Docker
+            </a>
+          </div>
+          <div>
             <h5>Support:</h5>
-              <div className="footer-row">
-                  <a href="https://github.com/TheSoftwareHouse/Kakunin">GitHub</a>
-                  <a href="https://kakunin.io">Contact us</a>
-              </div>
+            <div className="footer-row">
+              <a href="https://github.com/TheSoftwareHouse/Kakunin">GitHub</a>
+              <a href="https://kakunin.io">Contact us</a>
+            </div>
           </div>
         </section>
 

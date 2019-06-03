@@ -6,11 +6,7 @@ class Generator {
   }
 
   generate() {
-    const names = [
-      'Bob',
-      'John',
-      'Paul'
-    ];
+    const names = ['Bob', 'John', 'Paul'];
 
     return Promise.resolve(names[Math.floor(Math.random() * names.length)]);
   }

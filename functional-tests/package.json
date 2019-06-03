@@ -13,7 +13,6 @@
   },
   "author": "",
   "dependencies": {
-    "body-parser": "^1.19.0",
     "cross-env": "^5.2.0",
     "eslint": "5.10.0",
     "eslint-config-airbnb": "17.1.0",

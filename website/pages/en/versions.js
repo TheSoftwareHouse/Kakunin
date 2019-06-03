@@ -18,9 +18,7 @@ const versions = require(`${CWD}/versions.json`);
 
 function Versions() {
   const latestVersion = versions[0];
-  const repoUrl = `https://github.com/${siteConfig.organizationName}/${
-    siteConfig.projectName
-  }`;
+  const repoUrl = `https://github.com/${siteConfig.organizationName}/${siteConfig.projectName}`;
   return (
     <div className="docMainWrapper wrapper">
       <Container className="mainContainer versionsContainer">
@@ -29,9 +27,7 @@ function Versions() {
             <h1>{siteConfig.title} Versions</h1>
           </header>
           <h3 id="latest">Current version (Stable)</h3>
-            <p>
-                Latest version of Kakunin.
-            </p>
+          <p>Latest version of Kakunin.</p>
           <table className="versions">
             <tbody>
               <tr>
@@ -71,13 +67,12 @@ function Versions() {
                         <a href={`${repoUrl}/releases/tag/v${version}`}>Release Notes</a>
                       </td>
                     </tr>
-                  ),
+                  )
               )}
             </tbody>
           </table>
           <p>
-            You can find past versions of this project on{' '}
-            <a href={repoUrl}>GitHub</a>.
+            You can find past versions of this project on <a href={repoUrl}>GitHub</a>.
           </p>
         </div>
       </Container>

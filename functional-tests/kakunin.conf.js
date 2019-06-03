@@ -41,7 +41,7 @@ module.exports = {
       'browserstack.key': '',
       'browserstack.local': true,
       browserName: 'chrome',
-    }
+    },
   },
   accounts: {
     someAccount: {

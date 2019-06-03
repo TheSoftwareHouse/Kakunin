@@ -1,16 +1,14 @@
 const siteConfig = {
   title: 'Kakunin',
-  tagline: 'Are you looking for an automation testing tool? Here\'s Kakunin – an open-source framework for end-to-end, automated software testing.',
+  tagline:
+    "Are you looking for an automation testing tool? Here's Kakunin – an open-source framework for end-to-end, automated software testing.",
   ogImage: 'img/kakunin_ogImage.jpg',
   url: 'https://thesoftwarehouse.github.io',
   baseUrl: '/Kakunin/',
   projectName: 'Kakunin',
   organizationName: 'TheSoftwareHouse',
 
-  headerLinks: [
-    {search: true},
-    {href: 'https://github.com/TheSoftwareHouse/Kakunin', label: 'GitHub'},
-  ],
+  headerLinks: [{ search: true }, { href: 'https://github.com/TheSoftwareHouse/Kakunin', label: 'GitHub' }],
 
   headerIcon: 'img/kakunin_white_logo.svg',
   footerIcon: 'img/kakunin_white_logo_text.svg',
@@ -19,7 +17,7 @@ const siteConfig = {
   algolia: {
     apiKey: '3cda5a3d6672f433f13a4a2cda6d2186',
     indexName: 'kakunin',
-    algoliaOptions: {} // Optional, if provided by Algolia
+    algoliaOptions: {}, // Optional, if provided by Algolia
   },
 
   colors: {
