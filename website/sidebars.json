@@ -10,7 +10,8 @@
       "matchers",
       "transformers",
       "extending",
-      "hooks"
+      "hooks",
+      "form-handlers"
     ],
     "Features": [
       "cross-browser",

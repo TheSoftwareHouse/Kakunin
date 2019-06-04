@@ -13,7 +13,7 @@ class FormHandlers {
       checkbox: formHandler.checkboxHandler,
       CKEditor: formHandler.ckEditorHandler,
       customAngularSelect: formHandler.customAngularSelectHandler,
-      default: formHandler.defaultHandler,
+      text: formHandler.textHandler,
       file: formHandler.fileHandler,
       radio: formHandler.radioHandler,
       select: formHandler.selectHandler,

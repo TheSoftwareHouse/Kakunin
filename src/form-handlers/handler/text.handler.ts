@@ -1,7 +1,7 @@
 import { FormHandler } from '../form-handler.interface';
 
-class DefaultHandler implements FormHandler {
-  public readonly type = 'default';
+class TextHandler implements FormHandler {
+  public readonly type = 'text';
 
   public isSatisfiedBy() {
     return Promise.resolve(true);
@@ -38,4 +38,4 @@ class DefaultHandler implements FormHandler {
   }
 }
 
-export const defaultHandler = new DefaultHandler();
+export const textHandler = new TextHandler();

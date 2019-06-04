@@ -39,7 +39,7 @@ Feature: Forms
             | nameInput | v:storedStringWithLength |
         When I fill the "form" form with:
             | nameInput           | d:test-dictionary:test-name |          |
-            | descriptionTextarea | some description            | default  |
+            | descriptionTextarea | some description            | text     |
             | optionCheckboxes    | Checkbox Option 2           | checkbox |
             | optionCheckboxes    | Checkbox Option 3           | checkbox |
             | optionRadios        | third-radio-option          |          |
@@ -47,7 +47,7 @@ Feature: Forms
         And I click the "submitButton" element
         Then the "simpleFormPost" page is displayed
         And the "form" form is filled with:
-            | nameInput           | d:test-dictionary:test-name | default  |
+            | nameInput           | d:test-dictionary:test-name | text     |
             | descriptionTextarea | some description            |          |
             | optionCheckboxes    | Checkbox Option 2           | checkbox |
             | optionCheckboxes    | Checkbox Option 3           |          |
@@ -64,8 +64,8 @@ Feature: Forms
         Then the "form" form is filled with:
             | nameInput | v:storedStringWithLength |
         When I fill the "form" form with:
-            | nameInput           | d:test-dictionary:test-name | default  |
-            | descriptionTextarea | some description            | default  |
+            | nameInput           | d:test-dictionary:test-name | text     |
+            | descriptionTextarea | some description            | text     |
             | optionCheckboxes    | Checkbox Option 2           | checkbox |
             | optionCheckboxes    | Checkbox Option 3           | checkbox |
             | optionRadios        | third-radio-option          | radio    |
@@ -73,8 +73,8 @@ Feature: Forms
         And I click the "submitButton" element
         Then the "simpleFormPost" page is displayed
         And the "form" form is filled with:
-            | nameInput           | d:test-dictionary:test-name | default  |
-            | descriptionTextarea | some description            | default  |
+            | nameInput           | d:test-dictionary:test-name | text     |
+            | descriptionTextarea | some description            | text     |
             | optionCheckboxes    | Checkbox Option 2           | checkbox |
             | optionCheckboxes    | Checkbox Option 3           | checkbox |
             | optionRadios        | third-radio-option          | radio    |
