@@ -3,11 +3,11 @@ id: form-handlers
 title: Form Handlers
 ---
 
-Form handlers allows you to fill or check if a element is filled with certain type of data.
+Form handlers allow you to fill or check if an element is filled with a certain type of data.
 
-For example you can fill select out of the box just by providing element and option.
+For example, you can fill select out of the box just by providing element and option.
 
-Using form handlers is very straightforward.
+Using the form handlers is very straightforward.
 By providing element, option and type of field for example:
 
 ```gherkin
@@ -23,7 +23,7 @@ When I fill the "form" form with:
             | descriptionTextarea | g:personalData:email |
 ```
 
-also you can use form handlers to check if correct value is set:
+also, you can use form handlers to check if the correct value is set:
 
 ```gherkin
 Then the "form" form is filled with:
@@ -31,7 +31,7 @@ Then the "form" form is filled with:
 ```
 
 
-Kakunin comes with a set of built in form handlers:
+Kakunin comes with a set of built-in form handlers:
 
 ## Text handler
 
@@ -39,7 +39,7 @@ Kakunin comes with a set of built in form handlers:
 
 ## File Handler
 
-`file` - adds file, by providing file name (file must be in data folder)
+`file` - adds the file, by providing a file name (file must be in the data folder)
 
 ## CKEditor Handler
 
@@ -51,7 +51,7 @@ Kakunin comes with a set of built in form handlers:
 
 ## Select Handler
 
-`select` - picks desired option from select
+`select` - pick the desired option from select
 
 ## Checkbox Handler
 
@@ -59,11 +59,11 @@ Kakunin comes with a set of built in form handlers:
 
 ## Uploaded File Handler
 
-`uploadedFile` - this allows you to check if file is uploaded (this handler is only for checking)
+`uploadedFile` - this allows you to check if the file is uploaded (this handler is only for checking)
 
 ## Custom Handlers
 
-We allows you to write your own handler, just by following
+We allow you to write your own handler, just by following
 form handlers interface
 
 ## Methods:
@@ -72,10 +72,10 @@ form handlers interface
 - this method is used to check if fill form step should use this strategy to for example to fill or select proper option
 
 ##### `handleFill(page, elementName, desiredValue)`
-- this method should contain a way of filling desired field e.g select proper option from custom Angular select
+- this method should contain a way of filling desired field e.g select a proper option from custom Angular select
 
 ##### `handleCheck(page, elementName, desiredValue)`
-- this method should contain a way of checking field e.g is field filled with provided text
+- this method should contain a way of checking field e.g is field filled with the provided text
 
 ##### `getPriority()` 
  - this method is used in automatioc field detection, higher value means 
