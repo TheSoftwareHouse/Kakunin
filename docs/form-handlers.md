@@ -81,30 +81,27 @@ form handlers interface
  - this method is used in automatioc field detection, higher value means 
  isSatisifedBy method will be later
 
-
 ## Example:
-```typescript
+```javascript
 const { handlers } = require('kakunin');
 
 class CustomHandler {
-  public readonly type = 'custom-handler-type';
-
   constructor() {
-    // you can use constructior to create private selectors used only in handler, but is not necessery
+    this.type = 'custom-handler-type';
   }
 
-  public isSatisfiedBy(element, elementName) {
+  isSatisfiedBy(element, elementName) {
   }
 
-  public handleFill(page, elementName, desiredValue) {
+  handleFill(page, elementName, desiredValue) {
     
   }
 
-  public handleCheck(page, elementName, desiredValue) {
+  handleCheck(page, elementName, desiredValue) {
     
   }
 
-  public getPriority() {
+  getPriority() {
     return 998;
   }
 }
