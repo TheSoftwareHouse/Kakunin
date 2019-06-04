@@ -49,7 +49,7 @@
     "test-ci": "npm run units && npm run build && cd functional-tests && npm i && npm run test-ci",
     "lint": "tslint -c tslint.json 'src/**/*.ts'",
     "lint-fix": "tslint -c tslint.json 'src/**/*.ts' --fix",
-    "prettier": "prettier --write 'src/**/*.ts'",
+    "prettier": "prettier --write 'src/**/*.ts' && prettier --write 'functional-tests/**/*.js",
     "type-check": "tsc --noEmit",
     "build": "tsc",
     "prepublishOnly": "npm run build && npm run test"

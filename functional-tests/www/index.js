@@ -3,10 +3,14 @@ const nunjucks = require('nunjucks');
 const path = require('path');
 const app = express();
 const { xlsxDataRouting } = require('./jsonData/xlsxData.router');
+const fileUpload = require('express-fileupload');
+let multer = require('multer');
+const upload = multer({ dest: './uploads/' });
 
 app.set('views', path.join(__dirname, 'views'));
 
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
+app.use(fileUpload());
 
 nunjucks.configure(app.get('views'), {
   autoescape: true,
@@ -51,7 +55,7 @@ app.get('/navigation/pages/:pageId/titles/:title', function(req, res) {
     pageId: req.params.pageId,
     title: req.params.title,
     queryParam1: req.query.queryParam1,
-    queryParam2: req.query.queryParam2
+    queryParam2: req.query.queryParam2,
   });
 });
 
@@ -82,35 +86,37 @@ app.post('/form/select/post', function(req, res) {
   });
 });
 
-app.delete('/deleteTestEndpoint',function(req, res, next){
+app.delete('/deleteTestEndpoint', function(req, res, next) {
   res.status(200);
   return res.end();
 });
 
-app.get('/getTestEndpoint', function (req, res) {
+app.get('/getTestEndpoint', function(req, res) {
   res.setHeader('Content-Type', 'application/json');
   const header = req.header('host');
   if (header === 'localhost:8080') {
-    return res.send(JSON.stringify(
-      { id: 1,
+    return res.send(
+      JSON.stringify({
+        id: 1,
         title: 'Kaunin',
-        body: 'test' }
-    ));
+        body: 'test',
+      })
+    );
   }
   res.status(403);
   return res.end();
 });
 
-app.patch('/patchTestEndpoint', function (req, res) {
-  if(req.body.hasOwnProperty('first_name') === true) {
+app.patch('/patchTestEndpoint', function(req, res) {
+  if (req.body.hasOwnProperty('first_name') === true) {
     res.status(200);
     return res.end();
   }
-  res.status(400)
+  res.status(400);
   return res.end();
 });
 
-app.post('/postTestEndpoint', function (req, res) {
+app.post('/postTestEndpoint', function(req, res) {
   const name = req.body.name;
   const title = req.body.title;
   const header = req.header('User-Agent');
@@ -123,7 +129,7 @@ app.post('/postTestEndpoint', function (req, res) {
   return res.json(object);
 });
 
-app.post('/postFormDataEndpoint', function (req, res) {
+app.post('/postFormDataEndpoint', function(req, res) {
   const contentType = req.header('Content-Type');
 
   if (contentType !== 'multipart/form-data') {
@@ -138,4 +144,21 @@ app.use('/xlsx', xlsxDataRouting());
 
 app.listen(8080, function() {
   console.log('Example app listening on port 8080!');
+});
+
+app.get('/upload/multipart', function(req, res) {
+  res.render('upload/multipart.njs');
+});
+
+app.post('/upload', upload.single('myFile'), (req, res) => {
+  let uploadStatus, status;
+  if (Object.keys(req.files).length > 0) {
+    status = 201;
+    uploadStatus = 'File Uploaded Successfully';
+  } else {
+    status = 400;
+    uploadStatus = 'File Upload Failed';
+  }
+
+  res.status(status).send(uploadStatus);
 });

@@ -46,7 +46,6 @@ defineSupportCode(({ When, Then }) => {
     apiRequest.method = method;
     apiRequest.endpoint = endpoint;
     apiRequest.body = apiRequest.addFormData(payload.raw());
-    apiRequest.addHeaders({ 'Content-Type': 'multipart/form-data' });
 
     return service
       .fetch(apiRequest)
