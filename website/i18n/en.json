@@ -20,6 +20,9 @@
       "extending": {
         "title": "Extending Kakunin"
       },
+      "form-handlers": {
+        "title": "Form Handlers"
+      },
       "headless": {
         "title": "Headless"
       },
@@ -71,58 +74,58 @@
       "transformers": {
         "title": "Transformers"
       },
-      "version-2.4.0-configuration": {
+      "version-2.4.0/version-2.4.0-configuration": {
         "title": "Configuration"
       },
-      "version-2.4.0-cross-browser": {
+      "version-2.4.0/version-2.4.0-cross-browser": {
         "title": "Cross-browser testing"
       },
-      "version-2.4.0-docker": {
+      "version-2.4.0/version-2.4.0-docker": {
         "title": "Docker"
       },
-      "version-2.4.0-extending": {
+      "version-2.4.0/version-2.4.0-extending": {
         "title": "Extending Kakunin"
       },
-      "version-2.4.0-how-it-works": {
+      "version-2.4.0/version-2.4.0-how-it-works": {
         "title": "How it works"
       },
-      "version-2.4.0-index": {
+      "version-2.4.0/version-2.4.0-index": {
         "title": "Getting started"
       },
-      "version-2.4.0-matchers": {
+      "version-2.4.0/version-2.4.0-matchers": {
         "title": "Matchers"
       },
-      "version-2.4.0-parallel-testing": {
+      "version-2.4.0/version-2.4.0-parallel-testing": {
         "title": "Parallel testing"
       },
-      "version-2.4.0-performance-testing": {
+      "version-2.4.0/version-2.4.0-performance-testing": {
         "title": "Performance testing"
       },
-      "version-2.4.0-quickstart": {
+      "version-2.4.0/version-2.4.0-quickstart": {
         "title": "Quick start"
       },
-      "version-2.4.0-steps-debug": {
+      "version-2.4.0/version-2.4.0-steps-debug": {
         "title": "Debug"
       },
-      "version-2.4.0-steps-elements": {
+      "version-2.4.0/version-2.4.0-steps-elements": {
         "title": "Elements"
       },
-      "version-2.4.0-steps-files": {
+      "version-2.4.0/version-2.4.0-steps-files": {
         "title": "Files"
       },
-      "version-2.4.0-steps-forms": {
+      "version-2.4.0/version-2.4.0-steps-forms": {
         "title": "Forms"
       },
-      "version-2.4.0-steps-generators": {
+      "version-2.4.0/version-2.4.0-steps-generators": {
         "title": "Generators"
       },
-      "version-2.4.0-steps-navigation": {
+      "version-2.4.0/version-2.4.0-steps-navigation": {
         "title": "Navigation"
       },
-      "version-2.4.0-transformers": {
+      "version-2.4.0/version-2.4.0-transformers": {
         "title": "Transformers"
       },
-      "version-2.5.0-steps-elements": {
+      "version-2.5.0/version-2.5.0-steps-elements": {
         "title": "Elements"
       }
     },
