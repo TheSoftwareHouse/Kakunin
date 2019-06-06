@@ -262,12 +262,17 @@ Then(/^there are "([^"]*)" following elements for element "([^"]*)":$/, function
       return allElements
         .each(element => {
           hashedData.forEach(hash => {
-            promises.push(
-              matchers.match(
-                element.element(self.currentPage.getElement(hash[0]).locator()),
-                variableStore.replaceTextVariables(hash[1])
-              )
-            );
+            for (let i = 1; i < hash.length; i++) {
+              if (hash[i].length === 0) {
+                continue;
+              }
+              promises.push(
+                matchers.match(
+                  element.element(self.currentPage.getElement(hash[0]).locator()),
+                  variableStore.replaceTextVariables(hash[i])
+                )
+              );
+            }
           });
         })
         .then(() => Promise.all(promises));

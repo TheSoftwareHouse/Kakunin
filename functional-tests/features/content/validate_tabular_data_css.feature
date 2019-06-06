@@ -29,10 +29,22 @@ Feature: Tabular data
             | .index | r:validNumber |
         And there are "equal 4" following elements for element "table tr":
             | .index      | r:validNumber   |
-            | .id          | t:MY_CUSTOM_ID_ |
+            | .id         | t:MY_CUSTOM_ID_ |
             | .name       | r:notEmpty      |
             | button.view | f:isVisible     |
             | button.view | f:isClickable   |
+        And every "table tr" element should have the same value for element "button.view"
+        And ".index" value on the "table tr" list is sorted in "ascending" order
+        And ".descending-sort" value on the "table tr" list is sorted in "descending" order
+
+    Scenario: Validate tabular data count and content, also check sorting
+        Given I visit the "main" page
+        When I click the "a[href='/tabular-data']" element
+        Then the "tabularData" page is displayed
+        And the "table tr" element is visible
+        And there are "equal 4" following elements for element "table tr":
+            | .index | r:validNumber | f:isVisible | | f:isPresent |
+
         And every "table tr" element should have the same value for element "button.view"
         And ".index" value on the "table tr" list is sorted in "ascending" order
         And ".descending-sort" value on the "table tr" list is sorted in "descending" order
