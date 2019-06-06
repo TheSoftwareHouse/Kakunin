@@ -282,23 +282,28 @@ Then(/^there are elements for element "([^"]*)":$/, function(elementName, data) 
   if (hashedData.length === 0) {
     return Promise.reject('Missing table under the step.');
   }
-  const keys = hashedData.map(element => element[0]);
 
-  for (let i = 0; i < keys.length; i++) {
-    hashedData[i] = hashedData[i].filter(item => item !== keys[i]);
-    hashedData[i] = hashedData[i].filter(item => item !== '');
-  }
+
+  const checkers = hashedData.flatMap(elements => {
+    return elements
+      .filter(Boolean)
+      .filter(item => item !== elements[0])
+      .map(item => {
+        return {
+          element: elements[0],
+          matcher: item,
+        };
+      });
+  });
 
   return this.currentPage.waitForVisibilityOf(elementName).then(() => {
     const promises = [];
-    return (
-      keys.forEach((elem, index) => {
-        for (const matchersOption of hashedData[index]) {
-          matchers.match(self.currentPage.getElement(elem), variableStore.replaceTextVariables(matchersOption));
-        }
-      }),
-      Promise.all(promises)
-    );
+    for (const check of checkers) {
+      promises.push(
+        matchers.match(self.currentPage.getElement(check.element), variableStore.replaceTextVariables(check.matcher))
+      );
+    }
+    return Promise.all(promises);
   });
 });
 
