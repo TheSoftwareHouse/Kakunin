@@ -18,15 +18,15 @@ Feature: Tabular data
         Then the "tabularData" page is displayed
         And the "rows" element is visible
         And there are "at least 4" following elements for element "rows":
-            | indexLocator | r:validNumber   |
+            | indexLocator | r:validNumber |
         And there are "above 3" following elements for element "rows":
-            | indexLocator | r:validNumber   |
+            | indexLocator | r:validNumber |
         And there are "equal 4" following elements for element "rows":
-            | indexLocator | r:validNumber   |
+            | indexLocator | r:validNumber |
         And there are "below 5" following elements for element "rows":
-            | indexLocator | r:validNumber   |
+            | indexLocator | r:validNumber |
         And there are "within 3-5" following elements for element "rows":
-            | indexLocator | r:validNumber   |
+            | indexLocator | r:validNumber |
         And there are "equal 4" following elements for element "rows":
             | indexLocator | r:validNumber   |
             | idLocator    | t:MY_CUSTOM_ID_ |
@@ -36,6 +36,16 @@ Feature: Tabular data
         And every "rows" element should have the same value for element "viewButton"
         And "indexLocator" value on the "rows" list is sorted in "ascending" order
         And "descendingIndex" value on the "rows" list is sorted in "descending" order
+
+    Scenario: Validate tabular data count and content with multiply checkers
+        Given I visit the "main" page
+        When I click the "tabularDataLink" element
+        Then the "tabularData" page is displayed
+        And the "rows" element is visible
+        And there are elements for element "rows":
+            | indexLocator | r:validNumber | f:isVisible |             | f:isPresent |
+            | indexLocator |               |             | f:isVisible |             |
+
 
     Scenario: Validate exact tabular data by columns
         Given I visit the "main" page

@@ -262,21 +262,43 @@ Then(/^there are "([^"]*)" following elements for element "([^"]*)":$/, function
       return allElements
         .each(element => {
           hashedData.forEach(hash => {
-            for (let i = 1; i < hash.length; i++) {
-              if (hash[i].length === 0) {
-                continue;
-              }
-              promises.push(
-                matchers.match(
-                  element.element(self.currentPage.getElement(hash[0]).locator()),
-                  variableStore.replaceTextVariables(hash[i])
-                )
-              );
-            }
+            promises.push(
+              matchers.match(
+                element.element(self.currentPage.getElement(hash[0]).locator()),
+                variableStore.replaceTextVariables(hash[1])
+              )
+            );
           });
         })
         .then(() => Promise.all(promises));
     });
+  });
+});
+
+Then(/^there are elements for element "([^"]*)":$/, function(elementName, data) {
+  const self = this;
+  const hashedData = data.raw();
+
+  if (hashedData.length === 0) {
+    return Promise.reject('Missing table under the step.');
+  }
+  const keys = hashedData.map(element => element[0]);
+
+  for (let i = 0; i < keys.length; i++) {
+    hashedData[i] = hashedData[i].filter(item => item !== keys[i]);
+    hashedData[i] = hashedData[i].filter(item => item !== '');
+  }
+
+  return this.currentPage.waitForVisibilityOf(elementName).then(() => {
+    const promises = [];
+    return (
+      keys.forEach((elem, index) => {
+        for (const matchersOption of hashedData[index]) {
+          matchers.match(self.currentPage.getElement(elem), variableStore.replaceTextVariables(matchersOption));
+        }
+      }),
+      Promise.all(promises)
+    );
   });
 });
 

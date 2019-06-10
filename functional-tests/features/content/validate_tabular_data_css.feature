@@ -42,8 +42,9 @@ Feature: Tabular data
         When I click the "a[href='/tabular-data']" element
         Then the "tabularData" page is displayed
         And the "table tr" element is visible
-        And there are "equal 4" following elements for element "table tr":
-            | .index | r:validNumber | f:isVisible | | f:isPresent |
+        And there are elements for element "table tr":
+            | .index | r:validNumber | f:isVisible |             | f:isPresent |
+            | .index |               |             | f:isVisible |             |
 
     Scenario: Validate exact tabular data by columns
         Given I visit the "main" page
