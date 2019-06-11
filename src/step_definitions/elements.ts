@@ -275,6 +275,33 @@ Then(/^there are "([^"]*)" following elements for element "([^"]*)":$/, function
   });
 });
 
+Then(/^there are elements for element "([^"]*)":$/, function(elementName, data) {
+  const self = this;
+  const hashedData = data.raw();
+
+  if (hashedData.length === 0) {
+    return Promise.reject('Missing table under the step.');
+  }
+  const keys = hashedData.map(element => element[0]);
+
+  for (let i = 0; i < keys.length; i++) {
+    hashedData[i] = hashedData[i].filter(item => item !== keys[i]);
+    hashedData[i] = hashedData[i].filter(item => item !== '');
+  }
+
+  return this.currentPage.waitForVisibilityOf(elementName).then(() => {
+    const promises = [];
+    return (
+      keys.forEach((elem, index) => {
+        for (const matchersOption of hashedData[index]) {
+          matchers.match(self.currentPage.getElement(elem), variableStore.replaceTextVariables(matchersOption));
+        }
+      }),
+      Promise.all(promises)
+    );
+  });
+});
+
 Then(/^there are "([^"]*)" dropdown list elements with following options:$/, function(elementName, data) {
   const allOptionElements = this.currentPage.getElement(elementName);
   const hashedData = data.raw();
