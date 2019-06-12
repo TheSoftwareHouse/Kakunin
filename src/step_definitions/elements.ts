@@ -297,12 +297,10 @@ Then(/^there are elements for element "([^"]*)":$/, function(elementName, data) 
   });
 
   return this.currentPage.waitForVisibilityOf(elementName).then(() => {
-    const promises = [];
-    for (const check of checkers) {
-      promises.push(
-        matchers.match(self.currentPage.getElement(check.element), variableStore.replaceTextVariables(check.matcher))
-      );
-    }
+    const promises = checkers.map(check =>
+      matchers.match(self.currentPage.getElement(check.element), variableStore.replaceTextVariables(check.matcher))
+    );
+
     return Promise.all(promises);
   });
 });
