@@ -46,6 +46,14 @@ Feature: Tabular data
             | indexLocator | r:validNumber | f:isVisible |             | f:isPresent |
             | indexLocator |               |             | f:isVisible |             |
 
+    Scenario: Validate tabular data count and content with multiply checkers
+        Given I visit the "main" page
+        When I click the "tabularDataLink" element
+        Then the "tabularData" page is displayed
+        And the "rows" element is visible
+        And there are elements for element "rows":
+            | indexLocator | r:validNumber | f:isVisible |             | f:isPresent |
+            | indexLocator |               |             | f:isVisible |             |
 
     Scenario: Validate exact tabular data by columns
         Given I visit the "main" page
