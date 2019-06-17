@@ -37,6 +37,7 @@ Feature: Tabular data
         And ".index" value on the "table tr" list is sorted in "ascending" order
         And ".descending-sort" value on the "table tr" list is sorted in "descending" order
 
+
     Scenario: Validate tabular data count and content with multiply checkers
         Given I visit the "main" page
         When I click the "a[href='/tabular-data']" element

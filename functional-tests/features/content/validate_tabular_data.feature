@@ -46,7 +46,6 @@ Feature: Tabular data
             | indexLocator | r:validNumber | f:isVisible |             | f:isPresent |
             | indexLocator |               |             | f:isVisible |             |
 
-
     Scenario: Validate exact tabular data by columns
         Given I visit the "main" page
         When I click the "tabularDataLink" element
