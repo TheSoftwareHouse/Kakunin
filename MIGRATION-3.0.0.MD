@@ -1,5 +1,5 @@
 # Kakunin - automated testing framework
-#### Migration to 2.0.0 version
+#### Migration to 3.0.0 version
 
 What needs to be done:
 1. Change Hooks
