@@ -4,6 +4,168 @@ const exampleBaseUrl = 'https://example-base-url.com';
 const localBaseUrl = 'http://localhost:8080';
 
 describe('URL parser', () => {
+  it('returns empty string if the regex matches query param - absolute url', () => {
+    expect(
+      waitForUrlChangeTo(
+        'http://localhost:10001/#/create-offering?id=[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}',
+        'http://localhost:10001/#/create-offering?id=3c1de646-f26e-48b6-a0d1-7cfabab236dc'
+      ).bind(null, exampleBaseUrl)()
+    ).toEqual({});
+  });
+
+  it('return empty object if all parameters are matched by regex and there is a wild card - absolute url', () => {
+    expect(
+      waitForUrlChangeTo(
+        'http://localhost:10001/#/:wild-card?id=[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}',
+        'http://localhost:10001/#/create-offering?id=3c1de646-f26e-48b6-a0d1-7cfabab236dc'
+      ).bind(null, exampleBaseUrl)()
+    ).toEqual({});
+  });
+
+  it('return false if there is extra parameter and there is a wild card - absolute url', () => {
+    expect(
+      waitForUrlChangeTo(
+        'http://localhost:10001/#/:wild-card?id=[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}',
+        'http://localhost:10001/#/create-offering?id=3c1de646-f26e-48b6-a0d1-7cfabab236dc?unexpectedParam=1234asd'
+      ).bind(null, exampleBaseUrl)()
+    ).toEqual(false);
+  });
+
+  it('return false if there is missing parameter and there is a wild card - absolute url', () => {
+    expect(
+      waitForUrlChangeTo(
+        'http://localhost:10001/#/:wild-card?id=[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}?newParam=[0-9]{5}',
+        'http://localhost:10001/#/create-offering?id=3c1de646-f26e-48b6-a0d1-7cfabab236dc'
+      ).bind(null, exampleBaseUrl)()
+    ).toEqual(false);
+  });
+
+  it('return empty object if all parameters are matched by regex and there is a wild card - relative url', () => {
+    expect(
+      waitForUrlChangeTo(
+        '/#/:wild-card?id=[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}',
+        'http://localhost:8080/#/create-offering?id=3c1de646-f26e-48b6-a0d1-7cfabab236dc'
+      ).bind(null, localBaseUrl)()
+    ).toEqual({});
+  });
+
+  it('return empty object if all 4 params are matched by regex - absolute url', () => {
+    expect(
+      waitForUrlChangeTo(
+        'http://localhost:8080/#/create-offering?id=[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}?first=1234?second=1234?third=1234',
+        'http://localhost:8080/#/create-offering?id=3c1de646-f26e-48b6-a0d1-7cfabab236dc?first=1234?second=1234?third=1234'
+      ).bind(null, localBaseUrl)()
+    ).toEqual({});
+  });
+
+  it('return empty object if all 4 params are matched by regex - absolute url', () => {
+    expect(
+      waitForUrlChangeTo(
+        '/#/create-offering?id=[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}?first=1234?second=1234?third=1234',
+        'http://localhost:8080/#/create-offering?id=3c1de646-f26e-48b6-a0d1-7cfabab236dc?first=1234?second=1234?third=1234'
+      ).bind(null, localBaseUrl)()
+    ).toEqual({});
+  });
+
+  it('return empty object if all 4 params are matched by regex with wild card - absolute url', () => {
+    expect(
+      waitForUrlChangeTo(
+        'http://localhost:8080/#/:wild-card?id=[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}?first=1234?second=1234?third=1234',
+        'http://localhost:8080/#/:wild-card?id=3c1de646-f26e-48b6-a0d1-7cfabab236dc?first=1234?second=1234?third=1234'
+      ).bind(null, localBaseUrl)()
+    ).toEqual({});
+  });
+
+  it('return false if the last 4th param is not matched by regex - wild card, absolute url', () => {
+    expect(
+      waitForUrlChangeTo(
+        'http://localhost:8080/#/:wild-card?id=[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}?first=1234?second=1234?third=2222',
+        'http://localhost:8080/#/:wild-card?id=3c1de646-f26e-48b6-a0d1-7cfabab236dc?first=1234?second=1234?third=1234'
+      ).bind(null, localBaseUrl)()
+    ).toEqual(false);
+  });
+
+  it('return empty object if all 4 params are matched by regex with wild card - absolute url', () => {
+    expect(
+      waitForUrlChangeTo(
+        '/#/:wild-card?id=[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}?first=1234?second=1234?third=1234',
+        'http://localhost:8080/#/:wild-card?id=3c1de646-f26e-48b6-a0d1-7cfabab236dc?first=1234?second=1234?third=1234'
+      ).bind(null, localBaseUrl)()
+    ).toEqual({});
+  });
+
+  it('return false if regex is not matched - absolute url', () => {
+    expect(
+      waitForUrlChangeTo(
+        'http://localhost:10001/#/:wild-card?id=[0-9]{12}',
+        'http://localhost:10001/#/create-offering?id=3c1de646-f26e-48b6-a0d1-7cfabab236dc'
+      ).bind(null, exampleBaseUrl)()
+    ).toEqual(false);
+  });
+
+  it('returns empty object if regex matches to the all params', () => {
+    expect(
+      waitForUrlChangeTo(
+        'http://localhost:10001/#/create-offering?id=[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}?pin=[0-9]{4}',
+        'http://localhost:10001/#/create-offering?id=3c1de646-f26e-48b6-a0d1-7cfabab236dc?pin=1234'
+      ).bind(null, exampleBaseUrl)()
+    ).toEqual({});
+  });
+
+  it('returns false if any paramters are missing', () => {
+    expect(
+      waitForUrlChangeTo(
+        'http://localhost:10001/#/create-offering?id=[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}?pin=[0-9]{4}',
+        'http://localhost:10001/#/create-offering?id=3c1de646-f26e-48b6-a0d1-7cfabab236dc'
+      ).bind(null, exampleBaseUrl)()
+    ).toEqual(false);
+  });
+
+  it('returns false if there is extra unexpected parameter', () => {
+    expect(
+      waitForUrlChangeTo(
+        'http://localhost:10001/#/create-offering?id=[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}?pin=[0-9]{4}',
+        'http://localhost:10001/#/create-offering?id=3c1de646-f26e-48b6-a0d1-7cfabab236dc?pin=1234?unexpectedParam=abcd'
+      ).bind(null, exampleBaseUrl)()
+    ).toEqual(false);
+  });
+
+  it('returns false if the domain do not match - abolute url', () => {
+    expect(
+      waitForUrlChangeTo(
+        'https://example-page/create-offering?id=[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}',
+        'http://localhost:10001/#/create-offering?id=3c1de646-f26e-48b6-a0d1-7cfabab236dc'
+      ).bind(null, localBaseUrl)()
+    ).toEqual(false);
+  });
+
+  it('returns false if the domain do not match - relative url', () => {
+    expect(
+      waitForUrlChangeTo(
+        '/#/create-offering?id=[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}',
+        'http://localhost:10001/#/create-offering?id=3c1de646-f26e-48b6-a0d1-7cfabab236dc'
+      ).bind(null, localBaseUrl)()
+    ).toEqual(false);
+  });
+
+  it('returns empty string if the regex matches query param - relative url with port', () => {
+    expect(
+      waitForUrlChangeTo(
+        '/create-offering?id=[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}',
+        'http://localhost:8080/create-offering?id=not-uuid'
+      ).bind(null, localBaseUrl)()
+    ).toEqual({});
+  });
+
+  it('returns empty string if the regex matches query param - relative url', () => {
+    expect(
+      waitForUrlChangeTo(
+        '/create-offering?id=[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}',
+        'https://example-base-url.com/create-offering?id=not-uuid'
+      ).bind(null, exampleBaseUrl)()
+    ).toEqual({});
+  });
+
   it('returns false if a path in absolute URL is incorrect - without slash', () => {
     expect(
       waitForUrlChangeTo('http://localhost:8080/incorrect-data', 'http://localhost:8080/tabular-data').bind(
