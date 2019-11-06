@@ -3,6 +3,7 @@ import { waitForInvisibilityOf, waitForVisibilityOf } from '../web/cucumber/wait
 import { isRelativePage, waitForUrlChangeTo } from '../web/url-parser.helper';
 import { stringify } from 'querystring';
 import { element } from 'protractor';
+import chalk from 'chalk';
 
 class Page {
   private url: string;
@@ -18,7 +19,7 @@ class Page {
   }
 
   public visitWithParameters(data) {
-    const additionalParams = [];
+    const additionalParams: any = [];
 
     const url =
       data.raw().reduce((prev, item) => {
@@ -95,6 +96,11 @@ class Page {
 
   public getElement(elementName: string) {
     if (!this[elementName]) {
+      console.warn(
+        chalk.grey(
+          `Element "${elementName}" does not exist in the currentPage. CSS selector will be build from the string!`
+        )
+      );
       return element(by.css(elementName));
     }
 
@@ -103,6 +109,11 @@ class Page {
 
   public getElements(elementName: string) {
     if (!this[elementName]) {
+      console.warn(
+        chalk.grey(
+          `Element "${elementName}" does not exist in the currentPage. CSS selector will be build from the string!`
+        )
+      );
       return element.all(by.css(elementName));
     }
 

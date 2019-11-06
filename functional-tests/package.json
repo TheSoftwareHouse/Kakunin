@@ -13,22 +13,22 @@
   },
   "author": "",
   "dependencies": {
-    "cross-env": "^5.2.0",
-    "eslint": "5.10.0",
-    "eslint-config-airbnb": "17.1.0",
-    "eslint-plugin-import": "2.14.0",
-    "eslint-plugin-jsx-a11y": "6.1.2",
-    "eslint-plugin-react": "7.11.1",
+    "cross-env": "6.0.3",
+    "eslint": "6.6.0",
+    "eslint-config-airbnb": "18.0.1",
+    "eslint-plugin-import": "2.18.2",
+    "eslint-plugin-jsx-a11y": "6.2.3",
+    "eslint-plugin-react": "7.16.0",
     "express": "^4.16.4",
-    "express-fileupload": "^1.1.4",
+    "express-fileupload": "1.1.6-alpha.6",
     "kakunin": "file:../",
     "multer": "^1.4.1",
-    "node-fetch": "2.3.0",
-    "nunjucks": "3.1.4",
-    "protractor": "^5.4.1"
+    "node-fetch": "2.6.0",
+    "nunjucks": "3.2.0",
+    "protractor": "5.4.2"
   },
   "license": "ISC",
   "devDependencies": {
-    "pm2": "3.2.3"
+    "pm2": "4.1.2"
   }
 }
