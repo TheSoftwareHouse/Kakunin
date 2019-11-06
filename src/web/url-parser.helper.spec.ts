@@ -49,6 +49,51 @@ describe('URL parser', () => {
     ).toEqual({});
   });
 
+  it('return empty object if all 4 params are matched by regex - absolute url', () => {
+    expect(
+      waitForUrlChangeTo(
+        'http://localhost:8080/#/create-offering?id=[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}?first=1234?second=1234?third=1234',
+        'http://localhost:8080/#/create-offering?id=3c1de646-f26e-48b6-a0d1-7cfabab236dc?first=1234?second=1234?third=1234'
+      ).bind(null, localBaseUrl)()
+    ).toEqual({});
+  });
+
+  it('return empty object if all 4 params are matched by regex - absolute url', () => {
+    expect(
+      waitForUrlChangeTo(
+        '/#/create-offering?id=[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}?first=1234?second=1234?third=1234',
+        'http://localhost:8080/#/create-offering?id=3c1de646-f26e-48b6-a0d1-7cfabab236dc?first=1234?second=1234?third=1234'
+      ).bind(null, localBaseUrl)()
+    ).toEqual({});
+  });
+
+  it('return empty object if all 4 params are matched by regex with wild card - absolute url', () => {
+    expect(
+      waitForUrlChangeTo(
+        'http://localhost:8080/#/:wild-card?id=[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}?first=1234?second=1234?third=1234',
+        'http://localhost:8080/#/:wild-card?id=3c1de646-f26e-48b6-a0d1-7cfabab236dc?first=1234?second=1234?third=1234'
+      ).bind(null, localBaseUrl)()
+    ).toEqual({});
+  });
+
+  it('return false if the last 4th param is not matched by regex - wild card, absolute url', () => {
+    expect(
+      waitForUrlChangeTo(
+        'http://localhost:8080/#/:wild-card?id=[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}?first=1234?second=1234?third=2222',
+        'http://localhost:8080/#/:wild-card?id=3c1de646-f26e-48b6-a0d1-7cfabab236dc?first=1234?second=1234?third=1234'
+      ).bind(null, localBaseUrl)()
+    ).toEqual(false);
+  });
+
+  it('return empty object if all 4 params are matched by regex with wild card - absolute url', () => {
+    expect(
+      waitForUrlChangeTo(
+        '/#/:wild-card?id=[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}?first=1234?second=1234?third=1234',
+        'http://localhost:8080/#/:wild-card?id=3c1de646-f26e-48b6-a0d1-7cfabab236dc?first=1234?second=1234?third=1234'
+      ).bind(null, localBaseUrl)()
+    ).toEqual({});
+  });
+
   it('return false if regex is not matched - absolute url', () => {
     expect(
       waitForUrlChangeTo(
