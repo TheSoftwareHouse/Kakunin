@@ -40,13 +40,17 @@ const compareUrls = (urlSplit, baseUrlSplit) => {
         }
 
         for (const index in templateQuerySplit) {
+          if (templateQuerySplit[index].startsWith(':')) {
+            continue;
+          }
+
           if (!new RegExp(templateQuerySplit[index]).test(actualQuerySplit[index])) {
             return false;
           }
         }
       }
 
-      if (template.startsWith(':')) {
+      if (template.startsWith(':') && !template.includes('?')) {
         resultParameters[template.substr(1)] = actual;
       } else if (template !== actual && !template.includes('?')) {
         return false;

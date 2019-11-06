@@ -13,6 +13,51 @@ describe('URL parser', () => {
     ).toEqual({});
   });
 
+  it('return empty object if all parameters are matched by regex and there is a wild card - absolute url', () => {
+    expect(
+      waitForUrlChangeTo(
+        'http://localhost:10001/#/:wild-card?id=[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}',
+        'http://localhost:10001/#/create-offering?id=3c1de646-f26e-48b6-a0d1-7cfabab236dc'
+      ).bind(null, exampleBaseUrl)()
+    ).toEqual({});
+  });
+
+  it('return false if there is extra parameter and there is a wild card - absolute url', () => {
+    expect(
+      waitForUrlChangeTo(
+        'http://localhost:10001/#/:wild-card?id=[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}',
+        'http://localhost:10001/#/create-offering?id=3c1de646-f26e-48b6-a0d1-7cfabab236dc?unexpectedParam=1234asd'
+      ).bind(null, exampleBaseUrl)()
+    ).toEqual(false);
+  });
+
+  it('return false if there is missing parameter and there is a wild card - absolute url', () => {
+    expect(
+      waitForUrlChangeTo(
+        'http://localhost:10001/#/:wild-card?id=[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}?newParam=[0-9]{5}',
+        'http://localhost:10001/#/create-offering?id=3c1de646-f26e-48b6-a0d1-7cfabab236dc'
+      ).bind(null, exampleBaseUrl)()
+    ).toEqual(false);
+  });
+
+  it('return empty object if all parameters are matched by regex and there is a wild card - relative url', () => {
+    expect(
+      waitForUrlChangeTo(
+        '/#/:wild-card?id=[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}',
+        'http://localhost:8080/#/create-offering?id=3c1de646-f26e-48b6-a0d1-7cfabab236dc'
+      ).bind(null, localBaseUrl)()
+    ).toEqual({});
+  });
+
+  it('return false if regex is not matched - absolute url', () => {
+    expect(
+      waitForUrlChangeTo(
+        'http://localhost:10001/#/:wild-card?id=[0-9]{12}',
+        'http://localhost:10001/#/create-offering?id=3c1de646-f26e-48b6-a0d1-7cfabab236dc'
+      ).bind(null, exampleBaseUrl)()
+    ).toEqual(false);
+  });
+
   it('returns empty object if regex matches to the all params', () => {
     expect(
       waitForUrlChangeTo(

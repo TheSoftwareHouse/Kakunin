@@ -29,3 +29,13 @@ Feature: Navigation
             | title            | myPageTitle |
             | additionalParam2 | value2      |
         Then the "additionalParams" page is displayed
+
+    Scenario: Check if the additional query params are matching the regex
+        Given I visit the "navigationPages" page with parameters:
+            | pageId           | myPageId    |
+            | additionalParam1 | value1      |
+            | title            | myPageTitle |
+            | additionalParam2 | value2      |
+        Then the "additionalParams" page is displayed
+        Then the "additionalParamsRegex" page is displayed
+        Then the "additionalParamsRegex2" page is displayed
