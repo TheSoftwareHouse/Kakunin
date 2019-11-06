@@ -31,9 +31,24 @@ const compareUrls = (urlSplit, baseUrlSplit) => {
       const template = baseUrlSplit[i];
       const actual = urlSplit[i];
 
+      if (template.includes('?') && actual.includes('?')) {
+        const templateQuerySplit = template.split('?');
+        const actualQuerySplit = actual.split('?');
+
+        if (templateQuerySplit.length !== actualQuerySplit.length) {
+          return false;
+        }
+
+        for (const index in templateQuerySplit) {
+          if (!new RegExp(templateQuerySplit[index]).test(actualQuerySplit[index])) {
+            return false;
+          }
+        }
+      }
+
       if (template.startsWith(':')) {
         resultParameters[template.substr(1)] = actual;
-      } else if (template !== actual) {
+      } else if (template !== actual && !template.includes('?')) {
         return false;
       }
     }
@@ -51,18 +66,29 @@ export const waitForUrlChangeTo = (newUrl, currentUrl) => {
     const pageUrl = Url.resolve(baseUrl, newUrl);
     const pageDomain = extractDomain(pageUrl);
     const currentUrlDomain = extractDomain(currentUrl);
+    const urlSplit = normalizeUrl(currentUrl)
+      .split('/')
+      .filter(item => item.length > 0);
+
+    const normaliseBaseUrlSplit = () => {
+      const pageUrlSplit = normalizeUrl(pageUrl).split('/');
+
+      pageUrlSplit.unshift(baseUrl);
+
+      return decodeURI(pageUrlSplit.join('/'))
+        .replace(baseUrl, '')
+        .split('/')
+        .filter(item => item.length > 0);
+    };
 
     if (pageDomain !== currentUrlDomain) {
       return false;
     }
 
-    const urlSplit = normalizeUrl(currentUrl).split('/');
-    const pageUrlSplit = normalizeUrl(pageUrl).split('/');
-
-    if (urlSplit.length !== pageUrlSplit.length) {
+    if (urlSplit.length !== normaliseBaseUrlSplit().length) {
       return false;
     }
 
-    return compareUrls(urlSplit, pageUrlSplit);
+    return compareUrls(urlSplit, normaliseBaseUrlSplit());
   };
 };
