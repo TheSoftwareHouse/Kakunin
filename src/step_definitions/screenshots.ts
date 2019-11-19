@@ -1,4 +1,4 @@
-const { Then } = require('cucumber');
+import { Then } from 'cucumber';
 
 Then(/^I take screenshot of the element "([^"]*)" and save as a "([^"]*)"$/, async function(
   elementName,
