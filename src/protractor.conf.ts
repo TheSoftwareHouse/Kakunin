@@ -73,6 +73,16 @@ exports.config = {
         saveCollectedJSON: true,
       },
     },
+    {
+      package: 'protractor-image-comparison',
+      options: {
+        baselineFolder: path.join(process.cwd(), './baseline/'),
+        formatImageName: `{tag}-{logName}-{width}x{height}`,
+        screenshotPath: path.join(process.cwd(), '.tmp/'),
+        savePerInstance: true,
+        clearRuntimeFolder: true,
+      },
+    },
   ],
 
   async beforeLaunch() {

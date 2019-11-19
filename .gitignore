@@ -21,6 +21,7 @@ docker-compose.override.yml
 !functional-tests/reports/report/.gitkeep
 !functional-tests/reports/report/features/.gitkeep
 !functional-tests/performance/.gitkeep
+functional-tests/.tmp
 !example/reports/.gitkeep
 !reports/.gitkeep
 .DS_Store
