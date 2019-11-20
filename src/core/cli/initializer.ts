@@ -190,7 +190,7 @@ class Initializer {
         conf.temporaryFolder
       );
       conf.saveAboveTolerance = parseInt(
-        await this.promptFolders('Define when to save screenshots in diff folder', conf.saveAboveTolerance[0])
+        await this.promptFolders('Define when to save screenshots in diff folder', conf.saveAboveTolerance)
       );
       conf.transformers = [await this.promptFolders('Where are your transformers stored?', conf.transformers[0])];
 
