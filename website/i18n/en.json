@@ -74,6 +74,9 @@
       "transformers": {
         "title": "Transformers"
       },
+      "url-comparator": {
+        "title": "URL comparator"
+      },
       "version-2.4.0/version-2.4.0-configuration": {
         "title": "Configuration"
       },
