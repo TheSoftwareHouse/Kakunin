@@ -1,4 +1,22 @@
 import { When, Then } from 'cucumber';
+import config from '../core/config.helper';
+import { existsSync } from 'fs';
+import { resolve } from 'path';
+
+const diffExists = screenshotName => {
+  if (
+    existsSync(
+      resolve(
+        process.cwd(),
+        `${config.temporaryFolder}/diff`,
+        `${screenshotName}-${config.browserWidth}x${config.browserHeight}.png`
+      )
+    )
+  ) {
+    return Promise.reject(`File "${screenshotName}" in the baseline is different! Check "diff" catalog.`);
+  }
+  return Promise.resolve;
+};
 
 When(/^I take screenshot of the element "([^"]*)" and save as a "([^"]*)"$/, async function(
   elementName,
@@ -19,15 +37,19 @@ Then(/^I compare the screenshot of the element "([^"]*)" saved as "([^"]*)"$/, a
   elementName,
   screenshotName
 ) {
-  expect(await browser.imageComparison.checkElement(this.currentPage.getElement(elementName), screenshotName)).toEqual(
-    0
-  );
+  await browser.imageComparison.checkElement(this.currentPage.getElement(elementName), screenshotName).then(() => {
+    diffExists(screenshotName);
+  });
 });
 
 Then(/^I compare the screenshot of visible the part of the page saved as "([^"]*)"$/, async screenshotName => {
-  expect(await browser.imageComparison.checkScreen(screenshotName)).toEqual(0);
+  await browser.imageComparison.checkScreen(screenshotName).then(() => {
+    diffExists(screenshotName);
+  });
 });
 
 Then(/^I compare the full screenshot of the page  saved as "([^"]*)"$/, async screenshotName => {
-  expect(await browser.imageComparison.checkFullPageScreen(screenshotName)).toEqual(0);
+  await browser.imageComparison.checkFullPageScreen(screenshotName).then(() => {
+    diffExists(screenshotName);
+  });
 });

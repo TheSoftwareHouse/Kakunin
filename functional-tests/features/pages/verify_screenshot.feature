@@ -11,11 +11,11 @@ Feature: Screenshot page verification
     @screen @partialPage
     Scenario: Take screenshot of the visible part of the page
         Given I visit the "main" page
-        When I take screenshot of the visible part of the page and save as a "partial"
-        Then I compare the screenshot of visible the part of the page saved as "partial"
+        When I take screenshot of the visible part of the page and save as a "partialScreenshot"
+        Then I compare the screenshot of visible the part of the page saved as "partialScreenshot"
 
     @screen @fullPage
     Scenario: Take full screenshot of the page
         Given I visit the "main" page
-        When I take full screenshot of the page and save as a "full"
-        Then I compare the full screenshot of the page  saved as "full"
+        When I take full screenshot of the page and save as a "fullScreenshot"
+        Then I compare the full screenshot of the page  saved as "fullScreenshot"
