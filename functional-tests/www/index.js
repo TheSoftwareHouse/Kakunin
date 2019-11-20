@@ -6,6 +6,7 @@ const { xlsxDataRouting } = require('./jsonData/xlsxData.router');
 const fileUpload = require('express-fileupload');
 let multer = require('multer');
 const upload = multer({ dest: './uploads/' });
+const basicAuth = require('basic-auth-connect')
 
 app.set('views', path.join(__dirname, 'views'));
 
@@ -23,6 +24,10 @@ app.use(express.urlencoded({ extended: true }));
 app.get('/', function(req, res) {
   res.render('index.njs');
 });
+
+app.get('/basic-auth', basicAuth('admin', 'password'), function(req, res) {
+  res.render('basic-auth/index.njs');
+})
 
 app.get('/drag-and-drop', function(req, res) {
   res.render('drag-and-drop/index.njs');
@@ -166,3 +171,7 @@ app.post('/upload', upload.single('myFile'), (req, res) => {
 
   res.status(status).send(uploadStatus);
 });
+
+// app.get('/basic-auth', basicAuth( { authorizer: myAuthorizer } ), function(req, res) {
+//   res.render('index.njs');
+// });
