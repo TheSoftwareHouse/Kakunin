@@ -134,34 +134,3 @@ As you see we added a single line `this.myName = element(by.css('.myName'));`.
 `by.css('.myName')` - is a locator, this is a standard protractor syntax, you can read more on protractors documentation
 
 By joining `element` method with a locator, we created element to be used by our steps.
-
-
-## Compare URLs examples:
-
-
-  | Page Object URL                                             | Current Browser URL                               | Base URL - config file    | Results   |
-  | ----------------------------------------------------------- | ------------------------------------------------- | ------------------------- | --------- |
-  | http://localhost:8080/incorrect-data                        | http://localhost:8080/tabular-data                | https://example-url.com   | FALSE     |
-  | http://localhost:8080/incorrect-data/                       | http://localhost:8080/tabular-data                | https://example-url.com   | FALSE     |
-  | http://google/incorrect-data                                | http://localhost:8080/tabular-data                | https://example-url.com   | FALSE     |
-  | http://google/tabular-data                                  | http://localhost:8080/tabular-data                | https://example-url.com   | FALSE     |
-  | http://google/incorrect-data/                               | http://localhost:8080/tabular-data                | https://example-url.com   | FALSE     |
-  | /incorrect-data                                             | http://website.com/tabular-data                   | https://example-url.com   | FALSE     |
-  | /incorrect-data/                                            | http://website.com/tabular-data                   | http://incorrect.com      | FALSE     |
-  | http://localhost:8080/tabular-data                          | http://localhost:8080/tabular-data                | https://example-url.com   | TRUE      |
-  | http://localhost:8080/tabular-data/                         | http://localhost:8080/tabular-data                | http://localhost:8080     | TRUE      |
-  | /tabular-data                                               | http://localhost:8080/tabular-data                | http://localhost:8080     | TRUE      |
-  | /tabular-data/                                              | http://localhost:8080/tabular-data                | http://localhost:8080     | TRUE      |
-  | /tabular-data                                               | http://localhost:8080/tabular-data                | https://google.pl         | FALSE     |
-  | /tabular-data/                                              | http://localhost:8080/tabular-data                | https://google.pl         | FALSE     |
-  | /                                                           | https://google.pl/new                             | https://google.pl         | FALSE     |
-  |                                                             | https://google.pl/new                             | https://google.pl         | FALSE     |
-  |                                                             | http://localhost:8080                             | http://localhost:8080     | TRUE      |
-  | /                                                           | https://google.pl                                 | https://google.com        | FALSE     |
-  | https://google.com/:example/:name                           | https://google.com/example/janek                  | https://example-url.com   | TRUE      |
-  | https://google.com/:name                                    | https://google.com/janek                          | https://example-url.com   | TRUE      |
-  | https://google.com/account/:username/settings/display       | https://google.com/account/janek/settings/display | https://example-url.com   | TRUE      |
-  | /account/settings/:userType                                 | https://incorrect-host/account/settings/admin     | https://google.com        | FALSE     |
-  | /account/settings/:userType/something                       | https://incorrect-host/account/settings/admin     | https://example-url.com   | FALSE     |
-  | https://incorrect-host/account/settings/:userType/something | https://incorrect-host/account/settings/admin     | https://example-url.com   | FALSE     |
-  | /account/settings/:userType                                 | https://google.com/account/settings/user          | https://google.com        | TRUE      |
