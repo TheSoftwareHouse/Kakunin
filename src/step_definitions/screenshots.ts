@@ -1,17 +1,17 @@
-import { Then } from 'cucumber';
+import { When, Then } from 'cucumber';
 
-Then(/^I take screenshot of the element "([^"]*)" and save as a "([^"]*)"$/, async function(
+When(/^I take screenshot of the element "([^"]*)" and save as a "([^"]*)"$/, async function(
   elementName,
   screenshotName
 ) {
   await browser.imageComparison.saveElement(this.currentPage.getElement(elementName), screenshotName);
 });
 
-Then(/^I take screenshot of the visible part of the page and save as a "([^"]*)"$/, async screenshotName => {
+When(/^I take screenshot of the visible part of the page and save as a "([^"]*)"$/, async screenshotName => {
   await browser.imageComparison.saveScreen(screenshotName);
 });
 
-Then(/^I take full screenshot of the page and save as a "([^"]*)"$/, async screenshotName => {
+When(/^I take full screenshot of the page and save as a "([^"]*)"$/, async screenshotName => {
   await browser.imageComparison.saveFullPageScreen(screenshotName);
 });
 
