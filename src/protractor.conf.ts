@@ -76,11 +76,12 @@ exports.config = {
     {
       package: 'protractor-image-comparison',
       options: {
-        baselineFolder: path.join(process.cwd(), './baseline/'),
-        formatImageName: `{tag}-{logName}-{width}x{height}`,
-        screenshotPath: path.join(process.cwd(), '.tmp/'),
-        savePerInstance: true,
+        baselineFolder: config.baselineFolder,
+        formatImageName: `{tag}-{width}x{height}`,
+        screenshotPath: config.temporayFolder,
+        savePerInstance: false,
         clearRuntimeFolder: true,
+        saveAboveTolerance: 5,
       },
     },
   ],

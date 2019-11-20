@@ -3,7 +3,9 @@ id: steps-screenshots
 title: Screenshots
 ---
 
-FYI: Created screenshot will have generated name in followed format `:screenshotName--browserWidthxxbrowserHeight.png` example `picture-1600x900.png`
+<!-- TODO Add configuration-->
+
+FYI: Created screenshot will have generated name in followed format `:screenshotName-browserWidthxxbrowserHeight.png` example `picture-1600x900.png`
 
 # Steps for taking screenshots of the application:
 
