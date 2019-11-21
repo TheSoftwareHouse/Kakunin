@@ -23,7 +23,7 @@ describe('Mailtrap client', () => {
     const inbox = 'fake-inbox-id';
     const url = 'http://fake-url.com';
 
-    const requestMock = fetchMock
+    const requestMock: any = fetchMock
       .sandbox()
       .mock(`${url}/api/v1/inboxes/${inbox}/clean?api_token=${apiKey}`, { data: 'cleared' }, { method: 'PATCH' });
 
@@ -52,7 +52,7 @@ describe('Mailtrap client', () => {
       { subject: 's1', is_read: false, raw_path: `/api/v1/inboxes/${inbox}/messages/000000003/body.raw` },
     ];
 
-    const requestMock = fetchMock
+    const requestMock: any = fetchMock
       .sandbox()
       .mock(`${url}/api/v1/inboxes/${inbox}/messages?api_token=${apiKey}`, emails, { method: 'GET' })
       .mock(`${url}${emails[0].raw_path}?api_token=${apiKey}`, { method: 'GET' })
@@ -80,7 +80,7 @@ describe('Mailtrap client', () => {
     const url = 'http://fake-url.com';
     const emailId = 'some-id';
 
-    const requestMock = fetchMock
+    const requestMock: any = fetchMock
       .sandbox()
       .mock(
         `${url}/api/v1/inboxes/${inbox}/messages/${emailId}/attachments?api_token=${apiKey}`,
@@ -110,7 +110,7 @@ describe('Mailtrap client', () => {
     const url = 'http://fake-url.com';
     const emailId = 'some-id';
 
-    const requestMock = fetchMock.sandbox().mock(
+    const requestMock: any = fetchMock.sandbox().mock(
       (reqUrl, opts) => {
         return (
           reqUrl === `${url}/api/v1/inboxes/${inbox}/messages/${emailId}?api_token=${apiKey}` &&
