@@ -1,24 +1,23 @@
 import { When, Then } from 'cucumber';
 import config from '../core/config.helper';
 import { access } from 'fs';
+import { promisify } from 'util';
 import * as path from 'path';
 
 const diffExists = async screenshotName => {
-  return new Promise((resolve, reject) => {
-    return access(
-      path.resolve(
-        `${config.imageComparator.temporaryFolder}/diff`,
-        `${screenshotName}-${config.browserWidth}x${config.browserHeight}.png`
-      ),
-      status => {
-        status
-          ? resolve()
-          : reject(
-              `Check "diff" catalog. Devation tolerance was bigger then: ${config.imageComparator.saveAboveTolerance}%`
-            );
-      }
-    );
-  });
+  const accessPromise = promisify(access);
+  return accessPromise(
+    path.resolve(
+      `${config.imageComparator.temporaryFolder}/diff`,
+      `${screenshotName}-${config.browserWidth}x${config.browserHeight}.png`
+    )
+  )
+    .then(() =>
+      Promise.reject(
+        `Check "diff" catalog. Devation tolerance was bigger then: ${config.imageComparator.saveAboveTolerance}%`
+      )
+    )
+    .catch(() => Promise.resolve());
 };
 
 When(/^I take screenshot of the element "([^"]*)" and save as a "([^"]*)"$/, async function(
