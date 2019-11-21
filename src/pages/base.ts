@@ -18,7 +18,7 @@ class Page {
   }
 
   public visitWithParameters(data) {
-    const additionalParams = [];
+    const additionalParams: any = [];
 
     const url =
       data.raw().reduce((prev, item) => {
