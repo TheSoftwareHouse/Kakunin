@@ -76,12 +76,12 @@ exports.config = {
     {
       package: 'protractor-image-comparison',
       options: {
-        baselineFolder: config.baselineFolder,
+        baselineFolder: config.imageComparator.baselineFolder,
         formatImageName: `{tag}-{width}x{height}`,
-        screenshotPath: config.temporayFolder,
+        screenshotPath: config.imageComparator.temporayFolder,
         savePerInstance: false,
         clearRuntimeFolder: true,
-        saveAboveTolerance: 5,
+        saveAboveTolerance: config.imageComparator.saveAboveTolerance,
       },
     },
   ],
