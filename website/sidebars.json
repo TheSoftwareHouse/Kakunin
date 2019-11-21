@@ -11,7 +11,8 @@
       "transformers",
       "extending",
       "hooks",
-      "form-handlers"
+      "form-handlers",
+      "url-comparator"
     ],
     "Features": [
       "cross-browser",
