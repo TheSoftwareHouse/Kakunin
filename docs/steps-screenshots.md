@@ -3,6 +3,8 @@ id: steps-screenshots
 title: Screenshots
 ---
 
+If you want to extend steps for screenshot please read documentation of `protractor-image-comparison` on [Github](https://github.com/wswebcreation/protractor-image-comparison) or [NPM](https://www.npmjs.com/package/protractor-image-comparison).
+
 In `kakunin.conf.js` there is section:
 
 ```javascript 
@@ -14,9 +16,12 @@ In `kakunin.conf.js` there is section:
 }
 ```
 
-- `baselineFolder` is path to the folder where you should move your generated images to use compare steps
-- `temporaryFolder` is path to the folder where images are generated with `I take screenshot...` steps
-- `saveAboveTolerance` is the percentage deviation between compared images. If the deviation is greater then the number then the diff folder is created and the user can easily verify the differences. Remember that `I compare...` steps verify if the was created file in diff folder. 
+- `baselineFolder` Destination of the base images to which new files (generated during the test) are compared. They must be moved manually to the folder.
+- `temporaryFolder` Destination where the images generated during the test are localised (by step `I take a screenshot`)
+- `saveAboveTolerance` is the percentage deviation between compared images. If the deviation is greater than `saveAboveTolerance` number then the diff `image file` is created, so the differences can be viewed. 
+
+Remember that `I compare...` steps verify if there was created file in diff folder. 
+
 
 Created screenshot will have generated name in followed format `:screenshotName-browserWidthxbrowserHeight.png` example `picture-1600x900.png`
 
