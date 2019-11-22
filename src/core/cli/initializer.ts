@@ -50,6 +50,7 @@ class Initializer {
       type: 'otherWeb',
       browserWidth: 1600,
       browserHeight: 900,
+      browserLanguage: 'en-GB',
       timeout: 60,
       intervalEmail: 5,
       maxEmailRepeats: 5,
@@ -144,6 +145,10 @@ class Initializer {
       await this.initEnv();
       conf.browserWidth = parseInt(await this.promptFolders('What is desired browser width?', conf.browserWidth));
       conf.browserHeight = parseInt(await this.promptFolders('What is desired browser height?', conf.browserHeight));
+      conf.browserLanguage = await this.promptFolders(
+        'What language would you like to use in browser?',
+        conf.browserLanguage
+      );
 
       conf.timeout = parseInt(await this.promptFolders('What is desired step timeout in seconds?', conf.timeout));
       conf.intervalEmail = parseInt(

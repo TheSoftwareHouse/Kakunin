@@ -11,6 +11,9 @@ const getDefaultBrowsersConfigs = (config): any => {
     chromeOptions: {
       args: [],
       prefs: {
+        intl: {
+          accept_languages: config.browserLanguage,
+        },
         credentials_enable_service: false,
         profile: {
           password_manager_enabled: false,
@@ -29,6 +32,11 @@ const getDefaultBrowsersConfigs = (config): any => {
     marionette: true,
     'moz:firefoxOptions': {
       args: [],
+      prefs: {
+        intl: {
+          accept_languages: config.browserLanguage,
+        },
+      },
     },
   };
 
