@@ -1,17 +1,16 @@
 import { When, Then } from 'cucumber';
 import config from '../core/config.helper';
-import { access } from 'fs';
-import { promisify } from 'util';
-import * as path from 'path';
+import { promises as fsPromises } from 'fs';
+import { resolve } from 'path';
 
 const diffExists = async screenshotName => {
-  const accessPromise = promisify(access);
-  return accessPromise(
-    path.resolve(
-      `${config.imageComparator.temporaryFolder}/diff`,
-      `${screenshotName}-${config.browserWidth}x${config.browserHeight}.png`
+  return await fsPromises
+    .access(
+      resolve(
+        `${config.imageComparator.temporaryFolder}/diff`,
+        `${screenshotName}-${config.browserWidth}x${config.browserHeight}.png`
+      )
     )
-  )
     .then(() =>
       Promise.reject(
         `Check "diff" catalog. Devation tolerance was bigger then: ${config.imageComparator.saveAboveTolerance}%`
