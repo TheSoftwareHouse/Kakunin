@@ -51,6 +51,11 @@ module.exports = {
     "hooks": [
         "/hooks"
     ],
+    imageComparator: {
+        baselineFolder: 'baseline',
+        temporaryFolder: '.tmp',
+        saveAboveTolerance: 10
+    },
     "clearEmailInboxBeforeTests": false,
     "clearCookiesAfterScenario": true,
     "clearLocalStorageAfterScenario": true,
@@ -120,6 +125,14 @@ module.exports = {
 `regexes` - array of paths to store custom regexes
 
 `hooks` - array of paths to store custom hooks
+
+`imageComparator` - object for configuration of a protractor image comparison plugin
+
+`baselineFolder` - destination of the base images to which new files (generated during the test) are compared. They must be moved manually to the folder. `default: basline`
+
+`temporaryFolder` - destination where the images generated during the test are localised (by step `I take a screenshot`) `default: .tmp`
+
+`saveAboveTolerance` - the percentage deviation between compared images. If the deviation is greater than `saveAboveTolerance` number then the diff `image file` is created, so the differences can be viewed. `default: 10`
 
 `clearEmailInboxBeforeTests` - flag to active clearing email inbox before tests are executed `default: false | true for apps with email checking functionality activated `
 
