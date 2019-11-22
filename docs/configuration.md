@@ -9,6 +9,7 @@ title: Configuration
 module.exports = {
     "browserWidth": 1600,
     "browserHeight": 900,
+    "browserLanguage": 'en-GB',
     "timeout": 60,
     "maxEmailRepeats": 5,
     "intervalEmail": 5,
