@@ -57,8 +57,9 @@ Feature: Tabular data
             | t:3          | t:Some custom name 3 |
             | t:4          | t:Some custom name 4 |
         And the element "rows" should have an item with values:
-            | indexLocator | t:1         |
-            | indexLocator | f:isVisible |
+            | indexLocator | t:1                     |
+            | indexLocator | t:d:test-dictionary:one |
+            | indexLocator | f:isVisible             |
         And the element "rows" should not have an item with values:
             | indexLocator | t:incorrect-number-value |
 

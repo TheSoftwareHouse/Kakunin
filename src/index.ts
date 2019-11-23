@@ -7,7 +7,7 @@ export { defineSupportCode, Given, When, Then, After, Before, AfterAll, BeforeAl
 export { dictionaries } from './dictionaries';
 export { transformers } from './transformers';
 export { generators } from './generators';
-export { default as variableStore } from './web/variable-store.helper';
+export { default as variableStore } from './core/variable-store.helper';
 export { default as handlers } from './form-handlers/handlers';
 export { comparators } from './comparators';
 export { emailService } from './emails';

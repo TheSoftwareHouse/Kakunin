@@ -100,3 +100,16 @@ Feature: Forms
             | descriptionTextarea | v:storedTextareaValue |
         And there is element "descriptionTextarea" with value "t:v:storedTextareaValue"
         And there is element "descriptionTextarea" with value "r:email"
+
+    Scenario: Fill the input form and check if "value to text" transformer works properly
+        Given I visit the "main" page
+        When I click the "formLink" element
+        Then the "simpleForm" page is displayed
+        And I fill the "form" form with:
+            | nameInput | tomg |
+        And I store the "nameInput" element text as "storedInputValue" variable
+        Then the "form" form is filled with:
+            | nameInput | v:storedInputValue |
+        And there is element "nameInput" with value "t:tomg"
+        And there is element "nameInput" with value "t:v:storedInputValue"
+        And there is element "nameInput" with value "t:d:test-dictionary:test-user"

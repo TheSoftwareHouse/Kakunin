@@ -5,7 +5,9 @@ import config from '../core/config.helper';
 import { matchers, regexBuilder } from '../matchers';
 import { waitForCondition } from '../web/cucumber/wait-for-condition.helper';
 import variableStore from '../core/variable-store.helper';
+import { createValueToTextTransformer } from '../transformers/transformer/values-to-text.transformer';
 
+const valueToTextTransformer = createValueToTextTransformer();
 const timeout = parseInt(config.elementsVisibilityTimeout) * 1000;
 
 const handlePromises = (hashedData, onSuccess, onReject) => resolvedPromises => {
@@ -235,7 +237,7 @@ Then(/^there are following elements in table "([^"]*)":$/, function(table, data)
               promises.push(
                 matchers.match(
                   element.element(self.currentPage.getElement(prop).locator()),
-                  variableStore.replaceTextVariables(propValue)
+                  valueToTextTransformer.transform(propValue)
                 )
               );
             }
@@ -265,7 +267,7 @@ Then(/^there are "([^"]*)" following elements for element "([^"]*)":$/, function
             promises.push(
               matchers.match(
                 element.element(self.currentPage.getElement(hash[0]).locator()),
-                variableStore.replaceTextVariables(hash[1])
+                valueToTextTransformer.transform(hash[1])
               )
             );
           });
@@ -297,7 +299,7 @@ Then(/^there are elements for element "([^"]*)":$/, function(elementName, data) 
 
   return this.currentPage.waitForVisibilityOf(elementName).then(() => {
     const promises = checkers.map(check =>
-      matchers.match(self.currentPage.getElement(check.element), variableStore.replaceTextVariables(check.matcher))
+      matchers.match(self.currentPage.getElement(check.element), valueToTextTransformer.transform(check.matcher))
     );
 
     return Promise.all(promises);
@@ -331,7 +333,7 @@ Then(/^there is element "([^"]*)" with value "([^"]*)"$/, function(elementName, 
 
   return this.currentPage.waitForVisibilityOf(elementName).then(() => {
     return matchers
-      .match(pageElement, variableStore.replaceTextVariables(value))
+      .match(pageElement, valueToTextTransformer.transform(value))
       .then(matcherResult => expect(matcherResult).toBe(true));
   });
 });
@@ -340,7 +342,7 @@ Then(/^there is no element "([^"]*)" with value "([^"]*)"$/, function(elementNam
   const pageElement = this.currentPage.getElement(elementName);
 
   return matchers
-    .match(pageElement, variableStore.replaceTextVariables(value))
+    .match(pageElement, valueToTextTransformer.transform(value))
     .catch(() => Promise.resolve(false))
     .then(result => (result ? Promise.reject() : Promise.resolve()));
 });
@@ -449,7 +451,7 @@ Then(/^the element "([^"]*)" should have an item with values:$/, function(elemen
             matchers
               .match(
                 element.element(self.currentPage.getElement(hash[0]).locator()),
-                variableStore.replaceTextVariables(hash[1])
+                valueToTextTransformer.transform(hash[1])
               )
               .catch(() => false)
           );
@@ -481,7 +483,7 @@ Then(/^the element "([^"]*)" should not have an item with values:$/, function(el
           matchers
             .match(
               element.element(self.currentPage.getElement(hash[0]).locator()),
-              variableStore.replaceTextVariables(hash[1])
+              valueToTextTransformer.transform(hash[1])
             )
             .catch(() => false)
         );

@@ -52,16 +52,23 @@ Feature: Tabular data
         When I click the "a[href='/tabular-data']" element
         Then the "tabularData" page is displayed
         And there are following elements in table "table tr":
-            | .index | nameLocator          |
-            | t:1    | t:Some custom name 1 |
-            | t:2    | t:Some custom name 2 |
-            | t:3    | t:Some custom name 3 |
-            | t:4    | t:Some custom name 4 |
+            | .index | nameLocator                       |
+            | t:1    | t:Some custom name 1              |
+            | t:2    | t:Some custom name 2              |
+            | t:3    | t:Some custom name 3              |
+            | t:4    | t:Some custom name 4              |
+        And there are following elements in table "table tr":
+            | .index | nameLocator                       |
+            | t:1    | t:d:test-dictionary:custom-value1 |
+            | t:2    | t:Some custom name 2              |
+            | t:3    | t:Some custom name 3              |
+            | t:4    | t:Some custom name 4              |
         And the element "table tr" should have an item with values:
             | .index | t:1         |
             | .index | f:isVisible |
         And the element "table tr" should not have an item with values:
-            | .index | t:incorrect-number-value |
+            | .index | t:d:test-dictionary:non-existing |
+            | .index | t:incorrect-number-value         |
 
     Scenario: Navigate to pages by using click steps
         Given I visit the "main" page
