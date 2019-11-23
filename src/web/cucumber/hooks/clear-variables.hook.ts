@@ -1,7 +1,7 @@
 import { Before } from 'cucumber';
 import { HookHandler } from './hook.interface';
 import userProvider from '../../user-provider.helper';
-import variableStore from '../../variable-store.helper';
+import variableStore from '../../../core/variable-store.helper';
 
 class ClearVariablesHook implements HookHandler {
   public initializeHook() {

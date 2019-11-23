@@ -6,8 +6,8 @@ import { Transformer } from './transformer.interface';
 class Transformers {
   constructor(private availableTransformers: Transformer[]) {}
 
-  public transform(value: string): any {
-    const transformer = this.findTransformer(value.substr(0, 2));
+  public transform(value: string, prefix?: string): any {
+    const transformer = prefix ? this.findTransformer(prefix) : this.findTransformer(value.substr(0, 2));
 
     if (transformer === undefined) {
       return value;

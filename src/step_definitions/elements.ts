@@ -4,7 +4,7 @@ import { comparators } from '../comparators';
 import config from '../core/config.helper';
 import { matchers, regexBuilder } from '../matchers';
 import { waitForCondition } from '../web/cucumber/wait-for-condition.helper';
-import variableStore from '../web/variable-store.helper';
+import variableStore from '../core/variable-store.helper';
 
 const timeout = parseInt(config.elementsVisibilityTimeout) * 1000;
 
@@ -282,7 +282,6 @@ Then(/^there are elements for element "([^"]*)":$/, function(elementName, data) 
   if (hashedData.length === 0) {
     return Promise.reject('Missing table under the step.');
   }
-
 
   const checkers = hashedData.flatMap(elements => {
     return elements
