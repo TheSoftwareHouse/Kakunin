@@ -73,6 +73,17 @@ exports.config = {
         saveCollectedJSON: true,
       },
     },
+    {
+      package: 'protractor-image-comparison',
+      options: {
+        baselineFolder: config.imageComparator.baselineFolder,
+        formatImageName: `{tag}-{width}x{height}`,
+        screenshotPath: config.imageComparator.temporayFolder,
+        savePerInstance: false,
+        clearRuntimeFolder: true,
+        saveAboveTolerance: config.imageComparator.saveAboveTolerance,
+      },
+    },
   ],
 
   async beforeLaunch() {

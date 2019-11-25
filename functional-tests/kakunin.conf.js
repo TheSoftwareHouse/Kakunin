@@ -19,6 +19,11 @@ module.exports = {
   transformers: ['/transformers'],
   regexes: ['/regexes'],
   hooks: ['/hooks'],
+  imageComparator: {
+    baselineFolder: 'baseline',
+    temporaryFolder: '.tmp',
+    saveAboveTolerance: 10
+  },
   clearEmailInboxBeforeTests: false,
   clearCookiesAfterScenario: true,
   clearLocalStorageAfterScenario: true,

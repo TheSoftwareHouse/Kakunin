@@ -71,6 +71,11 @@ class Initializer {
       transformers: ['/transformers'],
       regexes: ['/regexes'],
       hooks: ['/hooks'],
+      imageComparator: {
+        baselineFolder: 'baseline',
+        temporaryFolder: '.tmp',
+        saveAboveTolerance: 5,
+      },
       clearEmailInboxBeforeTests: false,
       clearCookiesAfterScenario: true,
       clearLocalStorageAfterScenario: true,
@@ -181,6 +186,20 @@ class Initializer {
       conf.dictionaries = [await this.promptFolders('Where are your dictionaries stored?', conf.dictionaries[0])];
       conf.regexes = [await this.promptFolders('Where are your regexes stored?', conf.regexes[0])];
       conf.hooks = [await this.promptFolders('Where are your hooks stored?', conf.hooks[0])];
+      conf.imageComparator.baselineFolder = await this.promptFolders(
+        'Where are your baseline screenshot stored?',
+        conf.imageComparator.baselineFolder
+      );
+      conf.imageComparator.temporaryFolder = await this.promptFolders(
+        'Where are your temporary screenshot stored?',
+        conf.imageComparator.temporaryFolder
+      );
+      conf.imageComparator.saveAboveTolerance = parseInt(
+        await this.promptFolders(
+          'Define when to save screenshots in diff folder',
+          conf.imageComparator.saveAboveTolerance
+        )
+      );
       conf.transformers = [await this.promptFolders('Where are your transformers stored?', conf.transformers[0])];
 
       conf.clearEmailInboxBeforeTests = await this.promptFolders(
