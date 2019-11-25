@@ -55,11 +55,18 @@ You can find documentation on the **[official page](https://kakunin.io)**.
 Feel free to contribute to this project! Just fork the code, make any updated and let us know!
 
 To create a pull requests:
-1. Create your own fork repository
-2*. Remember to add tests for a functionality that you implemented (functional and units)
-3. Create a pull request to `next` branch if it's a new feature... hotfixes to `master` (https://github.com/TheSoftwareHouse/Kakunin)
-4. Make sure that the build on Travis passed
+1. Create your a new fork
+2. Create a new branch on your fork
+3. Create pull requests to `next` branch (https://github.com/TheSoftwareHouse/Kakunin). Pull requests to `master` are only acceptable if it's a hotfix!
+4. Make sure that the build on Travis passed (it runs build, units tests, functional tests)
 5. Wait for reviews! :)
+
+Remember to:
+a. update `changelog.md`
+b. tests your functionality (we got 2 layers of tests - functional and unit tests)
+- `unit tests` are added as `<functionality>.spec.ts`
+- `functional tests` more information available `functional-tests/README.md`
+c. update documentation (more details in `/website/README.md`)
 
 ---
 
