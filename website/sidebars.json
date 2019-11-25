@@ -30,7 +30,8 @@
       "steps-files",
       "steps-generators",
       "steps-debug",
-      "steps-rest"
+      "steps-rest",
+      "steps-screenshots"
     ]
   }
 }
