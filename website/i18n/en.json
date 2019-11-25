@@ -68,6 +68,9 @@
       "steps-rest": {
         "title": "Rest api"
       },
+      "steps-screenshots": {
+        "title": "Screenshots"
+      },
       "testing-rest-api": {
         "title": "REST API examples"
       },

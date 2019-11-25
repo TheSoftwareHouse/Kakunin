@@ -1,0 +1,122 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Screenshots · Kakunin</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="If you want to extend steps for screenshot please read documentation of `protractor-image-comparison` on [Github](https://github.com/wswebcreation/protractor-image-comparison) or [NPM](https://www.npmjs.com/package/protractor-image-comparison)."/><meta name="docsearch:version" content="next"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Screenshots · Kakunin"/><meta property="og:type" content="website"/><meta property="og:url" content="https://thesoftwarehouse.github.io/Kakunin/"/><meta property="og:description" content="If you want to extend steps for screenshot please read documentation of `protractor-image-comparison` on [Github](https://github.com/wswebcreation/protractor-image-comparison) or [NPM](https://www.npmjs.com/package/protractor-image-comparison)."/><meta property="og:image" content="https://thesoftwarehouse.github.io/Kakunin/img/kakunin_ogImage.jpg"/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="/Kakunin/img/favicon/favicon.ico"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-dark.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="/Kakunin/js/scrollSpy.js"></script><link rel="stylesheet" href="/Kakunin/css/main.css"/><script src="/Kakunin/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/Kakunin/"><img class="logo" src="/Kakunin/img/kakunin_white_logo.svg" alt="Kakunin"/><h2 class="headerTitleWithLogo">Kakunin</h2></a><a href="/Kakunin/versions"><h3>next</h3></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li><li class=""><a href="https://github.com/TheSoftwareHouse/Kakunin" target="_self">GitHub</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>Steps</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Documentation</h3><ul class=""><li class="navListItem"><a class="navItem" href="/Kakunin/docs/next/quickstart">Quick start</a></li><li class="navListItem"><a class="navItem" href="/Kakunin/docs/next/">Getting started</a></li><li class="navListItem"><a class="navItem" href="/Kakunin/docs/next/configuration">Configuration</a></li><li class="navListItem"><a class="navItem" href="/Kakunin/docs/next/how-it-works">How it works</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Built in mechanisms</h3><ul class=""><li class="navListItem"><a class="navItem" href="/Kakunin/docs/next/matchers">Matchers</a></li><li class="navListItem"><a class="navItem" href="/Kakunin/docs/next/transformers">Transformers</a></li><li class="navListItem"><a class="navItem" href="/Kakunin/docs/next/extending">Extending Kakunin</a></li><li class="navListItem"><a class="navItem" href="/Kakunin/docs/next/hooks">Hooks</a></li><li class="navListItem"><a class="navItem" href="/Kakunin/docs/next/form-handlers">Form Handlers</a></li><li class="navListItem"><a class="navItem" href="/Kakunin/docs/next/url-comparator">URL comparator</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Features</h3><ul class=""><li class="navListItem"><a class="navItem" href="/Kakunin/docs/next/cross-browser">Cross-browser testing</a></li><li class="navListItem"><a class="navItem" href="/Kakunin/docs/next/browserstack">Browserstack integration</a></li><li class="navListItem"><a class="navItem" href="/Kakunin/docs/next/headless">Headless</a></li><li class="navListItem"><a class="navItem" href="/Kakunin/docs/next/parallel-testing">Parallel testing</a></li><li class="navListItem"><a class="navItem" href="/Kakunin/docs/next/performance-testing">Performance testing</a></li><li class="navListItem"><a class="navItem" href="/Kakunin/docs/next/docker">Docker</a></li><li class="navListItem"><a class="navItem" href="/Kakunin/docs/next/testing-rest-api">REST API examples</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Steps</h3><ul class=""><li class="navListItem"><a class="navItem" href="/Kakunin/docs/next/steps-navigation">Navigation</a></li><li class="navListItem"><a class="navItem" href="/Kakunin/docs/next/steps-forms">Forms</a></li><li class="navListItem"><a class="navItem" href="/Kakunin/docs/next/steps-elements">Elements</a></li><li class="navListItem"><a class="navItem" href="/Kakunin/docs/next/steps-files">Files</a></li><li class="navListItem"><a class="navItem" href="/Kakunin/docs/next/steps-generators">Generators</a></li><li class="navListItem"><a class="navItem" href="/Kakunin/docs/next/steps-debug">Debug</a></li><li class="navListItem"><a class="navItem" href="/Kakunin/docs/next/steps-rest">Rest api</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/Kakunin/docs/next/steps-screenshots">Screenshots</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">Screenshots</h1></header><article><div><span><p>If you want to extend steps for screenshot please read documentation of <code>protractor-image-comparison</code> on <a href="https://github.com/wswebcreation/protractor-image-comparison">Github</a> or <a href="https://www.npmjs.com/package/protractor-image-comparison">NPM</a>.</p>
+<p>In <code>kakunin.conf.js</code> there is section:</p>
+<pre><code class="hljs css language-javascript"> imageComparator: {
+    <span class="hljs-attr">baselineFolder</span>: <span class="hljs-string">'baseline'</span>,
+    <span class="hljs-attr">temporaryFolder</span>: <span class="hljs-string">'.tmp'</span>,
+    <span class="hljs-attr">saveAboveTolerance</span>: <span class="hljs-number">5</span>
+  },
+}
+</code></pre>
+<ul>
+<li><code>baselineFolder</code> Destination of the base images to which new files (generated during the test) are compared. They must be moved manually to the folder.</li>
+<li><code>temporaryFolder</code> Destination where the images generated during the test are localised (by step <code>I take a screenshot</code>)</li>
+<li><code>saveAboveTolerance</code> is the percentage deviation between compared images. If the deviation is greater than <code>saveAboveTolerance</code> number then the diff <code>image file</code> is created, so the differences can be viewed.</li>
+</ul>
+<p>Remember that <code>I compare...</code> steps verify if there was created file in diff folder.</p>
+<p>Created screenshot will have generated name in followed format <code>:screenshotName-browserWidthxbrowserHeight.png</code> example <code>picture-1600x900.png</code></p>
+<blockquote>
+<p>After first usage of <code>I take screenshot...</code> user should copy manually created file to the <code>baseline</code> folder. After that, he can use compare steps.</p>
+</blockquote>
+<h1><a class="anchor" aria-hidden="true" id="steps-for-taking-screenshots-of-the-application"></a><a href="#steps-for-taking-screenshots-of-the-application" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Steps for taking screenshots of the application:</h1>
+<h2><a class="anchor" aria-hidden="true" id="i-take-screenshot-of-the-element-elementname-and-save-as-a-screenshotname"></a><a href="#i-take-screenshot-of-the-element-elementname-and-save-as-a-screenshotname" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>I take screenshot of the element &quot;:elementName&quot; and save as a &quot;:screenshotName&quot;</code></h2>
+<p>Takes screenshot of the current <code>:element</code> on the page, and save as a <code>:screenshotName</code> in the <code>.tmp</code> folder which is created automatically.</p>
+<hr>
+<h2><a class="anchor" aria-hidden="true" id="i-take-screenshot-of-the-visible-part-of-the-page-and-save-as-a-screenshotname"></a><a href="#i-take-screenshot-of-the-visible-part-of-the-page-and-save-as-a-screenshotname" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>I take screenshot of the visible part of the page and save as a &quot;:screenshotName&quot;</code></h2>
+<p>Takes screenshot of the visible part of the page, and save as a <code>:screenshotName</code> in the <code>.tmp</code> folder which is created automatically.</p>
+<hr>
+<h2><a class="anchor" aria-hidden="true" id="i-take-full-screenshot-of-the-page-and-save-as-a-screenshotname"></a><a href="#i-take-full-screenshot-of-the-page-and-save-as-a-screenshotname" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>I take full screenshot of the page and save as a &quot;:screenshotName&quot;</code></h2>
+<p>Takes full screenshot of the page, and save as a <code>:screenshotName</code> in the <code>.tmp</code> folder which is created automatically.</p>
+<p>Please remember that this step will not work correctly for the applications which loads dynamically content. We recommend to verify only static pages with this step.</p>
+<hr>
+<h2><a class="anchor" aria-hidden="true" id="i-compare-the-screenshot-of-the-element-elementname-saved-as-screenshotname"></a><a href="#i-compare-the-screenshot-of-the-element-elementname-saved-as-screenshotname" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>I compare the screenshot of the element &quot;:elementName&quot; saved as &quot;:screenshotName&quot;</code></h2>
+<p>This step creates a new screenshot of the current state of the element in application, and then compare to the screenshot created with the <code>I take screenshot of the visible part of the page and save as a &quot;:screenshotName&quot;</code>. Remember to have the same name for the <code>:screenshotName</code>.</p>
+<hr>
+<h2><a class="anchor" aria-hidden="true" id="i-compare-the-screenshot-of-visible-the-part-of-the-page-saved-as-screenshotname"></a><a href="#i-compare-the-screenshot-of-visible-the-part-of-the-page-saved-as-screenshotname" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>I compare the screenshot of visible the part of the page saved as &quot;:screenshotName&quot;</code></h2>
+<p>This step creates a new screenshot of the visible part of the page, and then compare to the screenshot created with the <code>I take screenshot of the visible part of the page and save as a &quot;:screenshotName&quot;</code>. Remember to have the same name for the <code>:screenshotName</code>.</p>
+<hr>
+<h2><a class="anchor" aria-hidden="true" id="i-compare-the-full-screenshot-of-the-page--saved-as-screenshotname"></a><a href="#i-compare-the-full-screenshot-of-the-page--saved-as-screenshotname" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>I compare the full screenshot of the page saved as &quot;:screenshotName&quot;</code></h2>
+<p>This step creates a new full screenshot of the page, and then compare to the screenshot created with the <code>I take full screenshot of the page and save as a &quot;:screenshotName&quot;</code>. Remember to have the same name for the <code>:screenshotName</code>.</p>
+<hr>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/Kakunin/docs/next/steps-rest"><span class="arrow-prev">← </span><span>Rest api</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#i-take-screenshot-of-the-element-elementname-and-save-as-a-screenshotname"><code>I take screenshot of the element &quot;:elementName&quot; and save as a &quot;:screenshotName&quot;</code></a></li><li><a href="#i-take-screenshot-of-the-visible-part-of-the-page-and-save-as-a-screenshotname"><code>I take screenshot of the visible part of the page and save as a &quot;:screenshotName&quot;</code></a></li><li><a href="#i-take-full-screenshot-of-the-page-and-save-as-a-screenshotname"><code>I take full screenshot of the page and save as a &quot;:screenshotName&quot;</code></a></li><li><a href="#i-compare-the-screenshot-of-the-element-elementname-saved-as-screenshotname"><code>I compare the screenshot of the element &quot;:elementName&quot; saved as &quot;:screenshotName&quot;</code></a></li><li><a href="#i-compare-the-screenshot-of-visible-the-part-of-the-page-saved-as-screenshotname"><code>I compare the screenshot of visible the part of the page saved as &quot;:screenshotName&quot;</code></a></li><li><a href="#i-compare-the-full-screenshot-of-the-page--saved-as-screenshotname"><code>I compare the full screenshot of the page saved as &quot;:screenshotName&quot;</code></a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/Kakunin/" class="nav-home custom"><img src="/Kakunin/img/kakunin_white_logo_text.svg" alt="Kakunin" width="200 " height="77"/></a><div><h5>Docs:</h5><a href="
+                /Kakunin/docs/quickstart">Quick start</a><a href="
+                /Kakunin/docs/configuration">Configuration</a><a href="
+                /Kakunin/docs/extending">Extending</a></div><div><h5>Features:</h5><a href="
+                /Kakunin/docs/cross-browser">Cross-browser testing</a><a href="
+                /Kakunin/docs/parallel-testing">Parallel testing</a><a href="
+                /Kakunin/docs/performance-testing">Performance testing</a><a href="
+                /Kakunin/docs/docker">Docker</a></div><div><h5>Support:</h5><div class="footer-row"><a href="https://github.com/TheSoftwareHouse/Kakunin">GitHub</a><a href="https://kakunin.io">Contact us</a></div></div></section><section class="copyright">Copyright © 2019 The Software House</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+                document.addEventListener('keyup', function(e) {
+                  if (e.target !== document.body) {
+                    return;
+                  }
+                  // keyCode for '/' (slash)
+                  if (e.keyCode === 191) {
+                    const search = document.getElementById('search_input_react');
+                    search && search.focus();
+                  }
+                });
+              </script><script>
+              var search = docsearch({
+                
+                apiKey: '3cda5a3d6672f433f13a4a2cda6d2186',
+                indexName: 'kakunin',
+                inputSelector: '#search_input_react',
+                algoliaOptions: {}
+              });
+            </script></body></html>
