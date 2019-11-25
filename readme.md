@@ -54,6 +54,13 @@ You can find documentation on the **[official page](https://kakunin.io)**.
 
 Feel free to contribute to this project! Just fork the code, make any updated and let us know!
 
+To create a pull requests:
+1. Create your own fork repository
+2*. Remember to add tests for a functionality that you implemented (functional and units)
+3. Create a pull request to `next` branch if it's a new feature... hotfixes to `master` (https://github.com/TheSoftwareHouse/Kakunin)
+4. Make sure that the build on Travis passed
+5. Wait for reviews! :)
+
 ---
 
 ### **Issues:**

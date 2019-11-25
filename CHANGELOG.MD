@@ -1,6 +1,13 @@
 #### next
 
+- Fixed URL comparator if it contains `#` sign
+- Updated `form handlers` section in the documentation
+- Improved logging if the element was not found in the Page Object. A grey warning is printed in the terminal when a CSS selector was built from a "step parameter"
+- Added new step which allows to check multiple checkers on a row `there are elements for element ":rows":`
 - Added possibility to use third column in `fill/check form` steps (speed improvement required for Browserstack)
+- <span style="color:blue">Added possibility to test URL with query parameters (check documentation for more details</span>
+- <span style="color:blue">Added new steps that allow to save screenshots and compare them with a baseline (check documentation for more details)<span>
+- Added possibility to use dictionaries in the compare steps e.g. `And there is element "nameInput" with value "t:d:test-dictionary:test-key"`
 
 #### v3.0.0
 
