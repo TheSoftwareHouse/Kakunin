@@ -1,6 +1,6 @@
 import { Then } from 'cucumber';
 import fileManager from '../web/fs/file-manager.helper';
-import variableStore from '../web/variable-store.helper';
+import variableStore from '../core/variable-store.helper';
 
 Then(/^the file "([^"]*)" should be downloaded$/, filename => {
   return fileManager.wasDownloaded(variableStore.replaceTextVariables(filename));

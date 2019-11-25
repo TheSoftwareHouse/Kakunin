@@ -1,5 +1,5 @@
 import { textFieldFilter } from './text-fields.filter';
-import variableStore from '../../web/variable-store.helper';
+import variableStore from '../../core/variable-store.helper';
 
 describe('Text fields filter', () => {
   it('returns true when supported typ passed', () => {
