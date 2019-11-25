@@ -79,6 +79,11 @@ const getExtendedBrowsersConfigs = (config, commandArgs): any => {
     ];
   }
 
+  if ([null, undefined, ''].includes(config.browserLanguage)) {
+    configs.chromeConfig.chromeOptions.prefs.intl.accept_languages = 'en-GB';
+    configs.firefoxConfig['moz:firefoxOptions'].prefs.intl.accept_languages = 'en-GB';
+  }
+
   if (
     (config.headless && commandArgs.headless === undefined) ||
     (commandArgs.headless && commandArgs.headless !== 'false')
@@ -98,6 +103,8 @@ export const browsersConfiguration = (config, commandArgs): any => {
   return () => {
     const browsersSettings = [];
     const browserConfigs = getExtendedBrowsersConfigs(config, commandArgs);
+
+    console.log(config.browserLanguage);
     const allSpecs = glob.sync(config.features.map(file => path.join(config.projectPath, file, '**/*.feature'))[0]);
     const isParallel =
       commandArgs.parallel !== undefined && Number.isInteger(commandArgs.parallel) && commandArgs.parallel !== 0;
