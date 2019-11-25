@@ -3,8 +3,8 @@ import config from '../core/config.helper';
 import { promises as fsPromises } from 'fs';
 import { resolve } from 'path';
 
-const diffExists = screenshotName => {
-  return fsPromises
+const diffExists = screenshotName =>
+  fsPromises
     .access(
       resolve(
         `${config.imageComparator.temporaryFolder}/diff`,
@@ -17,14 +17,13 @@ const diffExists = screenshotName => {
       )
     )
     .catch(() => Promise.resolve());
-};
 
 When(/^I take screenshot of the element "([^"]*)" and save as a "([^"]*)"$/, function(elementName, screenshotName) {
   return browser.imageComparison.saveElement(this.currentPage.getElement(elementName), screenshotName);
 });
 
 When(/^I take screenshot of the visible part of the page and save as a "([^"]*)"$/, screenshotName => {
-  return browser.imageComparison.saveScreen(screenshotName);
+  browser.imageComparison.saveScreen(screenshotName);
 });
 
 When(/^I take full screenshot of the page and save as a "([^"]*)"$/, screenshotName => {
