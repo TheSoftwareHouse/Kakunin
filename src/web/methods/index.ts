@@ -1,6 +1,5 @@
-import { click } from './interactions';
+import * as interactions from './interactions.methods';
 
-const kakMethods = {
-  click,
+export const methods = {
+  interactions,
 };
-export { kakMethods };

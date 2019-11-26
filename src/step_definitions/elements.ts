@@ -3,10 +3,10 @@ import { When, Then } from 'cucumber';
 import { comparators } from '../comparators';
 import config from '../core/config.helper';
 import { matchers, regexBuilder } from '../matchers';
-import { waitForCondition } from '../web/methods/wait-for-condition.helper';
+import { waitForCondition } from '../web/methods/wait-for-condition.methods';
 import variableStore from '../core/variable-store.helper';
 import { createValueToTextTransformer } from '../transformers/transformer/values-to-text.transformer';
-import { kakMethods } from '../web/methods';
+import { methods } from '../web/methods';
 
 const valueToTextTransformer = createValueToTextTransformer();
 const timeout = parseInt(config.elementsVisibilityTimeout) * 1000;
@@ -56,7 +56,7 @@ When(/^I scroll to the "([^"]*)" element$/, function(elementName) {
 });
 
 When(/^I click the "([^"]*)" element$/, function(elementName) {
-  return kakMethods.click(this.currentPage, elementName);
+  return methods.interactions.click(this.currentPage, elementName);
 });
 
 When(/^I store the "([^"]*)" element text as "([^"]*)" variable$/, function(elementName, variable) {

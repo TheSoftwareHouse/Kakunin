@@ -1,4 +1,4 @@
-import { waitForCondition } from './wait-for-condition.helper';
+import { waitForCondition } from './wait-for-condition.methods';
 import config from '../../core/config.helper';
 import BasePage from '../../pages/base';
 
@@ -36,5 +36,3 @@ export const click = (currentPage: BasePage, elementName: string) => {
       return Promise.reject(`Error, after scrolling the element "${elementName}" is still not clickable.`);
     });
 };
-
-export const interactions = { click };
