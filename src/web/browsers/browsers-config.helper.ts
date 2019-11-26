@@ -11,6 +11,9 @@ const getDefaultBrowsersConfigs = (config): any => {
     chromeOptions: {
       args: [`--window-size=${config.browserWidth},${config.browserHeight}`],
       prefs: {
+        intl: {
+          accept_languages: config.browserLanguage,
+        },
         credentials_enable_service: false,
         profile: {
           password_manager_enabled: false,
@@ -29,6 +32,11 @@ const getDefaultBrowsersConfigs = (config): any => {
     marionette: true,
     'moz:firefoxOptions': {
       args: [],
+      prefs: {
+        intl: {
+          accept_languages: config.browserLanguage,
+        },
+      },
     },
   };
 
@@ -69,6 +77,11 @@ const getExtendedBrowsersConfigs = (config, commandArgs): any => {
       '--disable-accelerated-jpeg-decoding',
       '--no-sandbox',
     ];
+  }
+
+  if ([null, undefined, ''].includes(config.browserLanguage)) {
+    configs.chromeConfig.chromeOptions.prefs.intl.accept_languages = 'en-GB';
+    configs.firefoxConfig['moz:firefoxOptions'].prefs.intl.accept_languages = 'en-GB';
   }
 
   if (
