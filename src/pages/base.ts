@@ -1,5 +1,5 @@
 import config from '../core/config.helper';
-import { waitForInvisibilityOf, waitForVisibilityOf } from '../web/cucumber/wait-for-condition.helper';
+import { waitForInvisibilityOf, waitForVisibilityOf } from '../web/methods/wait-for-condition.helper';
 import { isRelativePage, waitForUrlChangeTo } from '../web/url-parser.helper';
 import { stringify } from 'querystring';
 import { element } from 'protractor';
