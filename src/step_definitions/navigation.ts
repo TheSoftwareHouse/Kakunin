@@ -29,6 +29,6 @@ Then(/^the "([^"]*)" page is displayed$/, function(pageName) {
   });
 });
 
-When(/^switch to "([^"]*)" iframe$/, function(elementName) {
+When(/^I switch to "([^"]*)" iframe$/, function(elementName) {
   return this.currentPage.switchIframe(elementName);
 });

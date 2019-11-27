@@ -86,7 +86,7 @@ class Page {
     return browser.executeScript('arguments[0].scrollIntoView(false);', this.getElement(elementName).getWebElement());
   }
 
-  public switchIframe(elementName) {
+  public switchIframe(elementName: string) {
     if (elementName === 'default') {
       return protractor.browser.switchTo().defaultContent();
     }

@@ -46,7 +46,7 @@ If the url matches expected pattern then
 
 ---
 
-## `switch to ":elementName" iframe`
+## `I switch to ":elementName" iframe`
 
 Used to change content to a iframe selected by `elementName`.
 
