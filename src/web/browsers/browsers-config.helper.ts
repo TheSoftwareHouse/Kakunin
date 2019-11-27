@@ -4,6 +4,7 @@ import { createFirefoxProfile } from './create-firefox-profile.helper';
 import { safariBrowserConfigurator } from './safari-browser-configurator.helper';
 import { prepareBrowserInstance } from '../parallel/prepare-browser-instance-specs.helper';
 import { chunkSpecs } from '../parallel/chunk-specs.helper';
+import { validateConfig } from '../../core/config-schema.helper';
 
 const getDefaultBrowsersConfigs = (config): any => {
   const chromeConfig = {
@@ -102,6 +103,7 @@ const getExtendedBrowsersConfigs = (config, commandArgs): any => {
 export const browsersConfiguration = (config, commandArgs): any => {
   return () => {
     const browsersSettings = [];
+    validateConfig(config);
     const browserConfigs = getExtendedBrowsersConfigs(config, commandArgs);
     const allSpecs = glob.sync(config.features.map(file => path.join(config.projectPath, file, '**/*.feature'))[0]);
     const isParallel =
