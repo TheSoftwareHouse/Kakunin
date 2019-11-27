@@ -1,4 +1,4 @@
-import { Then, Given } from 'cucumber';
+import { Then, Given, When } from 'cucumber';
 
 Given(/^I visit the "([^"]*)" page$/, function(pageName) {
   expect(browser.page[pageName]).toBeDefined();
@@ -27,4 +27,8 @@ Then(/^the "([^"]*)" page is displayed$/, function(pageName) {
     self.currentPage = browser.page[pageName];
     self.urlParameters = checkResult.parameters;
   });
+});
+
+When(/^switch to "([^"]*)" iframe$/, function(elementName) {
+  return this.currentPage.switchIframe(elementName);
 });
