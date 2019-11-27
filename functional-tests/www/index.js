@@ -33,6 +33,14 @@ app.get('/recaptcha', function (req, res) {
   res.render('form/recaptcha.html')
 });
 
+app.post('/recaptcha', function (req, res) {
+  if (!req.body['g-recaptcha-response']) {
+    return res.json({ "responseCode": 1, "responseDesc": "Please select captcha" });
+  }
+
+  res.redirect('/')
+});
+
 app.get('/drag-and-drop', function (req, res) {
   res.render('drag-and-drop/index.njs');
 });
