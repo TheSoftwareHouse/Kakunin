@@ -175,7 +175,3 @@ app.post('/upload', upload.single('myFile'), (req, res) => {
 
   res.status(status).send(uploadStatus);
 });
-
-// app.get('/basic-auth', basicAuth( { authorizer: myAuthorizer } ), function(req, res) {
-//   res.render('index.njs');
-// });
