@@ -3,9 +3,10 @@ import { When, Then } from 'cucumber';
 import { comparators } from '../comparators';
 import config from '../core/config.helper';
 import { matchers, regexBuilder } from '../matchers';
-import { waitForCondition } from '../web/cucumber/wait-for-condition.helper';
+import { waitForCondition } from '../web/methods/wait-for-condition.methods';
 import variableStore from '../core/variable-store.helper';
 import { createValueToTextTransformer } from '../transformers/transformer/values-to-text.transformer';
+import { methods } from '../web/methods';
 
 const valueToTextTransformer = createValueToTextTransformer();
 const timeout = parseInt(config.elementsVisibilityTimeout) * 1000;
@@ -55,36 +56,7 @@ When(/^I scroll to the "([^"]*)" element$/, function(elementName) {
 });
 
 When(/^I click the "([^"]*)" element$/, function(elementName) {
-  return this.currentPage
-    .scrollIntoElement(elementName)
-    .catch(() => Promise.resolve())
-    .then(() => this.currentPage.waitForVisibilityOf(elementName))
-    .then(() => this.currentPage.scrollIntoElement(elementName))
-    .then(() => this.currentPage.click(elementName))
-    .catch(() => {
-      return waitForCondition('elementToBeClickable', timeout)(this.currentPage.getElement(elementName)).then(() => {
-        return this.currentPage.click(elementName);
-      });
-    })
-    .catch(() => {
-      console.warn('Warning! Element was not clickable. We need to scroll it down.');
-      return browser
-        .executeScript('window.scrollBy(0,50);')
-        .then(() => this.currentPage.waitForVisibilityOf(elementName))
-        .then(() => this.currentPage.click(elementName));
-    })
-    .catch(() => {
-      console.warn('Warning! Element was not clickable. We need use the WebDriver method to perform the click action.');
-      return browser
-        .actions()
-        .mouseMove(this.currentPage.getElement(elementName))
-        .mouseMove({ x: 5, y: 0 })
-        .click()
-        .perform();
-    })
-    .catch(() => {
-      return Promise.reject(`Error, after scrolling the element "${elementName}" is still not clickable.`);
-    });
+  return methods.interactions.click(this.currentPage, elementName);
 });
 
 When(/^I store the "([^"]*)" element text as "([^"]*)" variable$/, function(elementName, variable) {

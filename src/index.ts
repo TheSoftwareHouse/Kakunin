@@ -11,8 +11,9 @@ export { default as variableStore } from './core/variable-store.helper';
 export { default as handlers } from './form-handlers/handlers';
 export { comparators } from './comparators';
 export { emailService } from './emails';
-export { waitForVisibilityOf, waitForInvisibilityOf, waitForCondition } from './web/cucumber/wait-for-condition.helper';
+export { waitForVisibilityOf, waitForInvisibilityOf, waitForCondition } from './web/methods/wait-for-condition.methods';
 export { hookHandlers } from './web/cucumber/hooks/hooks';
+export { methods } from './web/methods';
 
 export const BasePage = pages.Form;
 export const BaseDictionary = dictionaries.Base;
