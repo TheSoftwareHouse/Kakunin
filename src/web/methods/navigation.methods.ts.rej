@@ -1,0 +1,4 @@
+diff a/src/web/methods/navigation.methods.ts b/src/web/methods/navigation.methods.ts	(rejected hunks)
+@@ -67 +67 @@ export const pressKey = (key: string) => {
+-      .perform(),
++      .perform()
