@@ -1,34 +1,12 @@
 import * as chai from 'chai';
 import { When, Then } from 'cucumber';
 import { comparators } from '../comparators';
-import config from '../core/config.helper';
 import { matchers, regexBuilder } from '../matchers';
-import { waitForCondition } from '../web/methods/wait-for-condition.methods';
 import variableStore from '../core/variable-store.helper';
 import { createValueToTextTransformer } from '../transformers/transformer/values-to-text.transformer';
 import { methods } from '../web/methods';
 
 const valueToTextTransformer = createValueToTextTransformer();
-const timeout = parseInt(config.elementsVisibilityTimeout) * 1000;
-
-const handlePromises = (hashedData, onSuccess, onReject) => resolvedPromises => {
-  for (let i = 0; i < resolvedPromises.length; i += hashedData.length) {
-    let allFieldsMatching = true;
-
-    for (let j = i; j < i + hashedData.length; j++) {
-      if (resolvedPromises[j] === false) {
-        allFieldsMatching = false;
-        break;
-      }
-    }
-
-    if (allFieldsMatching) {
-      return onSuccess();
-    }
-  }
-
-  return onReject();
-};
 
 function checkNumberOfElements(numberExpression, element) {
   const self = this;
@@ -44,11 +22,7 @@ function checkNumberOfElements(numberExpression, element) {
 }
 
 When(/^I wait for "([^"]*)" of the "([^"]*)" element$/, function(condition, elementName) {
-  if (this.currentPage.getElement(elementName) instanceof protractor.ElementArrayFinder) {
-    return waitForCondition(condition, timeout)(this.currentPage.getElement(elementName).first());
-  }
-
-  return waitForCondition(condition, timeout)(this.currentPage.getElement(elementName));
+  return methods.wait.waitForElementCondition(this.currentPage, condition, elementName);
 });
 
 When(/^I scroll to the "([^"]*)" element$/, function(elementName) {
@@ -120,27 +94,7 @@ When(/^I store the "([^"]*)" element text matched by "([^"]*)" as "([^"]*)" vari
 });
 
 When(/^I wait for the "([^"]*)" element to disappear$/, function(elementName, sync) {
-  const self = this;
-  let maxRepeats = 10;
-
-  const interval = setInterval(() => {
-    console.log('Waiting for element to disappear...');
-
-    return self.currentPage.isPresent(elementName).then(isPresent => {
-      if (!isPresent) {
-        clearInterval(interval);
-        sync();
-        return;
-      }
-
-      maxRepeats--;
-
-      if (maxRepeats === 0) {
-        clearInterval(interval);
-        sync('Element is still visible');
-      }
-    });
-  }, 1500);
+  methods.wait.waitForElementDisappear(this.currentPage, elementName, sync);
 });
 
 Then(/^the "([^"]*)" element is visible$/, function(elementName) {
@@ -432,7 +386,11 @@ Then(/^the element "([^"]*)" should have an item with values:$/, function(elemen
     )
     .then(() =>
       Promise.all(promises).then(
-        handlePromises(hashedData, () => Promise.resolve(), () => Promise.reject('No matching element has been found.'))
+        methods.shared.handlePromises(
+          hashedData,
+          () => Promise.resolve(),
+          () => Promise.reject('No matching element has been found.')
+        )
       )
     );
 });
@@ -463,7 +421,11 @@ Then(/^the element "([^"]*)" should not have an item with values:$/, function(el
     })
     .then(() =>
       Promise.all(promises).then(
-        handlePromises(hashedData, () => Promise.reject('Matching element has been found'), () => Promise.resolve())
+        methods.shared.handlePromises(
+          hashedData,
+          () => Promise.reject('Matching element has been found'),
+          () => Promise.resolve()
+        )
       )
     );
 });
