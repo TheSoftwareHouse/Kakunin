@@ -4,7 +4,7 @@ Feature: Navigation
 
     Scenario: Switch to iframe
         Given I visit the "main" page
-        When I click the "a[href='/navigation/iframe']" element
+        When I click the "iframeLink" element
         Then the "iframe" page is displayed
         And the "externalDiv" element is visible
         And the "internaldiv" element is not visible

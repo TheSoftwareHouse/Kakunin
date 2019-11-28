@@ -20,6 +20,7 @@ class MainPage extends BasePage {
     this.appearForm = $('.appearForm');
     this.matchersLink = $('.matchers');
     this.matchersInNewTabLink = $('.matchersInNewTab');
+    this.iframeLink = $('a[href="/navigation/iframe"]');
   }
 }
 
