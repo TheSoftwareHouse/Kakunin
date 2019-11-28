@@ -8,7 +8,7 @@ Feature: Navigation
         Then the "iframe" page is displayed
         And the "externalDiv" element is visible
         And the "internaldiv" element is not visible
-        When I switch to "iframeElemenet" iframe
+        When I switch to "iframeElement" iframe
         Then the "externalDiv" element is not visible
         And the "internaldiv" element is visible
         When I switch to "default" iframe

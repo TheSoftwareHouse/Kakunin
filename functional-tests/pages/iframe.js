@@ -10,7 +10,7 @@ class AbsolutePage extends BasePage {
 
     this.externalDiv = $('#externaldivid');
     this.internaldiv = $('#internaldivid');
-    this.iframeElemenet = $('#iframeid');
+    this.iframeElement = $('#iframeid');
   }
 }
 
