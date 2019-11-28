@@ -488,63 +488,13 @@ Then(/^"([^"]*)" value on the "([^"]*)" list is sorted in "([^"]*)" order$/, fun
 });
 
 When(/^I infinitely scroll to the "([^"]*)" element$/, function(elementName) {
-  const self = this;
-
-  const scrollToLoader = () => {
-    return self.currentPage
-      .isPresent(elementName)
-      .then(isPresent => {
-        if (isPresent) {
-          return self.currentPage.scrollIntoElement(elementName);
-        }
-
-        return Promise.resolve();
-      })
-      .then(() => self.currentPage.isPresent(elementName))
-      .then(isPresent => {
-        if (isPresent) {
-          return browser.sleep(1000).then(() => scrollToLoader());
-        }
-
-        return Promise.resolve();
-      });
-  };
-
-  return scrollToLoader();
+  return methods.interactions.scrollToLoader(this.currentPage, elementName);
 });
 
 When(/^I press the "([^"]*)" key$/, key => {
-  const keyTransformed = key.toUpperCase();
-
-  return Promise.resolve(
-    browser
-      .actions()
-      .sendKeys(protractor.Key[keyTransformed])
-      .perform()
-  );
+  return methods.interactions.pressKey(key);
 });
 
-When(/^I drag "([^"]*)" element and drop over "([^"]*)" element$/, async function(elementDrag, elementDrop) {
-  const wait = timeToWait => browser.sleep(timeToWait);
-
-  await this.currentPage.waitForVisibilityOf(elementDrag);
-  await browser
-    .actions()
-    .mouseMove(this.currentPage.getElement(elementDrag))
-    .perform();
-  await wait(200);
-  await browser
-    .actions()
-    .mouseDown()
-    .perform();
-  await wait(200);
-  await browser
-    .actions()
-    .mouseMove(this.currentPage.getElement(elementDrop))
-    .perform();
-  await wait(200);
-  await browser
-    .actions()
-    .mouseUp()
-    .perform();
+When(/^I drag "([^"]*)" element and drop over "([^"]*)" element$/, function(elementDrag, elementDrop) {
+  return methods.interactions.dragAndDrop(this.currentPage, elementDrag, elementDrop);
 });

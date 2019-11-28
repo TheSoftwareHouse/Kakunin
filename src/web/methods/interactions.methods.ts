@@ -36,3 +36,59 @@ export const click = (currentPage: BasePage, elementName: string) => {
       return Promise.reject(`Error, after scrolling the element "${elementName}" is still not clickable.`);
     });
 };
+
+export const scrollToLoader = (currentPage: BasePage, elementName: string) => {
+  return currentPage
+    .isPresent(elementName)
+    .then(isPresent => {
+      if (isPresent) {
+        return currentPage.scrollIntoElement(elementName);
+      }
+
+      return Promise.resolve();
+    })
+    .then(() => currentPage.isPresent(elementName))
+    .then(isPresent => {
+      if (isPresent) {
+        return browser.sleep(1000).then(() => scrollToLoader(currentPage, elementName));
+      }
+
+      return Promise.resolve();
+    });
+};
+
+export const pressKey = (key: string) => {
+  const keyTransformed = key.toUpperCase();
+
+  return Promise.resolve(
+    browser
+      .actions()
+      .sendKeys(protractor.Key[keyTransformed])
+      .perform()
+  );
+};
+
+export const dragAndDrop = async (currentPage: BasePage, elementDrag: string, elementDrop: string) => {
+  const wait = timeToWait => browser.sleep(timeToWait);
+
+  await currentPage.waitForVisibilityOf(elementDrag);
+  await browser
+    .actions()
+    .mouseMove(currentPage.getElement(elementDrag))
+    .perform();
+  await wait(200);
+  await browser
+    .actions()
+    .mouseDown()
+    .perform();
+  await wait(200);
+  await browser
+    .actions()
+    .mouseMove(currentPage.getElement(elementDrop))
+    .perform();
+  await wait(200);
+  await browser
+    .actions()
+    .mouseUp()
+    .perform();
+};
