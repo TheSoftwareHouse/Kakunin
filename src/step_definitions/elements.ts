@@ -1,34 +1,12 @@
 import * as chai from 'chai';
 import { When, Then } from 'cucumber';
 import { comparators } from '../comparators';
-import config from '../core/config.helper';
-import { matchers, regexBuilder } from '../matchers';
-import { waitForCondition } from '../web/methods/wait-for-condition.methods';
+import { matchers } from '../matchers';
 import variableStore from '../core/variable-store.helper';
 import { createValueToTextTransformer } from '../transformers/transformer/values-to-text.transformer';
 import { methods } from '../web/methods';
 
 const valueToTextTransformer = createValueToTextTransformer();
-const timeout = parseInt(config.elementsVisibilityTimeout) * 1000;
-
-const handlePromises = (hashedData, onSuccess, onReject) => resolvedPromises => {
-  for (let i = 0; i < resolvedPromises.length; i += hashedData.length) {
-    let allFieldsMatching = true;
-
-    for (let j = i; j < i + hashedData.length; j++) {
-      if (resolvedPromises[j] === false) {
-        allFieldsMatching = false;
-        break;
-      }
-    }
-
-    if (allFieldsMatching) {
-      return onSuccess();
-    }
-  }
-
-  return onReject();
-};
 
 function checkNumberOfElements(numberExpression, element) {
   const self = this;
@@ -44,11 +22,7 @@ function checkNumberOfElements(numberExpression, element) {
 }
 
 When(/^I wait for "([^"]*)" of the "([^"]*)" element$/, function(condition, elementName) {
-  if (this.currentPage.getElement(elementName) instanceof protractor.ElementArrayFinder) {
-    return waitForCondition(condition, timeout)(this.currentPage.getElement(elementName).first());
-  }
-
-  return waitForCondition(condition, timeout)(this.currentPage.getElement(elementName));
+  return methods.wait.waitForElementCondition(this.currentPage, condition, elementName);
 });
 
 When(/^I scroll to the "([^"]*)" element$/, function(elementName) {
@@ -60,36 +34,11 @@ When(/^I click the "([^"]*)" element$/, function(elementName) {
 });
 
 When(/^I store the "([^"]*)" element text as "([^"]*)" variable$/, function(elementName, variable) {
-  return this.currentPage.waitForVisibilityOf(elementName).then(async () => {
-    const elementTag = await this.currentPage[elementName].getTagName(tag => tag);
-
-    if (elementTag === 'input' || elementTag === 'textarea') {
-      return this.currentPage
-        .getElement(elementName)
-        .getAttribute('value')
-        .then(value => {
-          variableStore.storeVariable(variable, value);
-        });
-    }
-
-    return this.currentPage
-      .getElement(elementName)
-      .getText()
-      .then(text => {
-        variableStore.storeVariable(variable, text);
-      });
-  });
+  return methods.store.storeTextAsVariable(this.currentPage, elementName, variable);
 });
 
 When(/^I update the "([^"]*)" element text as "([^"]*)" variable$/, function(elementName, variable) {
-  return this.currentPage.waitForVisibilityOf(elementName).then(() => {
-    this.currentPage
-      .getElement(elementName)
-      .getText()
-      .then(text => {
-        variableStore.updateVariable(variable, text);
-      });
-  });
+  return methods.store.updateStoredTextAsVariable(this.currentPage, elementName, variable);
 });
 
 When(/^I store the "([^"]*)" element text matched by "([^"]*)" as "([^"]*)" variable$/, function(
@@ -97,50 +46,11 @@ When(/^I store the "([^"]*)" element text matched by "([^"]*)" as "([^"]*)" vari
   matcher,
   variable
 ) {
-  const regex = regexBuilder.buildRegex(matcher);
-
-  return this.currentPage.waitForVisibilityOf(elementName).then(() => {
-    return this.currentPage
-      .getElement(elementName)
-      .getText()
-      .then(text => {
-        const matchedText = text.match(regex);
-
-        if (matchedText === null) {
-          return Promise.reject(`Could not match text ${text} with matcher ${matcher}`);
-        }
-
-        if (matchedText.length <= 1) {
-          return Promise.reject(`Matcher ${matcher} does not contain capturing brackets`);
-        }
-
-        variableStore.storeVariable(variable, matchedText[1]);
-      });
-  });
+  return methods.store.storeTextMatchedByAsVariable(this.currentPage, elementName, matcher, variable);
 });
 
 When(/^I wait for the "([^"]*)" element to disappear$/, function(elementName, sync) {
-  const self = this;
-  let maxRepeats = 10;
-
-  const interval = setInterval(() => {
-    console.log('Waiting for element to disappear...');
-
-    return self.currentPage.isPresent(elementName).then(isPresent => {
-      if (!isPresent) {
-        clearInterval(interval);
-        sync();
-        return;
-      }
-
-      maxRepeats--;
-
-      if (maxRepeats === 0) {
-        clearInterval(interval);
-        sync('Element is still visible');
-      }
-    });
-  }, 1500);
+  methods.wait.waitForElementDisappear(this.currentPage, elementName, sync);
 });
 
 Then(/^the "([^"]*)" element is visible$/, function(elementName) {
@@ -165,29 +75,7 @@ Then(/^the "([^"]*)" element is disabled$/, async function(elementName) {
 });
 
 When(/^I store table "([^"]*)" rows as "([^"]*)" with columns:$/, function(table, variableName, data) {
-  const self = this;
-  const columns = data.raw().map(element => element[0]);
-  const promises = [];
-  return this.currentPage.waitForVisibilityOf(table).then(() => {
-    return this.currentPage
-      .getElement(table)
-      .each(element => {
-        const rowPromises = [];
-
-        for (const columnIndex in columns) {
-          if (columns.hasOwnProperty(columnIndex)) {
-            rowPromises.push(element.element(self.currentPage.getElement(columns[columnIndex]).locator()).getText());
-          }
-        }
-
-        promises.push(Promise.all(rowPromises));
-      })
-      .then(() =>
-        Promise.all(promises).then(resolvedPromises => {
-          variableStore.storeVariable(variableName, resolvedPromises);
-        })
-      );
-  });
+  return methods.store.storeTableRowsWithColumnsAsVariable(this.currentPage, table, variableName, data);
 });
 
 Then(/^there are following elements in table "([^"]*)":$/, function(table, data) {
@@ -432,7 +320,11 @@ Then(/^the element "([^"]*)" should have an item with values:$/, function(elemen
     )
     .then(() =>
       Promise.all(promises).then(
-        handlePromises(hashedData, () => Promise.resolve(), () => Promise.reject('No matching element has been found.'))
+        methods.shared.handlePromises(
+          hashedData,
+          () => Promise.resolve(),
+          () => Promise.reject('No matching element has been found.')
+        )
       )
     );
 });
@@ -463,7 +355,11 @@ Then(/^the element "([^"]*)" should not have an item with values:$/, function(el
     })
     .then(() =>
       Promise.all(promises).then(
-        handlePromises(hashedData, () => Promise.reject('Matching element has been found'), () => Promise.resolve())
+        methods.shared.handlePromises(
+          hashedData,
+          () => Promise.reject('Matching element has been found'),
+          () => Promise.resolve()
+        )
       )
     );
 });
@@ -488,63 +384,13 @@ Then(/^"([^"]*)" value on the "([^"]*)" list is sorted in "([^"]*)" order$/, fun
 });
 
 When(/^I infinitely scroll to the "([^"]*)" element$/, function(elementName) {
-  const self = this;
-
-  const scrollToLoader = () => {
-    return self.currentPage
-      .isPresent(elementName)
-      .then(isPresent => {
-        if (isPresent) {
-          return self.currentPage.scrollIntoElement(elementName);
-        }
-
-        return Promise.resolve();
-      })
-      .then(() => self.currentPage.isPresent(elementName))
-      .then(isPresent => {
-        if (isPresent) {
-          return browser.sleep(1000).then(() => scrollToLoader());
-        }
-
-        return Promise.resolve();
-      });
-  };
-
-  return scrollToLoader();
+  return methods.interactions.scrollToLoader(this.currentPage, elementName);
 });
 
 When(/^I press the "([^"]*)" key$/, key => {
-  const keyTransformed = key.toUpperCase();
-
-  return Promise.resolve(
-    browser
-      .actions()
-      .sendKeys(protractor.Key[keyTransformed])
-      .perform()
-  );
+  return methods.interactions.pressKey(key);
 });
 
-When(/^I drag "([^"]*)" element and drop over "([^"]*)" element$/, async function(elementDrag, elementDrop) {
-  const wait = timeToWait => browser.sleep(timeToWait);
-
-  await this.currentPage.waitForVisibilityOf(elementDrag);
-  await browser
-    .actions()
-    .mouseMove(this.currentPage.getElement(elementDrag))
-    .perform();
-  await wait(200);
-  await browser
-    .actions()
-    .mouseDown()
-    .perform();
-  await wait(200);
-  await browser
-    .actions()
-    .mouseMove(this.currentPage.getElement(elementDrop))
-    .perform();
-  await wait(200);
-  await browser
-    .actions()
-    .mouseUp()
-    .perform();
+When(/^I drag "([^"]*)" element and drop over "([^"]*)" element$/, function(elementDrag, elementDrop) {
+  return methods.interactions.dragAndDrop(this.currentPage, elementDrag, elementDrop);
 });
