@@ -1,7 +1,7 @@
 import * as chai from 'chai';
 import { When, Then } from 'cucumber';
 import { comparators } from '../comparators';
-import { matchers, regexBuilder } from '../matchers';
+import { matchers } from '../matchers';
 import variableStore from '../core/variable-store.helper';
 import { createValueToTextTransformer } from '../transformers/transformer/values-to-text.transformer';
 import { methods } from '../web/methods';
@@ -34,36 +34,11 @@ When(/^I click the "([^"]*)" element$/, function(elementName) {
 });
 
 When(/^I store the "([^"]*)" element text as "([^"]*)" variable$/, function(elementName, variable) {
-  return this.currentPage.waitForVisibilityOf(elementName).then(async () => {
-    const elementTag = await this.currentPage[elementName].getTagName(tag => tag);
-
-    if (elementTag === 'input' || elementTag === 'textarea') {
-      return this.currentPage
-        .getElement(elementName)
-        .getAttribute('value')
-        .then(value => {
-          variableStore.storeVariable(variable, value);
-        });
-    }
-
-    return this.currentPage
-      .getElement(elementName)
-      .getText()
-      .then(text => {
-        variableStore.storeVariable(variable, text);
-      });
-  });
+  return methods.store.storeTextAsVariable(this.currentPage, elementName, variable);
 });
 
 When(/^I update the "([^"]*)" element text as "([^"]*)" variable$/, function(elementName, variable) {
-  return this.currentPage.waitForVisibilityOf(elementName).then(() => {
-    this.currentPage
-      .getElement(elementName)
-      .getText()
-      .then(text => {
-        variableStore.updateVariable(variable, text);
-      });
-  });
+  return methods.store.updateStoredTextAsVariable(this.currentPage, elementName, variable);
 });
 
 When(/^I store the "([^"]*)" element text matched by "([^"]*)" as "([^"]*)" variable$/, function(
@@ -71,26 +46,7 @@ When(/^I store the "([^"]*)" element text matched by "([^"]*)" as "([^"]*)" vari
   matcher,
   variable
 ) {
-  const regex = regexBuilder.buildRegex(matcher);
-
-  return this.currentPage.waitForVisibilityOf(elementName).then(() => {
-    return this.currentPage
-      .getElement(elementName)
-      .getText()
-      .then(text => {
-        const matchedText = text.match(regex);
-
-        if (matchedText === null) {
-          return Promise.reject(`Could not match text ${text} with matcher ${matcher}`);
-        }
-
-        if (matchedText.length <= 1) {
-          return Promise.reject(`Matcher ${matcher} does not contain capturing brackets`);
-        }
-
-        variableStore.storeVariable(variable, matchedText[1]);
-      });
-  });
+  return methods.store.storeTextMatchedByAsVariable(this.currentPage, elementName, matcher, variable);
 });
 
 When(/^I wait for the "([^"]*)" element to disappear$/, function(elementName, sync) {
@@ -119,29 +75,7 @@ Then(/^the "([^"]*)" element is disabled$/, async function(elementName) {
 });
 
 When(/^I store table "([^"]*)" rows as "([^"]*)" with columns:$/, function(table, variableName, data) {
-  const self = this;
-  const columns = data.raw().map(element => element[0]);
-  const promises = [];
-  return this.currentPage.waitForVisibilityOf(table).then(() => {
-    return this.currentPage
-      .getElement(table)
-      .each(element => {
-        const rowPromises = [];
-
-        for (const columnIndex in columns) {
-          if (columns.hasOwnProperty(columnIndex)) {
-            rowPromises.push(element.element(self.currentPage.getElement(columns[columnIndex]).locator()).getText());
-          }
-        }
-
-        promises.push(Promise.all(rowPromises));
-      })
-      .then(() =>
-        Promise.all(promises).then(resolvedPromises => {
-          variableStore.storeVariable(variableName, resolvedPromises);
-        })
-      );
-  });
+  return methods.store.storeTableRowsWithColumnsAsVariable(this.currentPage, table, variableName, data);
 });
 
 Then(/^there are following elements in table "([^"]*)":$/, function(table, data) {
