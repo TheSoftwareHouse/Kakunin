@@ -12,7 +12,10 @@ export const click = (currentPage: BasePage, elementName: string) => {
     .then(() => currentPage.scrollIntoElement(elementName))
     .then(() => currentPage.click(elementName))
     .catch(() => {
-      return waitForCondition('elementToBeClickable', timeout)(currentPage.getElement(elementName)).then(() => {
+      return waitForCondition(
+        'elementToBeClickable',
+        timeout
+      )(currentPage.getElement(elementName)).then(() => {
         return currentPage.click(elementName);
       });
     })
@@ -37,7 +40,7 @@ export const click = (currentPage: BasePage, elementName: string) => {
     });
 };
 
-export const scrollToLoader = (currentPage: BasePage, elementName: string) => {
+export const infinityScrollTo = (currentPage: BasePage, elementName: string) => {
   return currentPage
     .isPresent(elementName)
     .then(isPresent => {
@@ -50,7 +53,7 @@ export const scrollToLoader = (currentPage: BasePage, elementName: string) => {
     .then(() => currentPage.isPresent(elementName))
     .then(isPresent => {
       if (isPresent) {
-        return browser.sleep(1000).then(() => scrollToLoader(currentPage, elementName));
+        return browser.sleep(1000).then(() => infinityScrollTo(currentPage, elementName));
       }
 
       return Promise.resolve();
