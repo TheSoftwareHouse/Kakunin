@@ -1,7 +1,6 @@
 Feature: Tabular data
     As a kakunin user
     I want validate tabular data
-
     Scenario: Validate tabular data count
         Given I visit the "main" page
         When I click the "tabularDataLink" element
@@ -46,6 +45,7 @@ Feature: Tabular data
             | indexLocator | r:validNumber | f:isVisible |             | f:isPresent |
             | indexLocator |               |             | f:isVisible |             |
 
+        @test
     Scenario: Validate exact tabular data by columns
         Given I visit the "main" page
         When I click the "tabularDataLink" element
