@@ -2,6 +2,7 @@ import variableStore from '../../core/variable-store.helper';
 import { methods } from './index';
 import { regexBuilder } from '../../matchers';
 import BasePage from '../../pages/base';
+import { TableDefinition } from 'cucumber';
 
 export const storeTextAsVariable = (currentPage: BasePage, elementName: string, variable: string) => {
   return currentPage.waitForVisibilityOf(elementName).then(async () => {
@@ -48,7 +49,12 @@ export const storeTextMatchedByAsVariable = (
   });
 };
 
-export const storeTableRowsWithColumnsAsVariable = (currentPage: BasePage, table, variableName: string, data) => {
+export const storeTableRowsWithColumnsAsVariable = (
+  currentPage: BasePage,
+  table: string,
+  variableName: string,
+  data: TableDefinition
+) => {
   const columns = data.raw().map(element => element[0]);
   const promises = [];
   return currentPage.waitForVisibilityOf(table).then(() => {
