@@ -13,6 +13,8 @@
     <a name="linkPage" class="matchers" href="/matchers">Simple matchers</a><br/>
     <a name="linkPage" class="matchersInNewTab" target="_blank" href="/matchers">Matchers in a new tab</a><br/>
     <a name="linkPage" href="/form/select">Simple select example</a><br/>
+    <a name="linkPage" href="/navigation/iframe">Iframe example</a><br/>
+
     {% for i in range(0, 50) -%}
     <br>
     {%- endfor %}

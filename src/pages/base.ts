@@ -86,6 +86,13 @@ class Page {
     return browser.executeScript('arguments[0].scrollIntoView(false);', this.getElement(elementName).getWebElement());
   }
 
+  public switchIframe(elementName: string) {
+    if (elementName === 'default') {
+      return protractor.browser.switchTo().defaultContent();
+    }
+    return protractor.browser.switchTo().frame(this.getElement(elementName).getWebElement());
+  }
+
   public waitForVisibilityOf(elementName: string) {
     return waitForVisibilityOf(this.getElement(elementName));
   }

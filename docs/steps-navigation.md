@@ -45,3 +45,11 @@ If the url matches expected pattern then
 `this.currentPage` variable is set to `pageFileName` page object.
 
 ---
+
+## `I switch to ":elementName" iframe`
+
+Used to change content to a iframe selected by `elementName`.
+
+To return to default content instead of `elementName` use string `default`
+
+---

@@ -44,6 +44,10 @@ app.get('/form/disappear', function(req, res) {
   res.render('form/disappear.njs');
 });
 
+app.get('/navigation/iframe', function(req, res) {
+  res.render('navigation/iframe.njs');
+});
+
 app.post('/form/simple/post', function(req, res) {
   res.render('form/simple.njs', {
     form: req.body,
