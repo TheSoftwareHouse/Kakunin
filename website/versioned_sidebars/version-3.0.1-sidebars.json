@@ -1,0 +1,34 @@
+{
+  "version-3.0.1-docs": {
+    "Documentation": [
+      "version-3.0.1-quickstart",
+      "version-3.0.1-index",
+      "version-3.0.1-configuration",
+      "version-3.0.1-how-it-works"
+    ],
+    "Built in mechanisms": [
+      "version-3.0.1-matchers",
+      "version-3.0.1-transformers",
+      "version-3.0.1-extending",
+      "version-3.0.1-hooks"
+    ],
+    "Features": [
+      "version-3.0.1-cross-browser",
+      "version-3.0.1-browserstack",
+      "version-3.0.1-headless",
+      "version-3.0.1-parallel-testing",
+      "version-3.0.1-performance-testing",
+      "version-3.0.1-docker",
+      "version-3.0.1-testing-rest-api"
+    ],
+    "Steps": [
+      "version-3.0.1-steps-navigation",
+      "version-3.0.1-steps-forms",
+      "version-3.0.1-steps-elements",
+      "version-3.0.1-steps-files",
+      "version-3.0.1-steps-generators",
+      "version-3.0.1-steps-debug",
+      "version-3.0.1-steps-rest"
+    ]
+  }
+}
