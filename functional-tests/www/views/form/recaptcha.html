@@ -1,0 +1,16 @@
+<html>
+  <head>
+    <title>Google recapcha demo</title>
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+  </head>
+  <body>
+    <h1>Google reCAPTHA v2 Demo</h1>
+    <form id="comment_form" action='/recaptcha' method="post">
+      <input type="email" placeholder="Type your email" size="40"><br><br>
+      <div class="g-recaptcha" data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"></div><br>
+      <input type="submit" name="submit" value="Post comment"><br><br>
+    </form>
+  </body>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
+</html>
