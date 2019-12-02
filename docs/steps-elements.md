@@ -404,3 +404,11 @@ Clicks on `:elementDrag` and moves it onto `:elementDrop` while left mouse butto
 Note: This step is not working on HTML5!
 
 ---
+
+## `I confirm the recaptcha in ":elementName" iframe`
+
+Used to confirm recaptcha v2 on current page.
+
+You must specify the iframe selector in which the recaptcha is located. After confirming recaptcha, Kakunin will return to the default content (frame).
+
+---

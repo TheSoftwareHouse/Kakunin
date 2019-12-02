@@ -21,6 +21,7 @@ class MainPage extends BasePage {
     this.matchersLink = $('.matchers');
     this.matchersInNewTabLink = $('.matchersInNewTab');
     this.iframeLink = $('a[href="/navigation/iframe"]');
+    this.recaptchaLink = $('a[href="/recaptcha"]');
   }
 }
 

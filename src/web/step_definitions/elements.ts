@@ -2,7 +2,6 @@ import { When, Then } from 'cucumber';
 import { comparators } from '../../common/comparators';
 import { methods } from '../methods';
 
-
 When(/^I wait for "([^"]*)" of the "([^"]*)" element$/, function(condition, elementName) {
   return methods.wait.waitForElementCondition(this.currentPage, condition, elementName);
 });
@@ -159,4 +158,8 @@ When(/^I press the "([^"]*)" key$/, key => {
 
 When(/^I drag "([^"]*)" element and drop over "([^"]*)" element$/, function(elementDrag, elementDrop) {
   return methods.interactions.dragAndDrop(this.currentPage, elementDrag, elementDrop);
+});
+
+When(/^I confirm the recaptcha in "([^"]*)" iframe$/, function(elementName) {
+  return methods.interactions.confirmRecaptcha(this.currentPage, elementName);
 });
