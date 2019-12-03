@@ -1,25 +1,7 @@
-import * as chai from 'chai';
 import { When, Then } from 'cucumber';
 import { comparators } from '../../common/comparators';
-import { matchers } from '../../common/matchers';
-import variableStore from '../../core/variable-store.helper';
-import { createValueToTextTransformer } from '../../common/transformers/transformer/values-to-text.transformer';
 import { methods } from '../methods';
 
-const valueToTextTransformer = createValueToTextTransformer();
-
-function checkNumberOfElements(numberExpression, element) {
-  const self = this;
-  const numberPattern = /\d+/g;
-  const numbers = numberExpression.match(numberPattern).map(item => parseInt(item));
-
-  const expectFunction = async (words, num) => {
-    const numberOfElements = await self.currentPage.getNumberOfElements(element);
-    return chai.expect(numberOfElements).to.be[words.pop()](...num);
-  };
-
-  return expectFunction(numberExpression.substr(0, numberExpression.indexOf(numbers[0]) - 1).split(' '), numbers);
-}
 
 When(/^I wait for "([^"]*)" of the "([^"]*)" element$/, function(condition, elementName) {
   return methods.wait.waitForElementCondition(this.currentPage, condition, elementName);
@@ -79,91 +61,20 @@ When(/^I store table "([^"]*)" rows as "([^"]*)" with columns:$/, function(table
 });
 
 Then(/^there are following elements in table "([^"]*)":$/, function(table, data) {
-  const self = this;
-  const allElements = this.currentPage.getElements(table);
-  const hashes = data.hashes();
-  return this.currentPage.waitForVisibilityOf(table).then(() => {
-    return checkNumberOfElements.call(this, `equal ${hashes.length}`, table).then(() => {
-      const promises = [];
-
-      return allElements
-        .each((element, index) => {
-          const hash = hashes[index];
-
-          for (const prop in hash) {
-            if (hash.hasOwnProperty(prop)) {
-              const propValue = hash[prop];
-
-              promises.push(
-                matchers.match(
-                  element.element(self.currentPage.getElement(prop).locator()),
-                  valueToTextTransformer.transform(propValue)
-                )
-              );
-            }
-          }
-        })
-        .then(() => Promise.all(promises));
-    });
-  });
+  return methods.checkers.checkIfTableContainsElements(this.currentPage, table, data);
 });
 
 Then(/^there are "([^"]*)" following elements for element "([^"]*)":$/, function(numberExpression, elementName, data) {
-  const self = this;
-  const allElements = this.currentPage.getElements(elementName);
-  const hashedData = data.raw();
-
-  if (hashedData.length === 0) {
-    return Promise.reject('Missing table under the step.');
-  }
-
-  return this.currentPage.waitForVisibilityOf(elementName).then(() => {
-    return checkNumberOfElements.call(this, numberExpression, elementName).then(() => {
-      const promises = [];
-
-      return allElements
-        .each(element => {
-          hashedData.forEach(hash => {
-            promises.push(
-              matchers.match(
-                element.element(self.currentPage.getElement(hash[0]).locator()),
-                valueToTextTransformer.transform(hash[1])
-              )
-            );
-          });
-        })
-        .then(() => Promise.all(promises));
-    });
-  });
+  return methods.checkers.checkIfTableElementContainsMatchingNumberOfElements(
+    this.currentPage,
+    numberExpression,
+    elementName,
+    data
+  );
 });
 
 Then(/^there are elements for element "([^"]*)":$/, function(elementName, data) {
-  const self = this;
-  const hashedData = data.raw();
-
-  if (hashedData.length === 0) {
-    return Promise.reject('Missing table under the step.');
-  }
-
-  const checkers = hashedData.flatMap(elements => {
-    return elements
-      .filter(Boolean)
-      .filter(item => item !== elements[0])
-      .map(item => {
-        return {
-          element: elements[0],
-          matcher: item,
-        };
-      });
-  });
-
-  return this.currentPage.waitForVisibilityOf(elementName).then(() => {
-    const promises = checkers.map(check =>
-      matchers.match(self.currentPage.getElement(check.element), valueToTextTransformer.transform(check.matcher))
-    );
-
-    return Promise.all(promises);
-  });
+  return methods.checkers.checkIfElementContainsChildElementsMatchingMatchers(this.currentPage, elementName, data);
 });
 
 Then(/^there are "([^"]*)" dropdown list elements with following options:$/, function(elementName, data) {
@@ -188,180 +99,35 @@ Then(/^there are "([^"]*)" dropdown list elements with following options:$/, fun
   });
 });
 
-Then(/^there is element "([^"]*)" with value "([^"]*)"$/, function(elementName, value) {
-  const pageElement = this.currentPage.getElement(elementName);
-
-  return this.currentPage.waitForVisibilityOf(elementName).then(() => {
-    return matchers
-      .match(pageElement, valueToTextTransformer.transform(value))
-      .then(matcherResult => expect(matcherResult).toBe(true));
-  });
+Then(/^there (is|is no) element "([^"]*)" with value "([^"]*)"$/, function(assert, elementName, value) {
+  return methods.checkers.checkIfElementContainsValue(this.currentPage, assert, elementName, value);
 });
 
-Then(/^there is no element "([^"]*)" with value "([^"]*)"$/, function(elementName, value) {
-  const pageElement = this.currentPage.getElement(elementName);
-
-  return matchers
-    .match(pageElement, valueToTextTransformer.transform(value))
-    .catch(() => Promise.resolve(false))
-    .then(result => (result ? Promise.reject() : Promise.resolve()));
+Then(/^there (is|is no) element "([^"]*)" containing "([^"]*)" text$/, function(assert, elementName, value) {
+  return methods.checkers.checkIfElementContainsText(this.currentPage, assert, elementName, value);
 });
 
-Then(/^there is element "([^"]*)" containing "([^"]*)" text$/, function(elementName, value) {
-  const pageElement = this.currentPage.getElement(elementName);
-
-  return this.currentPage.waitForVisibilityOf(elementName).then(() => {
-    return matchers.match(pageElement, variableStore.replaceTextVariables(`t:${value}`));
-  });
+Then(/^there (is|is no) element "([^"]*)" matching "([^"]*)" matcher$/, function(assert, elementName, matcher) {
+  return methods.checkers.checkIfElementMatchesMatcher(this.currentPage, assert, elementName, matcher);
 });
 
-Then(/^there is no element "([^"]*)" containing "([^"]*)" text$/, function(elementName, value) {
-  const pageElement = this.currentPage.getElement(elementName);
-
-  return matchers
-    .match(pageElement, variableStore.replaceTextVariables(`t:${value}`))
-    .catch(() => Promise.resolve(false))
-    .then(result => (result ? Promise.reject() : Promise.resolve()));
+Then(/^there (is|is no) element "([^"]*)" with "([^"]*)" regex$/, function(assert, elementName, matcher) {
+  return methods.checkers.checkIfElementMatchesRegex(this.currentPage, assert, elementName, matcher);
 });
 
-Then(/^there is element "([^"]*)" matching "([^"]*)" matcher$/, function(elementName, matcher) {
-  const pageElement = this.currentPage.getElement(elementName);
-
-  return this.currentPage.waitForVisibilityOf(elementName).then(() => {
-    return matchers
-      .match(pageElement, variableStore.replaceTextVariables(`f:${matcher}`))
-      .then(matcherResult => expect(matcherResult).toBe(true));
-  });
+Then(/^there are "([^"]*)" "([^"]*)" elements$/, function(numberExpression, element) {
+  return methods.checkers.checkNumberOfElements(this.currentPage, numberExpression, element);
 });
-
-Then(/^there is no element "([^"]*)" matching "([^"]*)" matcher$/, function(elementName, matcher) {
-  const pageElement = this.currentPage.getElement(elementName);
-
-  return this.currentPage.waitForVisibilityOf(elementName).then(() => {
-    return matchers
-      .match(pageElement, variableStore.replaceTextVariables(`f:${matcher}`))
-      .catch(() => Promise.resolve(false))
-      .then(result => (result ? Promise.reject() : Promise.resolve()));
-  });
-});
-
-Then(/^there is element "([^"]*)" with "([^"]*)" regex$/, function(elementName, matcher) {
-  const pageElement = this.currentPage.getElement(elementName);
-
-  return this.currentPage.waitForVisibilityOf(elementName).then(() => {
-    return matchers
-      .match(pageElement, variableStore.replaceTextVariables(`r:${matcher}`))
-      .then(matcherResult => expect(matcherResult).toBe(true));
-  });
-});
-
-Then(/^there is no element "([^"]*)" with "([^"]*)" regex$/, function(elementName, matcher) {
-  const pageElement = this.currentPage.getElement(elementName);
-
-  return this.currentPage.waitForVisibilityOf(elementName).then(() => {
-    return matchers
-      .match(pageElement, variableStore.replaceTextVariables(`r:${matcher}`))
-      .catch(() => Promise.resolve(false))
-      .then(result => (result ? Promise.reject() : Promise.resolve()));
-  });
-});
-
-Then(/^there are "([^"]*)" "([^"]*)" elements$/, checkNumberOfElements);
 
 Then(/^every "([^"]*)" element should have the same value for element "([^"]*)"$/, function(
   containerName,
   elementName
 ) {
-  const self = this;
-  return this.currentPage.waitForVisibilityOf(containerName).then(() => {
-    return this.currentPage
-      .getElements(containerName)
-      .first()
-      .element(self.currentPage.getElement(elementName).locator())
-      .getText()
-      .then(firstElementText => {
-        return self.currentPage.getElements(containerName).each(containerElement => {
-          containerElement
-            .element(self.currentPage.getElement(elementName).locator())
-            .getText()
-            .then(elementText => {
-              expect(elementText).toEqual(firstElementText);
-            });
-        });
-      });
-  });
+  return methods.checkers.checkIfAllElementsHaveMatchingValues(this.currentPage, containerName, elementName);
 });
 
-Then(/^the element "([^"]*)" should have an item with values:$/, function(elementName, data) {
-  const self = this;
-  const allElements = this.currentPage.getElements(elementName);
-  const hashedData = data.raw();
-
-  if (hashedData.length === 0) {
-    return Promise.reject('Missing table under the step.');
-  }
-
-  const promises = [];
-  return this.currentPage
-    .waitForVisibilityOf(elementName)
-    .then(() =>
-      allElements.each(element => {
-        hashedData.forEach(hash => {
-          promises.push(
-            matchers
-              .match(
-                element.element(self.currentPage.getElement(hash[0]).locator()),
-                valueToTextTransformer.transform(hash[1])
-              )
-              .catch(() => false)
-          );
-        });
-      })
-    )
-    .then(() =>
-      Promise.all(promises).then(
-        methods.shared.handlePromises(
-          hashedData,
-          () => Promise.resolve(),
-          () => Promise.reject('No matching element has been found.')
-        )
-      )
-    );
-});
-
-Then(/^the element "([^"]*)" should not have an item with values:$/, function(elementName, data) {
-  const self = this;
-  const allElements = this.currentPage.getElements(elementName);
-  const hashedData = data.raw();
-
-  if (hashedData.length === 0) {
-    return Promise.reject('Missing table under the step.');
-  }
-
-  const promises = [];
-
-  return allElements
-    .each(element => {
-      hashedData.forEach(hash => {
-        promises.push(
-          matchers
-            .match(
-              element.element(self.currentPage.getElement(hash[0]).locator()),
-              valueToTextTransformer.transform(hash[1])
-            )
-            .catch(() => false)
-        );
-      });
-    })
-    .then(() =>
-      Promise.all(promises).then(
-        methods.shared.handlePromises(
-          hashedData,
-          () => Promise.reject('Matching element has been found'),
-          () => Promise.resolve()
-        )
-      )
-    );
+Then(/^the element "([^"]*)" should (have|not have) an item with values:$/, function(elementName, assertion, data) {
+  return methods.checkers.checkIfElementHaveItemsWithValue(this.currentPage, elementName, assertion, data);
 });
 
 Then(/^"([^"]*)" value on the "([^"]*)" list is sorted in "([^"]*)" order$/, function(
@@ -384,7 +150,7 @@ Then(/^"([^"]*)" value on the "([^"]*)" list is sorted in "([^"]*)" order$/, fun
 });
 
 When(/^I infinitely scroll to the "([^"]*)" element$/, function(elementName) {
-  return methods.interactions.scrollToLoader(this.currentPage, elementName);
+  return methods.interactions.infinityScrollTo(this.currentPage, elementName);
 });
 
 When(/^I press the "([^"]*)" key$/, key => {
