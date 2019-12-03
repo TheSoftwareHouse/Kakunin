@@ -1,6 +1,6 @@
 import JSONPerformanceReportParser from './JSON-performance-report-parser.helper';
 
-const parser = new JSONPerformanceReportParser('src/tests/reports/performance');
+const parser = new JSONPerformanceReportParser('src/common/tests/reports/performance');
 
 describe('JSON performance report parser', () => {
   it('returns found objects with TTFB and URL values', (fileName: any = 'performance-report.har') => {

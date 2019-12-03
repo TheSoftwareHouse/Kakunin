@@ -1,7 +1,7 @@
 import variableStore from '../../core/variable-store.helper';
 import { methods } from './index';
-import { regexBuilder } from '../../matchers';
-import BasePage from '../../pages/base';
+import { regexBuilder } from '../../common/matchers';
+import BasePage from '../pages/base';
 import { TableDefinition } from 'cucumber';
 
 export const storeTextAsVariable = (currentPage: BasePage, elementName: string, variable: string) => {

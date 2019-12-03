@@ -144,7 +144,7 @@ npm run kakunin
 In order to make cucumber steps autosuggestion work properly in JetBrains tools, make sure your project is `ECMAScript 6` compatible and you have `cucumberjs` plugin installed.
 Due to non-resolved issue in Jetbrains editors ([see here](https://youtrack.jetbrains.com/issue/WEB-11505)) we'll have to do one more step:
  
-Go to `step_definitions` directory 
+Go to `step_definitions` directory
 ```bash
 cd step_definitions
 ``` 
@@ -154,27 +154,33 @@ Paste this code into terminal and restart your IDE:
 For Linux/MacOs:
 
 ```bash
-ln -s ../node_modules/kakunin/src/step_definitions/elements.ts kakunin-elements.ts
-ln -s ../node_modules/kakunin/src/step_definitions/debug.ts kakunin-debug.ts
-ln -s ../node_modules/kakunin/src/step_definitions/file.ts kakunin-file.ts
-ln -s ../node_modules/kakunin/src/step_definitions/form.ts kakunin-form.ts
-ln -s ../node_modules/kakunin/src/step_definitions/email.ts kakunin-email.ts
-ln -s ../node_modules/kakunin/src/step_definitions/generators.ts kakunin-generators.ts
-ln -s ../node_modules/kakunin/src/step_definitions/navigation.ts kakunin-navigation.ts 
-ln -s ../node_modules/kakunin/src/step_definitions/performance.ts kakunin-performance.ts 
+ln -s ../node_modules/kakunin/dist/web/step_definitions/elements.js web-kakunin-elements.js
+ln -s ../node_modules/kakunin/dist/web/step_definitions/navigation.js web-kakunin-navigation.js 
+ln -s ../node_modules/kakunin/dist/web/step_definitions/form.js web-kakunin-form.js
+ln -s ../node_modules/kakunin/dist/web/step_definitions/tabs.js web-kakunin-tabs.js
+ln -s ../node_modules/kakunin/dist/web/step_definitions/debug.js web-kakunin-debug.js
+ln -s ../node_modules/kakunin/dist/web/step_definitions/performance.js web-kakunin-performance.js 
+ln -s ../node_modules/kakunin/dist/web/step_definitions/screenshots.js web-kakunin-screenshots.js 
+ln -s ../node_modules/kakunin/dist/rest/step_definitions/api.js rest-kakunin-api.js
+ln -s ../node_modules/kakunin/dist/common/step_definitions/file.js common-kakunin-file.js
+ln -s ../node_modules/kakunin/dist/common/step_definitions/email.js common-kakunin-email.js
+ln -s ../node_modules/kakunin/dist/common/step_definitions/generators.js common-kakunin-generators.js
 ```
 
 For Windows 8+: (you have to do this as administrator)
 
 ```bash
-mklink kakunin-elements.ts ../node_modules/kakunin/src/step_definitions/elements.ts
-mklink kakunin-debug.ts ../node_modules/kakunin/src/step_definitions/debug.ts 
-mklink kakunin-file.ts ../node_modules/kakunin/src/step_definitions/file.ts 
-mklink kakunin-form.ts ../node_modules/kakunin/src/step_definitions/form.ts 
-mklink kakunin-email.ts ../node_modules/kakunin/src/step_definitions/email.ts
-mklink kakunin-generators.ts ../node_modules/kakunin/src/step_definitions/generators.ts 
-mklink kakunin-navigation.ts ../node_modules/kakunin/src/step_definitions/navigation.ts 
-mklink kakunin-performance.ts ../node_modules/kakunin/src/step_definitions/performance.ts 
+mklink web-kakunin-elements.js ../node_modules/kakunin/dist/web/step_definitions/elements.js
+mklink web-kakunin-form.js ../node_modules/kakunin/dist/web/step_definitions/form.js 
+mklink web-kakunin-navigation.js ../node_modules/kakunin/dist/web/step_definitions/navigation.js 
+mklink web-kakunin-tabs.js ../node_modules/kakunin/dist/web/step_definitions/tabs.js 
+mklink web-kakunin-debug.js ../node_modules/kakunin/dist/web/step_definitions/debug.js 
+mklink web-kakunin-performance.js ../node_modules/kakunin/dist/web/step_definitions/performance.js 
+mklink web-kakunin-screenshots.js ../node_modules/kakunin/dist/web/step_definitions/screenshots.js 
+mklink rest-kakunin-api.js ../node_modules/kakunin/dist/rest/step_definitions/api.js 
+mklink common-kakunin-file.js ../node_modules/kakunin/dist/common/step_definitions/file.js 
+mklink common-kakunin-email.js ../node_modules/kakunin/dist/common/step_definitions/email.js
+mklink common-kakunin-generators.js ../node_modules/kakunin/dist/common/step_definitions/generators.js 
 ```
 
 Keep in mind that `mklink` is not available in older Windows distributions.

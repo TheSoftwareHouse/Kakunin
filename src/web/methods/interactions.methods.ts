@@ -1,6 +1,6 @@
 import { waitForCondition } from './wait-for-condition.methods';
 import config from '../../core/config.helper';
-import BasePage from '../../pages/base';
+import BasePage from './../pages/base';
 
 const timeout = parseInt(config.elementsVisibilityTimeout) * 1000;
 
