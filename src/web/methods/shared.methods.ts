@@ -1,4 +1,4 @@
-import BasePage from '../../pages/base';
+import BasePage from '../pages/base';
 
 export const handlePromises = (hashedData, onSuccess, onReject) => resolvedPromises => {
   for (let i = 0; i < resolvedPromises.length; i += hashedData.length) {

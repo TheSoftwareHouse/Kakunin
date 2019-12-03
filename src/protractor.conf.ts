@@ -7,7 +7,7 @@ import { prepareCatalogs } from './core/fs/prepare-catalogs.helper';
 import { browsersConfiguration, setSeleniumAddress } from './web/browsers/browsers-config.helper';
 import { getBrowsersDrivers } from './web/browsers/get-browser-drivers.helper';
 import { connectBrowserstack, disconnectBrowserstack } from './web/browsers/browserstack-config.helper';
-import { emailService } from './emails';
+import { emailService } from './common/emails';
 const commandArgs = require('minimist')(process.argv.slice(2));
 const modulesLoader = require('./core/modules-loader.helper.js').create();
 
@@ -54,7 +54,9 @@ exports.config = {
   cucumberOpts: {
     require: [
       './web/cucumber/config.js',
-      './step_definitions/**/*.js',
+      './web/step_definitions/**/*.js',
+      './rest/step_definitions/**/*.js',
+      './common/step_definitions/**/*.js',
       './web/cucumber/hooks.js',
       ...config.step_definitions.map(file => path.join(config.projectPath, file, '**/*.js')),
     ],
