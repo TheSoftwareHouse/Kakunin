@@ -8,6 +8,16 @@ Feature: Navigation
         Then the "simpleForm" page is displayed
         And the "form" element is visible
 
+    @wip
+    Scenario: Base auth navigation - relative url
+        Given I visit the "basicAuth" page with "admin:password" basic auth credentials
+        Then there is element "title" with value "t:Basic auth page"
+
+    @wip
+    Scenario: Base auth navigation - absolute url
+        Given I visit the "basicAuthAbsolute" page with "admin:password" basic auth credentials
+        Then there is element "title" with value "t:Basic auth page"
+
     Scenario: Navigate to parametrized url
         Given I visit the "navigationPages" page with parameters:
             | pageId | myPageId    |
