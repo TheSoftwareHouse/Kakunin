@@ -1,6 +1,5 @@
 import { Then, Given, When } from 'cucumber';
-import { isRelativePage } from '../web/url-parser.helper';
-import config from '../core/config.helper';
+import { transformers } from '../../common/transformers';
 
 Given(/^I visit the "([^"]*)" page$/, function(pageName) {
   expect(browser.page[pageName]).toBeDefined();
@@ -35,10 +34,9 @@ When(/^I switch to "([^"]*)" iframe$/, function(elementName) {
   return this.currentPage.switchIframe(elementName);
 });
 
-Given(/^I visit the "([^"]*)" page with "([^"]*)" basic auth credentials$/, function(pageName, credentials) {
+Given(/^I visit the "([^"]*)" page with "([^"]*)" basic auth credentials$/, function(pageName, credentialsValue) {
   expect(browser.page[pageName]).toBeDefined();
   this.currentPage = browser.page[pageName];
-  const url = isRelativePage(this.currentPage.url) ? `${config.baseUrl}${this.currentPage.url}` : this.currentPage.url;
-  const splittedUrl = url.split('//');
-  return browser.get(`${splittedUrl[0]}//${credentials}@${splittedUrl[1]}`);
+
+  return this.currentPage.visitWithBasicAuthCredentials(transformers.transform(credentialsValue));
 });

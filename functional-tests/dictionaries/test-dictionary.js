@@ -10,7 +10,8 @@ class TestDictionary extends BaseDictionary {
       'custom-value1': 'Some custom name 1',
       'custom-id': 'MY_CUSTOM_ID_',
       'one': '1',
-      'non-existing': 'does not exist!'
+      'non-existing': 'does not exist!',
+      'basicAuthCredentials': 'admin:password'
     });
   }
 }
