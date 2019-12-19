@@ -1,4 +1,5 @@
 import { Then, Given, When } from 'cucumber';
+import { transformers } from '../../common/transformers';
 
 Given(/^I visit the "([^"]*)" page$/, function(pageName) {
   expect(browser.page[pageName]).toBeDefined();
@@ -31,4 +32,11 @@ Then(/^the "([^"]*)" page is displayed$/, function(pageName) {
 
 When(/^I switch to "([^"]*)" iframe$/, function(elementName) {
   return this.currentPage.switchIframe(elementName);
+});
+
+Given(/^I visit the "([^"]*)" page with "([^"]*)" basic auth credentials$/, function(pageName, credentialsValue) {
+  expect(browser.page[pageName]).toBeDefined();
+  this.currentPage = browser.page[pageName];
+
+  return this.currentPage.visitWithBasicAuthCredentials(transformers.transform(credentialsValue));
 });
