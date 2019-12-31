@@ -2,7 +2,6 @@ import { When, Then } from 'cucumber';
 import { comparators } from '../../common/comparators';
 import { methods } from '../methods';
 
-
 When(/^I wait for "([^"]*)" of the "([^"]*)" element$/, function(condition, elementName) {
   return methods.wait.waitForElementCondition(this.currentPage, condition, elementName);
 });
@@ -155,6 +154,10 @@ When(/^I infinitely scroll to the "([^"]*)" element$/, function(elementName) {
 
 When(/^I press the "([^"]*)" key$/, key => {
   return methods.interactions.pressKey(key);
+});
+
+When(/^I press the "([^"]*)" key on the "([^"]*)" element$/, function(key, elementName) {
+  return methods.interactions.pressKeyOnElement(this.currentPage, key, elementName);
 });
 
 When(/^I drag "([^"]*)" element and drop over "([^"]*)" element$/, function(elementDrag, elementDrop) {

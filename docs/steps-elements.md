@@ -45,9 +45,15 @@ Allows to scroll till `:elementName` is visible. Useful for infinite scrolling f
 
 ---
 
+## `I press the ":keyName" key on the ":elementName" element`
+
+Performs a key press operation on `:keyName` key for the specified `:elementName` element. (preferred method)
+
+---
+
 ## `I press the ":keyName" key`
 
-Performs a key press operation on `:keyName` key.
+Performs a key press operation on `:keyName` key. (non-preferred method)
 
 ---
 
