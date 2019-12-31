@@ -53,7 +53,10 @@ Performs a key press operation on `:keyName` key for the specified `:elementName
 
 ## `I press the ":keyName" key`
 
-Performs a key press operation on `:keyName` key. (non-preferred method)
+Performs a key press operation on `:keyName` key.
+
+Since latest changes in WebDriver, perform press key (e.g. press ENTER key) on the active element is not supported.
+In this case, we suggest to use `I press the ":keyName" key on the ":elementName" element` step.
 
 ---
 
