@@ -71,6 +71,13 @@ export const pressKey = (key: string) => {
   );
 };
 
+export const pressKeyOnElement = async (currentPage: BasePage, key: string, elementName: string) => {
+  const keyTransformed = key.toUpperCase();
+
+  await currentPage.waitForVisibilityOf(elementName);
+  return currentPage[elementName].sendKeys(protractor.Key[keyTransformed]);
+};
+
 export const dragAndDrop = async (currentPage: BasePage, elementDrag: string, elementDrop: string) => {
   const wait = timeToWait => browser.sleep(timeToWait);
 

@@ -156,6 +156,10 @@ When(/^I press the "([^"]*)" key$/, key => {
   return methods.interactions.pressKey(key);
 });
 
+When(/^I press the "([^"]*)" key on the "([^"]*)" element$/, function(key, elementName) {
+  return methods.interactions.pressKeyOnElement(this.currentPage, key, elementName);
+});
+
 When(/^I drag "([^"]*)" element and drop over "([^"]*)" element$/, function(elementDrag, elementDrop) {
   return methods.interactions.dragAndDrop(this.currentPage, elementDrag, elementDrop);
 });

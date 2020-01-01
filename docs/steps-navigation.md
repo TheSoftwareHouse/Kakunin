@@ -53,3 +53,14 @@ Used to change content to a iframe selected by `elementName`.
 To return to default content instead of `elementName` use string `default`
 
 ---
+
+## `I visit the ":pageFileName" page with ":credentials" basic auth credentials`
+
+The same as `I visit the ":pageFileName" page` except that is passes a credentials required for basic auth. For example:
+- `http://admin:adminPassword@localhost:8080`
+
+Parameters:
+- `:pageFileName` is a name of Page Object file in the `./pages/` path
+- `:credentials` is the param the contains both, login and password e.g. `admin:password`
+
+---

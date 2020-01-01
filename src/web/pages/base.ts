@@ -39,6 +39,20 @@ class Page {
     return protractor.browser.get(url).then(() => protractor.browser.waitForAngular());
   }
 
+  public visitWithBasicAuthCredentials(credentials: string) {
+    const url = isRelativePage(this.url) ? `${config.baseUrl}${this.url}` : this.url;
+    const splittedUrl = url.split('//');
+    const urlWithBasicAuth = `${splittedUrl[0]}//${credentials}@${splittedUrl[1]}`;
+
+    if (config.type === 'otherWeb' || !isRelativePage(this.url)) {
+      protractor.browser.ignoreSynchronization = true;
+
+      return browser.get(urlWithBasicAuth);
+    }
+
+    return browser.get(urlWithBasicAuth).then(() => protractor.browser.waitForAngular());
+  }
+
   public async isOn() {
     if (isRelativePage(this.url) && config.type !== 'otherWeb') {
       protractor.browser.ignoreSynchronization = false;

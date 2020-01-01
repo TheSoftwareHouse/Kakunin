@@ -8,6 +8,19 @@ Feature: Navigation
         Then the "simpleForm" page is displayed
         And the "form" element is visible
 
+    Scenario: Base auth navigation - relative url
+        Given I visit the "basicAuth" page with "admin:password" basic auth credentials
+        Then there is element "title" with value "t:Basic auth page"
+    
+    Scenario: Base auth navigation - absolute url
+        Given I visit the "basicAuthAbsolute" page with "admin:password" basic auth credentials
+        Then there is element "title" with value "t:Basic auth page"
+
+    Scenario: Base auth navigation - dictionaries
+        Given I visit the "basicAuthAbsolute" page with "d:test-dictionary:basicAuthCredentials" basic auth credentials
+        When I click the ".viewButtonOnBasicAuth" element
+        Then there is element ".viewButtonOnBasicAuth" with value "f:isVisible"     
+
     Scenario: Navigate to parametrized url
         Given I visit the "navigationPages" page with parameters:
             | pageId | myPageId    |
