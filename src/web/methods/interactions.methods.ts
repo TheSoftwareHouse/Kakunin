@@ -102,3 +102,14 @@ export const dragAndDrop = async (currentPage: BasePage, elementDrag: string, el
     .mouseUp()
     .perform();
 };
+
+export const confirmRecaptcha = (currentPage: BasePage, elementName: string) => {
+  const iframeClickArea = '#rc-anchor-container';
+  const iframeConfirmation = '#recaptcha-anchor.recaptcha-checkbox-checked';
+
+  return currentPage
+    .switchIframe(elementName)
+    .then(() => currentPage.click(iframeClickArea))
+    .then(() => currentPage.waitForVisibilityOf(iframeConfirmation))
+    .then(() => currentPage.switchIframe('default'));
+};

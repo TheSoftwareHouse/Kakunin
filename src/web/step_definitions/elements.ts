@@ -163,3 +163,7 @@ When(/^I press the "([^"]*)" key on the "([^"]*)" element$/, function(key, eleme
 When(/^I drag "([^"]*)" element and drop over "([^"]*)" element$/, function(elementDrag, elementDrop) {
   return methods.interactions.dragAndDrop(this.currentPage, elementDrag, elementDrop);
 });
+
+When(/^I confirm the recaptcha in "([^"]*)" iframe$/, function(elementName) {
+  return methods.interactions.confirmRecaptcha(this.currentPage, elementName);
+});
