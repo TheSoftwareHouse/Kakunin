@@ -40,13 +40,13 @@ const schema = Joi.object({
   transformers: Joi.array().items(Joi.string()),
   regexes: Joi.array().items(Joi.string()),
   hooks: Joi.array().items(Joi.string()),
-  imageComparator: {
+  imageComparator: Joi.object().keys({
     baselineFolder: Joi.string().required(),
     temporaryFolder: Joi.string(),
     saveAboveTolerance: Joi.number()
       .min(0)
       .max(99),
-  },
+  }),
   clearEmailInboxBeforeTests: Joi.boolean(),
   clearCookiesAfterScenario: Joi.boolean(),
   clearLocalStorageAfterScenario: Joi.boolean(),
