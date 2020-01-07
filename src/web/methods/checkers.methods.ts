@@ -5,10 +5,15 @@ import { TableDefinition } from 'cucumber';
 import * as chai from 'chai';
 import { methods } from './index';
 import variableStore from '../../core/variable-store.helper';
+import { ElementArrayFinder } from 'protractor';
 
 const valueToTextTransformer = createValueToTextTransformer();
 
-export const checkNumberOfElements = (currentPage: BasePage, numberExpression: string, elementName: string) => {
+export const checkNumberOfElements = (
+  currentPage: BasePage,
+  numberExpression: string,
+  elementName: string | ElementArrayFinder
+) => {
   const numberPattern = /\d+/g;
   const numberMatches = numberExpression.match(numberPattern);
   const numbers = numberMatches.map(item => parseInt(item));

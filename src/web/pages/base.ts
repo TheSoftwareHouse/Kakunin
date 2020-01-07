@@ -2,7 +2,7 @@ import config from '../../core/config.helper';
 import { waitForInvisibilityOf, waitForVisibilityOf } from '../methods/wait-for-condition.methods';
 import { isRelativePage, waitForUrlChangeTo } from '../url-parser.helper';
 import { stringify } from 'querystring';
-import { element } from 'protractor';
+import { element, ElementArrayFinder, ElementFinder } from 'protractor';
 import chalk from 'chalk';
 
 class Page {
@@ -65,7 +65,7 @@ class Page {
     }, config.waitForPageTimeout * 1000);
   }
 
-  public click(elementName: string) {
+  public click(elementName: string | ElementFinder) {
     return this.getElement(elementName).click();
   }
 
@@ -83,11 +83,11 @@ class Page {
     return this.getElement(elementName).isPresent();
   }
 
-  public getNumberOfElements(elementName: string) {
+  public getNumberOfElements(elementName: string | ElementArrayFinder) {
     return this.getElements(elementName).count();
   }
 
-  public scrollIntoElement(elementName: string, elementIndex?: string) {
+  public scrollIntoElement(elementName: string | ElementFinder, elementIndex?: string) {
     if (elementIndex !== undefined) {
       return browser.executeScript(
         'arguments[0].scrollIntoView(false);',
@@ -107,7 +107,7 @@ class Page {
     return protractor.browser.switchTo().frame(this.getElement(elementName).getWebElement());
   }
 
-  public waitForVisibilityOf(elementName: string) {
+  public waitForVisibilityOf(elementName: string | ElementFinder) {
     return waitForVisibilityOf(this.getElement(elementName));
   }
 
@@ -115,30 +115,38 @@ class Page {
     return waitForInvisibilityOf(this.getElement(elementName));
   }
 
-  public getElement(elementName: string) {
-    if (!this[elementName]) {
-      console.warn(
-        chalk.grey(
-          `Element "${elementName}" does not exist in the currentPage. CSS selector will be build from the string!`
-        )
-      );
-      return element(by.css(elementName));
+  public getElement(elementName: string | ElementFinder) {
+    if (!this[String(elementName)]) {
+      if (elementName instanceof protractor.ElementFinder) {
+        return elementName;
+      }
+      {
+        console.warn(
+          chalk.grey(
+            `Element "${elementName}" does not exist in the currentPage. CSS selector will be build from the string!`
+          )
+        );
+        return element(by.css(elementName));
+      }
     }
-
-    return this[elementName];
+    return this[String(elementName)];
   }
 
-  public getElements(elementName: string) {
-    if (!this[elementName]) {
-      console.warn(
-        chalk.grey(
-          `Element "${elementName}" does not exist in the currentPage. CSS selector will be build from the string!`
-        )
-      );
-      return element.all(by.css(elementName));
+  public getElements(elementName: string | ElementArrayFinder) {
+    if (!this[String(elementName)]) {
+      if (elementName instanceof protractor.ElementArrayFinder) {
+        return elementName;
+      }
+      {
+        console.warn(
+          chalk.grey(
+            `Element "${elementName}" does not exist in the currentPage. CSS selector will be build from the string!`
+          )
+        );
+        return element.all(by.css(elementName));
+      }
     }
-
-    return this[elementName];
+    return this[String(elementName)];
   }
 }
 
