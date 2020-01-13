@@ -74,3 +74,9 @@ Feature: Tabular data
         Given I visit the "main" page
         When I click the ".valueForClickStep" element
         Then the "tabularData" page is displayed
+    
+    Scenario: Validate Simple table example data count
+        Given I visit the "main" page
+        When I click the "a[href='/tabular-data']" element
+        Then the "tabularData" page is displayed
+        And there are "at least 1" table elements

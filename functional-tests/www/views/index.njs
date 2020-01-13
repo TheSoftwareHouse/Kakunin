@@ -7,7 +7,7 @@
     <a name="linkPage" href="/absolute-page">Absolute page</a><br/>
     <a name="linkPage" href="https://www.google.pl">Google page</a><br/>
     <a name="linkPage" class="valueForClickStep" href="/tabular-data">Simple table example</a><br/>
-    <a name="linkPage" class="valueForClickStep" href="/form/disappear"> Simple button disappear</a><br/>
+    <a name="linkPage" class="emptyPageForClickStep" href="/form/disappear"> Simple button disappear</a><br/>
     <a name="linkPage" class="appearTable" href="/wait-for-appear/table"> Simple wait for table</a><br/>
     <a name="linkPage" class="appearForm" href="/wait-for-appear/form"> Simple wait for form</a><br/>
     <a name="linkPage" class="matchers" href="/matchers">Simple matchers</a><br/>

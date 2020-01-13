@@ -1,10 +1,11 @@
 import { waitForCondition } from './wait-for-condition.methods';
 import config from '../../core/config.helper';
 import BasePage from './../pages/base';
+import { ElementFinder } from 'protractor';
 
 const timeout = parseInt(config.elementsVisibilityTimeout) * 1000;
 
-export const click = (currentPage: BasePage, elementName: string) => {
+export const click = (currentPage: BasePage, elementName: string | ElementFinder) => {
   return currentPage
     .scrollIntoElement(elementName)
     .catch(() => Promise.resolve())
