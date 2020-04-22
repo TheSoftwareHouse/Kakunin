@@ -11,6 +11,7 @@ const schema = Joi.object({
   browserWidth: Joi.number(),
   browserHeight: Joi.number(),
   browserLanguage: Joi.string(),
+  chromeOptions: Joi.array().items(Joi.string()),
   timeout: Joi.number()
     .min(1)
     .required(),

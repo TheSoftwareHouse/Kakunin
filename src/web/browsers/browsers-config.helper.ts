@@ -80,6 +80,10 @@ const getExtendedBrowsersConfigs = (config, commandArgs): any => {
     ];
   }
 
+  if (typeof config.chromeOptions !== 'undefined' && config.chromeOptions.length > 0) {
+    configs.chromeConfig.chromeOptions.args = [...configs.chromeConfig.chromeOptions.args, ...config.chromeOptions];
+  }
+
   if ([null, undefined, ''].includes(config.browserLanguage)) {
     configs.chromeConfig.chromeOptions.prefs.intl.accept_languages = 'en-GB';
     configs.firefoxConfig['moz:firefoxOptions'].prefs.intl.accept_languages = 'en-GB';

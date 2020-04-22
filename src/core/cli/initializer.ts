@@ -51,6 +51,7 @@ class Initializer {
       browserWidth: 1600,
       browserHeight: 900,
       browserLanguage: 'en-GB',
+      chromeOptions: [],
       timeout: 60,
       intervalEmail: 5,
       maxEmailRepeats: 5,
@@ -154,7 +155,10 @@ class Initializer {
         'What language would you like to use in browser?',
         conf.browserLanguage
       );
-
+      conf.chromeOptions = await this.promptFolders(
+        'What chrome options would you like to use in browser?',
+        conf.chromeOptions
+      );
       conf.timeout = parseInt(await this.promptFolders('What is desired step timeout in seconds?', conf.timeout));
       conf.intervalEmail = parseInt(
         await this.promptFolders('What is desired step email interval in seconds?', conf.intervalEmail)
