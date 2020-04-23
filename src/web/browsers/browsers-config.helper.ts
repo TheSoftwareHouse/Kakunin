@@ -80,8 +80,11 @@ const getExtendedBrowsersConfigs = (config, commandArgs): any => {
     ];
   }
 
-  if (Array.isArray(config.chromeOptions) && config.chromeOptions.length > 0) {
-    configs.chromeConfig.chromeOptions.args = [...configs.chromeConfig.chromeOptions.args, ...config.chromeOptions];
+  if (Array.isArray(config.chromeOptionsAdditionalArgs) && config.chromeOptionsAdditionalArgs.length > 0) {
+    configs.chromeConfig.chromeOptions.args = [
+      ...configs.chromeConfig.chromeOptions.args,
+      ...config.chromeOptionsAdditionalArgs,
+    ];
   }
 
   if ([null, undefined, ''].includes(config.browserLanguage)) {

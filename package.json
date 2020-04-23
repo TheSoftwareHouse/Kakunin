@@ -6,37 +6,18 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/TheSoftwareHouse/Kakunin.git"
+    "url": "git+https://github.com/TheSoftwareHouse/Kakunin.git"
   },
-  "author": {
-    "name": "The Software House",
-    "url": "http://tsh.io"
-  },
+  "author": "The Software House (http://tsh.io)",
   "contributors": [
-    {
-      "name": "Adam Polak"
-    },
-    {
-      "name": "Mariusz Richtscheid"
-    },
-    {
-      "name": "Tomasz Górski"
-    },
-    {
-      "name": "Jakub Paluch"
-    },
-    {
-      "name": "Szymon Stanisz"
-    },
-    {
-      "name": "Wojciech Wójcik"
-    },
-    {
-      "name": "Józef Szymala"
-    },
-    {
-      "name": "Adam Nowrot"
-    }
+    "Adam Polak",
+    "Mariusz Richtscheid",
+    "Tomasz Górski",
+    "Jakub Paluch",
+    "Szymon Stanisz",
+    "Wojciech Wójcik",
+    "Józef Szymala",
+    "Adam Nowrot"
   ],
   "bin": {
     "kakunin": "./dist/cli.js"
@@ -153,5 +134,11 @@
     "hooks": {
       "pre-commit": "lint-staged"
     }
+  },
+  "bugs": {
+    "url": "https://github.com/TheSoftwareHouse/Kakunin/issues"
+  },
+  "directories": {
+    "doc": "docs"
   }
 }
