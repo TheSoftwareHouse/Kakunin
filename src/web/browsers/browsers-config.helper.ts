@@ -80,7 +80,7 @@ const getExtendedBrowsersConfigs = (config, commandArgs): any => {
     ];
   }
 
-  if (typeof config.chromeOptions !== 'undefined' && config.chromeOptions.length > 0) {
+  if (Array.isArray(config.chromeOptions) && config.chromeOptions.length > 0) {
     configs.chromeConfig.chromeOptions.args = [...configs.chromeConfig.chromeOptions.args, ...config.chromeOptions];
   }
 
