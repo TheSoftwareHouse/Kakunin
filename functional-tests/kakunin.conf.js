@@ -2,6 +2,7 @@ module.exports = {
   browserWidth: 1600,
   browserHeight: 900,
   browserLanguage: 'en-GB',
+  chromeOptionsAdditionalArgs: [],
   timeout: 60,
   elementsVisibilityTimeout: 5,
   waitForPageTimeout: 5,

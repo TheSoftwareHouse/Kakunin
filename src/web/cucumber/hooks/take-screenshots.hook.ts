@@ -5,7 +5,7 @@ import { After } from 'cucumber';
 const takeScreenshot = scenario => {
   return browser.takeScreenshot().then(
     base64png => {
-      scenario.attach(new Buffer(base64png, 'base64'), 'image/png');
+      scenario.attach(Buffer.alloc(base64png, 'base64'), 'image/png');
       return Promise.resolve();
     },
     () => Promise.resolve()

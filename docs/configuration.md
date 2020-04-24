@@ -10,6 +10,7 @@ module.exports = {
     "browserWidth": 1600,
     "browserHeight": 900,
     "browserLanguage": 'en-GB',
+    "chromeOptionsAdditionalArgs": [],
     "timeout": 60,
     "maxEmailRepeats": 5,
     "intervalEmail": 5,
@@ -86,6 +87,8 @@ module.exports = {
 `browserheight` - height of browser window `default: 900`
 
 `browserLanguage` - languge of browser `default: en-GB` ISO 639-1 codes
+
+`chromeOptionsAdditionalArgs` - an empty array, where user can pass desired arguments to the `chromeOptions.args` array, list of [available switches](https://peter.sh/experiments/chromium-command-line-swi--crash-on-failure ⊗	hes/)
 
 `timeout` - global timeout for a single step execution in seconds `default: 60`
 
