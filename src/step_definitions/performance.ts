@@ -1,4 +1,4 @@
-import chalk from 'chalk';
+import * as chalk from 'chalk';
 import { When, Then } from 'cucumber';
 import config from '../core/config.helper';
 import { create as createAnalyser } from '../web/performance/time-to-first-byte-analyser.helper';
@@ -14,7 +14,7 @@ When(/^I start performance monitor mode$/, () => {
   });
 
   let proxyReady = false;
-  proxy.start(config.browserMob.port, err => {
+  proxy.start(config.browserMob.port, (err) => {
     if (!err) {
       proxy.startHAR(config.browserMob.port, 'test', true, true, () => {
         proxyReady = true;
@@ -29,7 +29,7 @@ When(/^I start performance monitor mode$/, () => {
   });
 });
 
-When(/^I save performance report file as "([^"]*)"$/, function(fileName) {
+When(/^I save performance report file as "([^"]*)"$/, function (fileName) {
   const uniqueFileName = `${fileName}-${Date.now()}.har`;
   let proxyDone = false;
 
@@ -51,7 +51,7 @@ When(/^I save performance report file as "([^"]*)"$/, function(fileName) {
   });
 });
 
-Then(/^the requests should take a maximum of "([^"]*)" milliseconds$/, function(maxTiming) {
+Then(/^the requests should take a maximum of "([^"]*)" milliseconds$/, function (maxTiming) {
   try {
     const slowRequests = analyser.checkTiming(this.performanceReportFile, parseFloat(maxTiming));
 
