@@ -2,17 +2,17 @@ import { HookHandler } from './hook.interface';
 import config from '../../../core/config.helper';
 import { After } from 'cucumber';
 
-const takeScreenshot = scenario => {
+const takeScreenshot = (scenario) => {
   return browser.takeScreenshot().then(
-    base64png => {
-      scenario.attach(Buffer.alloc(base64png, 'base64'), 'image/png');
+    (base64png) => {
+      scenario.attach(Buffer.from(base64png, 'base64'), 'image/png');
       return Promise.resolve();
     },
     () => Promise.resolve()
   );
 };
 
-const clearCookiesAndLocalStorage = callback => {
+const clearCookiesAndLocalStorage = (callback) => {
   let cookiesFunc = () => Promise.resolve(true);
 
   if (config.clearCookiesAfterScenario) {
@@ -39,7 +39,7 @@ const clearCookiesAndLocalStorage = callback => {
 
 class TakeScreenshotHook implements HookHandler {
   public initializeHook() {
-    return After(function(scenario, callback) {
+    return After(function (scenario, callback) {
       if (scenario.result.status !== 'passed') {
         takeScreenshot(this).then(() => {
           clearCookiesAndLocalStorage(callback);

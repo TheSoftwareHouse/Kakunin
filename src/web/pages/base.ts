@@ -3,7 +3,7 @@ import { waitForInvisibilityOf, waitForVisibilityOf } from '../methods/wait-for-
 import { isRelativePage, waitForUrlChangeTo } from '../url-parser.helper';
 import { stringify } from 'querystring';
 import { element, ElementArrayFinder, ElementFinder } from 'protractor';
-import chalk from 'chalk';
+import * as chalk from 'chalk';
 
 class Page {
   private url: string;
@@ -59,7 +59,7 @@ class Page {
     }
 
     return browser.wait(async () => {
-      const currentUrl = await browser.getCurrentUrl().then(url => url);
+      const currentUrl = await browser.getCurrentUrl().then((url) => url);
 
       return waitForUrlChangeTo(this.url, currentUrl)(config.baseUrl);
     }, config.waitForPageTimeout * 1000);
@@ -72,7 +72,7 @@ class Page {
   public isDisabled(elementName: string) {
     return this.getElement(elementName)
       .getAttribute('disabled')
-      .then(disabled => ['disabled', true, 'true'].indexOf(disabled) !== -1);
+      .then((disabled) => ['disabled', true, 'true'].indexOf(disabled) !== -1);
   }
 
   public isVisible(elementName: string) {
@@ -91,9 +91,7 @@ class Page {
     if (elementIndex !== undefined) {
       return browser.executeScript(
         'arguments[0].scrollIntoView(false);',
-        this.getElement(elementName)
-          .get(elementIndex)
-          .getWebElement()
+        this.getElement(elementName).get(elementIndex).getWebElement()
       );
     }
 
