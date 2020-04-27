@@ -72,6 +72,7 @@
     "browserstack-local": "1.4.5",
     "chai": "4.2.0",
     "chalk": "4.0.0",
+    "expect": "25.4.0",
     "child_process": "1.0.2",
     "cross-env": "7.0.2",
     "cucumber": "6.0.5",
