@@ -4,5 +4,8 @@ node_js:
 addons:
   chrome: stable
 script:
-- npm run test-ci
-- npm run lint
+  - echo $TRAVIS_COMMIT
+  - echo $TRAVIS_TAG
+  - echo $TRAVIS_BRANCH
+  - echo $TRAVIS_BUILD_NUMBER
+  - echo $TRAVIS_REPO_SLUG
