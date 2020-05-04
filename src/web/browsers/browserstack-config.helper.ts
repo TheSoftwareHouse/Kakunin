@@ -1,5 +1,5 @@
 import * as browserstack from 'browserstack-local';
-import chalk from 'chalk';
+import * as chalk from 'chalk';
 import * as shell from 'shelljs';
 import config from '../../core/config.helper';
 
@@ -26,7 +26,7 @@ export const connectBrowserstack = (browserstackKey: string) => {
 
   return new Promise((resolve, reject) => {
     const bsLocal = new browserstack.Local();
-    bsLocal.start({ key: browserstackKey }, error => {
+    bsLocal.start({ key: browserstackKey }, (error) => {
       if (error) {
         return reject(error);
       }
