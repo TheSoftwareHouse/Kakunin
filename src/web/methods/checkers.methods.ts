@@ -16,7 +16,7 @@ export const checkNumberOfElements = (
 ) => {
   const numberPattern = /\d+/g;
   const numberMatches = numberExpression.match(numberPattern);
-  const numbers = numberMatches.map(item => parseInt(item));
+  const numbers = numberMatches.map((item) => parseInt(item));
 
   const expectFunction = async (words, num) => {
     const numberOfElements = await currentPage.getNumberOfElements(elementName);
@@ -35,11 +35,11 @@ export const checkIfElementContainsChildElementsMatchingMatchers = (
   if (hashedData.length === 0) {
     return Promise.reject('Missing table under the step.');
   }
-  const checkers = hashedData.flatMap(elements => {
+  const checkers = hashedData.flatMap((elements) => {
     return elements
       .filter(Boolean)
-      .filter(item => item !== elements[0])
-      .map(item => {
+      .filter((item) => item !== elements[0])
+      .map((item) => {
         return {
           element: elements[0],
           matcher: item,
@@ -48,7 +48,7 @@ export const checkIfElementContainsChildElementsMatchingMatchers = (
   });
 
   return currentPage.waitForVisibilityOf(elementName).then(() => {
-    const promises = checkers.map(check => {
+    const promises = checkers.map((check) => {
       return matchers.match(currentPage.getElement(check.element), valueToTextTransformer.transform(check.matcher));
     });
 
@@ -70,13 +70,13 @@ export const checkIfElementContainsValue = (
 
   if (assert === 'is') {
     return currentPage.waitForVisibilityOf(elementName).then(() => {
-      return checkMatcher(pageElement, value).then(matcherResult => expect(matcherResult).toBe(true));
+      return checkMatcher(pageElement, value).then((matcherResult) => expect(matcherResult).toBe(true));
     });
   } else if (assert === 'is not') {
     return currentPage.waitForVisibilityOf(elementName).then(() => {
       return checkMatcher(pageElement, value)
         .catch(() => Promise.resolve(false))
-        .then(result => (result ? Promise.reject() : Promise.resolve()));
+        .then((result) => (result ? Promise.reject() : Promise.resolve()));
     });
   }
 };
@@ -95,13 +95,13 @@ export const checkIfElementMatchesRegex = (
 
   if (assert === 'is') {
     return currentPage.waitForVisibilityOf(elementName).then(() => {
-      return checkMatcher(pageElement, matcher).then(matcherResult => expect(matcherResult).toBe(true));
+      return checkMatcher(pageElement, matcher).then((matcherResult) => expect(matcherResult).toBe(true));
     });
   } else if (assert === 'is not') {
     return currentPage.waitForVisibilityOf(elementName).then(() => {
       return checkMatcher(pageElement, matcher)
         .catch(() => Promise.resolve(false))
-        .then(result => (result ? Promise.reject() : Promise.resolve()));
+        .then((result) => (result ? Promise.reject() : Promise.resolve()));
     });
   }
 };
@@ -119,13 +119,13 @@ export const checkIfElementMatchesMatcher = (
 
   if (assert === 'is') {
     return currentPage.waitForVisibilityOf(elementName).then(() => {
-      return checkMatcher(pageElement, matcher).then(matcherResult => expect(matcherResult).toBe(true));
+      return checkMatcher(pageElement, matcher).then((matcherResult) => expect(matcherResult).toBe(true));
     });
   } else if (assert === 'is not') {
     return currentPage.waitForVisibilityOf(elementName).then(() => {
       return checkMatcher(pageElement, matcher)
         .catch(() => Promise.resolve(false))
-        .then(result => (result ? Promise.reject() : Promise.resolve()));
+        .then((result) => (result ? Promise.reject() : Promise.resolve()));
     });
   }
 };
@@ -149,7 +149,7 @@ export const checkIfElementContainsText = (
     return currentPage.waitForVisibilityOf(elementName).then(() => {
       return checkMatcher(pageElement, value)
         .catch(() => Promise.resolve(false))
-        .then(result => (result ? Promise.reject() : Promise.resolve()));
+        .then((result) => (result ? Promise.reject() : Promise.resolve()));
     });
   }
 };
@@ -159,7 +159,7 @@ export const checkIfTableContainsElements = (currentPage: BasePage, table: strin
   const allElements = currentPage.getElements(table);
   const hashes = data.hashes();
   return currentPage.waitForVisibilityOf(table).then(() => {
-    return this.checkNumberOfElements(currentPage, `equal ${hashes.length}`, table).then(() => {
+    return checkNumberOfElements(currentPage, `equal ${hashes.length}`, table).then(() => {
       const promises = [];
 
       return allElements
@@ -197,12 +197,12 @@ export const checkIfTableElementContainsMatchingNumberOfElements = (
     return Promise.reject('Missing table under the step.');
   }
   return currentPage.waitForVisibilityOf(elementName).then(() => {
-    return this.checkNumberOfElements(currentPage, numberExpression, elementName).then(() => {
+    return checkNumberOfElements(currentPage, numberExpression, elementName).then(() => {
       const promises = [];
 
       return allElements
-        .each(element => {
-          hashedData.forEach(hash => {
+        .each((element) => {
+          hashedData.forEach((hash) => {
             promises.push(
               matchers.match(
                 element.element(currentPage.getElement(hash[0]).locator()),
@@ -227,12 +227,12 @@ export const checkIfAllElementsHaveMatchingValues = (
       .first()
       .element(currentPage.getElement(elementName).locator())
       .getText()
-      .then(firstElementText => {
-        return currentPage.getElements(containerName).each(containerElement => {
+      .then((firstElementText) => {
+        return currentPage.getElements(containerName).each((containerElement) => {
           containerElement
             .element(currentPage.getElement(elementName).locator())
             .getText()
-            .then(elementText => {
+            .then((elementText) => {
               expect(elementText).toEqual(firstElementText);
             });
         });
@@ -257,8 +257,8 @@ export const checkIfElementHaveItemsWithValue = (
   return currentPage
     .waitForVisibilityOf(elementName)
     .then(() =>
-      allElements.each(element => {
-        hashedData.forEach(hash => {
+      allElements.each((element) => {
+        hashedData.forEach((hash) => {
           promises.push(
             matchers
               .match(

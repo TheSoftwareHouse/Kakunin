@@ -1,7 +1,7 @@
 import * as formHandler from './handler';
 import { FormHandler } from './form-handler.interface';
 import Base from '../pages/base';
-import * as uuidv1 from 'uuid/v1';
+import * as uuidv1 from 'uuid';
 
 interface AvailableHandlers {
   [key: string]: FormHandler;
