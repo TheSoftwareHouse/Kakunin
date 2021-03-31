@@ -31,7 +31,7 @@ export const connectBrowserstack = (browserstackKey: string) => {
         return reject(error);
       }
       console.log('Connected to the Browsertack Selenium server! Now testing...');
-      resolve();
+      resolve(true);
     });
   });
 };
