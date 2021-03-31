@@ -12,21 +12,16 @@
   },
   "author": "",
   "dependencies": {
-    "body-parser": "^1.19.0",
-    "cross-env": "^7.0.2",
-    "eslint": "6.8.0",
-    "eslint-config-airbnb": "18.1.0",
-    "eslint-plugin-import": "2.20.2",
-    "eslint-plugin-jsx-a11y": "6.2.3",
-    "eslint-plugin-react": "7.19.0",
+    "body-parser": "1.19.0",
+    "cross-env": "7.0.3",
     "express": "4.17.1",
     "kakunin": "file:../",
-    "node-fetch": "2.6.0",
-    "nunjucks": "3.2.1",
-    "protractor": "^5.4.4"
+    "node-fetch": "2.6.1",
+    "nunjucks": "3.2.3",
+    "protractor": "7.0.0"
   },
   "license": "ISC",
   "devDependencies": {
-    "pm2": "4.4.0"
+    "pm2": "4.5.5"
   }
 }
