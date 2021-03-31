@@ -12,7 +12,7 @@ export const getConfigPath = (configFile, argsConfig, basePath) => {
   return argsConfig ? path.join(basePath, argsConfig) : path.join(basePath, configFile);
 };
 
-export const createTagsCLIArgument = commandArgs => {
+export const createTagsCLIArgument = (commandArgs) => {
   const tags = [];
 
   if (commandArgs.performance) {
@@ -34,7 +34,7 @@ export const createTagsCLIArgument = commandArgs => {
   return tags;
 };
 
-export const filterCLIArguments = blackList => commandArgs => {
+export const filterCLIArguments = (blackList) => (commandArgs) => {
   const commandLineArgs = [];
 
   for (const prop in commandArgs) {

@@ -2,7 +2,7 @@ import config from '../../core/config.helper';
 const globalTimeout = parseInt(config.elementsVisibilityTimeout) * 1000;
 
 export const waitForCondition = (condition, timeout) => {
-  return element => {
+  return (element) => {
     if (element instanceof protractor.ElementArrayFinder) {
       return browser.wait(protractor.ExpectedConditions[condition](element.first()), timeout);
     }
@@ -11,10 +11,10 @@ export const waitForCondition = (condition, timeout) => {
   };
 };
 
-export const waitForVisibilityOf = element => {
+export const waitForVisibilityOf = (element) => {
   return waitForCondition('visibilityOf', globalTimeout)(element);
 };
 
-export const waitForInvisibilityOf = element => {
+export const waitForInvisibilityOf = (element) => {
   return waitForCondition('invisibilityOf', globalTimeout)(element);
 };

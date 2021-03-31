@@ -7,7 +7,7 @@ class AttributeMatcher implements Matcher {
   }
 
   public match(element, attributeName, regexName) {
-    return element.getAttribute(attributeName).then(value => {
+    return element.getAttribute(attributeName).then((value) => {
       if (regexBuilder.buildRegex(`r:${regexName}`).test(value)) {
         return true;
       }

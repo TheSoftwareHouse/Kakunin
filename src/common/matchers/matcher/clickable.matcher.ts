@@ -8,8 +8,8 @@ class ClickableMatcher implements Matcher {
   public match(element) {
     return element
       .getAttribute('disabled')
-      .then(disabled => ['disabled', true, 'true'].indexOf(disabled) === -1)
-      .then(result => {
+      .then((disabled) => ['disabled', true, 'true'].indexOf(disabled) === -1)
+      .then((result) => {
         if (result) {
           return true;
         }

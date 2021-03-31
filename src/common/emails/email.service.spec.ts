@@ -31,7 +31,7 @@ describe('Email service', () => {
 
   it('it adds adapter', () => {
     const fakeAdapter = {
-      isSatisfiedBy: config => true,
+      isSatisfiedBy: (config) => true,
     };
 
     const fakeConfig = {
@@ -49,9 +49,9 @@ describe('Email service', () => {
     expect(emailService.getAdapter()).toEqual(fakeAdapter);
   });
 
-  it('it calls adapter clearInbox method', done => {
+  it('it calls adapter clearInbox method', (done) => {
     const fakeAdapter = {
-      isSatisfiedBy: config => true,
+      isSatisfiedBy: (config) => true,
       clearInbox: () => Promise.resolve(),
     };
 
@@ -66,9 +66,9 @@ describe('Email service', () => {
     emailService.clearInbox().then(() => done());
   });
 
-  it('it calls adapter getEmails method', done => {
+  it('it calls adapter getEmails method', (done) => {
     const fakeAdapter = {
-      isSatisfiedBy: config => true,
+      isSatisfiedBy: (config) => true,
       getEmails: () => Promise.resolve(),
     };
 
@@ -83,10 +83,10 @@ describe('Email service', () => {
     emailService.getEmails().then(() => done());
   });
 
-  it('it calls adapter markAsRead method', done => {
+  it('it calls adapter markAsRead method', (done) => {
     const fakeAdapter = {
-      isSatisfiedBy: config => true,
-      markAsRead: email => Promise.resolve(email),
+      isSatisfiedBy: (config) => true,
+      markAsRead: (email) => Promise.resolve(email),
     };
 
     const fakeConfig = {
@@ -97,16 +97,16 @@ describe('Email service', () => {
 
     const emailService = create([fakeAdapter], fakeConfig);
 
-    emailService.markAsRead('some@email.com').then(email => {
+    emailService.markAsRead('some@email.com').then((email) => {
       expect(email).toEqual('some@email.com');
       done();
     });
   });
 
-  it('it calls adapter getAttachments method', done => {
+  it('it calls adapter getAttachments method', (done) => {
     const fakeAdapter = {
-      isSatisfiedBy: config => true,
-      getAttachments: email => Promise.resolve('some-attachment'),
+      isSatisfiedBy: (config) => true,
+      getAttachments: (email) => Promise.resolve('some-attachment'),
     };
 
     const fakeConfig = {
@@ -117,7 +117,7 @@ describe('Email service', () => {
 
     const emailService = create([fakeAdapter], fakeConfig);
 
-    emailService.getAttachments('some@email.com').then(attachment => {
+    emailService.getAttachments('some@email.com').then((attachment) => {
       expect(attachment).toEqual('some-attachment');
       done();
     });

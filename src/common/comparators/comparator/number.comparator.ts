@@ -1,7 +1,7 @@
 import { Comparator } from '../comparator.interface';
 
 export const NumberComparator: Comparator = {
-  isSatisfiedBy: values => {
+  isSatisfiedBy: (values) => {
     for (const value of values) {
       const numberValue = Number(value);
       if (Number.isNaN(numberValue)) {

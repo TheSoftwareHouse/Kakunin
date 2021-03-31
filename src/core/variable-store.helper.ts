@@ -2,7 +2,7 @@ export class VariableStore {
   constructor(public variables: any[] = []) {}
 
   public storeVariable(name: string, value: any): void {
-    const foundVariable = this.variables.find(variable => variable.name === name);
+    const foundVariable = this.variables.find((variable) => variable.name === name);
 
     if (typeof foundVariable !== 'undefined') {
       throw new Error(`Variable ${name} is stored already`);
@@ -12,7 +12,7 @@ export class VariableStore {
   }
 
   public updateVariable(name: string, value: any): void {
-    const foundVariable = this.variables.find(variable => variable.name === name);
+    const foundVariable = this.variables.find((variable) => variable.name === name);
 
     if (typeof foundVariable === 'undefined') {
       throw new Error(`Variable ${name} does not exist.`);
@@ -22,7 +22,7 @@ export class VariableStore {
   }
 
   public getVariableValue(name: string): any {
-    const foundVariable = this.variables.find(variable => variable.name === name);
+    const foundVariable = this.variables.find((variable) => variable.name === name);
 
     if (typeof foundVariable === 'undefined') {
       throw new Error(`Variable ${name} was not stored`);
@@ -32,7 +32,7 @@ export class VariableStore {
   }
 
   public isStored(name: string): boolean {
-    const foundVariable = this.variables.find(variable => variable.name === name);
+    const foundVariable = this.variables.find((variable) => variable.name === name);
 
     return typeof foundVariable !== 'undefined';
   }
@@ -43,7 +43,7 @@ export class VariableStore {
 
   public replaceTextVariables(text: string): any {
     let newText = text;
-    const variableNames = this.variables.map(variable => variable.name);
+    const variableNames = this.variables.map((variable) => variable.name);
 
     for (const variableNameIndex in variableNames) {
       if (variableNames.hasOwnProperty(variableNameIndex)) {

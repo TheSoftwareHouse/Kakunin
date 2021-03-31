@@ -6,7 +6,7 @@ import { TableDefinition } from 'cucumber';
 
 export const storeTextAsVariable = (currentPage: BasePage, elementName: string, variable: string) => {
   return currentPage.waitForVisibilityOf(elementName).then(async () => {
-    const elementTag = await currentPage[elementName].getTagName(tag => tag);
+    const elementTag = await currentPage[elementName].getTagName((tag) => tag);
     const value = await methods.shared.getElementValue(currentPage, elementName);
 
     if (elementTag === 'input' || elementTag === 'textarea') {
@@ -55,12 +55,12 @@ export const storeTableRowsWithColumnsAsVariable = (
   variableName: string,
   data: TableDefinition
 ) => {
-  const columns = data.raw().map(element => element[0]);
+  const columns = data.raw().map((element) => element[0]);
   const promises = [];
   return currentPage.waitForVisibilityOf(table).then(() => {
     return currentPage
       .getElement(table)
-      .each(element => {
+      .each((element) => {
         const rowPromises = [];
 
         for (const columnIndex in columns) {
@@ -72,7 +72,7 @@ export const storeTableRowsWithColumnsAsVariable = (
         promises.push(Promise.all(rowPromises));
       })
       .then(() =>
-        Promise.all(promises).then(resolvedPromises => {
+        Promise.all(promises).then((resolvedPromises) => {
           variableStore.storeVariable(variableName, resolvedPromises);
         })
       );

@@ -4,16 +4,16 @@ class CheckboxHandler implements FormHandler {
   public readonly type = 'checkbox';
 
   public isSatisfiedBy(element) {
-    return element.getTagName().then(tagName => {
+    return element.getTagName().then((tagName) => {
       if (tagName === 'input') {
-        return element.getAttribute('type').then(inputType => inputType === 'checkbox');
+        return element.getAttribute('type').then((inputType) => inputType === 'checkbox');
       }
 
       if (tagName instanceof Array) {
         return element
           .first()
           .getAttribute('type')
-          .then(inputType => inputType === 'checkbox');
+          .then((inputType) => inputType === 'checkbox');
       }
 
       return false;
@@ -23,11 +23,11 @@ class CheckboxHandler implements FormHandler {
   public handleFill(page, elementName, desiredValue) {
     return page
       .getElements(elementName)
-      .filter(elem => {
+      .filter((elem) => {
         return elem
           .element(by.xpath('..'))
           .getText()
-          .then(text => {
+          .then((text) => {
             return text.trim() === desiredValue;
           });
       })
@@ -36,9 +36,9 @@ class CheckboxHandler implements FormHandler {
   }
 
   public handleCheck(page, elementName, desiredValue) {
-    const filteredElements = page.getElements(elementName).filter(element => element.isSelected());
+    const filteredElements = page.getElements(elementName).filter((element) => element.isSelected());
 
-    return filteredElements.count().then(count => {
+    return filteredElements.count().then((count) => {
       if (desiredValue === '') {
         if (count === 0) {
           return Promise.resolve();
@@ -49,17 +49,17 @@ class CheckboxHandler implements FormHandler {
 
       return page
         .getElements(elementName)
-        .filter(element => {
+        .filter((element) => {
           return element
             .element(by.xpath('..'))
             .getText()
-            .then(text => {
+            .then((text) => {
               return text.trim() === desiredValue;
             });
         })
         .first()
         .isSelected()
-        .then(selected => {
+        .then((selected) => {
           if (selected) {
             return Promise.resolve();
           }

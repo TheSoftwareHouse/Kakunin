@@ -5,7 +5,7 @@ describe('Text fields filter', () => {
   it('returns true when supported typ passed', () => {
     const supportedTypes = ['subject', 'from_email', 'from_name', 'to_email', 'to_name', 'html_body', 'text_body'];
 
-    supportedTypes.forEach(type => expect(textFieldFilter.isSatisfiedBy(type)).toEqual(true));
+    supportedTypes.forEach((type) => expect(textFieldFilter.isSatisfiedBy(type)).toEqual(true));
   });
 
   it('returns false when not supported type passed', () => {
@@ -46,7 +46,7 @@ describe('Text fields filter', () => {
 
     expect(filteredEmails.length).toEqual(1);
 
-    filteredEmails.forEach(email => expect(email.subject === 'some-subject').toEqual(true));
+    filteredEmails.forEach((email) => expect(email.subject === 'some-subject').toEqual(true));
   });
 
   it('returns only emails matching given value using r:regexpName', () => {
@@ -75,6 +75,6 @@ describe('Text fields filter', () => {
 
     expect(filteredEmails.length).toEqual(1);
 
-    filteredEmails.forEach(email => expect(email.text_body === 'Body 123').toEqual(true));
+    filteredEmails.forEach((email) => expect(email.text_body === 'Body 123').toEqual(true));
   });
 });

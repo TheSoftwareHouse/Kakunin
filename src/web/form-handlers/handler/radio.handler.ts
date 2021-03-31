@@ -4,16 +4,16 @@ class RadioHandler implements FormHandler {
   public readonly type = 'radio';
 
   public isSatisfiedBy(element) {
-    return element.getTagName().then(tagName => {
+    return element.getTagName().then((tagName) => {
       if (tagName === 'input') {
-        return element.getAttribute('type').then(inputType => inputType === 'radio');
+        return element.getAttribute('type').then((inputType) => inputType === 'radio');
       }
 
       if (tagName instanceof Array) {
         return element
           .first()
           .getAttribute('type')
-          .then(inputType => inputType === 'radio');
+          .then((inputType) => inputType === 'radio');
       }
 
       return false;
@@ -23,10 +23,10 @@ class RadioHandler implements FormHandler {
   public handleFill(page, elementName, desiredValue) {
     const firstRadio = page
       .getElements(elementName)
-      .filter(elem => elem.getAttribute('value').then(elemValue => elemValue === desiredValue))
+      .filter((elem) => elem.getAttribute('value').then((elemValue) => elemValue === desiredValue))
       .first();
 
-    return firstRadio.isDisplayed().then(isDisplayed => {
+    return firstRadio.isDisplayed().then((isDisplayed) => {
       if (isDisplayed) {
         return firstRadio.click();
       }
@@ -36,9 +36,9 @@ class RadioHandler implements FormHandler {
   }
 
   public handleCheck(page, elementName, desiredValue) {
-    const filteredElements = page.getElements(elementName).filter(element => element.isSelected());
+    const filteredElements = page.getElements(elementName).filter((element) => element.isSelected());
 
-    return filteredElements.count().then(count => {
+    return filteredElements.count().then((count) => {
       if (desiredValue === '') {
         if (count === 0) {
           return Promise.resolve();
@@ -50,7 +50,7 @@ class RadioHandler implements FormHandler {
       return filteredElements
         .first()
         .getAttribute('value')
-        .then(value => {
+        .then((value) => {
           if (value === desiredValue) {
             return Promise.resolve();
           }

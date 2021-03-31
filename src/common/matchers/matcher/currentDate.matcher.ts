@@ -8,7 +8,7 @@ class CurrentDateMatcher implements Matcher {
 
   public match(element, name = null, params = 'DD-MM-YYYY') {
     const currentDate = moment(new Date()).format(params);
-    return element.getText().then(text => {
+    return element.getText().then((text) => {
       const compareDate = moment(new Date(text)).format(params);
 
       if (compareDate === currentDate) {

@@ -5,7 +5,7 @@ import variableStore from '../../../core/variable-store.helper';
 
 class ClearVariablesHook implements HookHandler {
   public initializeHook() {
-    Before(function(scenario, callback) {
+    Before(function (scenario, callback) {
       this.currentUser = null;
 
       if (typeof this.userProvider === 'undefined') {

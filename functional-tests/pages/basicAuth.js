@@ -5,7 +5,7 @@ class BasicAuthPage extends BasePage {
     super();
 
     this.url = '/basic-auth';
-    
+
     this.title = $('p');
   }
 }

@@ -12,27 +12,29 @@ describe('Attribute matcher', () => {
       { prefix: 'g', name: 'isVisible' },
     ];
 
-    incorrectParameters.forEach(parameters => expect(attributeMatcher.isSatisfiedBy(parameters.prefix)).toEqual(false));
+    incorrectParameters.forEach((parameters) =>
+      expect(attributeMatcher.isSatisfiedBy(parameters.prefix)).toEqual(false)
+    );
   });
 
-  it('returns true when the attribute is matched', done => {
+  it('returns true when the attribute is matched', (done) => {
     const elementMocked = {
       getAttribute: () => Promise.resolve('http://some-random-link.com'),
     };
 
-    attributeMatcher.match(elementMocked, 'href', 'someRandomLinkRegex').then(result => {
+    attributeMatcher.match(elementMocked, 'href', 'someRandomLinkRegex').then((result) => {
       expect(result).toEqual(true);
       done();
     });
   });
 
-  it('returns rejected promise when the attribute is not matched', done => {
+  it('returns rejected promise when the attribute is not matched', (done) => {
     const elementMocked = {
       getAttribute: () => Promise.resolve('some-random-link'),
       locator: () => 'some-locator',
     };
 
-    attributeMatcher.match(elementMocked, 'href', 'someRandomLinkRegex').catch(err => {
+    attributeMatcher.match(elementMocked, 'href', 'someRandomLinkRegex').catch((err) => {
       done();
     });
   });

@@ -23,7 +23,7 @@ class TextHandler implements FormHandler {
         return page
           .getElement(elementName)
           .getAttribute('value')
-          .then(value => {
+          .then((value) => {
             if (value === desiredValue) {
               return Promise.resolve();
             }

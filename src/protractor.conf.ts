@@ -58,9 +58,9 @@ exports.config = {
       './rest/step_definitions/**/*.js',
       './common/step_definitions/**/*.js',
       './web/cucumber/hooks.js',
-      ...config.step_definitions.map(file => path.join(config.projectPath, file, '**/*.js')),
+      ...config.step_definitions.map((file) => path.join(config.projectPath, file, '**/*.js')),
     ],
-    format: [`json:./${config.reports}/features-report.json`],
+    format: [`json:${process.cwd()}/${config.reports}/features-report.json`],
     profile: false,
     'no-source': true,
   },
@@ -103,10 +103,7 @@ exports.config = {
 
   onPrepare() {
     if (!config.headless) {
-      browser.driver
-        .manage()
-        .window()
-        .setSize(parseInt(config.browserWidth), parseInt(config.browserHeight));
+      browser.driver.manage().window().setSize(parseInt(config.browserWidth), parseInt(config.browserHeight));
     }
 
     modulesLoader.getModules('matchers');
@@ -118,7 +115,7 @@ exports.config = {
     modulesLoader.getModules('emails');
     modulesLoader.getModules('hooks');
 
-    const modules = modulesLoader.getModulesAsObject(config.pages.map(page => path.join(config.projectPath, page)));
+    const modules = modulesLoader.getModulesAsObject(config.pages.map((page) => path.join(config.projectPath, page)));
 
     browser.page = Object.keys(modules).reduce(
       (pages, moduleName) => ({ ...pages, [moduleName]: new modules[moduleName]() }),

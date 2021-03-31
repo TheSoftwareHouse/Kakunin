@@ -17,7 +17,7 @@ class Comparators {
   }
 
   public findComparator(values: any[]): Comparator {
-    return this.availableComparators.find(comparator => comparator.isSatisfiedBy(values));
+    return this.availableComparators.find((comparator) => comparator.isSatisfiedBy(values));
   }
 
   public addComparator(comparator: Comparator): void {

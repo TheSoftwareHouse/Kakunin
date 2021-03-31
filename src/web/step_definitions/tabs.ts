@@ -1,7 +1,7 @@
 import { When } from 'cucumber';
 import { methods } from '../methods';
 
-When(/^I switch to window number "([^"]*)" of a browser$/, tabNumber => {
+When(/^I switch to window number "([^"]*)" of a browser$/, (tabNumber) => {
   return methods.navigation.switchWindow(tabNumber);
 });
 

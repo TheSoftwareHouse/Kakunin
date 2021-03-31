@@ -33,7 +33,7 @@ class MailTrapClient {
 
     return this.requestClient(url, {
       method: 'PATCH',
-    }).then(res => {
+    }).then((res) => {
       if (res.status !== 200) {
         throw new Error(res);
       }
@@ -46,7 +46,7 @@ class MailTrapClient {
     const config = this.getMailtrapConfig();
     const url = `${config.endpoint}/api/v1/inboxes/${config.inboxId}/messages?api_token=${config.apiKey}`;
 
-    const messages = await this.requestClient(url).then(res => {
+    const messages = await this.requestClient(url).then((res) => {
       if (res.status !== 200) {
         throw new Error(res);
       }
@@ -57,9 +57,9 @@ class MailTrapClient {
     const messagesWithBody = [];
 
     for (const message of messages) {
-      const rawBody = await this.requestClient(`${config.endpoint}${message.raw_path}?api_token=${config.apiKey}`).then(
-        res => res.text()
-      );
+      const rawBody = await this.requestClient(
+        `${config.endpoint}${message.raw_path}?api_token=${config.apiKey}`
+      ).then((res) => res.text());
 
       messagesWithBody.push({
         ...message,
@@ -67,14 +67,14 @@ class MailTrapClient {
       });
     }
 
-    return messagesWithBody.filter(message => !message.is_read);
+    return messagesWithBody.filter((message) => !message.is_read);
   }
 
   public getAttachments(email) {
     const config = this.getMailtrapConfig();
     const url = `${config.endpoint}/api/v1/inboxes/${config.inboxId}/messages/${email.id}/attachments?api_token=${config.apiKey}`;
 
-    return this.requestClient(url).then(res => {
+    return this.requestClient(url).then((res) => {
       if (res.status !== 200) {
         throw new Error(res);
       }
@@ -97,7 +97,7 @@ class MailTrapClient {
           is_read: true,
         },
       }),
-    }).then(res => {
+    }).then((res) => {
       if (res.status !== 200) {
         throw new Error(res);
       }

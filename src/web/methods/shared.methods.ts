@@ -1,6 +1,6 @@
 import BasePage from '../pages/base';
 
-export const handlePromises = (hashedData, onSuccess, onReject) => resolvedPromises => {
+export const handlePromises = (hashedData, onSuccess, onReject) => (resolvedPromises) => {
   for (let i = 0; i < resolvedPromises.length; i += hashedData.length) {
     let allFieldsMatching = true;
 
@@ -23,12 +23,12 @@ export const getElementValue = (currentPage: BasePage, elementName: string) => {
   return currentPage
     .getElement(elementName)
     .getAttribute('value')
-    .then(value => value);
+    .then((value) => value);
 };
 
 export const getElementText = (currentPage: BasePage, elementName: string) => {
   return currentPage
     .getElement(elementName)
     .getText()
-    .then(text => text);
+    .then((text) => text);
 };

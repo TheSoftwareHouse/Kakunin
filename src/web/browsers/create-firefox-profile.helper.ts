@@ -1,7 +1,7 @@
 import * as firefox from 'selenium-webdriver/firefox';
 import * as path from 'path';
 
-export const createFirefoxProfile = config => {
+export const createFirefoxProfile = (config) => {
   const profile = new firefox.Profile();
 
   profile.setPreference('browser.download.dir', path.join(config.projectPath, config.downloads));

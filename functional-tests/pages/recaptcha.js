@@ -8,11 +8,11 @@ class RecaptchaPage extends BasePage {
 
     this.url = '/recaptcha';
 
-    this.form = $('#comment_form')
-    this.emailElement = $('input[type=email]')
+    this.form = $('#comment_form');
+    this.emailElement = $('input[type=email]');
     this.postCommentButton = $('input[name=submit]');
     this.iframeElement = $('.g-recaptcha iframe');
-    this.recaptchaNotConfirmed = $('pre')
+    this.recaptchaNotConfirmed = $('pre');
   }
 }
 

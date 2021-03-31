@@ -15,7 +15,7 @@ describe('Generator transformer', () => {
 
   it('returns generated value ', () => {
     const mockedGenerators: any = {
-      generate: value => 'my-generated-value',
+      generate: (value) => 'my-generated-value',
     };
     const transformer = createGeneratorTransformer(mockedGenerators);
 

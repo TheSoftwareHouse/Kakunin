@@ -10,7 +10,7 @@ class TimeToFirstByteAnalyser {
   public checkTiming(fileName, maxTiming) {
     const parsedReport = this.reader.parse(fileName);
 
-    return parsedReport.filter(report => report.ttfb > maxTiming);
+    return parsedReport.filter((report) => report.ttfb > maxTiming);
   }
 }
 

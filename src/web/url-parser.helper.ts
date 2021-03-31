@@ -1,7 +1,7 @@
 import * as Url from 'url';
 
-const extractDomain = url => Url.parse(url).host;
-const extractUrl = url => {
+const extractDomain = (url) => Url.parse(url).host;
+const extractUrl = (url) => {
   const parsedUrl = Url.parse(url);
 
   if (parsedUrl.hash) {
@@ -11,7 +11,7 @@ const extractUrl = url => {
   return parsedUrl.pathname;
 };
 
-const normalizeUrl = url => {
+const normalizeUrl = (url) => {
   if (url.length === 0) {
     return extractUrl('/');
   }
@@ -67,7 +67,7 @@ const compareUrls = (urlSplit, baseUrlSplit) => {
   return resultParameters;
 };
 
-export const isRelativePage = url => {
+export const isRelativePage = (url) => {
   return url === '' || url[0] === '/';
 };
 
@@ -77,18 +77,18 @@ const normaliseAndSplitBaseUrl = (pageUrlSplit, baseUrl) => {
   return decodeURI(pageUrlSplit.join('/'))
     .replace(baseUrl, '')
     .split('/')
-    .filter(item => item.length > 0);
+    .filter((item) => item.length > 0);
 };
 
 export const waitForUrlChangeTo = (newUrl, currentUrl) => {
-  return baseUrl => {
+  return (baseUrl) => {
     const pageUrl = Url.resolve(baseUrl, newUrl);
     const pageDomain = extractDomain(pageUrl);
     const currentUrlDomain = extractDomain(currentUrl);
     const pageUrlSplit = normalizeUrl(pageUrl).split('/');
     const urlSplit = normalizeUrl(currentUrl)
       .split('/')
-      .filter(item => item.length > 0);
+      .filter((item) => item.length > 0);
     const normalisedBaseUrlSplitted = normaliseAndSplitBaseUrl(pageUrlSplit, baseUrl);
 
     if (pageDomain !== currentUrlDomain) {

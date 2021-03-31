@@ -34,7 +34,7 @@ class Matchers {
   }
 
   public findMatcher(prefix: string, param: string): Matcher {
-    return this.availableMatchers.find(matcher => matcher.isSatisfiedBy(prefix, param));
+    return this.availableMatchers.find((matcher) => matcher.isSatisfiedBy(prefix, param));
   }
 }
 
