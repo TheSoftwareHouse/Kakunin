@@ -6,16 +6,16 @@ class FileHandler implements FormHandler {
   public readonly type = 'file';
 
   public isSatisfiedBy(element) {
-    return element.getTagName().then(tagName => {
+    return element.getTagName().then((tagName) => {
       if (tagName === 'input') {
-        return element.getAttribute('type').then(inputType => inputType === 'file');
+        return element.getAttribute('type').then((inputType) => inputType === 'file');
       }
 
       if (tagName instanceof Array) {
         return element
           .first()
           .getAttribute('type')
-          .then(inputType => inputType === 'file');
+          .then((inputType) => inputType === 'file');
       }
 
       return false;
@@ -32,7 +32,7 @@ class FileHandler implements FormHandler {
     return page
       .getElements(elementName)
       .getText()
-      .then(text => {
+      .then((text) => {
         if (text === desiredValue) {
           return Promise.resolve();
         }

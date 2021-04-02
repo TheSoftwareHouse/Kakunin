@@ -7,7 +7,7 @@ class TextFieldFilter {
   }
 
   public filter(emails, type, value) {
-    return emails.filter(email => {
+    return emails.filter((email) => {
       if (value.startsWith('r:')) {
         return regexBuilder.buildRegex(value).test(email[type]);
       }

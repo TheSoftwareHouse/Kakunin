@@ -40,7 +40,7 @@ class EmailService {
   }
 
   public getAdapter() {
-    const emailAdapter = this.availableAdapters.find(adapter => adapter.isSatisfiedBy(this.config.email));
+    const emailAdapter = this.availableAdapters.find((adapter) => adapter.isSatisfiedBy(this.config.email));
 
     if (emailAdapter === undefined) {
       throw new Error('Could not find email adapter for given configuration.');

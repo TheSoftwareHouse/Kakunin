@@ -29,6 +29,6 @@ describe('Email filters', () => {
 
     expect(filteredEmails.length).toEqual(3);
 
-    filteredEmails.forEach(email => expect(email.to_email).toEqual('some@email.com'));
+    filteredEmails.forEach((email) => expect(email.to_email).toEqual('some@email.com'));
   });
 });

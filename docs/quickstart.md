@@ -11,7 +11,7 @@ by yourself!
 In order to install Kakunin you have to make sure that you have installed:
 
 ```text
-node.js - v7.8.0 min
+node.js - v7.8.0 min but we recommend to use LTS version of Node e.g. v14.16.0
 JDK
 Chrome
 ```

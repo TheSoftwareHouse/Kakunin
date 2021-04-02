@@ -10,7 +10,7 @@ export const chunkSpecs = (commandArgs, allSpecs, expectedArrayLength, numberOfI
     }
 
     for (const pattern of patterns) {
-      chunkedSpecs.push(allSpecs.filter(spec => spec.match(new RegExp(pattern))));
+      chunkedSpecs.push(allSpecs.filter((spec) => spec.match(new RegExp(pattern))));
     }
 
     return chunkedSpecs;

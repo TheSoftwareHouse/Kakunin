@@ -6,16 +6,16 @@ const userProvider = {
     const user = accounts[userType];
 
     if (user.accounts.length > 1) {
-      const usedAccounts = user.accounts.filter(account => account.used);
+      const usedAccounts = user.accounts.filter((account) => account.used);
 
       if (usedAccounts.length === user.accounts.length) {
-        user.accounts.map(account => ({
+        user.accounts.map((account) => ({
           ...account,
           used: false,
         }));
       }
 
-      return user.accounts.find(account => !account.used);
+      return user.accounts.find((account) => !account.used);
     }
 
     return user.accounts[0];

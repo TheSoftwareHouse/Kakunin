@@ -17,7 +17,7 @@ class Transformers {
   }
 
   public findTransformer(prefix: string): Transformer {
-    return this.availableTransformers.find(transformer => transformer.isSatisfiedBy(prefix));
+    return this.availableTransformers.find((transformer) => transformer.isSatisfiedBy(prefix));
   }
 
   public addTransformer(transformer: Transformer): void {

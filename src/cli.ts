@@ -52,7 +52,7 @@ if (isInitCommand(process.argv)) {
       stdio: 'inherit',
       cwd: process.cwd(),
     })
-    .once('exit', code => {
+    .once('exit', (code) => {
       console.log('Protractor has finished');
       process.exit(code);
     });

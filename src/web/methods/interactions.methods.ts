@@ -44,7 +44,7 @@ export const click = (currentPage: BasePage, elementName: string | ElementFinder
 export const infinityScrollTo = (currentPage: BasePage, elementName: string) => {
   return currentPage
     .isPresent(elementName)
-    .then(isPresent => {
+    .then((isPresent) => {
       if (isPresent) {
         return currentPage.scrollIntoElement(elementName);
       }
@@ -52,7 +52,7 @@ export const infinityScrollTo = (currentPage: BasePage, elementName: string) => 
       return Promise.resolve();
     })
     .then(() => currentPage.isPresent(elementName))
-    .then(isPresent => {
+    .then((isPresent) => {
       if (isPresent) {
         return browser.sleep(1000).then(() => infinityScrollTo(currentPage, elementName));
       }
@@ -64,12 +64,7 @@ export const infinityScrollTo = (currentPage: BasePage, elementName: string) => 
 export const pressKey = (key: string) => {
   const keyTransformed = key.toUpperCase();
 
-  return Promise.resolve(
-    browser
-      .actions()
-      .sendKeys(protractor.Key[keyTransformed])
-      .perform()
-  );
+  return Promise.resolve(browser.actions().sendKeys(protractor.Key[keyTransformed]).perform());
 };
 
 export const pressKeyOnElement = async (currentPage: BasePage, key: string, elementName: string) => {
@@ -80,28 +75,16 @@ export const pressKeyOnElement = async (currentPage: BasePage, key: string, elem
 };
 
 export const dragAndDrop = async (currentPage: BasePage, elementDrag: string, elementDrop: string) => {
-  const wait = timeToWait => browser.sleep(timeToWait);
+  const wait = (timeToWait) => browser.sleep(timeToWait);
 
   await currentPage.waitForVisibilityOf(elementDrag);
-  await browser
-    .actions()
-    .mouseMove(currentPage.getElement(elementDrag))
-    .perform();
+  await browser.actions().mouseMove(currentPage.getElement(elementDrag)).perform();
   await wait(200);
-  await browser
-    .actions()
-    .mouseDown()
-    .perform();
+  await browser.actions().mouseDown().perform();
   await wait(200);
-  await browser
-    .actions()
-    .mouseMove(currentPage.getElement(elementDrop))
-    .perform();
+  await browser.actions().mouseMove(currentPage.getElement(elementDrop)).perform();
   await wait(200);
-  await browser
-    .actions()
-    .mouseUp()
-    .perform();
+  await browser.actions().mouseUp().perform();
 };
 
 export const confirmRecaptcha = (currentPage: BasePage, elementName: string) => {

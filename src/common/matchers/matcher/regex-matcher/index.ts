@@ -8,8 +8,8 @@ class RegexMatcher implements Matcher {
   }
 
   public match(element, regexName) {
-    return element.getText().then(text => {
-      return element.getAttribute('value').then(value => {
+    return element.getText().then((text) => {
+      return element.getAttribute('value').then((value) => {
         const regularExpression = regexBuilder.buildRegex(`r:${regexName}`);
 
         if (text === '') {

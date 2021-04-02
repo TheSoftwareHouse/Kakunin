@@ -1,5 +1,5 @@
 import * as _ from 'lodash';
-import * as Ajv from 'ajv';
+import Ajv from 'ajv';
 const ajv = new Ajv({ allErrors: true });
 
 export class ApiResponse {

@@ -13,7 +13,7 @@ class JSONPerformanceReportParser {
 
   public parse(fileName) {
     const reportFile = getReport(fileName, this.path);
-    const requests = reportFile.log.entries.map(item => ({
+    const requests = reportFile.log.entries.map((item) => ({
       ttfb: item.timings.wait,
       url: item.request.url,
     }));

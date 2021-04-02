@@ -4,7 +4,7 @@ class MinimalEmailSizeFilter {
   }
 
   public filter(emails, type, value) {
-    return emails.filter(email => email.email_size >= parseInt(value));
+    return emails.filter((email) => email.email_size >= parseInt(value));
   }
 }
 

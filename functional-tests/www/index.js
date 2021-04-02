@@ -6,7 +6,7 @@ const { xlsxDataRouting } = require('./jsonData/xlsxData.router');
 const fileUpload = require('express-fileupload');
 let multer = require('multer');
 const upload = multer({ dest: './uploads/' });
-const basicAuth = require('basic-auth-connect')
+const basicAuth = require('basic-auth-connect');
 
 app.set('views', path.join(__dirname, 'views'));
 
@@ -27,18 +27,18 @@ app.get('/', function (req, res) {
 
 app.get('/basic-auth', basicAuth('admin', 'password'), function (req, res) {
   res.render('basic-auth/index.njs');
-})
+});
 
 app.get('/recaptcha', function (req, res) {
-  res.render('form/recaptcha.html')
+  res.render('form/recaptcha.html');
 });
 
 app.post('/recaptcha', function (req, res) {
   if (!req.body['g-recaptcha-response']) {
-    return res.json({ "responseCode": 1, "responseDesc": "Please select captcha" });
+    return res.json({ responseCode: 1, responseDesc: 'Please select captcha' });
   }
 
-  res.redirect('/')
+  res.redirect('/');
 });
 
 app.get('/drag-and-drop', function (req, res) {

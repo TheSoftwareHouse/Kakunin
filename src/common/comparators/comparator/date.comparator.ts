@@ -3,7 +3,7 @@ import { Comparator } from '../comparator.interface';
 
 export const supportedFormats = ['DD-MM-YYYY', 'DD-MM-YY', 'DD/MM/YYYY', 'DD/MM/YY'];
 
-const isValidDate = date => {
+const isValidDate = (date) => {
   for (const format of supportedFormats) {
     if (moment(date, format).isValid()) {
       return true;
@@ -14,7 +14,7 @@ const isValidDate = date => {
 };
 
 export const DateComparator: Comparator = {
-  isSatisfiedBy: values => {
+  isSatisfiedBy: (values) => {
     for (const date of values) {
       const found = isValidDate(date);
 
@@ -31,9 +31,12 @@ export const DateComparator: Comparator = {
       const date = values[i];
       const foundPrevious = moment(
         datePrevious,
-        supportedFormats.find(format => moment(datePrevious, format).isValid())
+        supportedFormats.find((format) => moment(datePrevious, format).isValid())
       );
-      const found = moment(date, supportedFormats.find(format => moment(date, format).isValid()));
+      const found = moment(
+        date,
+        supportedFormats.find((format) => moment(date, format).isValid())
+      );
 
       const previousTimestamp = foundPrevious.unix();
       const currentTimestamp = found.unix();

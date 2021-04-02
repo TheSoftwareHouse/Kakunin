@@ -2,7 +2,7 @@ import { Then } from 'cucumber';
 import fileManager from '../../web/fs/file-manager.helper';
 import variableStore from '../../core/variable-store.helper';
 
-Then(/^the file "([^"]*)" should be downloaded$/, filename => {
+Then(/^the file "([^"]*)" should be downloaded$/, (filename) => {
   return fileManager.wasDownloaded(variableStore.replaceTextVariables(filename));
 });
 
@@ -14,11 +14,11 @@ Then(/^the file "([^"]*)" contains table data stored under "([^"]*)" variable$/,
   const findIndexes = () => {
     const allFoundIndexesInRows = [];
 
-    storedData.forEach(storedItems => {
+    storedData.forEach((storedItems) => {
       const foundIndexesInRow = [];
       let previousFoundIndex = null;
 
-      storedItems.forEach(storedValue => {
+      storedItems.forEach((storedValue) => {
         for (const index in rows) {
           if (rows.hasOwnProperty(index)) {
             if (storedValue.match(/^\d+$/)) {
@@ -54,7 +54,7 @@ Then(/^the file "([^"]*)" contains table data stored under "([^"]*)" variable$/,
     return Promise.resolve(allFoundIndexesInRows);
   };
 
-  return findIndexes().then(allFoundIndexes => {
+  return findIndexes().then((allFoundIndexes) => {
     if (allFoundIndexes[0].length !== storedData[0].length) {
       return Promise.reject('Values not found!');
     }

@@ -21,14 +21,11 @@ class CustomAngularSelectHandler implements FormHandler {
       .then(() => {
         const filtered = page[elementName]
           .all(this.optionsSelector)
-          .filter(elem => elem.getText().then(text => text === desiredValue));
+          .filter((elem) => elem.getText().then((text) => text === desiredValue));
 
-        return filtered.count().then(count => {
+        return filtered.count().then((count) => {
           if (count === 0) {
-            return page[elementName]
-              .all(this.optionsSelector)
-              .first()
-              .click();
+            return page[elementName].all(this.optionsSelector).first().click();
           }
 
           return filtered.first().click();
@@ -40,7 +37,7 @@ class CustomAngularSelectHandler implements FormHandler {
     return page[elementName]
       .element(this.selectedOptionSelector)
       .getText()
-      .then(text => {
+      .then((text) => {
         if (text === desiredValue) {
           return Promise.resolve();
         }

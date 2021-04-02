@@ -9,9 +9,9 @@ class TextMatcher implements Matcher {
   public match(element, ...params) {
     const expectedValue = params.join(separator);
 
-    return element.getTagName().then(tag => {
+    return element.getTagName().then((tag) => {
       if (tag === 'input' || tag === 'textarea') {
-        return element.getAttribute('value').then(value => {
+        return element.getAttribute('value').then((value) => {
           if (new RegExp(RegExp.escape(expectedValue)).test(value)) {
             return true;
           }
@@ -23,7 +23,7 @@ class TextMatcher implements Matcher {
         });
       }
 
-      return element.getText().then(text => {
+      return element.getText().then((text) => {
         if (new RegExp(RegExp.escape(expectedValue)).test(text)) {
           return true;
         }

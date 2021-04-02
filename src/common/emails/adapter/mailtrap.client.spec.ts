@@ -18,7 +18,7 @@ describe('Mailtrap client', () => {
     });
   });
 
-  it('clears inbox', done => {
+  it('clears inbox', (done) => {
     const apiKey = 'fake-api-key';
     const inbox = 'fake-inbox-id';
     const url = 'http://fake-url.com';
@@ -35,13 +35,13 @@ describe('Mailtrap client', () => {
       },
     });
 
-    mailtrapClient.clearInbox().then(res => {
+    mailtrapClient.clearInbox().then((res) => {
       expect(res).toEqual({ data: 'cleared' });
       done();
     });
   });
 
-  it('returns not read emails', done => {
+  it('returns not read emails', (done) => {
     const apiKey = 'fake-api-key';
     const inbox = 'fake-inbox-id';
     const url = 'http://fake-url.com';
@@ -67,14 +67,14 @@ describe('Mailtrap client', () => {
       },
     });
 
-    mailtrapClient.getEmails().then(res => {
+    mailtrapClient.getEmails().then((res) => {
       expect(res.length).toEqual(2);
-      res.forEach(email => expect(email.is_read).toEqual(false));
+      res.forEach((email) => expect(email.is_read).toEqual(false));
       done();
     });
   });
 
-  it('returns email attachments', done => {
+  it('returns email attachments', (done) => {
     const apiKey = 'fake-api-key';
     const inbox = 'fake-inbox-id';
     const url = 'http://fake-url.com';
@@ -98,13 +98,13 @@ describe('Mailtrap client', () => {
       },
     });
 
-    mailtrapClient.getAttachments({ id: emailId }).then(res => {
+    mailtrapClient.getAttachments({ id: emailId }).then((res) => {
       expect(res).toEqual([{ id: 1, name: 'some-file', content: 'some-content' }]);
       done();
     });
   });
 
-  it('marks email as read', done => {
+  it('marks email as read', (done) => {
     const apiKey = 'fake-api-key';
     const inbox = 'fake-inbox-id';
     const url = 'http://fake-url.com';
@@ -132,7 +132,7 @@ describe('Mailtrap client', () => {
       },
     });
 
-    mailtrapClient.markAsRead({ id: emailId }).then(res => {
+    mailtrapClient.markAsRead({ id: emailId }).then((res) => {
       expect(res).toEqual({ data: 'marked-as-read' });
       done();
     });

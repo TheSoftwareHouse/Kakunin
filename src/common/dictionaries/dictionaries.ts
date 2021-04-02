@@ -14,7 +14,7 @@ export class Dictionaries {
   }
 
   public findDictionary(name: string): Dictionary {
-    return this.availableDictionaries.find(dic => dic.isSatisfiedBy(name));
+    return this.availableDictionaries.find((dic) => dic.isSatisfiedBy(name));
   }
 
   public findMappedValueByPhrase(phrase: string): string {

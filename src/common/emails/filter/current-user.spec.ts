@@ -29,6 +29,6 @@ describe('Current user filter', () => {
 
     expect(filteredEmails.length).toEqual(2);
 
-    filteredEmails.forEach(email => expect(email.to_email).toEqual(fakeWorld.currentUser.account.email));
+    filteredEmails.forEach((email) => expect(email.to_email).toEqual(fakeWorld.currentUser.account.email));
   });
 });

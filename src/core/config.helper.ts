@@ -9,10 +9,10 @@ if (process.env.NODE_ENV === 'test') {
     },
   };
 } else {
-  const configFile = process.argv.find(name => name.indexOf('--config') >= 0);
+  const configFile = process.argv.find((name) => name.indexOf('--config') >= 0);
   const configFilePath = configFile.substr(configFile.indexOf('=') + 1);
 
-  const project = process.argv.find(name => name.indexOf('--projectPath') >= 0);
+  const project = process.argv.find((name) => name.indexOf('--projectPath') >= 0);
   const projectPath = project.substr(project.indexOf('=') + 1);
 
   config = require(configFilePath);

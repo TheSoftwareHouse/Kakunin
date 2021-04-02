@@ -3,7 +3,7 @@ import { HookHandler } from './hook.interface';
 
 class ReloadUserHook implements HookHandler {
   public initializeHook() {
-    After('@reloadUsers', function(scenario, callback) {
+    After('@reloadUsers', function (scenario, callback) {
       if (this.currentUser !== null) {
         this.userProvider.lockUser(this.currentUser.account, this.currentUser.type);
       }

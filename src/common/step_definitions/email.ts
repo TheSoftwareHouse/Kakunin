@@ -12,10 +12,10 @@ function stopInterval(interval, callback) {
 }
 
 function checkAttachmentsInEmail(email, filesExtensions, attachments) {
-  let fileAttachments = attachments.filter(attachment => attachment.attachment_type === 'attachment');
+  let fileAttachments = attachments.filter((attachment) => attachment.attachment_type === 'attachment');
 
   const missingFiles = filesExtensions.reduce((previous, current) => {
-    const expectedFile = fileAttachments.find(attachment => {
+    const expectedFile = fileAttachments.find((attachment) => {
       return (
         regexBuilder.buildRegex(current.name).test(attachment.filename) &&
         regexBuilder.buildRegex(current.type).test(attachment.content_type) &&
@@ -28,7 +28,7 @@ function checkAttachmentsInEmail(email, filesExtensions, attachments) {
       return previous;
     }
 
-    fileAttachments = fileAttachments.filter(attachment => attachment.id !== expectedFile.id);
+    fileAttachments = fileAttachments.filter((attachment) => attachment.id !== expectedFile.id);
 
     return previous;
   }, []);
@@ -37,12 +37,12 @@ function checkAttachmentsInEmail(email, filesExtensions, attachments) {
     return emailService.markAsRead(email);
   }
 
-  return Promise.reject('Some attachments not found: ' + missingFiles.map(file => file.name).join(', '));
+  return Promise.reject('Some attachments not found: ' + missingFiles.map((file) => file.name).join(', '));
 }
 
 function filterEmails(emails, data) {
   let originalEmails = emails;
-  const checks = data.raw().filter(elem => elem[0] !== 'file');
+  const checks = data.raw().filter((elem) => elem[0] !== 'file');
 
   for (const check of checks) {
     const checkType = check[0];
@@ -57,8 +57,8 @@ function filterEmails(emails, data) {
 function getFilesExtensions(data) {
   return data
     .raw()
-    .filter(elem => elem[0] === 'file')
-    .map(elem => {
+    .filter((elem) => elem[0] === 'file')
+    .map((elem) => {
       return { name: elem[1], type: elem[2], minimalSize: elem[3] };
     });
 }
@@ -109,7 +109,7 @@ function validateEmailContentAndAttachments(filteredEmails, data, interval, sync
   }
 }
 
-Then(/^the email has been sent and contains:$/, function(data, sync) {
+Then(/^the email has been sent and contains:$/, function (data, sync) {
   const self = this;
   const timeout = parseInt(config.intervalEmail) * 1000;
   let maxRepeats = config.maxEmailRepeats === undefined ? 5 : parseInt(config.maxEmailRepeats);
@@ -119,17 +119,17 @@ Then(/^the email has been sent and contains:$/, function(data, sync) {
 
     emailService
       .getEmails()
-      .then(emails => filterEmails.call(self, emails, data))
-      .then(filteredEmails => rejectIfMaxRepeatsReached(filteredEmails, maxRepeats))
-      .then(filteredEmails => rejectIfMoreThanOneEmailFound(filteredEmails))
-      .then(filteredEmails => validateEmailDate(filteredEmails))
-      .then(filteredEmails => validateEmailContentAndAttachments(filteredEmails, data, interval, sync))
+      .then((emails) => filterEmails.call(self, emails, data))
+      .then((filteredEmails) => rejectIfMaxRepeatsReached(filteredEmails, maxRepeats))
+      .then((filteredEmails) => rejectIfMoreThanOneEmailFound(filteredEmails))
+      .then((filteredEmails) => validateEmailDate(filteredEmails))
+      .then((filteredEmails) => validateEmailContentAndAttachments(filteredEmails, data, interval, sync))
       .then(() => maxRepeats--)
-      .catch(err => stopInterval(interval, sync.bind(null, err)));
+      .catch((err) => stopInterval(interval, sync.bind(null, err)));
   }, timeout);
 });
 
-Then(/^the email with the following data has not been sent:$/, function(data, sync) {
+Then(/^the email with the following data has not been sent:$/, function (data, sync) {
   const self = this;
   const timeout = parseInt(config.intervalEmail) * 1000;
   let maxRepeats = 5;
@@ -139,11 +139,11 @@ Then(/^the email with the following data has not been sent:$/, function(data, sy
 
     emailService
       .getEmails()
-      .then(emails => filterEmails.call(self, emails, data))
-      .then(filteredEmails => rejectIfEmailFound(filteredEmails))
-      .then(filteredEmails => rejectIfMaxRepeatsReached(filteredEmails, maxRepeats))
+      .then((emails) => filterEmails.call(self, emails, data))
+      .then((filteredEmails) => rejectIfEmailFound(filteredEmails))
+      .then((filteredEmails) => rejectIfMaxRepeatsReached(filteredEmails, maxRepeats))
       .then(() => maxRepeats--)
-      .catch(err => {
+      .catch((err) => {
         err === 'No emails found and maximum repeats reached'
           ? stopInterval(interval, sync)
           : stopInterval(interval, sync.bind(null, err));

@@ -5,7 +5,7 @@ class BasicAuthAbsolutePage extends BasePage {
     super();
 
     this.url = 'http://localhost:8080/basic-auth';
-    
+
     this.title = $('p');
   }
 }

@@ -133,6 +133,36 @@
       },
       "version-2.5.0/version-2.5.0-steps-elements": {
         "title": "Elements"
+      },
+      "version-3.0.1/version-3.0.1-browserstack": {
+        "title": "Browserstack integration"
+      },
+      "version-3.0.1/version-3.0.1-configuration": {
+        "title": "Configuration"
+      },
+      "version-3.0.1/version-3.0.1-cross-browser": {
+        "title": "Cross-browser testing"
+      },
+      "version-3.0.1/version-3.0.1-headless": {
+        "title": "Headless"
+      },
+      "version-3.0.1/version-3.0.1-hooks": {
+        "title": "Hooks"
+      },
+      "version-3.0.1/version-3.0.1-index": {
+        "title": "Getting started"
+      },
+      "version-3.0.1/version-3.0.1-quickstart": {
+        "title": "Quick start"
+      },
+      "version-3.0.1/version-3.0.1-steps-elements": {
+        "title": "Elements"
+      },
+      "version-3.0.1/version-3.0.1-steps-rest": {
+        "title": "Rest api"
+      },
+      "version-3.0.1/version-3.0.1-testing-rest-api": {
+        "title": "REST API examples"
       }
     },
     "links": {

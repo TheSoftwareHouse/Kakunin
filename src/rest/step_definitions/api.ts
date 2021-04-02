@@ -14,7 +14,7 @@ defineSupportCode(({ When, Then }) => {
     apiRequest.endpoint = endpoint;
     return service
       .fetch(apiRequest)
-      .then(response => {
+      .then((response) => {
         fetchResult = response;
         return response;
       })
@@ -32,7 +32,7 @@ defineSupportCode(({ When, Then }) => {
 
     return service
       .fetch(apiRequest)
-      .then(response => {
+      .then((response) => {
         fetchResult = response;
         return response;
       })
@@ -49,7 +49,7 @@ defineSupportCode(({ When, Then }) => {
 
     return service
       .fetch(apiRequest)
-      .then(response => {
+      .then((response) => {
         fetchResult = response;
         return response;
       })
@@ -59,19 +59,19 @@ defineSupportCode(({ When, Then }) => {
       });
   });
 
-  When(/^I set request headers:$/, headers => {
+  When(/^I set request headers:$/, (headers) => {
     return apiRequest.addHeaders(headers.rowsHash());
   });
 
-  Then(/^the response code should be "([^"]*)"$/, status => {
+  Then(/^the response code should be "([^"]*)"$/, (status) => {
     return expect(fetchResult.hasStatus(parseInt(status))).toBe(true);
   });
 
-  Then(/^the response should exact match to body:$/, body => {
+  Then(/^the response should exact match to body:$/, (body) => {
     return expect(fetchResult.hasBodyMatch(JSON.parse(body))).toBe(true);
   });
 
-  Then(/^the response should match JSON schema:$/, schema => {
+  Then(/^the response should match JSON schema:$/, (schema) => {
     try {
       fetchResult.hasMatchingSchema(JSON.parse(schema));
     } catch (error) {

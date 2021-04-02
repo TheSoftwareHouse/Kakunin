@@ -9,7 +9,7 @@ class SelectHandler implements FormHandler {
   }
 
   public isSatisfiedBy(element) {
-    return element.getTagName().then(tagName => tagName === 'select');
+    return element.getTagName().then((tagName) => tagName === 'select');
   }
 
   public handleFill(page, elementName, desiredValue) {
@@ -18,21 +18,18 @@ class SelectHandler implements FormHandler {
     const filteredByText = page
       .getElements(elementName)
       .all(this.optionsSelector)
-      .filter(elem => elem.getText().then(text => text.trim() === desiredValue));
+      .filter((elem) => elem.getText().then((text) => text.trim() === desiredValue));
 
-    return filteredByText.count().then(filteredByTextCount => {
+    return filteredByText.count().then((filteredByTextCount) => {
       if (filteredByTextCount === 0) {
         const filteredByValue = page
           .getElements(elementName)
           .all(by.css('option'))
-          .filter(elem => elem.getAttribute('value').then(elemValue => elemValue === desiredValue));
+          .filter((elem) => elem.getAttribute('value').then((elemValue) => elemValue === desiredValue));
 
-        return filteredByValue.count().then(filteredByValueCount => {
+        return filteredByValue.count().then((filteredByValueCount) => {
           if (filteredByValueCount === 0) {
-            return page[elementName]
-              .all(self.optionsSelector)
-              .first()
-              .click();
+            return page[elementName].all(self.optionsSelector).first().click();
           }
 
           return filteredByValue.first().click();
@@ -47,9 +44,9 @@ class SelectHandler implements FormHandler {
     return page
       .getElement(elementName)
       .all(this.optionsSelector)
-      .filter(element => element.getAttribute('value').then(elemValue => elemValue === desiredValue))
+      .filter((element) => element.getAttribute('value').then((elemValue) => elemValue === desiredValue))
       .count()
-      .then(count => {
+      .then((count) => {
         if (count === 1) {
           return Promise.resolve();
         }

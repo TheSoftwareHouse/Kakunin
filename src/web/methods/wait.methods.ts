@@ -18,7 +18,7 @@ export const waitForElementDisappear = (currentPage: BasePage, elementName: stri
   const interval = setInterval(() => {
     console.log('Waiting for element to disappear...');
 
-    return currentPage.isPresent(elementName).then(isPresent => {
+    return currentPage.isPresent(elementName).then((isPresent) => {
       if (!isPresent) {
         clearInterval(interval);
         sync();

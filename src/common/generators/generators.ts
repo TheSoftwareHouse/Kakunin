@@ -21,7 +21,7 @@ export class Generators {
   }
 
   public findGenerator(name: string): Generator {
-    return this.availableGenerators.find(gen => gen.isSatisfiedBy(name));
+    return this.availableGenerators.find((gen) => gen.isSatisfiedBy(name));
   }
 }
 

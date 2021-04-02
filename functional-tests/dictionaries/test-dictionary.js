@@ -9,9 +9,9 @@ class TestDictionary extends BaseDictionary {
       'test-user': 'tomg',
       'custom-value1': 'Some custom name 1',
       'custom-id': 'MY_CUSTOM_ID_',
-      'one': '1',
+      one: '1',
       'non-existing': 'does not exist!',
-      'basicAuthCredentials': 'admin:password'
+      basicAuthCredentials: 'admin:password',
     });
   }
 }

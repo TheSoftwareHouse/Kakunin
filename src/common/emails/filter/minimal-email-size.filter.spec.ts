@@ -16,6 +16,6 @@ describe('Minimal email size filter', () => {
 
     expect(filteredEmails.length).toEqual(2);
 
-    filteredEmails.forEach(email => expect(email.email_size).toBeGreaterThanOrEqual(500));
+    filteredEmails.forEach((email) => expect(email.email_size).toBeGreaterThanOrEqual(500));
   });
 });

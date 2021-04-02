@@ -12,7 +12,7 @@ class UploadedFileHandler implements FormHandler {
   }
 
   public handleCheck(page, elementName, desiredValue) {
-    return page[elementName].getText().then(text => {
+    return page[elementName].getText().then((text) => {
       if (text.indexOf(desiredValue) >= 0) {
         return Promise.resolve();
       }

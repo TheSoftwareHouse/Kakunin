@@ -22,7 +22,7 @@ class Filters {
   }
 
   public findFilter(type) {
-    return this.availableFilters.find(filter => filter.isSatisfiedBy(type));
+    return this.availableFilters.find((filter) => filter.isSatisfiedBy(type));
   }
 }
 

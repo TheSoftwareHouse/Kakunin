@@ -1,7 +1,7 @@
 import { Then, Given, When } from 'cucumber';
 import { transformers } from '../../common/transformers';
 
-Given(/^I visit the "([^"]*)" page$/, function(pageName) {
+Given(/^I visit the "([^"]*)" page$/, function (pageName) {
   expect(browser.page[pageName]).toBeDefined();
 
   this.currentPage = browser.page[pageName];
@@ -9,7 +9,7 @@ Given(/^I visit the "([^"]*)" page$/, function(pageName) {
   return this.currentPage.visit();
 });
 
-Given(/^I visit the "([^"]*)" page with parameters:$/, function(pageName, data) {
+Given(/^I visit the "([^"]*)" page with parameters:$/, function (pageName, data) {
   expect(browser.page[pageName]).toBeDefined();
 
   this.currentPage = browser.page[pageName];
@@ -17,10 +17,10 @@ Given(/^I visit the "([^"]*)" page with parameters:$/, function(pageName, data) 
   return this.currentPage.visitWithParameters(data);
 });
 
-Then(/^the "([^"]*)" page is displayed$/, function(pageName) {
+Then(/^the "([^"]*)" page is displayed$/, function (pageName) {
   const self = this;
 
-  return browser.page[pageName].isOn().then(checkResult => {
+  return browser.page[pageName].isOn().then((checkResult) => {
     if (typeof checkResult !== 'object') {
       return Promise.reject('Check result must be an object!!!');
     }
@@ -30,11 +30,11 @@ Then(/^the "([^"]*)" page is displayed$/, function(pageName) {
   });
 });
 
-When(/^I switch to "([^"]*)" iframe$/, function(elementName) {
+When(/^I switch to "([^"]*)" iframe$/, function (elementName) {
   return this.currentPage.switchIframe(elementName);
 });
 
-Given(/^I visit the "([^"]*)" page with "([^"]*)" basic auth credentials$/, function(pageName, credentialsValue) {
+Given(/^I visit the "([^"]*)" page with "([^"]*)" basic auth credentials$/, function (pageName, credentialsValue) {
   expect(browser.page[pageName]).toBeDefined();
   this.currentPage = browser.page[pageName];
 

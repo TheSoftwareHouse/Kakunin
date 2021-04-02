@@ -4,8 +4,8 @@ import * as fs from 'fs';
 import * as path from 'path';
 import config from '../../../core/config.helper';
 
-const clearDownload = callback => {
-  const files = fs.readdirSync(path.join(config.projectPath, config.downloads)).filter(file => file !== '.gitkeep');
+const clearDownload = (callback) => {
+  const files = fs.readdirSync(path.join(config.projectPath, config.downloads)).filter((file) => file !== '.gitkeep');
 
   for (const file of files) {
     fs.unlinkSync(path.join(config.projectPath, config.downloads, file));
