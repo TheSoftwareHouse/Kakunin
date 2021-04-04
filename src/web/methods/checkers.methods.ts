@@ -154,7 +154,7 @@ export const checkIfElementContainsText = (
   }
 };
 
-// checkFollowingElementsInTable
+// TODO:checkFollowingElementsInTable change it?
 export const checkIfTableContainsElements = (currentPage: BasePage, table: string, data: TableDefinition) => {
   const allElements = currentPage.getElements(table);
   const hashes = data.hashes();
