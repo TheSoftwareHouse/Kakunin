@@ -111,7 +111,7 @@
     "protractor": "7.0.0",
     "protractor-cucumber-framework": "8.0.1",
     "protractor-multiple-cucumber-html-reporter-plugin": "1.8.1",
-    "shelljs": "0.8.4",
+    "shelljs": "0.8.5",
     "sugar-date": "2.0.6",
     "webdriver-manager": "12.1.8"
   },
