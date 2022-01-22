@@ -105,7 +105,7 @@
     "mkdirp": "1.0.4",
     "moment": "2.29.1",
     "node-env-file": "0.1.8",
-    "node-fetch": "2.6.1",
+    "node-fetch": "3.1.1",
     "node-xlsx": "0.16.1",
     "path": "0.12.7",
     "protractor": "7.0.0",
